@@ -1,0 +1,137 @@
+@reference 'tailwindcss'
+
+.background
+  @apply absolute -z-1 -top-[20vw] left-0 w-full
+  img
+    @apply w-full
+
+.banner
+  @apply pt-[4vw] flex flex-col justify-center items-center min-h-[100vh] bg-cover
+  background: url("../../public/assets/images/rat-eyes-bg.jpg") no-repeat 50% 50%;
+  .dimmer
+    @apply absolute top-0 left-0 w-full h-full
+    background: linear-gradient(0deg, #0a0a0a, rgba(0,0,0,0) 45%, #000)
+  .egg
+    @apply relative z-[3]
+    transform: translate(-50%, -10%)
+  .links
+    @apply absolute flex flex-col md:flex-row items-center justify-center pl-[30%] md:pl-0 gap-[10%] md:gap-[25%] top-[40%] md:top-[50%] xl:top-[45%] z-[5] overflow-hidden
+    transform: translateY(-50%)
+    a
+      @apply w-[200px] md:w-[45vw] lg:w-[35vw] transition transition-transform
+      img
+        @apply w-full
+      &:hover, &:active
+        @apply scale-[1.1]
+        animation: jiggle 1s infinite
+  .silhouette
+    @apply absolute bottom-[5%] md:bottom-[-5%] left-0 w-full z-[4]
+    img
+      @apply w-[160%] md:w-full max-w-[160%] md:max-w-full mx-[-30%] md:mx-[0] md:w-full
+    &:after
+      position: absolute
+      content: ""
+      display: block
+      width: 100%
+      height: 50vh
+      left: 0
+      top: 100%
+      margin-top: -2px
+      background: linear-gradient(180deg, #000, #0a0a0a)
+
+.centered
+  @apply w-full flex items-center justify-center 
+
+.biglink
+  @apply mb-12 px-12 transition-transform flex items-center text-[#ffffff] text-[60px]
+  //font-family: "SKT"
+  text-shadow: 0 4px 0px #0a0a0a
+  img
+    @apply max-w-[120px] ml-[-26px] mr-[-18px] inline-block relative
+  &:hover, &:active
+    @apply scale-[1.1] rotate-[2deg]
+    img
+      @apply rotate-[-2deg]
+
+@keyframes jiggle
+  0%
+    transform: rotate(0deg)
+  50%
+    transform: rotate(2deg)
+
+.carousel
+  @apply block relative flex flex-col items-center justify-center text-center py-12 z-[5]
+  background: url(../../public/assets/images/rathead-glow-red.svg) no-repeat 60vw 10vw
+  background-size: 35vw auto
+  h2
+    @apply rotate-[-2deg] text-[12vw] md:text-[8vw]
+    line-height: 1
+  p
+    @apply max-w-[90vw] md:max-w-[65vw] rotate-[2deg] text-[#59fd53] text-[6vw] md:text-[4vw]
+    line-height: 1
+    &:nth-child(2n + 1)
+      @apply rotate-[-1deg] mt-2
+  .gallery
+    @apply mt-10 w-full
+    img
+      @apply w-full
+
+.steps
+  @apply relative flex flex-col max-w-[1200px] mx-auto w-full pt-16 z-[5]
+  background: url(../../public/assets/images/nyc.svg) no-repeat 25% 0
+  background-size: 30vw auto
+  .step
+    @apply flex flex-col items-center pb-12
+    p
+      @apply text-[2vw] text-[#59fd53] text-center
+      line-height: 2vw
+    img
+      @apply max-w-[420px] 
+    &:nth-child(1)
+      h3
+        @apply rotate-[-5deg]
+    &:nth-child(3)
+      h3
+        @apply rotate-[-5deg]
+      img
+        @apply w-full max-w-[360px]
+
+.pipe
+  @apply relative mt-12 mb-[-16vw] w-full flex justify-end
+  background: url(../../public/assets/images/mfr.svg) no-repeat 50vw 15vw
+  background-size: 42vw 28vw
+  img
+    @apply w-[75%]
+
+.oegg
+  @apply inline-block relative px-2 -mx-2
+  &:after
+    @apply absolute block top-0 left-0 w-full h-full
+    content: ""
+    background: url(../../public/assets/images/oegg.png) no-repeat 50% 50%
+    background-size: 108% auto
+
+//@variant sm
+
+@variant md
+  .banner
+    .egg
+      transform: translateY(0)
+
+@variant lg
+  .steps
+    @apply flex-row pb-16
+    .step
+      @apply basis-[33.33%] pb-0
+      img
+        @apply max-w-[340px]
+      &:nth-child(1)
+        h3
+          @apply rotate-[-5deg]
+        img
+          @apply max-w-[300px]
+      &:nth-child(3)
+        h3
+          @apply rotate-[5deg]
+        img
+          @apply w-full max-w-[240px]

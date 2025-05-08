@@ -1,0 +1,135 @@
+@forward "tailwindcss"
+
+@font-face
+  font-family: 'SKT'
+  src: url('/assets/fonts/SKTANDDESTROY.woff2') format('woff2'), url('/assets/fonts/SKTANDDESTROY.woff') format('woff')
+  font-weight: normal
+  font-style: normal
+
+@font-face
+  font-family: 'Instant Karma'
+  src: url('/assets/fonts/InstantKarma.woff2') format('woff2'), url('/assets/fonts/InstantKarma.woff') format('woff')
+  font-weight: normal
+  font-style: normal
+
+//:root
+  //--background: #ffffff
+  //--foreground: #171717
+
+:root
+  --background: #0a0a0a
+  --foreground: #ededed
+
+@theme inline
+  --color-background: var(--background)
+  --color-foreground: var(--foreground)
+  --font-sans: var(--font-dm-sans)
+  --font-mono: var(--font-dm-mono)
+
+@media (prefers-color-scheme: dark)
+  :root
+    --background: #0a0a0a
+    --foreground: #ededed
+
+html
+  scroll-behavior: smooth
+
+body
+  background: var(--background)
+  color: var(--foreground)
+  font-family: Instant Karma, sans-serif
+  font-size: 4vw
+  line-height: 110%
+  overflow-x: hidden
+  &.menu-open
+    overflow-y: hidden
+    .menu-links
+      @apply h-[100vh]
+    .menu
+      @apply h-[100vh]
+      .menublob
+        @apply min-w-[150%]
+    .pour
+      @apply block opacity-100
+
+h1,h2,h3,h4,h5,h6
+  font-family: "SKT"
+
+section
+  text-shadow: 0 4px 0px #0a0a0a
+
+.menu-links
+  @apply fixed flex flex-col overflow-hidden items-center justify-center w-full h-[0] bottom-0 left-0 z-[993] text-[8vw] lg:text-[54px] text-[#0a0a0a]
+  a
+    @apply px-8 py-3 flex flex items-center justify-center text-center
+    &:nth-child(2n+2)
+      .linkcon
+        @apply order-1
+    .linkcon
+      @apply pb-1
+      img
+        @apply max-w-[8vw] max-h-[8vw] lg:max-w-[60px] lg:max-h-[60px] mx-1
+    animation: waterDrift 12s ease-in-out infinite
+    &:hover, &:active
+      animation: none
+    &:nth-child(6n+1)
+      animation-delay: 0s
+    &:nth-child(6n+2)
+      animation-delay: 1.5s
+    &:nth-child(6n+3)
+      animation-delay: 2.8s
+    &:nth-child(6n+4)
+      animation-delay: 3.5s
+    &:nth-child(6n+5)
+      animation-delay: 4.7s
+    &:nth-child(6n+6)
+      animation-delay: 6.1s
+
+.menu
+  @apply fixed w-full h-[0] bottom-0 left-0 z-[992] overflow-hidden text-[#0a0a0a]
+  //background: linear-gradient(180deg,rgba(129,237,76,.4),rgba(129,237,76,.8))
+  .menublob
+    @apply min-w-[0] absolute top-[50%] left-[50%] transition-all duration-[300ms]
+    transform: translate(-50%,-50%)
+
+.pour
+  @apply absolute top-[-46px] md:top-[-74px] right-[31px] md:right-[36px] z-[991] w-[480px] min-w-[480px] md:w-[780px] md:min-w-[780px] hidden opacity-0
+
+h2
+  font-size: 112px
+  line-height: 120%
+
+h3
+  @apply text-[12vw] lg:text-[64px] relative
+
+img
+  user-select: none
+
+button
+  outline: 0
+
+@keyframes waterDrift
+  0%
+    transform: translate(0, 0) rotate(0deg)
+    opacity: .9
+  15%
+    transform: translate(1px, -1px) rotate(.5deg)
+    opacity: .75
+  30%
+    transform: translate(-1px, 1px) rotate(-.5deg)
+    opacity: .9
+  45%
+    transform: translate(1px, 1px) rotate(.3deg)
+    opacity: .85
+  60%
+    transform: translate(-1px, -1px) rotate(-.3deg)
+    opacity: 1
+  75%
+    transform: translate(2px, -2px) rotate(.7deg)
+    opacity: .75
+  90%
+    transform: translate(-2px, 2px) rotate(-.7deg)
+    opacity: .9
+  100%
+    transform: translate(0, 0) rotate(0deg)
+    opacity: 1

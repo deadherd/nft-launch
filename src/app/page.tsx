@@ -1,103 +1,171 @@
+"use client";
+
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import LazySection from "../layout/LazySection";
+import s from "../styles/Home.module.sass";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const frontRef = useRef<HTMLDivElement>(null);
+  const midRef = useRef<HTMLDivElement>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+  useEffect(() => {
+    if (midRef.current) {
+      // mid layer parallax
+      gsap.to(midRef.current, {
+        yPercent: 10,
+        ease: "none",
+        scrollTrigger: {
+          trigger: midRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }
+    if (frontRef.current) {
+      // front layer parallax
+      gsap.to(frontRef.current, {
+        yPercent: -50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: frontRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }
+  }, []);
+
+  return (
+    <>
+      <section className={s.banner}>
+        <div className={s.dimmer}></div>
+        <div ref={midRef} className={s.links}>
+          <a href="#">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/assets/images/button-mint-now.svg"
+              alt="MINT NOW"
+              width={1347}
+              height={1197}
             />
-            Deploy now
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+          <a href="#">
+            <Image
+              src="/assets/images/button-add-mfr.svg"
+              alt="ADD MFR"
+              width={1352}
+              height={1224}
+            />
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Image
+          src="/assets/images/glow-in-the-dark.png"
+          alt="MFR Egg"
+          width={460}
+          height={469}
+          className={s.egg}
+        />
+        <div ref={frontRef} className={s.silhouette}>
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src="/assets/images/silhouette.svg"
+            alt="Rat Group Silhouette Foreground"
+            width={1458}
+            height={296}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        </div>
+      </section>
+      <LazySection>
+        <section className={s.carousel}>
+          <h2>RatTen EgGs</h2>
+          <p>
+            We steal from kiDs, Raid kitchens, DumpstEr dive, anD SoMEtimes...
+          </p>
+          <p>
+            we visIt thE henH<span className={s.oegg}>o</span>u$E.
+          </p>
+          <br/>
+          <div className={s.centered}>
+            <a href="#" className={s.biglink}>
+              DeEp
+              <Image
+                src="/assets/images/full-trash-bag-green-200x200.png"
+                alt="Learn More"
+                width={200}
+                height={158}
+              />
+              diVe
+            </a>
+          </div>
+          <div className={s.gallery}>
+            <Image
+              src="/assets/images/carousel.png"
+              alt="MFR Egg Variety"
+              width={1440}
+              height={397}
+            />
+          </div>
+        </section>
+      </LazySection>
+      <LazySection>
+        <section className={s.steps}>
+          <div className={s.step}>
+            <h3>Stack Em</h3>
+            <Image
+              src="/assets/images/carton-stack.png"
+              alt="MFR Egg Cartons"
+              width={400}
+              height={321}
+            />
+            {/*<p>ColLect egGs foR CrackING, hAtcHing or stackING.</p>*/}
+          </div>
+          <div className={s.step}>
+            <h3>Crack Em</h3>
+            <Image
+              src="/assets/images/egg-selection.png"
+              alt="MFR Egg Cartons"
+              width={682}
+              height={471}
+            />
+          </div>
+          <div className={s.step}>
+            <h3>Snack Em</h3>
+            <Image
+              src="/assets/images/logo-splat.svg"
+              alt="MFR Logo"
+              width={141}
+              height={144}
+            />
+          </div>
+        </section>
+        <div className={s.centered}>
+          <a href="#" className={s.biglink}>
+            DeEp
+            <Image
+              src="/assets/images/full-trash-bag-green-200x200.png"
+              alt="Learn More"
+              width={200}
+              height={158}
+            />
+            diVe
+          </a>
+        </div>
+      </LazySection>
+      <LazySection>
+        <section className={s.pipe}>
           <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+            src="/assets/images/pipe-slime.png"
+            alt="MFR Logo"
+            width={1600}
+            height={943}
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </section>
+      </LazySection>
+    </>
   );
 }

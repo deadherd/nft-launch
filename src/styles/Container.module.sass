@@ -1,0 +1,30 @@
+@reference 'tailwindcss'
+
+.container
+  @apply w-full max-w-[999px] mx-auto
+
+.loader
+  @apply absolute top-0 left-0 w-full h-full bg-[#0a0a0a] z-[9999999]
+  background: radial-gradient(#0b1e0a,#000)
+
+.nest
+  @apply absolute top-[50%] left-[50%]
+  transform: translate(-50%,-50%)
+
+.egg
+  @apply inline-block ml-2 mr-2 rounded-full
+  width: 2rem
+  height: 2rem
+  background-color: #59fd53
+  animation: bouncyBouncy 0.7s infinite alternate
+  &:nth-of-type(2)
+    animation-delay: 0.25s
+  &:nth-of-type(3)
+    animation-delay: 0.5s
+
+@keyframes bouncyBouncy
+  from
+    transform: translateY(0) scaleX(1)
+  to
+    background-color:#bcffb8
+    transform: translateY(-100%) scaleY(1.5)

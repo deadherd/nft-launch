@@ -1,0 +1,34 @@
+@reference 'tailwindcss'
+
+.header
+  @apply w-full flex flex-nowrap items-center absolute top-0 left-0 z-[800] px-8
+  .pipe
+    @apply absolute top-0 right-0 md:right-[-10px] w-[40px] md:w-[60px] md:mt-[5px] transition-[right] z-[990]
+  span
+    &.tagline
+      @apply flex-1 text-2xl md:text-3xl text-[#fff]
+      //text-shadow: 0 2px 4px rgba(0,0,0,.5)
+      span
+        @apply inline-block px-1
+    &.menu
+      @apply text-right md:flex-1 flex items-center justify-end
+      svg
+        @apply w-[36px] h-[36px]
+      //&:hover
+        //.pipe
+          //@apply right-[0]
+  .logo
+    @apply order-[-1] md:order-0 ml-[-40px] md:ml-[0px] mr-[5px] md:mr-[0]
+    svg
+      @apply w-[80px] h-[auto] md:w-full
+
+.openMenu
+  @apply relative cursor-pointer mr-6 z-[995]
+
+.sticker
+  @apply fixed bottom-0 left-0 z-[999999] w-full h-[40px] bg-[#59fd53] text-[#0a0a0a] text-[22px] rotate-[180deg]
+  background: url(../../public/assets/images/edge.svg) no-repeat 50% 50%
+  background-size: 100% 100%
+  a
+    @apply absolute top-[10px] left-[33%] rotate-[180deg]
+    line-height: 16px
