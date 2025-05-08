@@ -8,11 +8,11 @@ export default function Footer() {
         <footer className={s.footer}>
           <video autoPlay loop muted preload="none">
             <source
-              src="assets/video/steam-sewer-manhole-truck.mp4"
+              src="/assets/video/steam-sewer-manhole-truck.mp4"
               type="video/mp4"
             ></source>
             <source
-              src="assets/video/steam-sewer-manhole-truck.ogg"
+              src="/assets/video/steam-sewer-manhole-truck.ogg"
               type="video/ogg"
             ></source>
           </video>

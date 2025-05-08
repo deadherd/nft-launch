@@ -1,0 +1,48 @@
+.docsLayout
+  display: grid
+  grid-template-columns: 240px 1fr 240px
+  min-height: 100vh
+  font-size: 24px
+  padding-top: 100px
+
+.leftNav
+  padding: 1rem
+  position: sticky
+  top: 4rem
+  ul
+    list-style: none
+    margin: 0
+    padding: 0
+    li
+      margin-bottom: 0.5rem
+      a
+        @apply flex flex-col items-center justify-center text-center text-[20px] mb-[20px]
+        font-family: "DM Sans"
+        line-height: 1
+        //letter-spacing: .05em
+        text-decoration: none
+        &:hover
+          text-decoration: underline
+        &.active
+          font-weight: bold
+
+.mainContent
+  padding: 2rem
+  max-width: 800px
+
+.rightToc
+  padding: 1rem
+  position: sticky
+  top: 4rem
+  ul
+    list-style: none
+    margin: 0
+    padding: 0
+    li
+      margin-bottom: 0.25rem
+    .level2
+      padding-left: 0
+    .level3
+      padding-left: 1rem
+    .level4
+      padding-left: 2rem
