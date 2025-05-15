@@ -1,4 +1,10 @@
 .blob
-  @apply flex items-center justify-center w-[100px] h-[100px]
-  > *
-    @apply w-full h-full max-w-[60%] max-h-[60%]
+  @apply flex items-center justify-center w-[140px] h-[140px]
+  nav &
+    @apply w-[30px] h-[30px]
+  img
+    @apply w-auto h-auto max-w-[80%] max-h-[80%]
+  .icon
+    @apply h-full w-full flex items-center justify-center
+  ul[class*="indexList"] &
+    @apply w-[200px] h-[200px]

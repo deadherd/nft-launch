@@ -1,7 +1,7 @@
-// components/RandomBlob.tsx
 "use client";
-import React, { useMemo, useId } from "react";
+import React, { useMemo, useId, useRef, useEffect } from "react";
 import type { ReactNode } from "react";
+import { gsap } from "gsap";
 import s from "../styles/RandomBlob.module.sass";
 
 type RandomBlobProps = {
@@ -13,29 +13,42 @@ type RandomBlobProps = {
   children?: ReactNode;
 };
 
-// convert Catmull-Rom points to a smooth bezier path
-function catmullRom2bezier(
-  points: [number, number][],
+// helper to build a random blob path
+function generatePath(
+  size: number,
+  points: number,
+  variance: number,
   tension: number
 ): string {
-  const cr = [...points];
-  cr.unshift(points[points.length - 1]);
-  cr.push(points[0], points[1]);
+  const angleStep = (2 * Math.PI) / points;
+  const coords: [number, number][] = [];
+  for (let i = 0; i < points; i++) {
+    const theta = i * angleStep + (Math.random() - 0.5) * angleStep * 0.2;
+    const radius = (size / 2) * (1 - variance + Math.random() * variance);
+    coords.push([
+      Math.cos(theta) * radius + size / 2,
+      Math.sin(theta) * radius + size / 2,
+    ]);
+  }
+  // catmull-rom → bezier (same as before)
+  const cr = [...coords];
+  cr.unshift(coords[coords.length - 1]);
+  cr.push(coords[0], coords[1]);
 
   let d = "";
   for (let i = 1; i < cr.length - 2; i++) {
-    const p0 = cr[i - 1];
-    const p1 = cr[i];
-    const p2 = cr[i + 1];
-    const p3 = cr[i + 2];
-    const cp1x = p1[0] + ((p2[0] - p0[0]) / 6) * tension;
-    const cp1y = p1[1] + ((p2[1] - p0[1]) / 6) * tension;
-    const cp2x = p2[0] - ((p3[0] - p1[0]) / 6) * tension;
-    const cp2y = p2[1] - ((p3[1] - p1[1]) / 6) * tension;
-    if (i === 1) d += `M${p1[0]},${p1[1]}`;
-    d += `C${cp1x},${cp1y} ${cp2x},${cp2y} ${p2[0]},${p2[1]}`;
+    const [x0, y0] = cr[i - 1];
+    const [x1, y1] = cr[i];
+    const [x2, y2] = cr[i + 1];
+    const [x3, y3] = cr[i + 2];
+    const cp1x = x1 + ((x2 - x0) / 6) * tension;
+    const cp1y = y1 + ((y2 - y0) / 6) * tension;
+    const cp2x = x2 - ((x3 - x1) / 6) * tension;
+    const cp2y = y2 - ((y3 - y1) / 6) * tension;
+    if (i === 1) d += `M${x1},${y1}`;
+    d += `C${cp1x},${cp1y} ${cp2x},${cp2y} ${x2},${y2}`;
   }
-  return d;
+  return d + "Z";
 }
 
 export default function RandomBlob({
@@ -47,18 +60,25 @@ export default function RandomBlob({
   children,
 }: RandomBlobProps) {
   const clipId = useId();
-  const pathData = useMemo(() => {
-    const angleStep = (2 * Math.PI) / points;
-    const coords: [number, number][] = [];
-    for (let i = 0; i < points; i++) {
-      const theta = i * angleStep + (Math.random() - 0.5) * angleStep * 0.2;
-      const radius = (size / 2) * (1 - variance + Math.random() * variance);
-      const x = Math.cos(theta) * radius + size / 2;
-      const y = Math.sin(theta) * radius + size / 2;
-      coords.push([x, y]);
-    }
-    const d = catmullRom2bezier(coords, tension);
-    return d + "Z";
+  const pathRef = useRef<SVGPathElement>(null);
+
+  // initial shape
+  const initialD = useMemo(
+    () => generatePath(size, points, variance, tension),
+    [size, points, variance, tension]
+  );
+
+  useEffect(() => {
+    if (!pathRef.current) return;
+    // animate between two random shapes forever
+    const tween = gsap.to(pathRef.current, {
+      attr: { d: generatePath(size, points, variance, tension) },
+      duration: 4,
+      ease: "power1.inOut",
+      repeat: -1,
+      yoyo: true,
+    });
+    return () => { tween.kill(); }
   }, [size, points, variance, tension]);
 
   return (
@@ -70,12 +90,11 @@ export default function RandomBlob({
     >
       <defs>
         <clipPath id={clipId} clipPathUnits="userSpaceOnUse">
-          <path d={pathData} />
+          <path d={initialD} />
         </clipPath>
       </defs>
-      {/* draw blob fill */}
-      <path d={pathData} fill={fill} />
-      {/* render children inside a foreignObject for HTML or SVG */}
+      {/* draw and anim blob */}
+      <path ref={pathRef} d={initialD} fill={fill} />
       {children && (
         <foreignObject
           x={0}
@@ -84,9 +103,7 @@ export default function RandomBlob({
           height={size}
           clipPath={`url(#${clipId})`}
         >
-          <div className={s.blob}>
-            {children}
-          </div>
+          <div className={s.icon}>{children}</div>
         </foreignObject>
       )}
     </svg>

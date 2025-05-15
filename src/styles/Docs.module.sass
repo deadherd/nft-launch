@@ -1,48 +1,200 @@
+@reference 'tailwindcss'
+  
 .docsLayout
-  display: grid
-  grid-template-columns: 240px 1fr 240px
-  min-height: 100vh
-  font-size: 24px
-  padding-top: 100px
+  @apply flex pt-[132px] w-full relative
+  background: url(../../public/assets/images/dumpster-inside.jpg) no-repeat 0 100%
+  background-size: 100% auto
+
+.docsFooter
+  @apply absolute bottom-[10px] left-[28px] text-[10px] rotate-[-90deg]
+  transform-origin: 0 100%
+  letter-spacing: 0.02em
 
 .leftNav
-  padding: 1rem
-  position: sticky
-  top: 4rem
+  @apply w-[300px] flex-[0_0_200px] fixed md:static right-[100%] md:left-0 md:right-[auto] top-0 z-[700] px-[1rem] pt-[100px] md:pt-[20px] transition-all
+  min-height: 100vh
+  //background: linear-gradient(0deg, #59fd53, #495638)
+  body:global(.slide-menu-open) &
+    @apply mr-[-300px] bg-[#495638]
+  //background-color: #59fd53
+  //color: #0a0a0a
   ul
     list-style: none
     margin: 0
     padding: 0
+    position: sticky
+    top: 4rem
+    ul
+      padding-top: 6px
+      padding-left: 10px
     li
       margin-bottom: 0.5rem
+      line-height: 1
+      user-select: none
       a
-        @apply flex flex-col items-center justify-center text-center text-[20px] mb-[20px]
-        font-family: "DM Sans"
+        @apply block text-[18px] text-[#fff] flex items-center gap-[6px] 
+        //font-family: "SKT"
         line-height: 1
-        //letter-spacing: .05em
-        text-decoration: none
-        &:hover
+        //letter-spacing: .03em
+        text-decoration: none!important
+        svg path
+          @apply fill-[#fff]
+        &:hover, &:active
+          color: #59fd53
           text-decoration: underline
+          svg path
+            @apply fill-[#59fd53]
         &.active
+          color: #59fd53
           font-weight: bold
+          cursor: default
+          svg path
+            @apply fill-[#59fd53]
 
 .mainContent
+  @apply flex-1 mt-[-40px] flex flex-col items-center
   padding: 2rem
-  max-width: 800px
+  .mainTitle
+    @apply w-full max-w-[690px] text-left
+    & + .mainArticle
+      @apply mt-[-50px]
+    h1
+      @apply text-[#fff] relative inline-block mt-[80px]
+      text-shadow: 0 2px 0 #59fd53
+      &:after
+        @apply block absolute top-[-8px] right-[10px] w-[140px] h-[120%]
+        content: ""
+        background: url(../../public/assets/images/drip-three-heavy.svg) no-repeat 100% 0
+        body:global(.tunnel-talk) &
+          content: none
+  .mainArticle
+    @apply w-full max-w-[690px] pt-[20px]
+    h1,h2,h3,h4,h5,h6
+      @apply pt-[40px]
+  .bannerContainer
+    @apply block max-w-[890px] mt-[-140px]
+
+.iconTitle
+  @apply flex items-center gap-[6px]
+
+.indexList
+  @apply flex flex-wrap items-center w-full text-[28px] text-[#fff] pt-[40px]
+  padding-left: 0!important
+  font-family: "SKT"
+  letter-spacing: 0.03em
+  & > *
+    @apply flex-1 flex flex-col items-center
+  li
+    @apply mx-[1%] my-[20px] flex-[0_1_31.33%]
+    &::before
+      content: none!important
+    a
+      @apply flex flex-col items-center gap-[5px] text-[#fff]
+      text-shadow: 0 2px 0px #0a0a0a
+      text-decoration: none!important
+      svg path
+        @apply fill-[#fff]
+      &:hover, &:active
+        @apply text-[#59fd53]
+        svg path
+          @apply fill-[#59fd53]
+    &.indexFolder
+      @apply basis-[100%] items-start
+      h2
+        @apply text-[#59fd53]
+
+.pagination
+  @apply w-full flex justify-between max-w-[690px] pt-[40px] pb-[60px]
+  a
+    @apply flex flex-col items-center justify-center text-[#fff] text-[28px]
+    font-family: "SKT"
+    text-decoration: none!important
+    letter-spacing: 0.05em
+    svg
+      @apply mb-[5px]
+    &.prevLink, &.nextLink
+      svg path
+        @apply fill-[#fff]
+      &:hover, &:active
+        @apply text-[#59fd53]
+        svg path
+          @apply fill-[#59fd53]
+    &.prevLink span
+      @apply ml-[-40px]
+    &.nextLink span
+      @apply mr-[-40px]
 
 .rightToc
-  padding: 1rem
-  position: sticky
-  top: 4rem
+  @apply text-[18px] flex-[0_0_200px] hidden
+  padding: 2rem 1rem 1rem
+  min-height: 100vh
+  a
+    @apply text-[#fff] text-[16px] block px-[8px]
+    line-height: 18px
+    font-weight: 500
+    max-width: 200px
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   ul
     list-style: none
     margin: 0
     padding: 0
+    position: sticky
+    top: 4rem
     li
       margin-bottom: 0.25rem
     .level2
       padding-left: 0
+      a
+        @apply text-[#d9f9d7]
+        font-weight: bold
     .level3
-      padding-left: 1rem
+      padding-left: .5rem
+      a
+        @apply text-[#d9f9d7]
     .level4
-      padding-left: 2rem
+      padding-left: 1rem
+      a
+        @apply text-[#aff4ab]
+
+//.navGroup
+  //@apply
+
+ul
+  li.hasChildren
+    @apply mt-[20px]
+    & + li.hasChildren
+      @apply mt-[0px]
+    &.expanded
+      @apply mt-[20px] mb-[20px]
+    &.activeFolder
+      .navTitle
+        @apply text-[#59fd53] cursor-default
+        font-weight: bold
+      //.navFolder
+      .toggleIcon
+        @apply opacity-0
+
+.navFolder
+  @apply flex cursor-pointer text-[#fff] gap-[4px]
+  //letter-spacing: .05em
+  //font-family: "SKT"
+  .navTitle
+    @apply text-[18px] capitalize text-[#fff]
+    //font-weight: bold
+    //font-family: "Instant Karma"
+    //letter-spacing: .05em
+  .toggleIcon
+    @apply text-[#59fd53] text-[24px]
+    line-height: 20px
+    font-family: "Instant Karma"
+
+
+@variant lg
+  .leftNav
+    @apply flex-[0_0_240px]
+  .rightToc
+    @apply block flex-[0_0_240px]
+    a
+      max-width: 240px

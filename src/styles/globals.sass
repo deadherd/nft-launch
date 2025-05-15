@@ -8,7 +8,7 @@
 
 @font-face
   font-family: 'Instant Karma'
-  src: url('/assets/fonts/InstantKarma.woff2') format('woff2'), url('/assets/fonts/InstantKarma.woff') format('woff')
+  src: url('/assets/fonts/bleedcry.woff2') format('woff2'), url('/assets/fonts/bleedcry.woff') format('woff')
   font-weight: normal
   font-style: normal
 
@@ -18,7 +18,7 @@
 
 :root
   --background: #0a0a0a
-  --foreground: #ededed
+  --foreground: #fff
 
 @theme inline
   --color-background: var(--background)
@@ -37,10 +37,15 @@ html
 body
   background: var(--background)
   color: var(--foreground)
-  font-family: Instant Karma, sans-serif
-  font-size: 4vw
-  line-height: 110%
+  font-family: "DM Sans", sans-serif
+  font-size: 20px
+  //font-weight: 400w
+  line-height: 28px
   overflow-x: hidden
+  letter-spacing: -.03em
+  &.docs.menu-open
+    header a[class*="logo"]
+      @apply relative z-[999999]
   &.menu-open
     overflow-y: hidden
     .menu-links
@@ -48,27 +53,121 @@ body
     .menu
       @apply h-[100vh]
       .menublob
-        @apply min-w-[150%]
+        @apply min-w-[250%] md:min-w-[150%]
     .pour
       @apply block opacity-100
+p
+  margin-bottom: 15px
 
-h1,h2,h3,h4,h5,h6
+a 
+  @apply text-[#ffff0e]
+  &:hover, &:active
+    @apply underline
+  i 
+    @apply inline-block w-[.2em]
+
+code
+  @apply relative inline-block py-[10px] px-[12px] rotate-[-0.5deg] text-[#0a0a0a] text-[18px]
+  line-height: 22px
+  font-weight: bold
+  background: url(../../public/assets/images/cardboard-pattern.jpg) 0 0
+  background-size: 100% auto
+  font-family: "DM Mono"  
+
+p code
+  @apply py-[0] px-[2px] mx-[2px]
+
+blockquote
+  @apply relative inline-block py-[10px] px-[24px] rotate-[0.5deg] text-[#0a0a0a] text-[22px] mt-[70px] mb-[55px]
+  line-height: 26px
+  font-weight: bold
+  background: url(../../public/assets/images/block-middle.jpg) 0 0
+  background-size: auto auto
+  font-family: "DM Mono"
+  &:before
+    @apply absolute left-0 bottom-full w-full h-[60px] mb-[-1px]
+    background: url(../../public/assets/images/block-top.jpg) 0 0
+    background-size: auto 100%
+    content: ""
+  &:after
+    @apply absolute left-0 top-full w-full h-[30px] mt-[-1px]
+    background: url(../../public/assets/images/block-bottom.jpg) 0 0
+    background-size: auto 100%
+    content: ""
+  p
+    @apply m-0
+
+ul, ol
+  @apply mt-[10px] mb-[20px]
+
+div[class*="mainArticle"] ul
+  @apply pl-[15px] 
+  //list-style-type: "🐀"
+  list-style-type: none
+  li
+    @apply relative
+    &::before
+      @apply absolute block top-[12px] left-[-20px] w-[12px] h-[8px]
+      background: url(../../public/assets/images/bullet.svg) no-repeat 50% 50%
+      background-size: 12px auto
+      content: ""
+    ul
+      @apply mt-0
+
+ol
+  @apply pl-[15px] 
+  list-style-type: decimal
+
+hr
+  border-top: 2px solid #495638
+  @apply mt-[40px] mb-[20px]
+
+h1,h2
   font-family: "SKT"
+  margin-bottom: 20px
+  color: #fff
+  letter-spacing: 0.02em
+  i
+    @apply inline-block w-[.2em]
+
+h3,h4,h5
+  font-family: "Instant Karma"
+  margin-bottom: 10px
+  color: #59fd53
+  letter-spacing: 0.02em
+  &:first-letter
+    @apply uppercase
+  i
+    @apply inline-block w-[.2em]
+  p + &
+    @apply mt-[40px]
+
+h6
+  margin-bottom: 20px
+  color: #fff
+  i
+    @apply inline-block w-[.2em]
+
 
 section
   text-shadow: 0 4px 0px #0a0a0a
 
 .menu-links
-  @apply fixed flex flex-col overflow-hidden items-center justify-center w-full h-[0] bottom-0 left-0 z-[993] text-[8vw] lg:text-[54px] text-[#0a0a0a]
+  @apply fixed flex overflow-hidden items-center justify-center w-full h-[0] bottom-0 left-0 z-[993] text-[8vw] lg:text-[54px] text-[#0a0a0a]
   a
-    @apply px-8 py-3 flex flex items-center justify-center text-center
+    @apply px-8 py-3 flex flex items-center justify-center text-center text-[#0a0a0a]
+    font-family: "SKT"
+    letter-spacing: 0.01em
+    text-decoration: none!important
+    img
+      @apply max-w-[20vw] md:max-w-[10vw]
     &:nth-child(2n+2)
       .linkcon
         @apply order-1
     .linkcon
       @apply pb-1
       img
-        @apply max-w-[8vw] max-h-[8vw] lg:max-w-[60px] lg:max-h-[60px] mx-1
+        @apply max-w-[8vw] max-h-[8vw] lg:max-w-[60px] lg:max-h-[60px] mx-3
     animation: waterDrift 12s ease-in-out infinite
     &:hover, &:active
       animation: none
@@ -89,18 +188,46 @@ section
   @apply fixed w-full h-[0] bottom-0 left-0 z-[992] overflow-hidden text-[#0a0a0a]
   //background: linear-gradient(180deg,rgba(129,237,76,.4),rgba(129,237,76,.8))
   .menublob
-    @apply min-w-[0] absolute top-[50%] left-[50%] transition-all duration-[300ms]
+    @apply min-w-[0] absolute top-[50%] left-[40%] transition-all duration-[300ms]
     transform: translate(-50%,-50%)
 
+.sewage
+  @apply absolute top-0 right-0 overflow-hidden w-0 h-[100vh] z-[990]
+  body.menu-open &
+    @apply w-full
+
 .pour
-  @apply absolute top-[-46px] md:top-[-74px] right-[31px] md:right-[36px] z-[991] w-[480px] min-w-[480px] md:w-[780px] md:min-w-[780px] hidden opacity-0
+  @apply absolute top-[-46px] md:top-[-74px] right-[0] z-[991] w-[480px] w-0 overflow-hidden
+  body.menu-open &
+    @apply transition-[right] min-w-[480px] md:w-[780px] md:min-w-[780px] right-[31px] md:right-[36px]
+
+h1
+  @apply text-[80px]
+  line-height: 1
 
 h2
-  font-size: 112px
-  line-height: 120%
+  @apply text-[60px]
+  line-height: 1
 
 h3
-  @apply text-[12vw] lg:text-[64px] relative
+  @apply text-[46px]
+  line-height: 1
+
+h4
+  @apply text-[38px]
+  line-height: 1
+
+h5
+  @apply text-[28px]
+  line-height: 1
+
+h6
+  @apply text-[20px]
+  font-weight: bold
+  line-height: 1
+
+//h3
+//  @apply text-[12vw] lg:text-[64px] relative
 
 img
   user-select: none

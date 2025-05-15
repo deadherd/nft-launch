@@ -1,10 +1,12 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import LazySection from "../layout/LazySection";
+import Footer from "../layout/Footer";
 import s from "../styles/Home.module.sass";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,7 +15,7 @@ export default function Home() {
   const frontRef = useRef<HTMLDivElement>(null);
   const midRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  {/*useEffect(() => {
     if (midRef.current) {
       // mid layer parallax
       gsap.to(midRef.current, {
@@ -40,7 +42,7 @@ export default function Home() {
         },
       });
     }
-  }, []);
+  }, []);*/}
 
   return (
     <>
@@ -84,23 +86,27 @@ export default function Home() {
         <section className={s.carousel}>
           <h2>RatTen EgGs</h2>
           <p>
-            We steal from kiDs, Raid kitchens, DumpstEr dive, anD SoMEtimes...
+            We steal from kids, raid kitchens, dumpster dive, and sometimes...
           </p>
           <p>
-            we visIt thE henH<span className={s.oegg}>o</span>u$E.
+            We visit the HENH<span className={s.oegg}>O</span>U$E.
           </p>
-          <br/>
+          <br />
           <div className={s.centered}>
-            <a href="#" className={s.biglink}>
-              DeEp
+            <Link
+              href="/deep-dive"
+              className={`${s.biglink} ${s.bigLinkLeft}`}
+            >
+              Buy
               <Image
-                src="/assets/images/full-trash-bag-green-200x200.png"
+                src="/assets/images/truck-200x200.png"
                 alt="Learn More"
                 width={200}
                 height={158}
+                className="px-[5px]"
               />
-              diVe
-            </a>
+              Now
+            </Link>
           </div>
           <div className={s.gallery}>
             <Image
@@ -111,6 +117,11 @@ export default function Home() {
             />
           </div>
         </section>
+        {/*<section className={s.cta}>
+          <p>Feed your rats.</p>
+          <p>Boost your crew.</p>
+          <p>Level up your empire.</p>
+        </section>*/}
       </LazySection>
       <LazySection>
         <section className={s.steps}>
@@ -122,7 +133,6 @@ export default function Home() {
               width={400}
               height={321}
             />
-            {/*<p>ColLect egGs foR CrackING, hAtcHing or stackING.</p>*/}
           </div>
           <div className={s.step}>
             <h3>Crack Em</h3>
@@ -143,8 +153,15 @@ export default function Home() {
             />
           </div>
         </section>
+        <section className={s.cta}>
+          <p>Use snacks to grow your rats into Made Rats.</p>
+          <p>
+            Bigger bites mean better perks, harder hitters, and higher ranks in
+            the Mischief.
+          </p>
+        </section>
         <div className={s.centered}>
-          <a href="#" className={s.biglink}>
+          <Link href="/deep-dive" className={s.biglink}>
             DeEp
             <Image
               src="/assets/images/full-trash-bag-green-200x200.png"
@@ -152,8 +169,8 @@ export default function Home() {
               width={200}
               height={158}
             />
-            diVe
-          </a>
+            dive
+          </Link>
         </div>
       </LazySection>
       <LazySection>
@@ -166,6 +183,7 @@ export default function Home() {
           />
         </section>
       </LazySection>
+      <Footer />
     </>
   );
 }

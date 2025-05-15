@@ -1,3 +1,19 @@
 .footer
+  @apply relative
   video
-    @apply w-full
+    @apply w-full relative z-[-1]
+
+.content
+  @apply absolute left-[50vw] top-[20vw] w-[40vw] text-center z-[10]
+  h2
+    @apply text-[6vw]
+  h3
+    @apply text-[4vw]
+
+.links
+  @apply flex items-center justify-center
+  a
+    @apply inline-block p-[2vw] scale-[1] rotate-[0deg] transition-all max-w-[35vw]
+    transition-duration: .2s
+    &:hover, &:active
+      @apply scale-[1.1] rotate-[2deg]

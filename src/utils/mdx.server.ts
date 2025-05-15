@@ -13,7 +13,7 @@ import Slugger from "github-slugger";
 import { serialize } from "next-mdx-remote/serialize";
 import type { Root, Heading, Text } from "mdast";
 
-const docsDir = path.join(process.cwd(), "src", "content", "docs");
+const docsDir = path.join(process.cwd(), "src", "content", "deep-dive");
 const slugPlugin = remarkSlug as unknown as Plugin;
 const autolinkPlugin = remarkAutolinkHeadings as unknown as Plugin<
   [AutolinkOptions?],
@@ -26,6 +26,7 @@ export type DocMeta = {
   title: string;
   order: number | null;
   icon: string | null;
+  banner: string | null; // ← new
 };
 
 export function getAllDocsMeta(): DocMeta[] {
@@ -33,9 +34,8 @@ export function getAllDocsMeta(): DocMeta[] {
   function walk(dir: string) {
     for (const name of fs.readdirSync(dir)) {
       const full = path.join(dir, name);
-      if (fs.statSync(full).isDirectory()) {
-        walk(full);
-      } else if (name.endsWith(".mdx")) {
+      if (fs.statSync(full).isDirectory()) walk(full);
+      else if (name.endsWith(".mdx")) {
         const rel = path.relative(docsDir, full).split(path.sep).join("/");
         files.push(rel);
       }
@@ -43,26 +43,31 @@ export function getAllDocsMeta(): DocMeta[] {
   }
   walk(docsDir);
 
-  const docs = files.map((file) => {
-    const raw = fs.readFileSync(path.join(docsDir, file), "utf-8");
-    const { data } = matter(raw);
-    const slug = file.replace(/\.mdx$/, "");
-    const title = typeof data.title === "string" ? data.title : slug;
-    const order = typeof data.order === "number" ? data.order : null;
-    const icon = typeof data.icon === "string" ? data.icon : null;
-    return { slug, title, order, icon };
-  });
-
-  return docs.sort((a, b) => {
-    const diff = (a.order ?? 0) - (b.order ?? 0);
-    if (diff !== 0) return diff;
-    return a.title.localeCompare(b.title);
-  });
+  return files
+    .map((file) => {
+      const raw = fs.readFileSync(path.join(docsDir, file), "utf-8");
+      const { data } = matter(raw);
+      const slug = file.replace(/\.mdx$/, "");
+      const title = typeof data.title === "string" ? data.title : slug;
+      const order = typeof data.order === "number" ? data.order : null;
+      const icon = typeof data.icon === "string" ? data.icon : null;
+      const banner = typeof data.banner === "string" ? data.banner : null; // ←
+      return { slug, title, order, icon, banner };
+    })
+    .sort((a, b) => {
+      const diff = (a.order ?? 0) - (b.order ?? 0);
+      return diff !== 0 ? diff : a.title.localeCompare(b.title);
+    });
 }
 
 export function getDocBySlug(slug: string): {
   content: string;
-  data: { title: string; order: number | null; icon: string | null };
+  data: {
+    title: string;
+    order: number | null;
+    icon: string | null;
+    banner: string | null;
+  };
 } {
   const fullPath = path.join(docsDir, `${slug}.mdx`);
   const raw = fs.readFileSync(fullPath, "utf-8");
@@ -70,23 +75,25 @@ export function getDocBySlug(slug: string): {
   const title = typeof data.title === "string" ? data.title : slug;
   const order = typeof data.order === "number" ? data.order : null;
   const icon = typeof data.icon === "string" ? data.icon : null;
-  return { content, data: { title, order, icon } };
+  const banner = typeof data.banner === "string" ? data.banner : null; // ←
+  return { content, data: { title, order, icon, banner } };
 }
 
 export function getHeadings(raw: string) {
   const headings: { text: string; slug: string; level: number }[] = [];
   const slugger = new Slugger();
   const tree = unified().use(remarkParse).parse(raw) as Root;
+
   visit(tree, "heading", (node: Heading) => {
-    const level = node.depth;
-    if (level < 2 || level > 4) return;
-    const text = node.children
-      .filter((c): c is Text => c.type === "text")
-      .map((c) => c.value)
-      .join("");
-    const slug = slugger.slug(text);
-    headings.push({ text, slug, level });
+    if (node.depth >= 2 && node.depth <= 4) {
+      const text = node.children
+        .filter((c): c is Text => c.type === "text")
+        .map((c) => c.value)
+        .join("");
+      headings.push({ text, slug: slugger.slug(text), level: node.depth });
+    }
   });
+
   return headings;
 }
 

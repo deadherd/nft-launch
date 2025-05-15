@@ -15,7 +15,7 @@
     @apply relative z-[3]
     transform: translate(-50%, -10%)
   .links
-    @apply absolute flex flex-col md:flex-row items-center justify-center pl-[30%] md:pl-0 gap-[10%] md:gap-[25%] top-[20%] md:top-[30%] xl:top-[25%] z-[5] overflow-hidden
+    @apply absolute flex flex-col md:flex-row items-center justify-center pl-[30%] md:pl-0 gap-[10%] md:gap-[25%] top-[50%] z-[5] overflow-hidden
     transform: translateY(-50%)
     a
       @apply w-[200px] md:w-[45vw] lg:w-[35vw] transition transition-transform
@@ -25,7 +25,7 @@
         @apply scale-[1.1]
         animation: jiggle 1s infinite
   .silhouette
-    @apply absolute bottom-[5%] md:bottom-[-5%] left-0 w-full z-[4]
+    @apply absolute bottom-[0] md:bottom-[-10%] left-0 w-full z-[4]
     img
       @apply w-[160%] md:w-full max-w-[160%] md:max-w-full mx-[-30%] md:mx-[0] md:w-full
     &:after
@@ -43,15 +43,32 @@
   @apply w-full flex items-center justify-center 
 
 .biglink
-  @apply mb-12 px-12 transition-transform flex items-center text-[#ffffff] text-[60px]
-  //font-family: "SKT"
+  @apply relative mb-12 px-[2px] transition-all flex items-center text-[#ffffff] text-[60px]
+  font-family: "SKT"
   text-shadow: 0 4px 0px #0a0a0a
+  letter-spacing: 0.02em
   img
-    @apply max-w-[120px] ml-[-26px] mr-[-18px] inline-block relative
+    @apply max-w-[100px] ml-[-18px] mr-[-10px] inline-block relative
   &:hover, &:active
     @apply scale-[1.1] rotate-[2deg]
+    letter-spacing: 0.05em
+    text-decoration: none!important
     img
       @apply rotate-[-2deg]
+  &:after
+    @apply absolute top-[-1%] left-[100%] w-[30px] h-[100%] transition-[left]
+    content: ""
+    background: url(../../public/assets/images/arrowhead.svg) no-repeat 0 50%
+    background-size: 100% 100%
+  &:hover, &:active
+    &::after
+      @apply left-[102%]
+  &.bigLinkLeft 
+    &::after
+      @apply left-[0] ml-[-30px] rotate-[180deg]
+    &:hover, &:active
+      &::after
+        @apply left-[-2%]
 
 @keyframes jiggle
   0%
@@ -63,18 +80,28 @@
   @apply block relative flex flex-col items-center justify-center text-center py-12 z-[5]
   background: url(../../public/assets/images/rathead-glow-red.svg) no-repeat 60vw 10vw
   background-size: 35vw auto
+  font-family: "Instant Karma"
   h2
     @apply rotate-[-2deg] text-[12vw] md:text-[8vw]
     line-height: 1
   p
-    @apply max-w-[90vw] md:max-w-[65vw] rotate-[2deg] text-[#59fd53] text-[6vw] md:text-[4vw]
+    @apply max-w-[90vw] md:max-w-[65vw] text-[#59fd53] text-[6vw] md:text-[4vw]
     line-height: 1
+    letter-spacing: 0.02em
     &:nth-child(2n + 1)
-      @apply rotate-[-1deg] mt-2
+      @apply mt-2
   .gallery
     @apply mt-10 w-full
     img
       @apply w-full
+
+.cta
+  @apply block relative flex flex-col items-center justify-center text-center py-12 z-[5]
+  p
+    @apply max-w-[90vw] md:max-w-[65vw] text-[#59fd53] text-[6vw] lg:text-[3vw]
+    line-height: 1
+    letter-spacing: 0.02em
+    font-family: "Instant Karma"
 
 .steps
   @apply relative flex flex-col max-w-[1200px] mx-auto w-full pt-16 z-[5]
@@ -82,6 +109,9 @@
   background-size: 30vw auto
   .step
     @apply flex flex-col items-center pb-12
+    h3
+      @apply text-[12vw] lg:text-[64px] text-[#fff]
+      font-family: "SKT"
     p
       @apply text-[2vw] text-[#59fd53] text-center
       line-height: 2vw
@@ -104,10 +134,11 @@
     @apply w-[75%]
 
 .oegg
-  @apply inline-block relative px-2 -mx-2
+  @apply inline-block relative px-2 -mr-3
   &:after
-    @apply absolute block top-0 left-0 w-full h-full
+    @apply absolute block top-0 left-0 w-full h-full mt-[-5px]
     content: ""
+    user-select: none
     background: url(../../public/assets/images/oegg.png) no-repeat 50% 50%
     background-size: 108% auto
 
