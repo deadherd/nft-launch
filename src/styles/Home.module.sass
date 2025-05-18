@@ -8,19 +8,52 @@
 .banner
   @apply pt-[4vw] flex flex-col justify-center items-center min-h-[100vh] bg-cover
   background: url("../../public/assets/images/rat-eyes-bg.jpg") no-repeat 50% 50%;
+  &.bannerKitchen
+    background: url("../../public/assets/images/dirty-kitchen-bg.jpg") no-repeat 50% 50%;
   .dimmer
     @apply absolute top-0 left-0 w-full h-full
     background: linear-gradient(0deg, #0a0a0a, rgba(0,0,0,0) 45%, #000)
   .egg
     @apply relative z-[3]
     transform: translate(-50%, -10%)
+  .truck
+    @apply max-w-[35vw]
   .links
-    @apply absolute flex flex-col md:flex-row items-center justify-center pl-[30%] md:pl-0 gap-[10%] md:gap-[25%] top-[50%] z-[5] overflow-hidden
+    @apply absolute flex flex-col md:flex-row items-center justify-center pl-[30%] md:pl-0 gap-[100px] md:gap-[25%] top-[48%] z-[5]
     transform: translateY(-50%)
     a
-      @apply w-[200px] md:w-[45vw] lg:w-[35vw] transition transition-transform
-      img
-        @apply w-full
+      @apply relative w-[200px] md:w-[45vw] lg:w-[35vw] transition transition-transform text-center text-[#fff] text-[20vw] md:text-[11vw]
+      font-family: "SKT"
+      line-height: 1.1
+      text-decoration: none!important
+      letter-spacing: 0.03em
+      text-shadow: 0 6px 6px rgba(0,0,0,.5)
+      &:nth-child(1)
+        &:before
+          @apply block absolute w-[60px] h-[60px] right-[15%] top-[30px] z-[1]
+          background: url(../../public/assets/images/icon-egg.svg) no-repeat 50% 50%
+          background-size: 100% auto
+          content: ""
+        &:after
+          @apply block absolute w-[60px] h-[60px] left-[5%] bottom-[-30px] z-[1]
+          background: url(../../public/assets/images/icon-base.svg) no-repeat 50% 50%
+          background-size: 100% auto
+          content: ""
+      &:nth-child(2)
+        span
+          @apply rotate-[2deg]
+        &:before
+          @apply block absolute w-[60px] h-[60px] left-[20%] top-[-30px] z-[1]
+          background: url(../../public/assets/images/icon-chrome.svg) no-repeat 50% 50%
+          background-size: 100% auto
+          content: ""
+        &:after
+          @apply block absolute w-[60px] h-[60px] right-[8%] bottom-[30px] z-[1]
+          background: url(../../public/assets/images/icon-chrome-ext.svg) no-repeat 50% 50%
+          background-size: 100% auto
+          content: ""
+      span
+        @apply block rotate-[-2deg]
       &:hover, &:active
         @apply scale-[1.1]
         animation: jiggle 1s infinite
@@ -97,6 +130,8 @@
 
 .cta
   @apply block relative flex flex-col items-center justify-center text-center py-12 z-[5]
+  h3
+    @apply text-[#fff]
   p
     @apply max-w-[90vw] md:max-w-[65vw] text-[#59fd53] text-[6vw] lg:text-[3vw]
     line-height: 1

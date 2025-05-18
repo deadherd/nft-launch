@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import LazySection from "../layout/LazySection";
-import s from "../styles/Footer.module.sass";
+import LazySection from "../Containers/LazySection";
+import s from "../../styles/Footer.module.sass";
 
 export default function Footer() {
   return (
@@ -9,15 +9,15 @@ export default function Footer() {
       <LazySection>
         <footer className={s.footer}>
           <div className={s.content}>
-            <h2>
+            <h4>
               You<i> </i>saw<i> </i>too<i> </i>much
-            </h2>
-            <h3>Might as well join...</h3>
+            </h4>
+            <p>Might as well join...</p>
             <div className={s.links}>
               <Link href="/deep-dive">
                 <Image
                   src="/assets/images/get-yolked.svg"
-                  alt="MFR Deep Dive"
+                  alt="MFR Get Yolked"
                   width={200}
                   height={70}
                   className={s.cstore}

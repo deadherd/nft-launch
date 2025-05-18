@@ -5,9 +5,9 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import LazySection from "../layout/Containers/LazySection";
-import Footer from "../layout/Footers/LanderFooter";
-import s from "../styles/Home.module.sass";
+import LazySection from "../../layout/Containers/LazySection";
+import Footer from "../../layout/Footers/LanderFooter";
+import s from "../../styles/Home.module.sass";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,7 +46,7 @@ export default function Home() {
 
   return (
     <>
-      <section className={s.banner}>
+      <section className={`${s.banner} ${s.bannerKitchen}`}>
         <div className={s.dimmer}></div>
         <div ref={midRef} className={s.links}>
           <a href="#">
@@ -65,11 +65,11 @@ export default function Home() {
           </a>
         </div>
         <Image
-          src="/assets/images/glow-in-the-dark.png"
+          src="/assets/images/freezer-angled.png"
           alt="MFR Egg"
-          width={460}
-          height={469}
-          className={s.egg}
+          width={400}
+          height={1040}
+          className={s.truck}
         />
         <div ref={frontRef} className={s.silhouette}>
           <Image

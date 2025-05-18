@@ -12,8 +12,8 @@ import LogoSvg from "@/components/svg/LogoSvg";
 import SpotDotsSvg from "@/components/svg/SpotDotsSvg";
 //import ClawBarsSvg from "@/components/svg/ClawBarsSvg";
 //import dynamic from "next/dynamic";
-import Menu from "../layout/Menu";
-import s from "../styles/Header.module.sass";
+import Menu from "../../components/Menu";
+import s from "../../styles/Header.module.sass";
 
 gsap.registerPlugin(ScrollTrigger);
 

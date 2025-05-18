@@ -6,7 +6,6 @@ import { useState, useEffect, useRef } from "react";
 
 interface LazySectionProps {
   children: ReactNode;
-  // how far before viewport to start loading
   rootMargin?: string;
 }
 

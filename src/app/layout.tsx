@@ -3,7 +3,7 @@ import { DM_Sans, DM_Mono } from "next/font/google";
 import BodyClassManager from "@/components/BodyClassManager";
 
 import Loader from "../layout/Loader";
-import Header from "../layout/Header";
+import Header from "../layout/Headers/NavHeader";
 import "../styles/globals.sass";
 
 const dmMono = DM_Mono({

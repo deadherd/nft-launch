@@ -1,7 +1,7 @@
 // src/app/docs/[...slug]/page.tsx
 import DocsLayout from "@/components/DocsLayout";
 import DocContent from "@/components/DocContent";
-import DocsFooter from "@/layout/DocsFooter";
+import DocsFooter from "@/layout/Footers/DocsFooter";
 import {
   getAllDocsMeta,
   getDocBySlug,

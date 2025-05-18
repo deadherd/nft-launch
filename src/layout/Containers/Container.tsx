@@ -1,4 +1,4 @@
-import s from "../styles/Container.module.sass";
+import s from "../../styles/Container.module.sass";
 
 export default function Container({ children }: { children: React.ReactNode }) {
   return (

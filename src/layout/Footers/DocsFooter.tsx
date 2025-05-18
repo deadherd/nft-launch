@@ -1,5 +1,5 @@
 //import LazySection from "./LazySection";
-import s from "../styles/Docs.module.sass";
+import s from "../../styles/Docs.module.sass";
 
 export default function DocsFooter() {
   return (
