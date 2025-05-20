@@ -9,40 +9,55 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LogoSvg from "@/components/svg/LogoSvg";
+//import UtensilsSvg from "@/components/svg/UtensilsSvg";
 import SpotDotsSvg from "@/components/svg/SpotDotsSvg";
-//import ClawBarsSvg from "@/components/svg/ClawBarsSvg";
-//import dynamic from "next/dynamic";
+//import MenuSvg from "@/components/svg/MenuSvg";
+//import HamburgerSvg from "@/components/svg/HamburgerSvg";
+//import OpenSignSvg from "@/components/svg/OpenSignSvg";
+//import UserSvg from "@/components/svg/UserSvg";
+//import StickerBuyNowSvg from "@/components/svg/StickerBuyNowSvg";
 import Menu from "../../components/Menu";
 import s from "../../styles/Header.module.sass";
 
 gsap.registerPlugin(ScrollTrigger);
 
-{/*const CountdownTimer = dynamic(() => import("@/components/CountdownTimer"), {
-  ssr: false,
-});*/}
-
 const Header: FC = () => {
+  const pathname = usePathname();
   const greenRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [slideOpen, setSlideOpen] = useState(false);
-  const pathname = usePathname();
 
-  // init audio once on mount
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.load();
+  // derive tagline for deep-dive
+  const getTagline = () => {
+    if (pathname?.startsWith("/deep-dive")) {
+      const segments = pathname.split("/").filter(Boolean);
+      const last = segments[segments.length - 1] || "deep-dive";
+      return last
+        .replace(/-/g, " ")
+        .split(" ")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+        .join(" ");
     }
+    return "Say yes to crack.";
+  };
+
+  const tagline = getTagline();
+
+  // init audio once
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.load();
   }, []);
 
+  // on path change close menus
   useEffect(() => {
-    // route changed, close menu
     setMenuOpen(false);
     setSlideOpen(false);
     document.body.classList.remove("menu-open");
     document.body.classList.remove("slide-menu-open");
   }, [pathname]);
 
+  // gsap reveal for green box
   useEffect(() => {
     const el = greenRef.current;
     if (!el) return;
@@ -54,32 +69,37 @@ const Header: FC = () => {
     });
   }, []);
 
+  // toggle body class for main menu
   useEffect(() => {
-    // toggle body cls
-    if (menuOpen) document.body.classList.add("menu-open");
-    else document.body.classList.remove("menu-open");
+    if (menuOpen) {
+      document.body.classList.add("menu-open");
+    } else {
+      document.body.classList.remove("menu-open");
+    }
   }, [menuOpen]);
 
+  // toggle body class for slide menu
   useEffect(() => {
-    if (slideOpen) document.body.classList.add("slide-menu-open");
-    else document.body.classList.remove("slide-menu-open");
+    if (slideOpen) {
+      document.body.classList.add("slide-menu-open");
+    } else {
+      document.body.classList.remove("slide-menu-open");
+    }
   }, [slideOpen]);
 
-  // click handler = toggle + play
+  // handle main menu toggle + sound
   const handleToggle = () => {
     const willOpen = !menuOpen;
     setMenuOpen(willOpen);
     if (willOpen && audioRef.current) {
       audioRef.current.currentTime = 0;
-      audioRef.current.play().catch(() => {
-        // swallow any play() rejections
-      });
+      audioRef.current.play().catch(() => {});
     }
   };
 
+  // handle slide menu toggle
   const handleSlideToggle = () => {
-    const willOpen = !slideOpen;
-    setSlideOpen(willOpen);
+    setSlideOpen(!slideOpen);
   };
 
   const clawColor = menuOpen ? "#0a0a0a" : "#59fd53";
@@ -87,7 +107,7 @@ const Header: FC = () => {
   return (
     <>
       <header className={s.header} id="top">
-        <span className={s.tagline}>Say yes to crack.</span>
+        <span className={s.tagline}>{tagline}</span>
         <Link href="/" className={s.logo}>
           <LogoSvg />
         </Link>
@@ -104,39 +124,18 @@ const Header: FC = () => {
           />
         </button>
         <span className={s.menu}>
-          {/*<Link href="/deep-dive">
-            <Image
-              src="/assets/images/deep-dive.svg"
-              alt="MFR Deep Dive"
-              width={450}
-              height={163}
-              className={s.cstore}
-            />
-          </Link>
-          <Link href="/store">
-            <Image
-              src="/assets/images/cook-book-page.svg"
-              alt="MFR Cook Book"
-              width={450}
-              height={163}
-              className={s.cstore}
-            />
-          </Link>
-          <Link href="/store">
-            <Image
-              src="/assets/images/snack-hosue-btn.svg"
-              alt="MFR Corner Store"
-              width={450}
-              height={163}
-              className={s.cstore}
-            />
-          </Link>*/}
+          {/*<button
+            className={s.openMenu}
+            onClick={handleToggle}
+            aria-label="toggle menu"
+          >
+            <MenuSvg color={clawColor} />
+          </button>*/}
           <button
             className={s.openMenu}
             onClick={handleToggle}
             aria-label="toggle menu"
           >
-            {/*<ClawBarsSvg color={clawColor} />*/}
             <SpotDotsSvg color={clawColor} />
           </button>
           <div className="sewage">
@@ -156,18 +155,14 @@ const Header: FC = () => {
             />
           </div>
         </span>
-
-        {/* preload audio via multiple sources */}
         <audio ref={audioRef} preload="auto" hidden>
           <source src="/assets/audio/hit_splat.mp3" type="audio/mpeg" />
           <source src="/assets/audio/hit_splat.wav" type="audio/wav" />
           <source src="/assets/audio/hit_splat.aac" type="audio/aac" />
         </audio>
-
         <Menu />
       </header>
 
-      {/* fixed green box */}
       <div ref={greenRef} className={s.sticker}>
         <a href="#top">
           Go<i> </i>tOP

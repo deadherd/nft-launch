@@ -38,18 +38,20 @@
         //letter-spacing: .03em
         text-decoration: none!important
         svg path
-          @apply fill-[#fff]
+          @apply fill-[#59fd53]
         &:hover, &:active
-          color: #59fd53
-          text-decoration: underline
+          color: #ffff0f
+          //text-decoration: underline!important
           svg path
-            @apply fill-[#59fd53]
+            @apply fill-[#ffff0f]
         &.active
-          color: #59fd53
+          @apply rotate-[-1deg] scale-[1.2]
+          color: #ffff0f
           font-weight: bold
-          cursor: default
+          cursor: default 
+          //text-decoration: underline!important
           svg path
-            @apply fill-[#59fd53]
+            @apply fill-[#ffff0f]
 
 .mainContent
   @apply flex-1 mt-[-40px] flex flex-col items-center
@@ -111,7 +113,7 @@
     text-decoration: none!important
     letter-spacing: 0.05em
     svg
-      @apply mb-[5px]
+      @apply mb-[5px] w-[100px]
     &.prevLink, &.nextLink
       svg path
         @apply fill-[#fff]
@@ -119,10 +121,6 @@
         @apply text-[#59fd53]
         svg path
           @apply fill-[#59fd53]
-    &.prevLink span
-      @apply ml-[-40px]
-    &.nextLink span
-      @apply mr-[-40px]
 
 .rightToc
   @apply text-[18px] flex-[0_0_200px] hidden
@@ -170,7 +168,7 @@ ul
       @apply mt-[20px] mb-[20px]
     &.activeFolder
       .navTitle
-        @apply text-[#59fd53] cursor-default
+        @apply text-[#555] cursor-default
         font-weight: bold
       //.navFolder
       .toggleIcon
@@ -182,6 +180,8 @@ ul
   //font-family: "SKT"
   .navTitle
     @apply text-[18px] capitalize text-[#fff]
+    &:hover, &:active
+      color: #ffff0f
     //font-weight: bold
     //font-family: "Instant Karma"
     //letter-spacing: .05em

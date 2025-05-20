@@ -200,7 +200,7 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
           <div className={s.pagination}>
             {prevDoc ? (
               <Link href={`/deep-dive/${prevDoc.slug}`} className={s.prevLink}>
-                <RandomBlob size={30} fill="#59fd53">
+                {/*<RandomBlob size={30} fill="#59fd53">
                   <Image
                     src={prevDoc.icon!}
                     alt={prevDoc.title}
@@ -208,15 +208,15 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
                     height={30}
                     style={{ display: "block" }}
                   />
-                </RandomBlob>
-                <span className={s.linkText}>⬅️{prevDoc.title}</span>
+                </RandomBlob>*/}
+                <span className={s.linkText}>⬅️ {prevDoc.title}</span>
               </Link>
             ) : (
               <div></div>
             )}
             {nextDoc && (
               <Link href={`/deep-dive/${nextDoc.slug}`} className={s.nextLink}>
-                <RandomBlob size={30} fill="#59fd53">
+                {/*<RandomBlob size={30} fill="#59fd53">
                   <Image
                     src={nextDoc.icon!}
                     alt={nextDoc.title}
@@ -224,8 +224,8 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
                     height={30}
                     style={{ display: "block" }}
                   />
-                </RandomBlob>
-                <span className={s.linkText}>{nextDoc.title}➡️</span>
+                </RandomBlob>*/}
+                <span className={s.linkText}>{nextDoc.title} ➡️</span>
               </Link>
             )}
           </div>

@@ -8,7 +8,8 @@ export default async function DocsIndex() {
   return (
     <>
       <DocsLayout docs={docs} toc={[]} title="DeEp dive" icon="" banner="">
-        <ClientDocsList docs={docs} />
+        {/*<ClientDocsList docs={docs} />*/}
+        
       </DocsLayout>
     </>
   );

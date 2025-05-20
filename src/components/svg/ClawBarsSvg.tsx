@@ -10,9 +10,9 @@ interface ClawBarsProps {
 const ClawBars: FC<ClawBarsProps> = ({ color = "#59fd53" }) => {
   return (
     <svg
-      width="24"
+      width="18"
       height="18"
-      viewBox="0 0 24 18"
+      viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -31,16 +31,6 @@ const ClawBars: FC<ClawBarsProps> = ({ color = "#59fd53" }) => {
           fill={color}
         />
       </g>
-      <defs>
-        <clipPath id="clip0_58_127">
-          <rect
-            width="24"
-            height="16.4544"
-            fill="white"
-            transform="matrix(1 0 0 -1 0 17.37)"
-          />
-        </clipPath>
-      </defs>
     </svg>
   );
 };
