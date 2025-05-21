@@ -1,21 +1,18 @@
-// components/Header.tsx
 "use client";
 
 import type { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Wallet } from "@coinbase/onchainkit/wallet";
 import { usePathname } from "next/navigation";
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LogoSvg from "@/components/svg/LogoSvg";
-//import UtensilsSvg from "@/components/svg/UtensilsSvg";
+import ProfileCard from "../../components/ProfileCard";
 import SpotDotsSvg from "@/components/svg/SpotDotsSvg";
-//import MenuSvg from "@/components/svg/MenuSvg";
-//import HamburgerSvg from "@/components/svg/HamburgerSvg";
-//import OpenSignSvg from "@/components/svg/OpenSignSvg";
-//import UserSvg from "@/components/svg/UserSvg";
-//import StickerBuyNowSvg from "@/components/svg/StickerBuyNowSvg";
+import ClawBarsSvg from "@/components/svg/ClawBarsSvg";
+import SignInWithEthereum from "@/components/SignInWithEthereum";
 import Menu from "../../components/Menu";
 import s from "../../styles/Header.module.sass";
 
@@ -27,6 +24,7 @@ const Header: FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [slideOpen, setSlideOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   // derive tagline for deep-dive
   const getTagline = () => {
@@ -53,8 +51,10 @@ const Header: FC = () => {
   useEffect(() => {
     setMenuOpen(false);
     setSlideOpen(false);
+    setProfileOpen(false);
     document.body.classList.remove("menu-open");
     document.body.classList.remove("slide-menu-open");
+    document.body.classList.remove("open-profile");
   }, [pathname]);
 
   // gsap reveal for green box
@@ -71,25 +71,26 @@ const Header: FC = () => {
 
   // toggle body class for main menu
   useEffect(() => {
-    if (menuOpen) {
-      document.body.classList.add("menu-open");
-    } else {
-      document.body.classList.remove("menu-open");
-    }
+    if (menuOpen) document.body.classList.add("menu-open");
+    else document.body.classList.remove("menu-open");
   }, [menuOpen]);
 
   // toggle body class for slide menu
   useEffect(() => {
-    if (slideOpen) {
-      document.body.classList.add("slide-menu-open");
-    } else {
-      document.body.classList.remove("slide-menu-open");
-    }
+    if (slideOpen) document.body.classList.add("slide-menu-open");
+    else document.body.classList.remove("slide-menu-open");
   }, [slideOpen]);
+
+  // toggle body class for profile
+  useEffect(() => {
+    if (profileOpen) document.body.classList.add("open-profile");
+    else document.body.classList.remove("open-profile");
+  }, [profileOpen]);
 
   // handle main menu toggle + sound
   const handleToggle = () => {
     const willOpen = !menuOpen;
+    setProfileOpen(false);
     setMenuOpen(willOpen);
     if (willOpen && audioRef.current) {
       audioRef.current.currentTime = 0;
@@ -100,6 +101,11 @@ const Header: FC = () => {
   // handle slide menu toggle
   const handleSlideToggle = () => {
     setSlideOpen(!slideOpen);
+  };
+
+  // toggle profile open state
+  const handleProfileToggle = () => {
+    setProfileOpen(!profileOpen);
   };
 
   const clawColor = menuOpen ? "#0a0a0a" : "#59fd53";
@@ -124,19 +130,24 @@ const Header: FC = () => {
           />
         </button>
         <span className={s.menu}>
-          {/*<button
-            className={s.openMenu}
-            onClick={handleToggle}
-            aria-label="toggle menu"
-          >
-            <MenuSvg color={clawColor} />
-          </button>*/}
+          <div className={s.profileCard}>
+            <button
+              className={s.openProfile}
+              onClick={handleProfileToggle}
+              aria-label="toggle menu"
+            >
+              <SpotDotsSvg color={clawColor} />
+            </button>
+            <ProfileCard />
+          </div>
+          <Wallet />
+          <SignInWithEthereum />
           <button
             className={s.openMenu}
             onClick={handleToggle}
-            aria-label="toggle menu"
+            aria-label="toggle profile"
           >
-            <SpotDotsSvg color={clawColor} />
+            <ClawBarsSvg color={clawColor} />
           </button>
           <div className="sewage">
             <Image

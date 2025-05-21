@@ -21,12 +21,17 @@
         @apply hidden
     &.menu
       @apply text-right flex-1 flex items-center justify-end gap-[22px]
+      .profileCard
+        @apply relative
       a, button
         @apply h-[48px] flex items-center justify-center transition-all
         &:active, &:hover
           @apply scale-[1.1] rotate-[-1deg]
         img
           @apply w-[auto] h-[40px]
+      .openProfile 
+        svg
+          @apply w-[36px] h-[auto] max-h-[36px]
       .openMenu 
         svg
           @apply w-[36px] h-[auto] max-h-[36px]

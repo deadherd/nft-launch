@@ -166,13 +166,17 @@ ul
       @apply mt-[0px]
     &.expanded
       @apply mt-[20px] mb-[20px]
+      //.navTitle
+        //@apply text-[#ffff0f]
+      //.toggleIcon
+        //@apply text-[#ffff0f]
     &.activeFolder
       .navTitle
         @apply text-[#555] cursor-default
         font-weight: bold
       //.navFolder
       .toggleIcon
-        @apply opacity-0
+        @apply opacity-0 text-[#ffff0f]
 
 .navFolder
   @apply flex cursor-pointer text-[#fff] gap-[4px]
@@ -186,7 +190,8 @@ ul
     //font-family: "Instant Karma"
     //letter-spacing: .05em
   .toggleIcon
-    @apply text-[#59fd53] text-[24px]
+    @apply text-[#59fd53] text-[20px]
+    
     line-height: 20px
     font-family: "Instant Karma"
 

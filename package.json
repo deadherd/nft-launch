@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@coinbase/onchainkit": "^0.38.13",
+    "@tanstack/react-query": "^5.76.1",
+    "ethers": "^6.14.1",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
     "gsap": "^3.13.0",
@@ -20,8 +23,11 @@
     "remark-autolink-headings": "^7.0.1",
     "remark-parse": "^11.0.0",
     "remark-slug": "^7.0.1",
+    "siwe": "^3.0.0",
     "unified": "^11.0.5",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.0.0",
+    "viem": "^2.30.0",
+    "wagmi": "^2.15.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

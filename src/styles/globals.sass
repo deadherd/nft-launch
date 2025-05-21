@@ -43,6 +43,8 @@ body
   line-height: 28px
   overflow-x: hidden
   letter-spacing: -.03em
+  //#profile
+    //@apply hidden
   &.docs.menu-open
     header a[class*="logo"]
       @apply relative z-[999999]
@@ -56,6 +58,9 @@ body
         @apply min-w-[250%] md:min-w-[150%]
     .pour
       @apply block opacity-100
+  &.open-profile
+    #profile
+      @apply flex
 p
   margin-bottom: 15px
 

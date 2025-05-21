@@ -1,6 +1,8 @@
+import "@coinbase/onchainkit/styles.css";
 import type { Metadata } from "next";
 import { DM_Sans, DM_Mono } from "next/font/google";
 import BodyClassManager from "@/components/BodyClassManager";
+import { Web3Providers } from "../layout/providers";
 
 import Loader from "../layout/Loader";
 import Header from "../layout/Headers/NavHeader";
@@ -29,13 +31,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${dmSans.variable} ${dmMono.variable} antialiased`}
-      >
+      <body className={`${dmSans.variable} ${dmMono.variable} antialiased`}>
         <BodyClassManager />
-        <Header />
-        <main>{children}</main>
-        <Loader />
+        <Web3Providers>
+          <Header />
+          <main>{children}</main>
+          <Loader />
+        </Web3Providers>
       </body>
     </html>
   );
