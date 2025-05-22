@@ -1,8 +1,19 @@
-// src/app/api/siwe/verify/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { SiweMessage } from "siwe";
+import admin from "firebase-admin";
 
-export type VerifySuccess = { ok: true };
+// init admin once
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert({
+      projectId: process.env.FIREBASE_PROJECT_ID!,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL!,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY!.replace(/\\n/g, "\n"),
+    }),
+  });
+}
+
+export type VerifySuccess = { ok: true; token: string };
 export type VerifyError = { error: string };
 
 export async function POST(
@@ -26,9 +37,11 @@ export async function POST(
       nonce: stored,
     });
 
-    return NextResponse.json({ ok: true });
+    // create a Firebase custom token for this address
+    const firebaseToken = await admin.auth().createCustomToken(siwe.address);
+
+    return NextResponse.json({ ok: true, token: firebaseToken });
   } catch (err: unknown) {
-    // narrow unknown to Error or fallback to string
     const errorMessage = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: errorMessage }, { status: 400 });
   }

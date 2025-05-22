@@ -3,7 +3,7 @@
 import type { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Wallet } from "@coinbase/onchainkit/wallet";
+//import { Wallet } from "@coinbase/onchainkit/wallet";
 import { usePathname } from "next/navigation";
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
@@ -140,7 +140,7 @@ const Header: FC = () => {
             </button>
             <ProfileCard />
           </div>
-          <Wallet />
+          {/*<Wallet />*/}
           <SignInWithEthereum />
           <button
             className={s.openMenu}
