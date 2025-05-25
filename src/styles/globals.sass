@@ -265,3 +265,59 @@ button
   100%
     transform: translate(0, 0) rotate(0deg)
     opacity: 1
+
+
+.custom-dark
+  --ock-font-family: "DM Sans"
+
+  --ock-text-inverse: #0a0a0a
+  --ock-text-foreground: #fff
+  --ock-text-primary: #59fd53
+
+  --ock-bg-default: #0a0a0a
+  --ock-bg-default-hover: #1a1a1a
+  --ock-bg-default-active: #2a2a2a
+
+  --ock-bg-primary: #59fd53
+  --ock-bg-primary-hover: #ffff0f
+  --ock-bg-primary-active: #9afe96
+
+  --ock-border-line-primary: #1a1a1a
+  --ock-border-line-default: #1a1a1a
+  --ock-border-line-heavy: #1a1a1a
+  --ock-border-line-inverse: #1a1a1a
+
+  // buttons
+  --ock-bg-alternate: #1a1a1a
+  --ock-bg-alternate-hover: #2a2a2a
+  --ock-bg-alternate-active: #3a3a3a
+
+  --ock-bg-secondary: #59fd53
+  --ock-bg-secondary-hover: #ffff0f
+  --ock-bg-secondary-active: #9afe96
+
+  // icons
+  --ock-icon-color-foreground: #59fd53
+
+h2.ock-font-family
+  font-family: "SKT"
+  font-weight: normal
+  font-size: 24px
+
+.ock-border-line-default
+  @apply border-[#2a2a2a]
+
+.custom-dark.z-40
+  @apply z-[99999999]
+
+.ock-dropdown
+  svg
+    @apply fill-[#59fd53]
+
+.ock-connect
+  @apply relative transition-all duration-300 w-[48px] h-[48px] min-w-[48px]
+  background: #0a0a0a url(../../public/assets/images/sq-button.svg) no-repeat 50% 50%
+  background-size: contain
+  box-shadow: 0 3px 6px rgba(0,0,0,.4)
+  &:hover, &:active
+    background-color: #0a0a0a!important

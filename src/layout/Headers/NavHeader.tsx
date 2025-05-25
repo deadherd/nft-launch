@@ -9,8 +9,8 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LogoSvg from "@/components/svg/LogoSvg";
-import ProfileCard from "../../components/ProfileCard";
-import SpotDotsSvg from "@/components/svg/SpotDotsSvg";
+//import ProfileCard from "../../components/ProfileCard";
+//import SpotDotsSvg from "@/components/svg/SpotDotsSvg";
 import ClawBarsSvg from "@/components/svg/ClawBarsSvg";
 import SignInWithEthereum from "@/components/SignInWithEthereum";
 import Menu from "../../components/Menu";
@@ -104,9 +104,9 @@ const Header: FC = () => {
   };
 
   // toggle profile open state
-  const handleProfileToggle = () => {
+  {/*const handleProfileToggle = () => {
     setProfileOpen(!profileOpen);
-  };
+  };*/}
 
   const clawColor = menuOpen ? "#0a0a0a" : "#59fd53";
 
@@ -130,7 +130,7 @@ const Header: FC = () => {
           />
         </button>
         <span className={s.menu}>
-          <div className={s.profileCard}>
+          {/*<div className={s.profileCard}>
             <button
               className={s.openProfile}
               onClick={handleProfileToggle}
@@ -139,7 +139,7 @@ const Header: FC = () => {
               <SpotDotsSvg color={clawColor} />
             </button>
             <ProfileCard />
-          </div>
+          </div>*/}
           {/*<Wallet />*/}
           <SignInWithEthereum />
           <button

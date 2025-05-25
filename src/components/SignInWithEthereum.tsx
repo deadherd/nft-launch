@@ -2,7 +2,22 @@
 
 import { initializeApp, getApps } from "firebase/app";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
-import { Wallet, ConnectWallet } from "@coinbase/onchainkit/wallet";
+import {
+  ConnectWallet,
+  Wallet,
+  WalletDropdown,
+  //WalletDropdownBasename,
+  //WalletDropdownFundLink,
+  //WalletDropdownLink,
+  WalletDropdownDisconnect
+} from "@coinbase/onchainkit/wallet";
+import {
+  Address,
+  Avatar,
+  Name,
+  Identity,
+  EthBalance,
+} from "@coinbase/onchainkit/identity";
 import { createSiweMessage } from "viem/siwe";
 import { useAccount, useSignMessage, useConfig } from "wagmi";
 
@@ -63,8 +78,30 @@ export default function SignInWithEthereum() {
   }
 
   return (
-    <Wallet>
-      <ConnectWallet onConnect={handleSignIn} />
+    <Wallet className="ock-wallet">
+      <ConnectWallet
+        className="ock-connect"
+        disconnectedLabel="👤"
+        onConnect={handleSignIn}
+      >
+        <Avatar className="h-6 w-6" />
+      </ConnectWallet>
+      <WalletDropdown className="ock-dropdown">
+        <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
+          <Avatar />
+          <Name />
+          <Address />
+          <EthBalance />
+        </Identity>
+        {/*<WalletDropdownLink
+          className="hover:bg-blue-200"
+          icon="wallet"
+          href="https://keys.coinbase.com"
+        >
+          Wallet
+        </WalletDropdownLink>*/}
+        <WalletDropdownDisconnect className="hover:bg-blue-200" />
+      </WalletDropdown>
     </Wallet>
   );
 }
