@@ -1,7 +1,7 @@
 // src/app/docs/page.tsx
 import DocsLayout from "@/components/DocsLayout";
 //import ClientDocsList from "@/components/ClientDocsLists";
-import { getAllDocsMeta, type DocMeta } from "@/utils/mdx.server";
+import { getAllDocsMeta, type DocMeta } from "@/lib/mdxService";
 
 export default async function DocsIndex() {
   const docs: DocMeta[] = getAllDocsMeta();

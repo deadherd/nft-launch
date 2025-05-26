@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import type { DocMeta } from "@/utils/mdx.server";
+import type { DocMeta } from "@/lib/mdxService";
 import s from "@/styles/Docs.module.sass";
 
 // dynamically load random blob only in client

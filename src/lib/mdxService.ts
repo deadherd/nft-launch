@@ -26,7 +26,7 @@ export type DocMeta = {
   title: string;
   order: number | null;
   icon: string | null;
-  banner: string | null; // ← new
+  banner: string | null;
 };
 
 export function getAllDocsMeta(): DocMeta[] {
@@ -51,7 +51,7 @@ export function getAllDocsMeta(): DocMeta[] {
       const title = typeof data.title === "string" ? data.title : slug;
       const order = typeof data.order === "number" ? data.order : null;
       const icon = typeof data.icon === "string" ? data.icon : null;
-      const banner = typeof data.banner === "string" ? data.banner : null; // ←
+      const banner = typeof data.banner === "string" ? data.banner : null;
       return { slug, title, order, icon, banner };
     })
     .sort((a, b) => {
@@ -75,7 +75,7 @@ export function getDocBySlug(slug: string): {
   const title = typeof data.title === "string" ? data.title : slug;
   const order = typeof data.order === "number" ? data.order : null;
   const icon = typeof data.icon === "string" ? data.icon : null;
-  const banner = typeof data.banner === "string" ? data.banner : null; // ←
+  const banner = typeof data.banner === "string" ? data.banner : null;
   return { content, data: { title, order, icon, banner } };
 }
 

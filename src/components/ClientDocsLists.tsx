@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import RandomBlob from "./RandomBlob";
-import type { DocMeta } from "@/utils/mdx.server";
+import type { DocMeta } from "@/lib/mdxService";
 import s from "@/styles/Docs.module.sass";
 
 interface ClientDocsListProps {

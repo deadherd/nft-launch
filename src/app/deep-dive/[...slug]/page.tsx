@@ -8,7 +8,7 @@ import {
   getHeadings,
   serializeMDX,
   type DocMeta,
-} from "@/utils/mdx.server";
+} from "@/lib/mdxService";
 import type { MDXRemoteSerializeResult } from "next-mdx-remote";
 
 type TocItem = { text: string; slug: string; level: number };

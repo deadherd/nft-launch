@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { OnchainKitProvider } from "@coinbase/onchainkit";
-import { base, baseSepolia } from "wagmi/chains";
+import { baseSepolia } from "wagmi/chains";
 
 export function Web3Providers(props: { children: ReactNode }) {
   //const [queryClient] = useState(() => new QueryClient());

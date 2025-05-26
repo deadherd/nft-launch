@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/utils/firebaseClient";
+import { db } from "@/lib/firebaseClient";
 import { useParams } from "next/navigation";
 //import styles from "./page.module.sass";
 
