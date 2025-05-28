@@ -43,6 +43,7 @@ body
   line-height: 28px
   overflow-x: hidden
   letter-spacing: -.03em
+  padding-top: 140px
   //#profile
     //@apply hidden
   &.docs.menu-open
@@ -321,3 +322,42 @@ h2.ock-font-family
   box-shadow: 0 3px 6px rgba(0,0,0,.4)
   &:hover, &:active
     background-color: #0a0a0a!important
+
+// input
+
+form
+  @apply bg-gray-800 text-green-400 p-6 rounded-lg
+  // add a subtle glow to all form text
+  text-shadow: 0 0 6px rgba(52,211,153,0.8)
+
+// style inputs, selects, textareas
+input, textarea
+  @apply bg-gray-700 border border-gray-600 rounded px-3 py-2 mb-4 text-green-400 placeholder-gray-500
+  // ensure glow on input text
+  text-shadow: 0 0 4px rgba(52,211,153,0.6)
+
+// style the select dropdown control
+select
+  @apply block bg-[#59fd53] border border-gray-600 rounded px-3 py-2 mb-4 text-[#0a0a0a]
+  font-weight: 500
+  appearance: none            // hide default arrow
+  background-position: right 0.75rem center
+  background-repeat: no-repeat
+  // glow for select text
+  text-shadow: 0 0 4px rgba(52,211,153,0.6)
+
+  // attempt to style native option items
+  option
+    @apply bg-gray-700 text-green-400
+
+// submit button
+button[type="submit"]
+  @apply bg-green-500 hover:bg-green-400 text-black font-bold py-2 px-4 rounded
+  transition: background-color 200ms ease-in-out
+  // button glow
+  box-shadow: 0 0 8px rgba(52,211,153,0.7)
+
+input::placeholder,
+textarea::placeholder,
+select::placeholder
+  @apply capitalize
