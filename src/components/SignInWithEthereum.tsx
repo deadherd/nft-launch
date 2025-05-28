@@ -1,52 +1,40 @@
 "use client";
 
-import { initializeApp, getApps } from "firebase/app";
-import { getAuth, signInWithCustomToken } from "firebase/auth";
+import { auth } from "@/lib/firebaseClient";
+import { signInWithCustomToken, signOut } from "firebase/auth";
+import { useState, useEffect } from "react";
 import {
-  ConnectWallet,
   Wallet,
+  ConnectWallet,
   WalletDropdown,
-  //WalletDropdownBasename,
-  //WalletDropdownFundLink,
-  //WalletDropdownLink,
-  WalletDropdownDisconnect
+  WalletDropdownDisconnect,
 } from "@coinbase/onchainkit/wallet";
 import {
-  Address,
   Avatar,
   Name,
-  Identity,
+  Address,
   EthBalance,
+  Identity,
 } from "@coinbase/onchainkit/identity";
 import { createSiweMessage } from "viem/siwe";
 import { useAccount, useSignMessage, useConfig } from "wagmi";
 
-// init firebase once
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
-};
-if (!getApps().length) initializeApp(firebaseConfig);
-
 export default function SignInWithEthereum() {
-  const { address, chain } = useAccount();
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const { address, chain, isConnected } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const { chains: cfgChains } = useConfig();
-  const auth = getAuth();
 
-  // runs only when user clicks connect
+  // auto sign-out of firebase when wallet disconnects
+  useEffect(() => {
+    if (!isConnected) signOut(auth);
+  }, [isConnected]);
+
   async function handleSignIn() {
-    if (!address) return; // bail if no wallet
+    if (!address) return;
+    setStatusMessage("wallet connected. loading signature…");
     const chainId = chain?.id ?? cfgChains[0].id;
-
-    // fetch siwe nonce
     const { nonce } = await fetch("/api/siwe/nonce").then((r) => r.json());
-
-    // build message
     const message = createSiweMessage({
       domain: window.location.host,
       address,
@@ -56,11 +44,8 @@ export default function SignInWithEthereum() {
       chainId,
       nonce,
     });
-
-    // prompt wallet
     const signature = await signMessageAsync({ message });
-
-    // verify + get firebase token
+    setStatusMessage("signature received. verifying…");
     const res = await fetch("/api/siwe/verify", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -68,13 +53,13 @@ export default function SignInWithEthereum() {
     });
     if (!res.ok) {
       console.error("siwe verify failed");
+      setStatusMessage(null);
       return;
     }
     const { token } = await res.json();
-
-    // sign into firebase
     await signInWithCustomToken(auth, token);
     console.log("✅ signed in uid:", auth.currentUser?.uid);
+    setStatusMessage(null);
   }
 
   return (
@@ -86,6 +71,15 @@ export default function SignInWithEthereum() {
       >
         <Avatar className="h-6 w-6" />
       </ConnectWallet>
+
+      {statusMessage && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-gray-800 text-green-400 p-4 rounded">
+            {statusMessage}
+          </div>
+        </div>
+      )}
+
       <WalletDropdown className="ock-dropdown">
         <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
           <Avatar />
@@ -93,13 +87,6 @@ export default function SignInWithEthereum() {
           <Address />
           <EthBalance />
         </Identity>
-        {/*<WalletDropdownLink
-          className="hover:bg-blue-200"
-          icon="wallet"
-          href="https://keys.coinbase.com"
-        >
-          Wallet
-        </WalletDropdownLink>*/}
         <WalletDropdownDisconnect className="hover:bg-blue-200" />
       </WalletDropdown>
     </Wallet>

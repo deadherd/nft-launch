@@ -1,9 +1,12 @@
+// src/lib/firebaseClient.ts
+"use client";
+
+// init firebase only once and share across app
 import { initializeApp, getApps } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// client SDK config (env vars from your .env.local)
-const config = {
+const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
@@ -12,7 +15,7 @@ const config = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
 };
 
-if (!getApps().length) initializeApp(config);
+if (!getApps().length) initializeApp(firebaseConfig);
 
 export const auth = getAuth();
 export const db = getFirestore();

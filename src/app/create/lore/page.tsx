@@ -1,6 +1,7 @@
 // src/app/lore/create/page.tsx
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect, type FormEvent } from "react";
 import { useFirestoreCollection } from "@/hooks/useFirestoreCollection";
 import {
@@ -8,8 +9,9 @@ import {
   type Timestamp,
   type FieldValue,
 } from "firebase/firestore";
+import { getAuth, onIdTokenChanged, type User } from "firebase/auth";
 
-// persist state in localStorage
+// persist draft in localstorage
 function usePersistentState<T>(key: string, defaultValue: T) {
   const [value, setValue] = useState<T>(() => {
     if (typeof window === "undefined") return defaultValue;
@@ -22,7 +24,7 @@ function usePersistentState<T>(key: string, defaultValue: T) {
   return [value, setValue] as const;
 }
 
-// helper to slugify title
+// slug helper
 function generateSlug(text: string): string {
   return text
     .toLowerCase()
@@ -32,8 +34,8 @@ function generateSlug(text: string): string {
     .replace(/-+/g, "-");
 }
 
-// define lore item shape for Firestore
 type LoreItem = {
+  id?: string;
   slug: string;
   title: string;
   summary: string;
@@ -43,19 +45,29 @@ type LoreItem = {
   parentId?: string;
   relatedIds?: string[];
   order?: number;
+  authorId: string;
   createdAt: FieldValue | Timestamp;
   updatedAt: FieldValue | Timestamp;
 };
 
 export default function CreateLorePage() {
-  // hook now returns items, add and update helpers
+  // auth
+  const firebaseAuth = getAuth();
+  const [user, setUser] = useState<User | null>(firebaseAuth.currentUser);
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onIdTokenChanged(firebaseAuth, (u) => {
+      setUser(u);
+      setInitialized(true);
+    });
+    return () => unsubscribe();
+  }, [firebaseAuth]);
+
+  // form hooks (always called)
   const { items, addItem, updateItem } =
     useFirestoreCollection<LoreItem>("loreItems");
-
-  // selection state: null = new, otherwise editing existing
   const [selectedId, setSelectedId] = useState<string | null>(null);
-
-  // form fields with persistence
   const [slug, setSlug] = usePersistentState("lore:slug", "");
   const [title, setTitle] = usePersistentState("lore:title", "");
   const [summary, setSummary] = usePersistentState("lore:summary", "");
@@ -64,33 +76,29 @@ export default function CreateLorePage() {
   const [tags, setTags] = usePersistentState("lore:tags", "");
   const [parentId, setParentId] = usePersistentState("lore:parentId", "");
   const [order, setOrder] = usePersistentState("lore:order", "0");
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // auto-generate slug from title when title changes and creating new
+  // auto-generate slug for new items
   useEffect(() => {
-    if (title && !selectedId) {
-      setSlug(generateSlug(title));
-    }
+    if (title && !selectedId) setSlug(generateSlug(title));
   }, [title, selectedId, setSlug]);
 
-  // when selecting existing item, populate form
+  // populate form when editing
   useEffect(() => {
     if (selectedId) {
-      const item = items.find((it) => it.id === selectedId);
-      if (item) {
-        setSlug(item.slug);
-        setTitle(item.title);
-        setSummary(item.summary);
-        setContent(item.content);
-        setCategory(item.category);
-        setTags(item.tags.join(","));
-        setParentId(item.parentId ?? "");
-        setOrder((item.order ?? 0).toString());
+      const it = items.find((i) => i.id === selectedId);
+      if (it) {
+        setSlug(it.slug);
+        setTitle(it.title);
+        setSummary(it.summary);
+        setContent(it.content);
+        setCategory(it.category);
+        setTags(it.tags.join(","));
+        setParentId(it.parentId ?? "");
+        setOrder((it.order ?? 0).toString());
       }
     } else {
-      // clear form for new
       setSlug("");
       setTitle("");
       setSummary("");
@@ -113,11 +121,10 @@ export default function CreateLorePage() {
     setOrder,
   ]);
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
-
     try {
       const baseData = {
         slug,
@@ -131,24 +138,15 @@ export default function CreateLorePage() {
           .filter(Boolean),
         relatedIds: [] as string[],
         order: parseInt(order, 10) || 0,
+        authorId: user!.uid,
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       };
-      const data: Partial<LoreItem> & Omit<LoreItem, "updatedAt"> = parentId
-        ? { ...baseData, parentId, updatedAt: serverTimestamp() }
-        : { ...baseData, updatedAt: serverTimestamp() };
-
-      if (selectedId) {
-        // update existing
-        await updateItem(selectedId, data);
-      } else {
-        // add new
-        await addItem(data as Omit<LoreItem, "id">);
-      }
-
-      // reset selection and clear storage
+      if (selectedId) await updateItem(selectedId, { ...baseData });
+      else await addItem(baseData as Omit<LoreItem, "id">);
       setSelectedId(null);
-      [
+      // clear draft
+      const keys = [
         "lore:slug",
         "lore:title",
         "lore:summary",
@@ -157,41 +155,67 @@ export default function CreateLorePage() {
         "lore:tags",
         "lore:parentId",
         "lore:order",
-      ].forEach((k) => localStorage.removeItem(k));
+      ];
+      keys.forEach((k) => localStorage.removeItem(k));
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : String(err);
-      setError(msg);
+      setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
     }
   }
 
+  // render based on auth state
+  if (!initialized) {
+    return <div style={{ maxWidth: 600, margin: "2rem auto" }}>loading…</div>;
+  }
+
+  if (!user) {
+    return (
+      <div style={{ maxWidth: 600, margin: "2rem auto" }}>
+        <div className="text-center py-8">
+          <p>
+            Please <Link href="/login">sign in</Link> to manage lore.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // signed in → show form
   return (
     <div style={{ maxWidth: 600, margin: "2rem auto" }}>
-      <h1>{selectedId ? "Edit Lore" : "Create Lore"}</h1>
+      <h1>LoRebOok</h1>
+      <p>
+        👤<code>{user.uid}</code>
+      </p>
 
-      {/* select existing or new */}
-      <label>
+      <label className="select">
         <select
           value={selectedId ?? ""}
           onChange={(e) => setSelectedId(e.target.value || null)}
           className="w-full"
         >
           <option value="">Select lore item to edit...</option>
-          {items.map((it) => (
-            <option key={it.id} value={it.id}>
-              {it.title}
-            </option>
-          ))}
+          {items
+            .filter((i) => i.authorId === user.uid)
+            .map((i) => (
+              <option key={i.id} value={i.id}>
+                {i.title}
+              </option>
+            ))}
         </select>
       </label>
 
-      <form onSubmit={handleSubmit} style={{ display: "grid", gap: "1rem" }}>
+      <hr />
+
+      <form onSubmit={handleSubmit} className="grid gap-4">
         <input
           placeholder="slug"
           value={slug}
           onChange={(e) => setSlug(e.target.value)}
           required
+          disabled
+          className="bg-gray-600 text-gray-400"
         />
         <input
           placeholder="title"
@@ -206,7 +230,7 @@ export default function CreateLorePage() {
           required
         />
         <textarea
-          placeholder="content (markdown or HTML)"
+          placeholder="content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           rows={6}
@@ -217,12 +241,12 @@ export default function CreateLorePage() {
           onChange={(e) => setCategory(e.target.value)}
         />
         <input
-          placeholder="tags (comma-separated)"
+          placeholder="tags"
           value={tags}
           onChange={(e) => setTags(e.target.value)}
         />
         <input
-          placeholder="parentId (optional)"
+          placeholder="parentId"
           value={parentId}
           onChange={(e) => setParentId(e.target.value)}
         />
@@ -232,15 +256,19 @@ export default function CreateLorePage() {
           value={order}
           onChange={(e) => setOrder(e.target.value)}
         />
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit" disabled={loading}>
+        {error && <p className="text-red-400">{error}</p>}
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-green-500 text-black py-2 rounded"
+        >
           {loading
             ? selectedId
-              ? "updating…"
-              : "saving…"
+              ? "Updating…"
+              : "Saving…"
             : selectedId
-            ? "update lore"
-            : "create lore"}
+            ? "Update Lore"
+            : "Create Lore"}
         </button>
       </form>
     </div>
