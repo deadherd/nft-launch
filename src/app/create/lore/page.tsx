@@ -177,7 +177,7 @@ export default function CreateLorePage() {
           onChange={(e) => setSelectedId(e.target.value || null)}
           className="w-full"
         >
-          <option value="">Select here or create below...</option>
+          <option value="">Select lore item to edit...</option>
           {items.map((it) => (
             <option key={it.id} value={it.id}>
               {it.title}
