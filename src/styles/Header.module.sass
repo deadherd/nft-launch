@@ -1,7 +1,12 @@
 @reference 'tailwindcss'
 
 .header
-  @apply w-full flex flex-nowrap items-center absolute top-0 left-0 z-[800] px-4 md:px-8
+  @apply w-[140px] flex flex-nowrap items-center fixed bottom-0 right-0 z-[999999]
+  &:after
+    @apply block fixed bottom-0 left-0 w-full h-[100px] z-[-1]
+    pointer-events: none
+    content: ""
+    background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.8))
   .pipe
     @apply absolute top-0 right-0 md:right-[-60px] w-[40px] md:w-[60px] md:mt-[5px] transition-[right]
     body:global(.menu-open) &
@@ -12,15 +17,24 @@
       @apply ml-[-10px]
   span
     &.tagline
-      @apply flex-1 text-2xl md:text-3xl text-[#59fd53]
+      @apply flex-1 text-4xl md:text-5xl text-[#59fd53] fixed bottom-[30px] left-[40px]
       font-family: "Instant Karma", sans-serif
-      //text-shadow: 0 2px 4px rgba(0,0,0,.5)
+      font-weight: normal
+      text-shadow: 0 3px 0 #0a0a0a
       span
         @apply inline-block px-1
       body:global(.docs) &
         @apply hidden
     &.menu
       @apply text-right flex-1 flex items-center justify-end gap-[22px]
+      :global([class*="RandomBlob"])
+        @apply w-[60px] h-[60px]
+        & > *
+          @apply w-full h-full
+        foreignObject
+          @apply w-full h-full relative
+          & > *
+            @apply w-full h-full
       .profileCard
         @apply relative
       & > a, & > button
@@ -33,15 +47,21 @@
         svg
           @apply w-[36px] h-[auto] max-h-[36px]
       .openMenu 
+        @apply hidden
         svg
           @apply w-[36px] h-[auto] max-h-[36px]
       //&:hover
         //.pipe
           //@apply right-[0]
+      .tagCircle
+        @apply absolute right-[0] bottom-[0] w-[130px] h-[130px] hidden
   .logo
-    @apply order-[-1] md:order-0 ml-[-40px] md:ml-[0px] mr-[5px] md:mr-[0]
-    svg
-      @apply w-[80px] h-[auto] md:w-full
+    @apply relative order-[-1] md:order-0 ml-[-40px] md:ml-[0px] mr-[5px] md:mr-[0] mb-[-10px]
+    svg:global(.logoSvg)
+      @apply h-[auto] w-[140px]
+  body:global(.docs) & + *,
+  body:global(.alley) & + *
+    @apply md:mt-[-140px]
 
 .openMenu
   @apply relative cursor-pointer z-[995]
@@ -53,19 +73,20 @@
     @apply w-[27px] h-[27px]
 
 .openSlideMenu
-  @apply fixed left-[-40px] top-[80px] w-[70px] cursor-pointer transition-[left] block md:hidden
+  @apply fixed left-[-40px] top-[40px] w-[70px] cursor-pointer transition-[left] md:hidden
   &:hover, &:active
     @apply left-[-34px]
   img
     @apply w-full h-auto
   body:global(.slide-menu-open) &
-    @apply left-[250px]
+    @apply left-[210px] z-[9999]
     transform: scaleX(-1)
-  body:not:global(.docs) &
+  body:global(.alley) &,
+  body:global(.index) &
     @apply hidden
 
 .sticker
-  @apply fixed top-0 left-0 z-[999999] w-full h-[40px] bg-[#59fd53] text-[#0a0a0a] text-[22px]
+  @apply fixed top-0 left-0 z-[99999] w-full h-[40px] bg-[#59fd53] text-[#0a0a0a] text-[22px]
   background: url(../../public/assets/images/edge.svg) no-repeat 50% 50%
   background-size: 100% 100%
   font-family: "SKT"
@@ -73,3 +94,48 @@
     @apply absolute top-[10px] left-[33%] text-[#0a0a0a]
     line-height: 16px
     text-decoration: none!important
+
+.stat
+  @apply block min-w-[60px] text-[20px] absolute bottom-[120px] right-[-12px] bg-[#59fd53] text-[#0a0a0a] flex items-center justify-end rounded-md z-[1] gap-[8px] pr-[14px] pl-[6px]
+  &:hover, &:active
+    @apply gap-[14px]
+  transition: gap .3s
+  border-top-right-radius: 0
+  border-bottom-right-radius: 0
+  
+  font-weight: bold
+  perspective: 400px
+  transform: rotateX(16deg) rotateY(-24deg)
+  transform-style: preserve-3d
+  box-shadow: 3.5px 3px 0px #349e31, 6px 6px 4px rgba(0,0,0,.12)
+  font-family: "DM Mono"
+  user-select: none
+
+  .statNum
+    line-height: 23px
+
+  .statIcon
+    @apply w-[20px] h-auto flex justify-center
+
+  &.rank
+    @apply bottom-[195px]
+    //filter: hue-rotate(100deg)
+    //filter: brightness(95%)
+
+  &.exp
+    @apply bottom-[171px]
+    filter: hue-rotate(100deg)
+    //filter: brightness(85%)
+
+  &.made
+    @apply bottom-[147px]
+    filter: hue-rotate(200deg)
+    //filter: brightness(90%)
+
+  &.money
+    @apply bottom-[123px]
+    filter: hue-rotate(280deg)
+    //filter: brightness(80%)
+
+.logs
+  @apply text-[10px] fixed bottom-0 left-0 p-[2px] z-[9999999] text-[#fff]

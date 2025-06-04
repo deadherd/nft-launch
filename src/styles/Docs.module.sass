@@ -11,7 +11,7 @@
   letter-spacing: 0.02em
 
 .leftNav
-  @apply w-[300px] flex-[0_0_200px] fixed md:static right-[100%] md:left-0 md:right-[auto] top-0 z-[700] px-[1rem] pt-[100px] md:pt-[20px] transition-all
+  @apply w-[300px] flex-[0_0_200px] fixed md:static right-[100%] md:left-0 md:right-[auto] top-0 z-[999] px-[1rem] pt-[100px] md:pt-[20px] transition-all
   min-height: 100vh
   //background: linear-gradient(0deg, #59fd53, #495638)
   body:global(.slide-menu-open) &
@@ -23,7 +23,7 @@
     margin: 0
     padding: 0
     position: sticky
-    top: 4rem
+    top: 80px
     ul
       padding-top: 6px
       padding-left: 10px
@@ -46,6 +46,7 @@
             @apply fill-[#ffff0f]
         &.active
           @apply rotate-[-1deg] scale-[1.2]
+          transform-origin: 0 100%
           color: #ffff0f
           font-weight: bold
           cursor: default 
@@ -61,8 +62,9 @@
     & + .mainArticle
       @apply mt-[-50px]
     h1
-      @apply text-[#fff] relative inline-block mt-[80px]
+      @apply text-[#fff] relative inline-block md:mt-[80px] mt-[20px]
       text-shadow: 0 2px 0 #59fd53
+      line-height: 1.1
       &:after
         @apply block absolute top-[-8px] right-[10px] w-[140px] h-[120%]
         content: ""
@@ -74,7 +76,7 @@
     h1,h2,h3,h4,h5,h6
       @apply pt-[40px]
   .bannerContainer
-    @apply block max-w-[890px] mt-[-140px]
+    @apply block max-w-[890px] md:mt-[-140px]
 
 .iconTitle
   @apply flex items-center gap-[6px]
@@ -106,7 +108,7 @@
         @apply text-[#59fd53]
 
 .pagination
-  @apply w-full flex justify-between max-w-[690px] pt-[40px] pb-[60px]
+  @apply w-full flex items-start justify-between max-w-[690px] pt-[40px] pb-[60px] min-h-[340px]
   a
     @apply flex flex-col items-center justify-center text-[#fff] text-[28px]
     font-family: "SKT"
@@ -123,7 +125,7 @@
           @apply fill-[#59fd53]
 
 .rightToc
-  @apply text-[18px] flex-[0_0_200px] hidden
+  @apply text-[18px] flex-[0_0_14w0px] hidden
   padding: 2rem 1rem 1rem
   min-height: 100vh
   a
@@ -139,7 +141,7 @@
     margin: 0
     padding: 0
     position: sticky
-    top: 4rem
+    top: 120px
     li
       margin-bottom: 0.25rem
     .level2

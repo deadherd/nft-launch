@@ -7,9 +7,9 @@
 
 .banner
   @apply pt-[4vw] flex flex-col justify-center items-center min-h-[100vh] bg-cover
-  background: url("../../public/assets/images/rat-eyes-bg.jpg") no-repeat 50% 50%;
+  background: url("../../public/assets/images/rat-eyes-bg.jpg") no-repeat 50% 50%
   &.bannerKitchen
-    background: url("../../public/assets/images/dirty-kitchen-bg.jpg") no-repeat 50% 50%;
+    background: url("../../public/assets/images/dirty-kitchen-bg.jpg") no-repeat 50% 50%
   .dimmer
     @apply absolute top-0 left-0 w-full h-full
     background: linear-gradient(0deg, #0a0a0a, rgba(0,0,0,0) 45%, #000)
@@ -19,7 +19,7 @@
   .truck
     @apply max-w-[35vw]
   .links
-    @apply absolute flex flex-col md:flex-row items-center justify-center pl-[30%] md:pl-0 gap-[100px] md:gap-[25%] top-[48%] z-[5]
+    @apply absolute flex flex-col md:flex-row items-center justify-center pl-[30%] md:pl-0 gap-[8vw] md:gap-[45%] top-[48%] z-[5]
     transform: translateY(-50%)
     a
       @apply relative w-[200px] md:w-[45vw] lg:w-[35vw] transition transition-transform text-center text-[#fff] text-[20vw] md:text-[11vw]
@@ -57,6 +57,14 @@
       &:hover, &:active
         @apply scale-[1.1]
         animation: jiggle 1s infinite
+      &.login
+        &:before
+          content: none!important
+        :global(.ock-connect)
+          @apply w-[200px] h-[200px] text-[40px]
+        :global(.ock-wallet)
+          @apply absolute top-[50%] left-[50%] z-10
+          transform: translate(-50%, -50%)
   .silhouette
     @apply absolute bottom-[0] md:bottom-[-10%] left-0 w-full z-[4]
     img
@@ -71,15 +79,321 @@
       top: 100%
       margin-top: -2px
       background: linear-gradient(180deg, #000, #0a0a0a)
+.alleyWanted
+  @apply absolute bottom-[60.6vw] right-[10.6vw] w-[7vw] h-auto
+.alleyTv
+  @apply absolute bottom-[35vw] left-[10vw] w-[19vw] h-auto
+.alleyFooter
+  @apply absolute bottom-[13.5vw] left-[32vw]
+  //opacity: .5
+  animation: blink 1s infinite ease-in-out
+  .alleyFooterImage
+    @apply w-[42.8vw]
+.alleyForeground
+  @apply relative overflow-hidden
+.alleySteam
+  @apply fixed top-0 left-0 w-full h-[150%] z-[99999] inset-0 flex items-center justify-center overflow-hidden mix-blend-lighten
+  pointer-events: none
+  video
+    @apply w-full h-full object-cover
+
+.alleyBackground
+  @apply w-[50%] h-[66%] absolute top-0 left-[25%] z-[-5]
+  //outline: 2px solid blue
+  background: url(../../public/assets/images/alley-background-thin.jpg) no-repeat 50% 0%
+  background-size: auto 100%
+
+.foregroundImage
+  @apply w-full h-auto
+.neonZ
+  @apply w-[13.75vw] h-auto absolute top-[39.2vw] left-[17vw]
+  animation: blinker 12s infinite
+
+@keyframes blinker
+  0%, 9.9%, 15%, 24.9%, 27%, 28%, 28.7%
+    opacity: 1
+  10%, 14.9%, 25%, 26.9%, 28.1%, 28.6%
+    opacity: 0
+
+.alleyContent
+  @apply w-full max-w-[52vw] mx-auto absolute left-[40vw] top-[20vw] z-[99] text-[4.5vw]
+  line-height: .9
+  //transform: translateX(-50%)
+  font-family: "Instant Karma"
+  p
+    text-shadow: 0 4px 0 #0a0a0a, 0 2px 16px rgba(0,0,0,1), 0 2px 8px rgba(0,0,0,1)
+  hr
+    @apply my-[5vw]
+  h2
+    @apply text-[6vw]
+    b
+      @apply inline-block ml-[-0.12em] pr-[0.06em] relative
+      font-family: "Instant Karma"
+    span
+      @apply text-[#59fd53]
+  p, h2
+    @apply mb-[4vw]
+  .emojiList
+    @apply pl-[2vw] relative
+    span
+      @apply absolute top-[50%] right-[100%]
+      transform: translateY(-50%)
 
 .centered
-  @apply w-full flex items-center justify-center 
+  @apply w-full flex flex-col items-center justify-center 
+
+.feature
+  &:global(.unavailable)
+    @apply text-[#aaa]
+    //opacity: .8
+    //filter: grayscale(1)
+    pointer-events: none
+    svg
+      display: none
+    &:hover, &:active
+      color: #fff!important
+
+.iconImage
+  @apply inline-block w-[3vw] h-[3vw] bg-[#59fd53] rounded-md
+
+
+
+
+  
+a.gloco
+  @apply absolute bottom-[70vw] left-[5vw] text-[5vw] rotate-[-8deg] text-[#fff] z-[1]
+  line-height: 1
+  font-family: "SKT"
+  letter-spacing: 0.03em
+  text-shadow: 0 1px 2px #0a0a0a
+  text-decoration: none!important
+  transition: color 0.3s
+  &:hover, &:active
+    @apply text-[#ffff0f]
+  svg
+    @apply w-[1vw] h-[5vw] rotate-[90deg] absolute top-[3.2vw] left-[50%] ml-[-0.5vw] fill-[#ffff0f]
+    animation: bobTight 1s infinite ease-in-out
+
+a.arcade
+  @apply absolute bottom-[51vw] left-[15vw] text-[5.5vw] rotate-[-2deg] text-[#fff] z-[1]
+  line-height: 1
+  font-family: "SKT"
+  letter-spacing: 0.03em
+  text-shadow: 0 1px 2px #0a0a0a
+  text-decoration: none!important
+  transition: color 0.3s
+  &:hover, &:active
+    @apply text-[#ffff0f]
+  svg
+    @apply w-[1vw] h-[5vw] rotate-[90deg] absolute top-[3.7vw] left-[50%] ml-[-0.5vw] fill-[#ffff0f]
+    animation: bobTight 1s infinite ease-in-out
+
+a.pizza
+  @apply absolute bottom-[78vw] right-[43vw] text-[3vw] rotate-[2deg] text-[#fff]
+  line-height: 1
+  font-family: "SKT"
+  letter-spacing: 0.03em
+  text-shadow: 0 1px 2px #0a0a0a
+  text-decoration: none!important
+  transition: color 0.3s
+  &:hover, &:active
+    @apply text-[#ffff0f]
+  svg
+    @apply w-[1vw] h-[5vw] rotate-[90deg] absolute top-[1.2vw] left-[50%] ml-[-0.5vw] fill-[#ffff0f]
+    animation: bobTight 1s infinite ease-in-out
+
+a.dirtydozen
+  @apply absolute bottom-[77vw] right-[10vw] text-[4vw] rotate-[-8deg] text-[#fff] z-[1]
+  line-height: 1
+  font-family: "SKT"
+  letter-spacing: 0.03em
+  text-shadow: 0 1px 2px #0a0a0a
+  text-decoration: none!important
+  transition: color 0.3s
+  &:hover, &:active
+    @apply text-[#ffff0f]
+  svg
+    @apply w-[1vw] h-[5vw] rotate-[90deg] absolute top-[2.2vw] left-[50%] ml-[-0.5vw] fill-[#ffff0f]
+    animation: bobTight 1s infinite ease-in-out
+
+a.dailytwo
+  @apply absolute bottom-[52vw] left-[57vw] text-[3.5vw] rotate-[3deg] text-[#fff]
+  line-height: 1
+  font-family: "SKT"
+  letter-spacing: 0.03em
+  text-shadow: 0 1px 2px #0a0a0a
+  text-decoration: none!important
+  transition: color 0.3s
+  &:hover, &:active
+    @apply text-[#ffff0f]
+  svg
+    @apply w-[1vw] h-[5vw] rotate-[90deg] absolute top-[1.8vw] left-[50%] ml-[-0.5vw] fill-[#ffff0f]
+    animation: bobTight 1s infinite ease-in-out
+
+a.greasepit
+  @apply absolute bottom-[62vw] left-[45vw] text-[2.5vw] rotate-[0] text-[#fff]
+  line-height: 1
+  font-family: "SKT"
+  letter-spacing: 0.03em
+  text-shadow: 0 1px 2px #0a0a0a
+  text-decoration: none!important
+  transition: color 0.3s
+  &:hover, &:active
+    @apply text-[#ffff0f]
+  svg
+    @apply w-[1vw] h-[5vw] rotate-[90deg] absolute top-[.8vw] left-[50%] ml-[-0.5vw] fill-[#ffff0f]
+    animation: bobTight 1s infinite ease-in-out
+
+a.dumpster
+  @apply absolute bottom-[62vw] left-[27vw] text-[4vw] rotate-[4deg] text-[#fff]
+  line-height: 1
+  font-family: "SKT"
+  letter-spacing: 0.03em
+  text-shadow: 0 1px 2px #0a0a0a
+  text-decoration: none!important
+  transition: color 0.3s
+  &:hover, &:active
+    @apply text-[#ffff0f]
+  svg
+    @apply w-[1vw] h-[5vw] rotate-[90deg] absolute top-[2.3vw] left-[50%] ml-[-0.5vw] fill-[#ffff0f]
+    animation: bobTight 1s infinite ease-in-out
+
+a.burrow
+  @apply absolute bottom-[40vw] right-[7vw] text-[5vw] rotate-[-5deg] text-[#fff]
+  line-height: 1
+  font-family: "SKT"
+  letter-spacing: 0.03em
+  text-shadow: 0 1px 2px #0a0a0a
+  text-decoration: none!important
+  transition: color 0.3s
+  &:hover, &:active
+    @apply text-[#ffff0f]
+  svg
+    @apply w-[1vw] h-[5vw] rotate-[90deg] absolute top-[3.2vw] left-[50%] ml-[-0.5vw] fill-[#ffff0f]
+    animation: bobTight 1s infinite ease-in-out
+
+.enter
+  @apply absolute bottom-[32vw] left-[53vw] text-[10vw] text-[#fff] z-[1]
+  user-select: none
+  font-family: "SKT"
+  text-shadow: 0 4px 0 #0a0a0a
+  text-decoration: none!important
+  transition: color .1s
+  transform: translateX(-50%)
+  &:hover, &:active
+    //@apply text-[#ffff0f]
+    //text-shadow: 0 4px 0 #0a0a0a
+    //animation-play-state: paused
+    svg
+      @apply fill-[#ffff0f]
+  span.login
+    @apply block rotate-[-2deg] relative
+    svg
+      @apply w-[3vw] h-[10vw] rotate-[90deg] absolute top-[4vw] left-[50%] ml-[-1.5vw] fill-[#ffff0f]
+      animation: bob 1s infinite ease-in-out
+
+.eggCount
+  @apply absolute block bg-[#0a0a0a] text-[#fff] p-[.8vw] pl-[2.5vw] pr-[1.2vw] top-[-12vw] right-[-2vw] z-[1] rotate-[2deg] text-[3vw] flex items-center justify-center rounded-lg gap-[.3vw]
+  border: 2px solid #59fd53
+  line-height: 1
+  text-decoration: none!important
+  box-shadow: 0 3px 6px rgba(0,0,0,.4)
+  transition: background-color 0.3s, color 0.3s
+  letter-spacing: 0.03em
+  font-family: "Instant Karma"
+  white-space: nowrap
+  span
+    @apply h-[3vw] inline-block text-[130%]
+    line-height: 1
+    &.textGreen
+      @apply text-[#59fd53]
+      transition: color 0.3s
+  img
+    @apply w-[7vw] h-auto absolute left-[-3.6vw]
+  &.left
+    @apply left-[-1vw] right-auto rotate-[-7deg]
+  &.tight
+    @apply text-[1.3vw] py-[.5vw] pl-[2.6vw] pr-[.6vw] top-[-2.5vw] right-[-1vw] rotate-[7deg]
+    &.left
+      @apply left-[-1vw] right-auto rotate-[-7deg]
+    span
+      @apply h-[1.2vw]
+    img
+      @apply w-[3.6vw] h-auto absolute left-[-1.2vw] top-[50%]
+      transform: translateY(-50%)
+      &.iconImage
+        @apply max-w-[2vw] max-h-[2vw] left-[.1vw]
+        padding: 0.1vw
+  &.center
+    @apply left-[50%] rotate-[-2deg] top-[-9vw] right-auto ml-[1.5vw]
+    transform: translateX(-50%)
+  &.product
+    @apply left-[50%] top-[50%] rotate-[-2deg] right-auto p-[.5vw]
+    span
+      @apply text-[2.5vw] h-[3vw]
+      font-family: "Instant Karma"
+    transform: translate(-50%, -50%)
+  &.countLarge
+    span
+      @apply text-[3vw] h-[2.3vw]
+.links
+  a
+    .eggCount
+      &.product
+        span
+          @apply rotate-[0deg]
+
+a.eggCount
+  &:hover, &:active
+    @apply bg-[#59fd53] text-[#0a0a0a]
+    text-shadow: none
+    span
+      &:last-child
+        @apply text-[#0a0a0a]
+
+.feature
+  &.personal
+    .eggCount
+      &.tight
+        @apply border-[#ffff0f]
+    .iconImage
+      @apply bg-[#ffff0f]
+    &:global(.unavailable)
+      .eggCount
+        &.tight
+          @apply border-[#59fd53]
+      .iconImage
+        @apply bg-[#59fd53]
+
+
+@keyframes bobTight
+  0%, 90%
+    margin-bottom: 0
+  50%
+    margin-top: .5vw
+
+@keyframes bob
+  0%, 90%
+    margin-top: 0
+  50%
+    margin-top: -1vw
+
+@keyframes blink
+  0%, 90%
+    //opacity:.5
+    bottom: 13.5vw
+  50%
+    //opacity: 1
+    bottom: 14vw
 
 .biglink
-  @apply relative mb-12 px-[2px] transition-all flex items-center text-[#ffffff] text-[60px]
+  @apply relative mb-12 py-[18px] px-[24px] transition-all flex items-center text-[#0a0a0a] text-[60px] bg-[var(--green-alt)] rounded-lg
   font-family: "SKT"
-  text-shadow: 0 4px 0px #0a0a0a
+  //text-shadow: 0 4px 0px #0a0a0a
   letter-spacing: 0.02em
+  transition: color .3s transform .3s
+  background: transparent url(../../public/assets/images/sq-button.svg) no-repeat 0 50%
+  background-size: 100% 100%
   img
     @apply max-w-[100px] ml-[-18px] mr-[-10px] inline-block relative
   &:hover, &:active
@@ -101,6 +415,9 @@
     &:hover, &:active
       &::after
         @apply left-[-2%]
+  &.noarrow
+    &:after
+      content: none
 
 @keyframes jiggle
   0%
@@ -114,10 +431,10 @@
   background-size: 35vw auto
   font-family: "Instant Karma"
   h2
-    @apply rotate-[-2deg] text-[12vw] md:text-[8vw]
+    @apply rotate-[-2deg] text-[12vw] md:text-[8vw] pb-[2vw]
     line-height: 1
   p
-    @apply max-w-[90vw] md:max-w-[65vw] text-[#59fd53] text-[6vw] md:text-[4vw]
+    @apply max-w-[90vw] md:max-w-[45vw] text-[#59fd53] text-[6vw] md:text-[4vw]
     line-height: 1
     letter-spacing: 0.02em
     &:nth-child(2n + 1)
@@ -132,7 +449,7 @@
   h3
     @apply text-[#fff]
   p
-    @apply max-w-[90vw] md:max-w-[65vw] text-[#59fd53] text-[6vw] lg:text-[3vw]
+    @apply max-w-[90vw] md:max-w-[45vw] text-[#59fd53] text-[6vw] lg:text-[3vw]
     line-height: 1
     letter-spacing: 0.02em
     font-family: "Instant Karma"
@@ -200,3 +517,41 @@
           @apply rotate-[5deg]
         img
           @apply w-full max-w-[240px]
+
+.features
+  @apply text-[24px]
+  li
+    @apply md:py-[2px] py-[1vw] md:text-[1.5vw] text-[3.5vw] flex items-center text-[#0a0a0a] rounded-full
+    text-shadow: none
+    line-height: 1
+    font-weight: bold
+    //font-family: "Instant Karma"
+    white-space: nowrap
+    &.tight
+      @apply py-[3px] text-[16px] md:text-[1.4vw] text-[#f2f2f2]
+      font-weight: 500
+      line-height: 1
+      line-height: 1
+      font-family: "DM Sans"
+      span
+        @apply h-[2vw]
+      img.iconImage
+        @apply max-w-[16px] max-h-[16px] p-[2px]
+    &.barItem
+      @apply bg-[#59fd53] mb-[2px]
+    img.iconImage
+      @apply max-w-[24px] max-h-[24px] h-auto p-[4px] mr-[4px]
+      background: transparent url('../../public/assets/images/bullet.svg') no-repeat 50% 50%
+      background-size: 100% 100%
+    h2
+      @apply text-[3vw] mb-0
+      font-weight: normal
+    h3
+      @apply text-[2vw] mb-0
+      letter-spacing: 0.03em
+      font-family: "SKT"
+      font-weight: normal
+    &.listTitle
+      @apply mt-[10px] mb-[4px]
+    & > span
+      @apply pl-[6px]

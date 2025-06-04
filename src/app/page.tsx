@@ -1,21 +1,25 @@
-"use client";
+'use client'
 
-import { useRef } from "react";
-import Link from "next/link";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
-import LazySection from "../layout/Containers/LazySection";
-import Footer from "../layout/Footers/LanderFooter";
-import s from "../styles/Home.module.sass";
+import { useRef } from 'react'
+import Link from 'next/link'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Image from 'next/image'
+import LazySection from '../layout/Containers/LazySection'
+import Footer from '../layout/Footers/LanderFooter'
+import s from '../styles/Home.module.sass'
+import SignInWithEthereum from '@/components/SignInWithEthereum'
+import { useAccount } from 'wagmi'
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Home() {
-  const frontRef = useRef<HTMLDivElement>(null);
-  const midRef = useRef<HTMLDivElement>(null);
+  const frontRef = useRef<HTMLDivElement>(null)
+  const midRef = useRef<HTMLDivElement>(null)
+  const { isConnected } = useAccount()
 
-  {/*useEffect(() => {
+  {
+    /*useEffect(() => {
     if (midRef.current) {
       // mid layer parallax
       gsap.to(midRef.current, {
@@ -42,76 +46,111 @@ export default function Home() {
         },
       });
     }
-  }, []);*/}
+  }, []);*/
+  }
 
   return (
     <>
       <section className={s.banner}>
         <div className={s.dimmer}></div>
         <div ref={midRef} className={s.links}>
-          <a href="#">
-            <span>
-              Buy
-              <br />
-              NOw
-            </span>
-          </a>
-          <a href="#">
-            <span>
-              Add
-              <br />
-              MFR
-            </span>
-          </a>
+          {!isConnected ? (
+            <>
+              <a className={s.login}>
+                <SignInWithEthereum />
+                <span>
+                  Sign
+                  <br />
+                  Now
+                </span>
+              </a>
+            </>
+          ) : (
+            <Link href='#'>
+              <div className={`${s.eggCount} ${s.countLarge} ${s.product}`}>
+                <span id='eggPrice'>.03 ETH</span>
+              </div>
+              <span>
+                Buy
+                <br />
+                NOw
+              </span>
+            </Link>
+          )}
+          <ul className={s.features}>
+            <li className='textGreen pulse'>
+              <small>
+                Only <span id='eggCount'>500</span> left!
+              </small>
+            </li>
+            <li>
+              <h2>
+                Founder<i> </i>Perx
+              </h2>
+            </li>
+            <li className={s.barItem}>
+              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
+              Token Whitelist
+            </li>
+            <li className={s.barItem}>
+              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
+              Reserved PFP
+            </li>
+            <li className={s.barItem}>
+              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
+              Incubation Payouts
+            </li>
+            <li className={s.barItem}>
+              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
+              Family Spoils
+            </li>
+            <li className={s.barItem}>
+              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
+              Recruiter Pay*
+            </li>
+            <span className='pill italic'>* Only for a limited time.</span>
+            <li className={s.listTitle}>
+              <h3 className='textGreen'>
+                Early<i> </i>AXeSs
+              </h3>
+            </li>
+            <li className={s.tight}>
+              <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
+              <b>Made for Rats™ Products</b>
+            </li>
+            <li className={s.tight}>
+              <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
+              MFR Roadmap Mutations
+            </li>
+            <li className={s.tight}>
+              <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
+              MFR Jobs + Gig Work
+            </li>
+            <li className={s.tight}>
+              <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
+              MFR AI Education
+            </li>
+          </ul>
         </div>
-        <Image
-          src="/assets/images/glow-in-the-dark.png"
-          alt="MFR Egg"
-          width={460}
-          height={469}
-          className={s.egg}
-        />
+        <Image src='/assets/images/glow-in-the-dark.png' alt='MFR Egg' width={460} height={469} className={s.egg} />
         <div ref={frontRef} className={s.silhouette}>
-          <Image
-            src="/assets/images/silhouette.svg"
-            alt="Rat Group Silhouette Foreground"
-            width={1458}
-            height={296}
-          />
+          <Image src='/assets/images/silhouette.svg' alt='Rat Group Silhouette Foreground' width={1458} height={296} />
         </div>
       </section>
       <LazySection>
         <section className={s.carousel}>
           <h2>
-            RatTen<i> </i>EgGs
+            Say<i> </i>
+            <em>Yes</em>
+            <i> </i>to<i> </i>Crack
           </h2>
           <p>
-            We steal from kids, raid kitchens, dumpster dive, and sometimes...
+            Anyone can buy in. <span className={s.oegg}>O</span>nly one will be the last to crack.
           </p>
-          <p>
-            We visit the HENH<span className={s.oegg}>O</span>U$E.
-          </p>
+          <p>You hungry mfr?</p>
           <br />
-          <div className={s.centered}>
-            <Link href="/deep-dive" className={`${s.biglink} ${s.bigLinkLeft}`}>
-              Buy
-              <Image
-                src="/assets/images/truck-200x200.png"
-                alt="Learn More"
-                width={200}
-                height={158}
-                className="px-[5px]"
-              />
-              Now
-            </Link>
-          </div>
           <div className={s.gallery}>
-            <Image
-              src="/assets/images/carousel.png"
-              alt="MFR Egg Variety"
-              width={1440}
-              height={397}
-            />
+            <Image src='/assets/images/carousel.png' alt='MFR Egg Variety' width={1440} height={397} />
           </div>
         </section>
         {/*<section className={s.cta}>
@@ -121,72 +160,75 @@ export default function Home() {
         </section>*/}
       </LazySection>
       <LazySection>
+        <section className={s.cta}>
+          <h2>
+            Project<i> </i>payOuTs
+          </h2>
+          <p>Place your eggs on missions to gain future incubation payouts.</p>
+          <p>Will you crack or let it hatch?</p>
+        </section>
         <section className={s.steps}>
           <div className={s.step}>
             <h3>
               Stack<i> </i>Em
             </h3>
-            <Image
-              src="/assets/images/carton-stack.png"
-              alt="MFR Egg Cartons"
-              width={400}
-              height={321}
-            />
+            <Image src='/assets/images/carton-stack.png' alt='MFR Egg Cartons' width={400} height={321} />
           </div>
           <div className={s.step}>
             <h3>
               Crack<i> </i>Em
             </h3>
-            <Image
-              src="/assets/images/egg-selection.png"
-              alt="MFR Egg Cartons"
-              width={682}
-              height={471}
-            />
+            <Image src='/assets/images/egg-selection.png' alt='MFR Egg Cartons' width={682} height={471} />
           </div>
           <div className={s.step}>
             <h3>
               Snack<i> </i>Em
             </h3>
-            <Image
-              src="/assets/images/logo-splat.svg"
-              alt="MFR Logo"
-              width={141}
-              height={144}
-            />
+            <Image src='/assets/images/money-splat.svg' alt='MFR Logo' width={141} height={144} />
           </div>
         </section>
+        <div className={s.centered}>
+          <Link href='/deep-dive' className={`${s.biglink} ${s.bigLinkLeft} ${s.noarrow}`}>
+            Buy
+            <Image src='/assets/images/glow-in-the-dark-closed.png' alt='Learn More' width={200} height={203} />
+            Now
+          </Link>
+        </div>
+        <hr />
         <section className={s.cta}>
-          <h3>Use snacks to grow your rats into Made Rats.</h3>
-          <p>
-            Bigger bites mean better perks, harder hitters, and higher ranks in
-            the Mischief.
-          </p>
+          <h2 className='relative feature'>
+            Made<i> </i>is<i> </i>PAID
+          </h2>
+          <p className='relative'>Build your rats up until they&apos;re Made in the Mischief.</p>
+          <p className='relative'>Family eats first. Everyone else scrapes the pan.</p>
+          <Image className='max-w-[500px] mt-[-10vw]' src='/assets/images/hat-dozen.jpg' alt='MFR Egg Cartons' width={948} height={784} />
+        </section>
+        <hr className='smudge' />
+        <section className={s.cta}>
+          <h2>
+            SheLl<i> </i>RAisEr
+          </h2>
+          <p>Ya don&apos;t hatch them, they hatch you. What&apos;s inside remembers. And they&apos;re hungry.</p>
         </section>
         <div className={s.centered}>
-          <Link href="/deep-dive" className={s.biglink}>
-            DeEp
-            <Image
-              src="/assets/images/full-trash-bag-green-200x200.png"
-              alt="Learn More"
-              width={200}
-              height={158}
-            />
-            dive
+          <Image src='/assets/images/plated.jpg' alt='MFR Egg Cartons' width={1092} height={450} />
+          <br />
+          <Link href='/deep-dive' className={`${s.biglink} ${s.bigLinkLeft} ${s.noarrow}`}>
+            Buy
+            <Image src='/assets/images/glow-in-the-dark-closed.png' alt='Learn More' width={200} height={203} />
+            Now
           </Link>
         </div>
       </LazySection>
       <LazySection>
+        <section className={s.details}></section>
+      </LazySection>
+      <LazySection>
         <section className={s.pipe}>
-          <Image
-            src="/assets/images/pipe-slime.png"
-            alt="MFR Logo"
-            width={1600}
-            height={943}
-          />
+          <Image src='/assets/images/pipe-slime.png' alt='MFR Logo' width={1600} height={943} />
         </section>
       </LazySection>
       <Footer />
     </>
-  );
+  )
 }

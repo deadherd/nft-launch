@@ -1,130 +1,104 @@
 // src/components/DocsLayout.tsx
-"use client";
-import React, { useMemo, useState, useEffect } from "react";
-import dynamic from "next/dynamic";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import Image from "next/image";
-import type { DocMeta } from "@/lib/mdxService";
-import s from "@/styles/Docs.module.sass";
+'use client'
+
+import React, { useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import dynamic from 'next/dynamic'
+import s from '@/styles/Docs.module.sass'
+import { usePathname } from 'next/navigation'
+import type { DocMeta } from '@/lib/mdxService'
 
 // dynamically load random blob only in client
-const RandomBlob = dynamic(() => import("./RandomBlob"), { ssr: false });
+const RandomBlob = dynamic(() => import('./RandomBlob'), { ssr: false })
 
-type TOCItem = { text: string; slug: string; level: number };
+type TOCItem = { text: string; slug: string; level: number }
 
 interface Props {
-  docs: DocMeta[];
-  toc: TOCItem[];
-  title: string;
-  icon?: string | null;
-  banner: string | null;
-  children: React.ReactNode;
+  docs: DocMeta[]
+  toc: TOCItem[]
+  title: string
+  icon?: string | null
+  banner: string | null
+  children: React.ReactNode
 }
 
-const STORAGE_KEY = "docs-open-keys";
+const STORAGE_KEY = 'docs-open-keys'
 
 const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => {
-  const [openKeys, setOpenKeys] = useState<string[]>([]);
-  const pathname = usePathname();
+  const [openKeys, setOpenKeys] = useState<string[]>([])
+  const pathname = usePathname()
 
   useEffect(() => {
-    const parts = pathname.split("/").filter(Boolean);
-    const folder = parts[1] || "deep-dive";
-    const cls = `${folder}`;
+    const parts = pathname.split('/').filter(Boolean)
+    const folder = parts[1] || 'deep-dive'
+    const cls = `${folder}`
 
-    document.body.classList.add(cls);
+    document.body.classList.add(cls)
     return () => {
-      document.body.classList.remove(cls);
-    };
-  }, [pathname]);
+      document.body.classList.remove(cls)
+    }
+  }, [pathname])
 
   // load persisted state
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) setOpenKeys(JSON.parse(stored));
+      const stored = localStorage.getItem(STORAGE_KEY)
+      if (stored) setOpenKeys(JSON.parse(stored))
     } catch {}
-  }, []);
+  }, [])
 
   // compute pagination
-  const currentIndex = docs.findIndex((d) => pathname === `/deep-dive/${d.slug}`);
-  const prevDoc = currentIndex > 0 ? docs[currentIndex - 1] : null;
-  const nextDoc =
-    currentIndex < docs.length - 1 ? docs[currentIndex + 1] : null;
+  const currentIndex = docs.findIndex((d) => pathname === `/deep-dive/${d.slug}`)
+  const prevDoc = currentIndex > 0 ? docs[currentIndex - 1] : null
+  const nextDoc = currentIndex < docs.length - 1 ? docs[currentIndex + 1] : null
 
   // decide whether to hide pagination
-  const hidePagination =
-    pathname === "/deep-dive" || pathname === "/deep-dive/get-started-example";
+  const hidePagination = pathname === '/deep-dive' || pathname === '/deep-dive/get-started-example'
 
   // group docs into a tree by top-level folder
   const tree = useMemo(() => {
-    const map: Record<string, { meta?: DocMeta; children: DocMeta[] }> = {};
+    const map: Record<string, { meta?: DocMeta; children: DocMeta[] }> = {}
     docs.forEach((doc) => {
-      const [folder, ...rest] = doc.slug.split("/");
-      if (!map[folder]) map[folder] = { children: [] };
+      const [folder, ...rest] = doc.slug.split('/')
+      if (!map[folder]) map[folder] = { children: [] }
       if (rest.length === 0) {
-        map[folder].meta = doc;
+        map[folder].meta = doc
       } else {
-        map[folder].children.push(doc);
+        map[folder].children.push(doc)
       }
-    });
-    return map;
-  }, [docs]);
+    })
+    return map
+  }, [docs])
 
   // toggle open state
   const toggle = (key: string) => {
     setOpenKeys((prev) => {
-      const next = prev.includes(key)
-        ? prev.filter((k) => k !== key)
-        : [...prev, key];
+      const next = prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
       } catch {}
-      return next;
-    });
-  };
+      return next
+    })
+  }
 
   return (
     <div className={s.docsLayout}>
       <nav className={s.leftNav}>
         <ul>
           {Object.entries(tree).map(([folder, { meta, children }]) => {
-            const isActiveFolder = children.some(
-              (child) => pathname === `/deep-dive/${child.slug}`
-            );
-            const isOpen = openKeys.includes(folder) || isActiveFolder;
+            const isActiveFolder = children.some((child) => pathname === `/deep-dive/${child.slug}`)
+            const isOpen = openKeys.includes(folder) || isActiveFolder
             return (
               <li
                 key={folder}
-                className={[
-                  s.navGroup,
-                  children.length > 0 && s.hasChildren,
-                  isOpen && s.expanded,
-                  isActiveFolder && s.activeFolder,
-                ]
-                  .filter(Boolean)
-                  .join(" ")}
+                className={[s.navGroup, children.length > 0 && s.hasChildren, isOpen && s.expanded, isActiveFolder && s.activeFolder].filter(Boolean).join(' ')}
               >
                 {meta ? (
-                  <Link
-                    href={`/deep-dive/${meta.slug}`}
-                    className={[
-                      s.navLink,
-                      pathname === `/deep-dive/${meta.slug}` && s.active,
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
-                  >
+                  <Link href={`/deep-dive/${meta.slug}`} className={[s.navLink, pathname === `/deep-dive/${meta.slug}` && s.active].filter(Boolean).join(' ')}>
                     {meta.icon && (
-                      <RandomBlob size={40} fill="#59fd53">
-                        <Image
-                          src={meta.icon}
-                          alt={meta.title}
-                          width={40}
-                          height={40}
-                          style={{ display: "block" }}
-                        />
+                      <RandomBlob size={40} fill='#59fd53'>
+                        <Image src={meta.icon} alt={meta.title} width={40} height={40} style={{ display: 'block' }} />
                       </RandomBlob>
                     )}
                     <span className={s.navTitle}>{meta.title}</span>
@@ -133,13 +107,11 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
                   <div
                     className={s.navFolder}
                     onClick={() => {
-                      if (!isActiveFolder) toggle(folder);
+                      if (!isActiveFolder) toggle(folder)
                     }}
                   >
-                    <span className={s.navTitle}>
-                      {folder.replace(/-/g, " ")}
-                    </span>
-                    <span className={s.toggleIcon}>{isOpen ? "-" : "+"}</span>
+                    <span className={s.navTitle}>{folder.replace(/-/g, ' ')}</span>
+                    <span className={s.toggleIcon}>{isOpen ? '-' : '+'}</span>
                   </div>
                 )}
 
@@ -149,22 +121,11 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
                       <li key={child.slug}>
                         <Link
                           href={`/deep-dive/${child.slug}`}
-                          className={[
-                            s.navLinkChild,
-                            pathname === `/deep-dive/${child.slug}` && s.active,
-                          ]
-                            .filter(Boolean)
-                            .join(" ")}
+                          className={[s.navLinkChild, pathname === `/deep-dive/${child.slug}` && s.active].filter(Boolean).join(' ')}
                         >
                           {child.icon && (
-                            <RandomBlob size={30} fill="#59fd53">
-                              <Image
-                                src={child.icon}
-                                alt={child.title}
-                                width={30}
-                                height={30}
-                                style={{ display: "block" }}
-                              />
+                            <RandomBlob size={30} fill='#59fd53'>
+                              <Image src={child.icon} alt={child.title} width={30} height={30} style={{ display: 'block' }} />
                             </RandomBlob>
                           )}
                           <span className={s.navTitleChild}>{child.title}</span>
@@ -174,7 +135,7 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
                   </ul>
                 )}
               </li>
-            );
+            )
           })}
         </ul>
       </nav>
@@ -182,13 +143,7 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
       <main className={s.mainContent}>
         {banner && (
           <div className={s.bannerContainer}>
-            <Image
-              src={banner}
-              alt={`${title} banner`}
-              width={1200}
-              height={300}
-              className={s.bannerImage}
-            />
+            <Image src={banner} alt={`${title} banner`} width={1200} height={300} className={s.bannerImage} />
           </div>
         )}
         <div className={s.mainTitle}>
@@ -242,7 +197,7 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
         </ul>
       </aside>
     </div>
-  );
-};
+  )
+}
 
-export default DocsLayout;
+export default DocsLayout

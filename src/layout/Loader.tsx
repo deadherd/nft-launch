@@ -1,52 +1,75 @@
-// components/Loader.tsx
-"use client";
+'use client'
 
-import type { FC } from "react";
-import { useState, useEffect } from "react";
-import s from "../styles/Container.module.sass";
+import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import s from '../styles/Container.module.sass'
 
-const Loader: FC = () => {
-  const [visible, setVisible] = useState(true);
-  const [fading, setFading] = useState(false);
+const Loader = () => {
+  const pathname = usePathname()
+  const [visible, setVisible] = useState(false)
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let progressInterval: NodeJS.Timeout
+    let fadeTimeout: NodeJS.Timeout
 
-    const handleLoad = () => {
-      // kick off fade
-      setFading(true);
-      // remove from DOM after 300ms
-      timeoutId = setTimeout(() => setVisible(false), 300);
-    };
+    const startLoader = () => {
+      setVisible(true)
+      setProgress(0)
 
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-      return () => {
-        window.removeEventListener("load", handleLoad);
-        clearTimeout(timeoutId);
-      };
+      progressInterval = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 95) {
+            clearInterval(progressInterval)
+            return prev
+          }
+          return prev + Math.floor(Math.random() * 5) + 1
+        })
+      }, 100)
     }
-  }, []);
 
-  if (!visible) return null;
+    const completeLoader = () => {
+      clearInterval(progressInterval)
+      setProgress(100)
+
+      fadeTimeout = setTimeout(() => {
+        setVisible(false)
+        setProgress(0)
+      }, 600)
+    }
+
+    startLoader()
+
+    // simulate time between route change start and complete
+    const simulateDelay = setTimeout(() => {
+      completeLoader()
+    }, 1200)
+
+    return () => {
+      clearInterval(progressInterval)
+      clearTimeout(fadeTimeout)
+      clearTimeout(simulateDelay)
+    }
+  }, [pathname])
+
+  if (!visible) return null
 
   return (
     <div
       className={s.loader}
       style={{
-        opacity: fading ? 0 : 1,
-        transition: "opacity .3s ease",
+        opacity: visible ? 1 : 0,
+        transition: 'opacity 0.3s ease',
       }}
     >
       <div className={s.nest}>
         <span className={s.egg} />
         <span className={s.egg} />
         <span className={s.egg} />
+        <div className={s.percentage}>{progress}%</div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Loader;
+export default Loader

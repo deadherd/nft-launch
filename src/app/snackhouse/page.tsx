@@ -1,21 +1,22 @@
-"use client";
+'use client'
 
-import { useRef } from "react";
-import Link from "next/link";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
-import LazySection from "../../layout/Containers/LazySection";
-import Footer from "../../layout/Footers/LanderFooter";
-import s from "../../styles/Home.module.sass";
+import { useRef } from 'react'
+import Link from 'next/link'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Image from 'next/image'
+import LazySection from '../../layout/Containers/LazySection'
+import Footer from '../../layout/Footers/LanderFooter'
+import s from '../../styles/Home.module.sass'
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Home() {
-  const frontRef = useRef<HTMLDivElement>(null);
-  const midRef = useRef<HTMLDivElement>(null);
+  const frontRef = useRef<HTMLDivElement>(null)
+  const midRef = useRef<HTMLDivElement>(null)
 
-  {/*useEffect(() => {
+  {
+    /*useEffect(() => {
     if (midRef.current) {
       // mid layer parallax
       gsap.to(midRef.current, {
@@ -42,21 +43,22 @@ export default function Home() {
         },
       });
     }
-  }, []);*/}
+  }, []);*/
+  }
 
   return (
     <>
       <section className={`${s.banner} ${s.bannerKitchen}`}>
         <div className={s.dimmer}></div>
         <div ref={midRef} className={s.links}>
-          <a href="#">
+          <a href='#'>
             <span>
               Buy
               <br />
               NOw
             </span>
           </a>
-          <a href="#">
+          <a href='#'>
             <span>
               Add
               <br />
@@ -64,20 +66,9 @@ export default function Home() {
             </span>
           </a>
         </div>
-        <Image
-          src="/assets/images/freezer-angled.png"
-          alt="MFR Egg"
-          width={400}
-          height={1040}
-          className={s.truck}
-        />
+        <Image src='/assets/images/freezer-angled.png' alt='MFR Egg' width={400} height={1040} className={s.truck} />
         <div ref={frontRef} className={s.silhouette}>
-          <Image
-            src="/assets/images/silhouette.svg"
-            alt="Rat Group Silhouette Foreground"
-            width={1458}
-            height={296}
-          />
+          <Image src='/assets/images/silhouette.svg' alt='Rat Group Silhouette Foreground' width={1458} height={296} />
         </div>
       </section>
       <LazySection>
@@ -85,33 +76,20 @@ export default function Home() {
           <h2>
             RatTen<i> </i>EgGs
           </h2>
-          <p>
-            We steal from kids, raid kitchens, dumpster dive, and sometimes...
-          </p>
+          <p>We steal from kids, raid kitchens, dumpster dive, and sometimes...</p>
           <p>
             We visit the HENH<span className={s.oegg}>O</span>U$E.
           </p>
           <br />
           <div className={s.centered}>
-            <Link href="/deep-dive" className={`${s.biglink} ${s.bigLinkLeft}`}>
+            <Link href='/deep-dive' className={`${s.biglink} ${s.bigLinkLeft}`}>
               Buy
-              <Image
-                src="/assets/images/truck-200x200.png"
-                alt="Learn More"
-                width={200}
-                height={158}
-                className="px-[5px]"
-              />
+              <Image src='/assets/images/truck-200x200.png' alt='Learn More' width={200} height={158} className='px-[5px]' />
               Now
             </Link>
           </div>
           <div className={s.gallery}>
-            <Image
-              src="/assets/images/carousel.png"
-              alt="MFR Egg Variety"
-              width={1440}
-              height={397}
-            />
+            <Image src='/assets/images/carousel.png' alt='MFR Egg Variety' width={1440} height={397} />
           </div>
         </section>
         {/*<section className={s.cta}>
@@ -126,67 +104,33 @@ export default function Home() {
             <h3>
               Stack<i> </i>Em
             </h3>
-            <Image
-              src="/assets/images/carton-stack.png"
-              alt="MFR Egg Cartons"
-              width={400}
-              height={321}
-            />
+            <Image src='/assets/images/carton-stack.png' alt='MFR Egg Cartons' width={400} height={321} />
           </div>
           <div className={s.step}>
             <h3>
               Crack<i> </i>Em
             </h3>
-            <Image
-              src="/assets/images/egg-selection.png"
-              alt="MFR Egg Cartons"
-              width={682}
-              height={471}
-            />
+            <Image src='/assets/images/egg-selection.png' alt='MFR Egg Cartons' width={682} height={471} />
           </div>
           <div className={s.step}>
             <h3>
               Snack<i> </i>Em
             </h3>
-            <Image
-              src="/assets/images/logo-splat.svg"
-              alt="MFR Logo"
-              width={141}
-              height={144}
-            />
+            <Image src='/assets/images/logo-splat.svg' alt='MFR Logo' width={141} height={144} />
           </div>
         </section>
         <section className={s.cta}>
           <h3>Use snacks to grow your rats into Made Rats.</h3>
-          <p>
-            Bigger bites mean better perks, harder hitters, and higher ranks in
-            the Mischief.
-          </p>
+          <p>Bigger bites mean better perks, harder hitters, and higher ranks in the Mischief.</p>
         </section>
         <div className={s.centered}>
-          <Link href="/deep-dive" className={s.biglink}>
+          <Link href='/deep-dive' className={s.biglink}>
             DeEp
-            <Image
-              src="/assets/images/full-trash-bag-green-200x200.png"
-              alt="Learn More"
-              width={200}
-              height={158}
-            />
+            <Image src='/assets/images/full-trash-bag-green-200x200.png' alt='Learn More' width={200} height={158} />
             dive
           </Link>
         </div>
       </LazySection>
-      <LazySection>
-        <section className={s.pipe}>
-          <Image
-            src="/assets/images/pipe-slime.png"
-            alt="MFR Logo"
-            width={1600}
-            height={943}
-          />
-        </section>
-      </LazySection>
-      <Footer />
     </>
-  );
+  )
 }

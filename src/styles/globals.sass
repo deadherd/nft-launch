@@ -17,8 +17,42 @@
   //--foreground: #171717
 
 :root
-  --background: #0a0a0a
-  --foreground: #fff
+  // theme
+  --dark: #0a0a0a
+  --dark-alt: #1a1a1a
+  --dark-hover: #2a2a2a
+  --dark-active: #3a3a3a
+
+  --dark-disabled: rgba(10,10,10,.4)
+
+  --light: #e2e2e2
+  --light-alt: #d2d2d2
+  --light-hover: #f2f2f2
+  --light-active: #fff
+
+  --light-disabled: rgba(245,245,245,.5)
+
+  --green: #59fd53
+  --green-alt: #4cdd47
+  --green-hover: #6dfc85
+  --green-active: #aaffcc
+
+  --green-disabled: rgba(89, 253, 83,.5)
+
+  --yellow: #ffff0f
+  --yellow-alt: #f0f017
+  --yellow-hover: #ecff80
+  --yellow-active: #ffffb7
+
+  --red: #b73f39
+  --orange: #ba833b
+  
+  --round: 12px
+  --round-sm: 8px
+
+  // default
+  --background: var(--dark)
+  --foreground: var(--light)
 
 @theme inline
   --color-background: var(--background)
@@ -35,6 +69,7 @@ html
   scroll-behavior: smooth
 
 body
+  @apply pt-[0] md:pt-[140px]
   background: var(--background)
   color: var(--foreground)
   font-family: "DM Sans", sans-serif
@@ -43,7 +78,6 @@ body
   line-height: 28px
   overflow-x: hidden
   letter-spacing: -.03em
-  padding-top: 140px
   //#profile
     //@apply hidden
   &.docs.menu-open
@@ -66,7 +100,7 @@ p
   margin-bottom: 15px
 
 a 
-  @apply text-[#ffff0e]
+  @apply text-[#ffff0f]
   &:hover, &:active
     @apply underline
   i 
@@ -126,15 +160,31 @@ ol
 
 hr
   border-top: 2px solid #495638
-  @apply mt-[40px] mb-[20px]
+  @apply mt-[40px] mb-[40px] relative overflow-visible w-full max-w-[60vw] mx-auto
+  &.smudge
+    &:after
+      @apply block absolute top-[-.8vw] right-[10px] w-[3vw] h-[10vw] z-[1]
+      content: ""
+      background: url(../../public/assets/images/drip-single.svg) no-repeat 50% 0
+      background-size: 100% auto
 
 h1,h2
   font-family: "SKT"
   margin-bottom: 20px
   color: #fff
   letter-spacing: 0.02em
+  &.feature
+    @apply text-[#fff] relative inline-block
+    text-shadow: 0 2px 0 #59fd53
+    &:after
+      @apply block absolute top-[0] right-[.5vw] w-[5.5vw] h-[80%]
+      content: ""
+      background: url(../../public/assets/images/drip-heavy.svg) no-repeat 100% 0
   i
     @apply inline-block w-[.2em]
+  em
+    @apply inline-block text-[#59fd53] ml-[-.06em] pr-[.04em]
+    transform: skew(10deg, 0)
 
 h3,h4,h5
   font-family: "Instant Karma"
@@ -153,7 +203,6 @@ h6
   color: #fff
   i
     @apply inline-block w-[.2em]
-
 
 section
   text-shadow: 0 4px 0px #0a0a0a
@@ -212,8 +261,8 @@ h1
   line-height: 1
 
 h2
-  @apply text-[60px]
-  line-height: 1
+  @apply text-[68px]
+  line-height: 1.2
 
 h3
   @apply text-[46px]
@@ -269,59 +318,135 @@ button
 
 
 .custom-dark
-  --ock-font-family: "DM Sans"
+  --ock-font-family: 'DM Sans'
+  --ock-border-radius: var(--round)
+  --ock-border-radius-inner: var(--round-sm)
+  /* text on light backgrounds */
+  --ock-text-inverse: var(--dark)
+  /* text on dark background */
+  --ock-text-foreground: var(--light)
+  /* lower-contrast text for hints/captions */
+  --ock-text-foreground-muted: var(--light-disabled)
+  /* red/error text messages */
+  --ock-text-error: var(--red)
+  /* accent-colored text for links/emphasis */
+  --ock-text-primary: var(--yellow)
+  /* green/success text for confirmations */
+  --ock-text-success: var(--green)
+  /* yellow/orange warning text */
+  --ock-text-warning: var(--orange)
+  /* very low-contrast text for disabled elements */
+  --ock-text-disabled: var(--dark-disabled)
+  /* main surface color (cards, panels) */
+  --ock-bg-default: var(--dark)
+  /* hover state for default-style elements */
+  --ock-bg-default-hover: var(--dark-hover)
+  /* active/pressed state for default-style elements */
+  --ock-bg-default-active: var(--dark-active)
+  /* secondary neutral background (e.g., striped rows) */
+  --ock-bg-alternate: var(--dark)
+  /* hover state for alternate-style elements */
+  --ock-bg-alternate-hover: var(--dark-alt)
+  /* active/pressed state for alternate-style elements */
+  --ock-bg-alternate-active: var(--dark-active)
+  /* dark background for inverse/dark-mode panels */
+  --ock-bg-inverse: var(--dark)
+  /* hover state on inverse/dark backgrounds */
+  --ock-bg-inverse-hover: var(--dark-hover)
+  /* active/pressed state on inverse panels */
+  --ock-bg-inverse-active: var(--dark-active)
+  /* primary accent fill (e.g., primary buttons) */
+  --ock-bg-primary: var(--yellow)
+  /* hover state for primary accent */
+  --ock-bg-primary-hover: var(--yellow-hover)
+  /* active/pressed state for primary accent */
+  --ock-bg-primary-active: var(--yellow-active)
+  /* very light tint of primary (e.g., icon/text background) */
+  --ock-bg-primary-washed: var(--green-hover)
+  /* disabled state of primary-colored elements */
+  --ock-bg-primary-disabled: var(--green-disabled)
+  /* secondary accent fill (e.g., secondary buttons) */
+  --ock-bg-secondary: var(--dark)
+  /* hover state for secondary accent */
+  --ock-bg-secondary-hover: var(--dark-hover)
+  /* active/pressed state for secondary accent */
+  --ock-bg-secondary-active: var(--dark-active)
+  /* red background for error alerts */
+  --ock-bg-error: var(--red)
+  /* yellow/orange background for warnings */
+  --ock-bg-warning: var(--orange)
+  /* green background for success messages */
+  --ock-bg-success: var(--green-alt)
+  /* darker neutral for “reverse” sections (e.g., footer) */
+  --ock-bg-default-reverse: var(--dark)
 
-  --ock-text-inverse: #0a0a0a
-  --ock-text-foreground: #fff
-  --ock-text-primary: #59fd53
+  /* primary-colored icons */
+  --ock-icon-color-primary: var(--dark)
+  /* default icon color on light backgrounds */
+  --ock-icon-color-foreground: var(--green)
+  /* muted icon color for less emphasis */
+  --ock-icon-color-foreground-muted: var(--green-disabled)
+  /* light icon color on dark/inverse backgrounds */
+  --ock-icon-color-inverse: var(--dark)
+  /* red tint for error icons */
+  --ock-icon-color-error: var(--red)
+  /* green tint for success icons */
+  --ock-icon-color-success: var(--green-alt)
+  /* yellow/orange tint for warning icons */
+  --ock-icon-color-warning: var(--orange)
+  /* primary accent border/underline */
+  --ock-line-primary: var(--green-alt)
+  /* standard neutral border color */
+  --ock-line-default: var(--green)
+  /* darker/thicker divider or border */
+  --ock-line-heavy: var(--green-alt)
+  /* light border on dark/inverse backgrounds */
+  --ock-line-inverse: var(--green)
 
-  --ock-bg-default: #0a0a0a
-  --ock-bg-default-hover: #1a1a1a
-  --ock-bg-default-active: #2a2a2a
 
-  --ock-bg-primary: #59fd53
-  --ock-bg-primary-hover: #ffff0f
-  --ock-bg-primary-active: #9afe96
-
-  --ock-border-line-primary: #1a1a1a
-  --ock-border-line-default: #1a1a1a
-  --ock-border-line-heavy: #1a1a1a
-  --ock-border-line-inverse: #1a1a1a
-
-  // buttons
-  --ock-bg-alternate: #1a1a1a
-  --ock-bg-alternate-hover: #2a2a2a
-  --ock-bg-alternate-active: #3a3a3a
-
-  --ock-bg-secondary: #59fd53
-  --ock-bg-secondary-hover: #ffff0f
-  --ock-bg-secondary-active: #9afe96
-
-  // icons
-  --ock-icon-color-foreground: #59fd53
-
+  
 h2.ock-font-family
   font-family: "SKT"
   font-weight: normal
   font-size: 24px
 
-.ock-border-line-default
-  @apply border-[#2a2a2a]
-
 .custom-dark.z-40
   @apply z-[99999999]
 
-.ock-dropdown
-  svg
-    @apply fill-[#59fd53]
+.ock-wallet
+  .ock-dropdown
+    @apply z-[2] bottom-[74%]
+
 
 .ock-connect
-  @apply relative transition-all duration-300 w-[48px] h-[48px] min-w-[48px]
-  background: #0a0a0a url(../../public/assets/images/sq-button.svg) no-repeat 50% 50%
+  @apply relative transition-all duration-300 w-[140px] h-[140px] min-w-[140px] p-0 text-[24px] bottom-[-10px] right-[-10px]
+  background: url(../../public/assets/images/splat_thick_flip.svg) no-repeat 50% 50%
+  text-indent: 10px
   background-size: contain
-  box-shadow: 0 3px 6px rgba(0,0,0,.4)
+  font-family: "SKT"
+  letter-spacing: 0.07em
+  line-height: 1.1
+  //box-shadow: 0 3px 6px rgba(0,0,0,.4)
   &:hover, &:active
-    background-color: #0a0a0a!important
+    background-color: rgba(0,0,0,0)!important
+  [data-testid="ockAvatar_ImageContainer"]
+    @apply h-[86px] w-[86px] absolute top-[50%] left-[50%] transform-gpu ml-[-10px] mt-[-10px]
+    border: 2px solid #59fd53
+    perspective: 400px
+    transform: rotateX(16deg) rotateY(-24deg) translate(-50%,-50%)
+    transform-style: preserve-3d
+    box-shadow: 3.5px 3px 0px #349e31, 6px 6px 4px rgba(0,0,0,.12)
+[data-testid="ockModalOverlay"]
+  @apply border-[2px] border-[var(--green)] bg-[#000]
+  //background: url(../../public/assets/images/sewer.jpg) no-repeat 50% 50%
+  //background-size: cover
+[data-testid="ockWalletDropdownContent"]
+  border-top-right-radius: 0
+  border-bottom-right-radius: 0
+  border-right: 0
+
+.ock-bg-default.ock-text-foreground-muted.ock-font-family.text-xs.px-2 
+  @apply rounded-md
 
 // input
 
@@ -370,3 +495,113 @@ input::placeholder,
 textarea::placeholder,
 select::placeholder
   @apply capitalize
+
+.shadowBar
+  @apply fixed top-0 left-0 w-full h-[80px] z-[990] py-[7px] px-[10px]
+  pointer-events: none
+  background: linear-gradient(0deg, rgba(0,0,0,0), rgba(0,0,0,.8))
+
+footer.upside
+  @apply absolute top-0 left-0 w-full z-[997] pt-[40px] pl-[30px] flex items-start justify-between
+  font-family: "Instant Karma"
+  p
+    @apply mb-0 text-[24px]
+    i
+      @apply inline-block top-[18px] left-[10px] absolute w-[200px] rotate-[-4deg] text-[18px] text-[#666]
+      font-style: normal
+  span
+    @apply inline-block text-[#666] rotate-[-2deg]
+  .iconImage
+    @apply inline-block bg-[#555] rounded-full relative top-[0] mr-[3px]
+  .toolbar
+    @apply fixed top-[0] right-[0] pt-[44px] pr-[40px]
+    background: radial-gradient(circle at top right, #000, rgba(0,0,0,0) 50%)
+    button.hamburger
+      @apply absolute top-[35px] right-[30px] w-[60px] h-[60px] z-20
+      svg
+        filter: drop-shadow(0px 3px 0px rgb(10 10 10 / 1));
+    a
+      @apply p-[6px] text-center text-[16px]
+      opacity: 1
+      background: url(../../public/assets/images/bullet.svg) no-repeat 50% 50%
+      background-size: 100% 100%
+      span
+        @apply relative inline-block top-[-8px] text-[#fff] w-[150%] ml-[-25%] text-[18px]
+        text-shadow: 0 -1.5px 0 #0a0a0a, -1.5px 0 0 #0a0a0a, 1.5px 0 0 #0a0a0a, 0 -2px 0 #0a0a0a, -1.5px -1.5px 0 #0a0a0a, 1.5px -1.5px 0 #0a0a0a
+        transition: all .3s
+      &:hover, &:active
+        @apply mt-[-4px]
+        span
+          @apply scale-[1.2] mt-[-6px]
+      &.disabled
+        pointer-events: none
+    button
+      @apply flex items-center justify-center
+      svg
+        @apply max-w-[65%] h-auto
+      &:hover, &:active
+        @apply scale-[.9]
+
+.svgCircle
+  @apply w-[240px] h-[240px] absolute bottom-[50%] right-[50%] mb-[-120px] mr-[-120px]
+
+.svgTextWhite
+  @apply fill-[#fff]
+
+.svgTextGreen
+  @apply fill-[#59fd53]
+
+.svgTitle
+  @apply text-[9px] uppercase text-[#fff]
+  letter-spacing: .1em
+  font-family: "DM Sans"
+  font-weight: bold
+
+.svgText
+  @apply text-[24px]
+  font-family: "Instant Karma"
+
+#mfrAmountDecimal
+  @apply inline-block text-[50%] pl-[4px]
+
+.rotatingGroup
+  transform-origin: 50% 50%
+  transition: transform 0.5s ease-in-out
+
+.tm
+  @apply text-[50%]
+
+.preTitle
+  @apply block text-[15px] uppercase tracking-wide font-bold mb-[10px]
+  font-family: "DM Sans"
+
+.textGreen
+  color: #59fd53!important
+
+.pill
+  @apply block tracking-wide text-right text-[13px] rounded-sm mt-[-4px] text-right px-[4px] py-[0] rounded-lg
+  .text-shadow: none
+
+.pulse
+  @apply inline-block relative bottom-[-14px] left-[-6px] text-[20px]
+  text-shadow: 0 2px 0 #0a0a0a
+  animation: pulser 1s infinite alternate ease-in-out
+  transform-origin: 0 0
+
+@keyframes pulser
+  0%
+    transform: scale(1)
+  100%
+    transform: scale(.95)
+
+a.dd-link
+  @apply pl-0
+  & > div
+    @apply relative w-[20px] h-[20px]
+    background: url(../../public/assets/images/bullet.svg) no-repeat 50% 50% / 100% 100%
+    &:after
+      @apply absolute top-0 left-0 w-full h-full z-[1]
+      background: transparent url(../../public/assets/images/icons/png64/settings64.png) no-repeat 50% 50% / 90% 90%
+      content: ""
+  &.dd-activity > div:after
+    background-image: url(../../public/assets/images/icons/png64/clock64.png)
