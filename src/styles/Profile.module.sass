@@ -1,0 +1,11 @@
+@reference 'tailwindcss'
+
+.profile
+  @apply w-full max-w-[800px] mx-auto mt-[200px] text-[#0a0a0a] bg-[#59fd53] rounded-lg p-[20px]
+  outline: 1px solid blue
+  h1,h2,h3,h4,h5,h6
+    @apply text-[#0a0a0a]
+  p
+    @apply capitalize
+    &:last-child
+      @apply mb-0

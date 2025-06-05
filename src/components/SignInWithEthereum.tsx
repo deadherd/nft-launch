@@ -9,32 +9,41 @@ import { Avatar, Name, Address, EthBalance, Identity } from '@coinbase/onchainki
 import { createSiweMessage } from 'viem/siwe'
 import { useAccount, useSignMessage, useConfig } from 'wagmi'
 
+// -- start: signin component --
 export default function SignInWithEthereum() {
+  // local state msg display
   const [statusMessage, setStatusMessage] = useState<string | null>(null)
+
+  // wagmi wallet state + signing config
   const { address, chain, isConnected } = useAccount()
   const { signMessageAsync } = useSignMessage()
   const { chains: cfgChains } = useConfig()
-  //const { disconnect } = useDisconnect()
 
+  // -- start: disconnect fn (clear firebase + cookie) --
   const handleDisconnect = async () => {
-    await fetch('/api/session', {
+    await fetch('/api/siwe/session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: '' }), // blank = clear
+      body: JSON.stringify({ token: '' }),
     })
 
     await signOut(auth)
-    console.log('🧹 Signed out and cleared session cookie')
+    console.log('Signed out and cleared session cookie')
   }
+  // -- end: disconnect fn --
 
+  // -- start: handle sign in fn --
   const handleSignIn = useCallback(async () => {
     try {
       if (!address) return
       setStatusMessage('Connected. Signing in…')
 
       const chainId = chain?.id ?? cfgChains[0].id
+
+      // get nonce
       const { nonce } = await fetch('/api/siwe/nonce').then((r) => r.json())
 
+      // build siwe message
       const message = createSiweMessage({
         domain: window.location.host,
         address,
@@ -45,9 +54,11 @@ export default function SignInWithEthereum() {
         nonce,
       })
 
+      // sign with wallet
       const signature = await signMessageAsync({ message })
-
       setStatusMessage('Signed. Verifying…')
+
+      // verify with backend
       const res = await fetch('/api/siwe/verify', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -55,28 +66,32 @@ export default function SignInWithEthereum() {
       })
 
       if (!res.ok) {
-        console.error('SIWE Verify Failed')
+        const err = await res.text()
+        console.error('SIWE Verify Failed:', err)
         setStatusMessage(null)
         return
       }
 
+      // get custom firebase token
       const { token } = await res.json()
 
-      // ✅ Ensure session persistence before signing in
+      // set session + sign in
       await setPersistence(auth, browserLocalPersistence)
       await signInWithCustomToken(auth, token)
+
       const idToken = await auth.currentUser?.getIdToken()
 
-      await fetch('/api/session', {
+      // set cookie token
+      await fetch('/api/siwe/session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: idToken }),
       })
 
+      // create user doc if missing
       const uid = auth.currentUser?.uid
-      console.log('✅ signed in uid:', uid)
+      console.log('signed in uid:', uid)
 
-      // Create default Firestore profile if first time
       const userDocRef = doc(db, 'users', uid!)
       const userSnapshot = await getDoc(userDocRef)
 
@@ -95,8 +110,9 @@ export default function SignInWithEthereum() {
       setStatusMessage(null)
     }
   }, [address, chain, cfgChains, signMessageAsync])
+  // -- end: handle sign in fn --
 
-  // auto sign-out from Firebase when wallet disconnects
+  // -- start: auto-trigger auth sync on wallet state --
   useEffect(() => {
     if (!isConnected) {
       handleDisconnect()
@@ -104,7 +120,9 @@ export default function SignInWithEthereum() {
       handleSignIn()
     }
   }, [isConnected, address, handleSignIn])
+  // -- end: effect --
 
+  // -- start: render wallet ui --
   return (
     <Wallet className='ock-wallet'>
       <ConnectWallet className='ock-connect' disconnectedLabel='MFR' onConnect={handleSignIn}>
@@ -134,4 +152,6 @@ export default function SignInWithEthereum() {
       </WalletDropdown>
     </Wallet>
   )
+  // -- end: render wallet ui --
 }
+// -- end: signin component --

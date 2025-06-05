@@ -1,10 +1,11 @@
 // components/AudioAmbience.tsx
 'use client'
-import { useEffect, useRef, useState } from 'react'
 
+import { useEffect, useRef } from 'react'
+
+// -- start: background ambient audio that fades in on first click --
 export default function AudioAmbience() {
   const audioRef = useRef<HTMLAudioElement>(null)
-  const [ready, setReady] = useState(false)
 
   useEffect(() => {
     const audio = new Audio('/assets/audio/city-background-ambience-01.mp3')
@@ -12,24 +13,30 @@ export default function AudioAmbience() {
     audio.volume = 0
     audioRef.current = audio
 
+    // -- start: handle user interaction to start and fade in audio --
     const handleFirstClick = () => {
-      audio.play().catch(() => {})
+      audio.play().catch(() => {}) // autoplay fallback
       let elapsed = 0
+
       const fade = setInterval(() => {
         elapsed += 50
-        audio.volume = Math.min(0.5, (elapsed / 2000) * 0.5)
+        audio.volume = Math.min(0.5, (elapsed / 2000) * 0.5) // fade in to 0.5 over 2s
         if (elapsed >= 2000) clearInterval(fade)
       }, 50)
-      setReady(true)
+
       window.removeEventListener('click', handleFirstClick)
     }
+    // -- end: handleFirstClick --
 
+    // attach listener once on load
     window.addEventListener('click', handleFirstClick)
+
     return () => {
       window.removeEventListener('click', handleFirstClick)
       audio.pause()
     }
   }, [])
 
-  return null
+  return null // no ui output
 }
+// -- end: AudioAmbience --

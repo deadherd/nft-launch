@@ -9,7 +9,7 @@ import s from '@/styles/Docs.module.sass'
 import { usePathname } from 'next/navigation'
 import type { DocMeta } from '@/lib/mdxService'
 
-// dynamically load random blob only in client
+// -- load blob art client-side only --
 const RandomBlob = dynamic(() => import('./RandomBlob'), { ssr: false })
 
 type TOCItem = { text: string; slug: string; level: number }
@@ -25,22 +25,23 @@ interface Props {
 
 const STORAGE_KEY = 'docs-open-keys'
 
+// -- start: docs layout w/ nav, toc, banner, pagination --
 const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => {
   const [openKeys, setOpenKeys] = useState<string[]>([])
   const pathname = usePathname()
 
+  // -- set body class for top-level folder (for styling) --
   useEffect(() => {
     const parts = pathname.split('/').filter(Boolean)
     const folder = parts[1] || 'deep-dive'
     const cls = `${folder}`
-
     document.body.classList.add(cls)
     return () => {
       document.body.classList.remove(cls)
     }
   }, [pathname])
 
-  // load persisted state
+  // -- restore folder open state from localStorage --
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY)
@@ -48,15 +49,13 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
     } catch {}
   }, [])
 
-  // compute pagination
+  // -- prev/next doc pagination lookup --
   const currentIndex = docs.findIndex((d) => pathname === `/deep-dive/${d.slug}`)
   const prevDoc = currentIndex > 0 ? docs[currentIndex - 1] : null
   const nextDoc = currentIndex < docs.length - 1 ? docs[currentIndex + 1] : null
-
-  // decide whether to hide pagination
   const hidePagination = pathname === '/deep-dive' || pathname === '/deep-dive/get-started-example'
 
-  // group docs into a tree by top-level folder
+  // -- build folder structure from flat doc list --
   const tree = useMemo(() => {
     const map: Record<string, { meta?: DocMeta; children: DocMeta[] }> = {}
     docs.forEach((doc) => {
@@ -71,7 +70,7 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
     return map
   }, [docs])
 
-  // toggle open state
+  // -- toggle folder open/close in nav --
   const toggle = (key: string) => {
     setOpenKeys((prev) => {
       const next = prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
@@ -84,16 +83,19 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
 
   return (
     <div className={s.docsLayout}>
+      {/* -- left side nav -- */}
       <nav className={s.leftNav}>
         <ul>
           {Object.entries(tree).map(([folder, { meta, children }]) => {
             const isActiveFolder = children.some((child) => pathname === `/deep-dive/${child.slug}`)
             const isOpen = openKeys.includes(folder) || isActiveFolder
+
             return (
               <li
                 key={folder}
                 className={[s.navGroup, children.length > 0 && s.hasChildren, isOpen && s.expanded, isActiveFolder && s.activeFolder].filter(Boolean).join(' ')}
               >
+                {/* -- top-level page link -- */}
                 {meta ? (
                   <Link href={`/deep-dive/${meta.slug}`} className={[s.navLink, pathname === `/deep-dive/${meta.slug}` && s.active].filter(Boolean).join(' ')}>
                     {meta.icon && (
@@ -104,6 +106,7 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
                     <span className={s.navTitle}>{meta.title}</span>
                   </Link>
                 ) : (
+                  // -- folder-only header (not a page) --
                   <div
                     className={s.navFolder}
                     onClick={() => {
@@ -115,6 +118,7 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
                   </div>
                 )}
 
+                {/* -- child links if folder is open -- */}
                 {children.length > 0 && isOpen && (
                   <ul className={s.subList}>
                     {children.map((child) => (
@@ -140,30 +144,28 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
         </ul>
       </nav>
 
+      {/* -- main doc content -- */}
       <main className={s.mainContent}>
+        {/* banner img if available */}
         {banner && (
           <div className={s.bannerContainer}>
             <Image src={banner} alt={`${title} banner`} width={1200} height={300} className={s.bannerImage} />
           </div>
         )}
+
+        {/* title */}
         <div className={s.mainTitle}>
           <h1>{title}</h1>
         </div>
+
+        {/* actual page content */}
         <div className={s.mainArticle}>{children}</div>
 
+        {/* nav links to prev/next */}
         {!hidePagination && (
           <div className={s.pagination}>
             {prevDoc ? (
               <Link href={`/deep-dive/${prevDoc.slug}`} className={s.prevLink}>
-                {/*<RandomBlob size={30} fill="#59fd53">
-                  <Image
-                    src={prevDoc.icon!}
-                    alt={prevDoc.title}
-                    width={30}
-                    height={30}
-                    style={{ display: "block" }}
-                  />
-                </RandomBlob>*/}
                 <span className={s.linkText}>⬅️ {prevDoc.title}</span>
               </Link>
             ) : (
@@ -171,15 +173,6 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
             )}
             {nextDoc && (
               <Link href={`/deep-dive/${nextDoc.slug}`} className={s.nextLink}>
-                {/*<RandomBlob size={30} fill="#59fd53">
-                  <Image
-                    src={nextDoc.icon!}
-                    alt={nextDoc.title}
-                    width={30}
-                    height={30}
-                    style={{ display: "block" }}
-                  />
-                </RandomBlob>*/}
                 <span className={s.linkText}>{nextDoc.title} ➡️</span>
               </Link>
             )}
@@ -187,6 +180,7 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
         )}
       </main>
 
+      {/* -- right side table of contents -- */}
       <aside className={s.rightToc}>
         <ul>
           {toc.map((h) => (
@@ -199,5 +193,6 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
     </div>
   )
 }
+// -- end: DocsLayout --
 
 export default DocsLayout

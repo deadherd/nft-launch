@@ -7,23 +7,24 @@ import useAuthUser from '@/hooks/useAuthUser'
 import useScrollReveal from '@/hooks/useScrollReveal'
 import AudioAmbience from '@/components/AudioAmbience'
 import ParallaxLayer from '@/components/ParallaxLayer'
-import s from '../../styles/Home.module.sass'
-import neonZ from '../../../public/assets/images/neonZ.png'
-import alleyTv from '../../../public/assets/images/tv-solo.gif'
-import alleyWanted from '../../../public/assets/images/wanted.png'
-import bgForeground from '../../../public/assets/images/alley-foreground2.png'
-import alleyFooter from '../../../public/assets/images/manhole.png'
+import s from '@/styles/Home.module.sass'
+
+import neonZ from '@images/neonZ.png'
+import alleyTv from '@images/tv-solo.gif'
+import alleyWanted from '@images/wanted.png'
+import bgForeground from '@images/alley-foreground2.png'
+import alleyFooter from '@images/manhole.png'
 
 export default function Home() {
   const { userData } = useAuthUser()
   const level = userData?.level ?? 0
 
-  useScrollReveal()
-
+  useScrollReveal() // trigger .reveal anims on scroll
   return (
     <>
       <AudioAmbience />
 
+      {/* -- alley intro content + mission pitch -- */}
       <div className={s.alleyContent}>
         <span className='preTitle'>Season One</span>
         <h2 className='feature'>SunNySide</h2>
@@ -44,7 +45,9 @@ export default function Home() {
         <p className='reveal'>
           <span className='text-[#59fd53] rotate-[-2deg] inline-block'>TOO FED.</span>
         </p>
+
         <hr className='smudge' />
+
         <h2 className='reveal'>
           Get<i> </i>madE<i> </i>
           <em>
@@ -60,10 +63,12 @@ export default function Home() {
         <p className='text-[#59fd53] text-[120%] rotate-[-2deg] reveal'>And we don&apos;t stop.</p>
       </div>
 
+      {/* -- layered visual stack of alley scene -- */}
       <div className={s.alleyForeground}>
         <Image src={bgForeground.src} className={s.foregroundImage} width='1344' height='3616' alt='New Yolk City Alley' />
-        <Image src={neonZ.src} className={s.neonZ} width='184' height='215' alt='New Yolk City Alley' />
+        <Image src={neonZ.src} className={s.neonZ} width='184' height='215' alt='Neon Z' />
 
+        {/* -- parallax steam video -- */}
         <div className={s.alleySteam}>
           <ParallaxLayer className={s.alleySteam} yPercent={-20}>
             <video autoPlay loop muted>
@@ -74,6 +79,7 @@ export default function Home() {
 
         <ParallaxLayer className={s.alleyBackground} yPercent={30} />
 
+        {/* -- alley menu items (some gated/unavailable) -- */}
         <Link href='#' className={`${s.pizza} unavailable ${s.feature}`}>
           Checks
           <Arrowhead />
@@ -151,19 +157,19 @@ export default function Home() {
           </div>
         </Link>
 
+        {/* -- center egg portal w/ fake count -- */}
         <div className={`${s.enter} unavailable ${s.feature}`}>
           <Link href='/' className={`${s.eggCount} ${s.center}`}>
             <Image src='/assets/images/glow-in-the-dark-closed.png' width='460' height='469' alt='Egg Thredder' />
-            <span id='eggCount'>
-              <span id='eggCount'>???</span>
-            </span>
+            <span id='eggCount'>???</span>
           </Link>
           <span className={`${s.login} ${s.feature}`}>
-            TunNels
+            SecrEt
             <Arrowhead />
           </span>
         </div>
 
+        {/* -- scene decor: manhole, tv, wanted poster -- */}
         <div className={s.alleyFooter}>
           <Image src={alleyFooter.src} className={s.alleyFooterImage} width='576' height='235' alt='Manhole' />
         </div>

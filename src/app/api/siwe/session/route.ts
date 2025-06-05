@@ -1,23 +1,33 @@
-// app/api/session/route.ts
+// app/api/siwe/session/route.ts
 
+import { NextRequest, NextResponse } from 'next/server'
 import { serialize } from 'cookie'
-import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { token } = req.body
+export async function POST(req: NextRequest) {
+  try {
+    const { token } = await req.json()
 
-  if (!token) {
-    return res.status(400).json({ error: 'Missing token' })
+    if (typeof token !== 'string') {
+      return NextResponse.json({ error: 'Missing or invalid token' }, { status: 400 })
+    }
+
+    const cookie = serialize('__session', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 5, // 5 days
+      sameSite: 'lax',
+    })
+
+    return new NextResponse(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: {
+        'Set-Cookie': cookie,
+        'Content-Type': 'application/json',
+      },
+    })
+  } catch (err) {
+    console.error('[SESSION ERROR]', err)
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   }
-
-  const cookie = serialize('__session', token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: 60 * 60 * 24 * 5, // 5 days
-    path: '/',
-    sameSite: 'lax',
-  })
-
-  res.setHeader('Set-Cookie', cookie)
-  res.status(200).json({ success: true })
 }

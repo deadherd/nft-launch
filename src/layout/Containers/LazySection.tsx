@@ -1,38 +1,41 @@
-// components/LazySection.tsx
-"use client";
+// layout/containers/LazySection.tsx
+'use client'
 
-import type { FC, ReactNode } from "react";
-import { useState, useEffect, useRef } from "react";
+import type { FC, ReactNode } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
+// -- props: children to render + optional root margin --
 interface LazySectionProps {
-  children: ReactNode;
-  rootMargin?: string;
+  children: ReactNode
+  rootMargin?: string
 }
 
-const LazySection: FC<LazySectionProps> = ({
-  children,
-  rootMargin = "200px",
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+// -- start: lazy load section when in viewport --
+const LazySection: FC<LazySectionProps> = ({ children, rootMargin = '200px' }) => {
+  const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const el = ref.current
+    if (!el) return
+
+    // setup observer to trigger when section enters view
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
-          obs.disconnect();
+          setVisible(true) // show content
+          obs.disconnect() // stop observing once visible
         }
       },
-      { rootMargin }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [rootMargin]);
+      { rootMargin } // expand viewport margin for early load
+    )
 
-  return <div ref={ref}>{visible ? children : null}</div>;
-};
+    obs.observe(el)
+    return () => obs.disconnect() // cleanup on unmount
+  }, [rootMargin])
 
-export default LazySection;
+  return <div ref={ref}>{visible ? children : null}</div>
+}
+// -- end: lazy section --
+
+export default LazySection

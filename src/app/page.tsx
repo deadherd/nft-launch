@@ -5,9 +5,9 @@ import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
-import LazySection from '../layout/Containers/LazySection'
-import Footer from '../layout/Footers/LanderFooter'
-import s from '../styles/Home.module.sass'
+import LazySection from '@/layout/Containers/LazySection'
+import Footer from '@/layout/Footers/LanderFooter'
+import s from '@/styles/Home.module.sass'
 import SignInWithEthereum from '@/components/SignInWithEthereum'
 import { useAccount } from 'wagmi'
 
@@ -124,11 +124,11 @@ export default function Home() {
             </li>
             <li className={s.tight}>
               <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
-              MFR Jobs + Gig Work
+              MFR AI Gigs + Training
             </li>
             <li className={s.tight}>
               <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
-              MFR AI Education
+              MFR Encryption
             </li>
           </ul>
         </div>

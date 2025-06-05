@@ -4,19 +4,66 @@ import { useEffect, useState } from 'react'
 import { auth, db } from '@/lib/firebaseClient'
 import { doc, getDoc, setDoc, deleteDoc, serverTimestamp } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
-
-import s from '../../styles/Container.module.sass'
+import s from '@/styles/Container.module.sass'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function SettingsPage() {
   const [uid, setUid] = useState<string | null>(null)
   const [currentUsername, setCurrentUsername] = useState('')
   const [bio, setBio] = useState('')
   const [newUsername, setNewUsername] = useState('')
+  const [ratType, setRatType] = useState('')
+  const [secondaryRatType, setSecondaryRatType] = useState('')
+  const [originalBio, setOriginalBio] = useState('')
+  const [originalRatType, setOriginalRatType] = useState('')
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(true)
 
-  // Ensure value is always a string (not undefined)
+  const ratDescriptions: Record<string, { text: string; icon: string }> = {
+    trader: {
+      text: 'Finds useful resources, tools, or content and brings them back to the crew. Mission: Scavenger',
+      icon: '/assets/images/icons/png/fork&knife128.png',
+    },
+    hacker: {
+      text: 'Builds and breaks code, automates tasks, and improves project tools. Mission: Hacker',
+      icon: '/assets/images/icons/png/function_128.png',
+    },
+    shiller: {
+      text: 'Protects the community, enforces rules, and helps manage moderation. Mission: Muscle',
+      icon: '/assets/images/icons/png/history_128.png',
+    },
+    explorer: {
+      text: 'Gathers intel, watches for threats or scams, and keeps the crew informed. Mission: Lookout',
+      icon: '/assets/images/icons/png/binoculars_128.png',
+    },
+    engineer: {
+      text: 'Creates bots, builds features, and experiments with new tech ideas. Mission: Inventor',
+      icon: '/assets/images/icons/png/geometry1_128.png',
+    },
+    recruiter: {
+      text: 'Helps grow the project by recruiting, teaching, or onboarding others. Mission: Breeder',
+      icon: '/assets/images/icons/png/heart2_128.png',
+    },
+    distributor: {
+      text: 'Handles trades, sells items or NFTs, and runs drops or market actions. Mission: Dealer',
+      icon: '/assets/images/icons/png/handshake_128.png',
+    },
+    writer: {
+      text: 'Crafts stories, scripts, or copy that strengthen our world and message. Mission: Intelligence',
+      icon: '/assets/images/icons/png/pencil_128.png',
+    },
+    designer: {
+      text: 'Shapes the visual language of the project through layouts and brand assets. Mission: Architect',
+      icon: '/assets/images/icons/png/geometry2_128.png',
+    },
+  }
+
+  const selected = ratDescriptions[ratType]
+  const secondarySelected = ratDescriptions[secondaryRatType]
+
+  const [originalSecondaryRatType, setOriginalSecondaryRatType] = useState('')
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -30,15 +77,25 @@ export default function SettingsPage() {
           const u = userData.username || ''
           setCurrentUsername(u)
           setNewUsername(u)
+          const ratTypeVal = userData.ratType || ''
+          setRatType(ratTypeVal)
+          setOriginalRatType(ratTypeVal)
 
-          // ✅ Now get bio from the profile document
           if (u) {
             const profileRef = doc(db, 'profiles', u)
             const profileSnap = await getDoc(profileRef)
 
             if (profileSnap.exists()) {
               const profileData = profileSnap.data()
-              setBio(profileData.bio || '')
+              const bioVal = profileData.bio || ''
+              const ratTypeVal = profileData.ratType || ''
+              const secondaryRat = profileData.secondaryRatType || ''
+              setBio(bioVal)
+              setOriginalBio(bioVal)
+              setRatType(ratTypeVal)
+              setOriginalRatType(ratTypeVal)
+              setSecondaryRatType(secondaryRat)
+              setOriginalSecondaryRatType(secondaryRat)
             }
           }
         }
@@ -53,11 +110,11 @@ export default function SettingsPage() {
   const handleSave = async () => {
     if (!uid) return
 
-    // Sanitize and validate username
     const cleanedUsername = newUsername
       .trim()
       .toLowerCase()
       .replace(/[^a-z0-9_]/g, '')
+
     if (cleanedUsername.length < 5) {
       setMessage('⚠️ Username must be at least 5 characters and contain only letters, numbers, or underscores.')
       return
@@ -78,23 +135,25 @@ export default function SettingsPage() {
         return
       }
 
-      // 1. Create/Update new profile index
-      await setDoc(newProfileRef, {
+      const data = {
         uid,
         username: cleanedUsername,
         bio,
+        ratType,
+        secondaryRatType: secondaryRatType || null,
         createdAt: serverTimestamp(),
-      })
+      }
 
-      // 2. Update user's personal document
-      await setDoc(userRef, { username: cleanedUsername, bio }, { merge: true })
+      await setDoc(newProfileRef, data)
+      await setDoc(userRef, { username: cleanedUsername, bio, ratType, secondaryRatType: secondaryRatType || null }, { merge: true })
 
-      // 3. Delete old profile (if name changed)
       if (oldProfileRef) {
         await deleteDoc(oldProfileRef)
       }
 
       setCurrentUsername(cleanedUsername)
+      setOriginalBio(bio)
+      setOriginalRatType(ratType)
       setMessage('✅ Settings updated successfully.')
     } catch (err) {
       console.error(err)
@@ -104,48 +163,89 @@ export default function SettingsPage() {
     }
   }
 
+  const hasChanges = newUsername !== currentUsername || bio !== originalBio || ratType !== originalRatType || secondaryRatType !== originalSecondaryRatType
+
+  useEffect(() => {
+    if (!ratType && secondaryRatType) {
+      setSecondaryRatType('')
+    }
+  }, [ratType, secondaryRatType])
+
   if (loading) return <p>Loading...</p>
 
   return (
     <div className={s.container}>
-      <h1>settings</h1>
       <form className={s.form}>
-        <label style={{ display: 'block', marginTop: '1rem' }}>
-          Username:
-          <input
-            type='text'
-            value={newUsername}
-            onChange={(e) => setNewUsername(e.target.value)}
-            style={{ width: '100%', padding: '0.5rem', marginTop: '0.25rem' }}
-          />
-          <div className='block text-right'>
+        <h1 className='feature'>Settings</h1>
+
+        <label>
+          <span className='linkTitle'>
+            Username{' '}
             <Link href={`/${newUsername}`} target='_blank'>
               View Profile
             </Link>
+          </span>
+          <input type='text' value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
+        </label>
+
+        <label>
+          <span>Bio</span>
+          <textarea value={bio} onChange={(e) => setBio(e.target.value)} rows={3} />
+        </label>
+
+        <label>
+          <span>Primary Role</span>
+          <div className='select'>
+            <select value={ratType} onChange={(e) => setRatType(e.target.value)}>
+              <option value=''>Select a role</option>
+              {Object.keys(ratDescriptions).map((key) => (
+                <option key={key} value={key}>
+                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                </option>
+              ))}
+            </select>
           </div>
+          {selected && (
+            <p className='labelDesc'>
+              <Image src={selected.icon} alt={ratType} width={60} height={60} />
+              <span>{selected.text}</span>
+            </p>
+          )}
         </label>
 
-        <label style={{ display: 'block', marginTop: '1rem' }}>
-          Bio:
-          <textarea value={bio} onChange={(e) => setBio(e.target.value)} rows={3} style={{ width: '100%', padding: '0.5rem', marginTop: '0.25rem' }} />
+        <label className={`${!ratType ? 'disabled' : ''}`}>
+          <span>Secondary Role</span>
+          <div className='select'>
+            <select value={secondaryRatType} onChange={(e) => setSecondaryRatType(e.target.value)} disabled={!ratType}>
+              <option value=''>Select a secondary role</option>
+              {Object.keys(ratDescriptions)
+                .filter((key) => key !== ratType)
+                .map((key) => (
+                  <option key={key} value={key}>
+                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                  </option>
+                ))}
+            </select>
+          </div>
+          {secondarySelected && (
+            <p className='labelDesc'>
+              <Image src={secondarySelected.icon} alt={secondaryRatType} width={60} height={60} />
+              <span>{secondarySelected.text}</span>
+            </p>
+          )}
         </label>
 
-        <button
-          onClick={handleSave}
-          disabled={loading || newUsername.trim().length < 5}
-          style={{
-            marginTop: '1rem',
-            padding: '0.5rem 1rem',
-            backgroundColor: '#222',
-            color: '#fff',
-            border: 'none',
-            cursor: 'pointer',
-          }}
-        >
-          Save
-        </button>
+        <div className='pushRight'>
+          <button
+            onClick={handleSave}
+            disabled={loading || !hasChanges || newUsername.trim().length < 5}
+            className={`button ${!hasChanges || newUsername.trim().length < 5 ? 'disabled' : ''}`}
+          >
+            Save
+          </button>
+        </div>
 
-        {message && <p style={{ marginTop: '1rem' }}>{message}</p>}
+        {message && <p className='formnote'>{message}</p>}
       </form>
     </div>
   )

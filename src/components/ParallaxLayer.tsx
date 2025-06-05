@@ -13,9 +13,11 @@ interface ParallaxLayerProps {
   children?: React.ReactNode
 }
 
+// -- start: simple scroll-linked parallax layer --
 export default function ParallaxLayer({ className, yPercent, children }: ParallaxLayerProps) {
   const ref = useRef<HTMLDivElement>(null)
 
+  // -- start: apply parallax effect on scroll --
   useEffect(() => {
     if (ref.current) {
       gsap.to(ref.current, {
@@ -34,6 +36,7 @@ export default function ParallaxLayer({ className, yPercent, children }: Paralla
       ScrollTrigger.getAll().forEach((st) => st.kill())
     }
   }, [yPercent])
+  // -- end: scroll-linked parallax --
 
   return (
     <div ref={ref} className={className}>
@@ -41,3 +44,4 @@ export default function ParallaxLayer({ className, yPercent, children }: Paralla
     </div>
   )
 }
+// -- end: component --

@@ -60,7 +60,8 @@
     svg:global(.logoSvg)
       @apply h-[auto] w-[140px]
   body:global(.docs) & + *,
-  body:global(.alley) & + *
+  body:global(.alley) & + *,
+  body:global(.index) & + *
     @apply md:mt-[-140px]
 
 .openMenu
@@ -96,36 +97,45 @@
     text-decoration: none!important
 
 .stat
-  @apply block min-w-[60px] text-[20px] absolute bottom-[120px] right-[-12px] bg-[#59fd53] text-[#0a0a0a] flex items-center justify-end rounded-md z-[1] gap-[8px] pr-[14px] pl-[6px]
+  @apply block min-w-[60px] w-auto h-auto text-[20px] absolute bottom-[120px] right-[-8px] bg-[#59fd53] text-[#0a0a0a] flex items-center justify-end rounded-md z-[1] gap-[8px] pr-[14px] pl-[6px]
   &:hover, &:active
     @apply gap-[14px]
   transition: gap .3s
   border-top-right-radius: 0
   border-bottom-right-radius: 0
+  transform-origin: 100% 100%
   
   font-weight: bold
   perspective: 400px
   transform: rotateX(16deg) rotateY(-24deg)
   transform-style: preserve-3d
-  box-shadow: 3.5px 3px 0px #349e31, 6px 6px 4px rgba(0,0,0,.12)
+  box-shadow: 3px 3px 0px #349e31, 6px 6px 4px rgba(0,0,0,.12)
   font-family: "DM Mono"
   user-select: none
 
   .statNum
     line-height: 23px
+    b
+      font-weight: bold
 
   .statIcon
-    @apply w-[20px] h-auto flex justify-center
+    @apply relative w-[18px] h-[18px] flex justify-center
+    img
+      @apply h-auto w-auto
 
   &.rank
-    @apply bottom-[195px]
+    @apply bottom-[190px]
+    border-bottom-left-radius: 2px
     //filter: hue-rotate(100deg)
     //filter: brightness(95%)
 
   &.exp
-    @apply bottom-[171px]
-    filter: hue-rotate(100deg)
-    //filter: brightness(85%)
+    @apply bottom-[173px] text-[13px]
+    border-top-left-radius: 2px
+    //filter: hue-rotate(100deg)
+    filter: brightness(90%)
+    .statNum
+      line-height: 16px
 
   &.made
     @apply bottom-[147px]
@@ -133,9 +143,9 @@
     //filter: brightness(90%)
 
   &.money
-    @apply bottom-[123px]
+    @apply bottom-[121px]
     filter: hue-rotate(280deg)
     //filter: brightness(80%)
 
 .logs
-  @apply text-[10px] fixed bottom-0 left-0 p-[2px] z-[9999999] text-[#fff]
+  @apply text-[10px] fixed top-0 left-0 p-[2px] z-[9999999] text-[#fff] opacity-[.3]
