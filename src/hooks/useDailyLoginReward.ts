@@ -1,12 +1,15 @@
+// src/hookes/useDailyLoginRewards.ts
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { User } from 'firebase/auth'
 
 // -- start: hook to trigger daily xp reward on login --
 export const useDailyLoginReward = (user: User | null) => {
+  const hasClaimed = useRef(false)
+
   useEffect(() => {
-    if (!user) return
+    if (!user || hasClaimed.current) return
 
     const today = new Date().toISOString().split('T')[0] // e.g. '2025-06-04'
     const storageKey = `dailyXP:${user.uid}`
@@ -34,6 +37,7 @@ export const useDailyLoginReward = (user: User | null) => {
           const data = await res.json()
           console.log('daily xp response:', data)
           localStorage.setItem(storageKey, today) // mark as claimed
+          hasClaimed.current = true
         }
       } catch (err) {
         console.error('error during daily xp fetch:', err)

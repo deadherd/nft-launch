@@ -21,7 +21,7 @@ export default function FamilyRank() {
 
       {/* -- experience stat -- */}
       <div className={`${s.stat} ${s.exp}`}>
-        <span className={s.statNum}>{userData.experience ?? '-'}</span>
+        <span className={s.statNum}>{userData.experience ?? '0'}</span>
         <span className={s.statNum}>
           <small>/69</small>
         </span>
@@ -30,7 +30,7 @@ export default function FamilyRank() {
 
       {/* -- "made" stat (custom game metric) -- */}
       <div className={`${s.stat} ${s.made}`}>
-        <span className={s.statNum}>{userData.made ?? '-'}</span>
+        <span className={s.statNum}>{userData.made ?? '0'}</span>
         <span className={s.statIcon}>
           <Image src='/assets/images/logo-inverted.svg' width='16' height='15' alt='Made' className={s.iconImage} />
         </span>
@@ -38,7 +38,7 @@ export default function FamilyRank() {
 
       {/* -- money stat -- */}
       <div className={`${s.stat} ${s.money}`}>
-        <span className={s.statNum}>{userData.money ?? '-'}</span>
+        <span className={s.statNum}>{userData.money ?? '0'}</span>
         <div className={s.statIcon}>
           <Image src='/assets/images/dollar.svg' width='12' height='15' alt='Money' className={s.iconImage} />
         </div>

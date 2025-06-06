@@ -14,9 +14,8 @@ export default function Footer() {
             <h4>
               FiendINg<i> </i>fathErs
             </h4>
-            <br />
             <p>Be one of the early adopters.</p>
-            <p className='textGreen'>Allows holders into VIP rooms, missions, or gated content.</p>
+            <p className='textGreen'>Allows holders to access VIP rooms, missions, and content.</p>
 
             {/* -- cta button link -- */}
             <div className={s.links}>

@@ -54,6 +54,56 @@ export default function Home() {
       <section className={s.banner}>
         <div className={s.dimmer}></div>
         <div ref={midRef} className={s.links}>
+          <ul className={s.features}>
+            <li className='textGreen pulse'>
+              Only <span id='eggCount'>500</span> left!
+            </li>
+            <li>
+              <h2>
+                FiendIng<i> </i>fathErs
+              </h2>
+            </li>
+            <li className={`${s.barItem} ${s.barHighlight}`}>💎 Founder&apos;s Edition</li>
+            <li className={`${s.barItem} ${s.barHighlight}`}>🤑 Unlimited Cracks</li>
+            <li className={s.barItem}>
+              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
+              PFP Whitelist
+            </li>
+            <li className={s.barItem}>
+              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
+              Token Whitelist
+            </li>
+            <li className={s.barItem}>
+              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
+              Lifetime VIP Pass
+            </li>
+            <li className={s.barItem}>
+              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
+              Referral Bonuses*
+            </li>
+            <span className='pill italic'>* Only for a limited time.</span>
+            <li className={s.listTitle}>
+              <h3 className='textGreen'>
+                Early<i> </i>AXeSs
+              </h3>
+            </li>
+            <li className={s.tight}>
+              <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
+              <b>Made for Rats™ Products</b>
+            </li>
+            <li className={s.tight}>
+              <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
+              MFR Gigs + Training
+            </li>
+            <li className={s.tight}>
+              <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
+              MFR Mutations
+            </li>
+            <li className={s.tight}>
+              <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
+              MFR Usertags
+            </li>
+          </ul>
           {!isConnected ? (
             <>
               <a className={s.login}>
@@ -77,62 +127,8 @@ export default function Home() {
               </span>
             </Link>
           )}
-          <ul className={s.features}>
-            <li className='textGreen pulse'>
-              <small>
-                Only <span id='eggCount'>500</span> left!
-              </small>
-            </li>
-            <li>
-              <h2>
-                Founder<i> </i>Perx
-              </h2>
-            </li>
-            <li className={s.barItem}>
-              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
-              Token Whitelist
-            </li>
-            <li className={s.barItem}>
-              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
-              Reserved PFP
-            </li>
-            <li className={s.barItem}>
-              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
-              Incubation Payouts
-            </li>
-            <li className={s.barItem}>
-              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
-              Family Spoils
-            </li>
-            <li className={s.barItem}>
-              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
-              Recruiter Pay*
-            </li>
-            <span className='pill italic'>* Only for a limited time.</span>
-            <li className={s.listTitle}>
-              <h3 className='textGreen'>
-                Early<i> </i>AXeSs
-              </h3>
-            </li>
-            <li className={s.tight}>
-              <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
-              <b>Made for Rats™ Products</b>
-            </li>
-            <li className={s.tight}>
-              <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
-              MFR Roadmap Mutations
-            </li>
-            <li className={s.tight}>
-              <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
-              MFR AI Gigs + Training
-            </li>
-            <li className={s.tight}>
-              <Image src='/assets/images/icons/png/radiation_128.png' width='24' height='24' alt='Daily' className={s.iconImage} />
-              MFR Encryption
-            </li>
-          </ul>
         </div>
-        <Image src='/assets/images/glow-in-the-dark.png' alt='MFR Egg' width={460} height={469} className={s.egg} />
+        <Image src='/assets/images/three-eggs.png' alt='MFR Egg' width={660} height={605} className={s.egg} />
         <div ref={frontRef} className={s.silhouette}>
           <Image src='/assets/images/silhouette.svg' alt='Rat Group Silhouette Foreground' width={1458} height={296} />
         </div>
@@ -147,7 +143,7 @@ export default function Home() {
           <p>
             Anyone can buy in. <span className={s.oegg}>O</span>nly one will be the last to crack.
           </p>
-          <p>You hungry mfr?</p>
+          <p>You hungry?</p>
           <br />
           <div className={s.gallery}>
             <Image src='/assets/images/carousel.png' alt='MFR Egg Variety' width={1440} height={397} />
@@ -161,9 +157,7 @@ export default function Home() {
       </LazySection>
       <LazySection>
         <section className={s.cta}>
-          <h2>
-            Project<i> </i>payOuTs
-          </h2>
+          <h2>Incubonds</h2>
           <p>Place your eggs on missions to gain future incubation payouts.</p>
           <p>Will you crack or let it hatch?</p>
         </section>
@@ -200,7 +194,7 @@ export default function Home() {
             Made<i> </i>is<i> </i>PAID
           </h2>
           <p className='relative'>Build your rats up until they&apos;re Made in the Mischief.</p>
-          <p className='relative'>Family eats first. Everyone else scrapes the pan.</p>
+          <p className='relative'>Family always eats first.</p>
           <Image className='max-w-[500px] mt-[-10vw]' src='/assets/images/hat-dozen.jpg' alt='MFR Egg Cartons' width={948} height={784} />
         </section>
         <hr className='smudge' />

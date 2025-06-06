@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { auth, db } from '@/lib/firebaseClient'
-import { doc, getDoc, setDoc, deleteDoc, serverTimestamp } from 'firebase/firestore'
+import { doc, getDoc, setDoc, deleteDoc, serverTimestamp, addDoc, collection } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
 import s from '@/styles/Container.module.sass'
 import Link from 'next/link'
@@ -151,6 +151,14 @@ export default function SettingsPage() {
         await deleteDoc(oldProfileRef)
       }
 
+      // Activity log for username change
+      await addDoc(collection(db, 'users', uid, 'activity'), {
+        label: `Updated username to "${cleanedUsername}"`,
+        type: 'username_change',
+        xp: 0,
+        createdAt: Date.now(), // or use serverTimestamp() if preferred
+      })
+
       setCurrentUsername(cleanedUsername)
       setOriginalBio(bio)
       setOriginalRatType(ratType)
@@ -171,7 +179,12 @@ export default function SettingsPage() {
     }
   }, [ratType, secondaryRatType])
 
-  if (loading) return <p>Loading...</p>
+  if (loading)
+    return (
+      <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+        <div className='bg-gray-800 text-green-400 p-4 rounded'>Loading...</div>
+      </div>
+    )
 
   return (
     <div className={s.container}>

@@ -44,7 +44,7 @@ export default function ProfilePage() {
         const data = snap.data() as ProfileData
         setProfile(data)
 
-        const activityRef = collection(ref, 'activity')
+        const activityRef = collection(db, 'users', data.uid, 'activity')
         const activitySnap = await getDocs(activityRef)
 
         const items: ActivityItem[] = activitySnap.docs.map((doc) => {
@@ -111,7 +111,7 @@ export default function ProfilePage() {
         </p>
       )}
 
-      {activity.length > 0 && (
+      {/*activity.length > 0 && (
         <>
           <h4 style={{ marginTop: '2rem' }}>Recent Activity</h4>
           <ul>
@@ -122,7 +122,7 @@ export default function ProfilePage() {
             ))}
           </ul>
         </>
-      )}
+      )*/}
     </div>
   )
 }

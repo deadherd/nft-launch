@@ -28,6 +28,9 @@ export default function BodyClassManager() {
     if (pathname.startsWith('/deep-dive')) {
       cls = 'docs'
     }
+    if (pathname.startsWith('/activity')) {
+      cls = 'activity'
+    }
 
     // apply new route class
     body.classList.add(cls)

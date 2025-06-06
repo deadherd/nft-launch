@@ -9,3 +9,36 @@
     @apply capitalize
     &:last-child
       @apply mb-0
+
+.dropdownProfile
+  @apply relative w-full text-[#f2f2f2] bg-[#1a1a1a] text-left px-[12px] py-[6px]
+  a
+    @apply border-none block text-[15px] my-[4px] py-[4px] text-[#59fd53]
+    font-weight: 500
+    line-height: 15px
+    &:hover, &:active
+      @apply text-[#ffff0f]
+      background: none!important
+  h1,h2,h3,h4,h5,h6
+    @apply text-[#59fd53]
+  h3
+    @apply text-[30px] mb-0
+  p
+    @apply capitalize mb-[2px] text-[14px]
+    line-height: 16px
+    &:last-child
+      @apply mb-0
+  .date
+    @apply italic text-[13px] opacity-[.6]
+    font-weight: 100
+  .badge
+    @apply w-[80px] absolute bottom-[9px] right-[8px]
+    img
+      @apply max-h-[32px] w-auto
+  .levelCorner
+    @apply absolute block top-[-42px] right-[3px] min-w-[40px] h-[40px] flex items-center justify-center bg-[#0a0a0a] text-[#fff] text-[28px] px-[8px] rounded-lg
+    border: 2px solid #59fd53
+    font-weight: 900
+
+.miniLoading
+  @apply block text-left text-[15px] p-[8px] bg-[#45c640] mb-0 text-[#0a0a0a]

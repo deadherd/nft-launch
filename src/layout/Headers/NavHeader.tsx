@@ -15,7 +15,7 @@ import Menu from '../../components/Menu'
 import s from '../../styles/Header.module.sass'
 import CountdownTimer from '@/components/CountdownTimer'
 import HeaderStatus from '@/components/HeaderStatus'
-import FamilyRank from '@/components/FamilyRank'
+//import FamilyRank from '@/components/FamilyRank'
 
 // enable scroll animation plugin
 gsap.registerPlugin(ScrollTrigger)
@@ -63,13 +63,33 @@ const Header: FC = () => {
   }, [pathname])
   // -- end --
 
+  useEffect(() => {
+    const header = document.querySelector(`.${s.header}`)
+    if (!header || document.body.scrollHeight <= 1000) return
+
+    const trigger = ScrollTrigger.create({
+      start: () => (window.innerHeight + window.scrollY >= document.body.scrollHeight - 1 ? 'top top' : 'bottom bottom'),
+      onUpdate: () => {
+        const isAtBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 1
+        gsap.to(header, {
+          autoAlpha: isAtBottom ? 0 : 1,
+          y: isAtBottom ? 50 : 0,
+          duration: 0.4,
+          ease: 'power2.out',
+        })
+      },
+    })
+
+    return () => trigger.kill()
+  }, [])
+
   // -- start: reveal green sticker on scroll --
   useEffect(() => {
     const el = greenRef.current
     if (!el) return
     gsap.set(el, { autoAlpha: 0 })
     ScrollTrigger.create({
-      start: 100,
+      start: 800,
       onEnter: () => gsap.to(el, { autoAlpha: 1, duration: 0.3 }),
       onLeaveBack: () => gsap.to(el, { autoAlpha: 0, duration: 0.3 }),
     })
@@ -123,13 +143,13 @@ const Header: FC = () => {
 
       <HeaderStatus />
 
-      <header className={s.header}>
-        <div ref={greenRef} className={s.sticker}>
-          <a href='#top'>
-            Go<i> </i>tOP
-          </a>
-        </div>
+      <div ref={greenRef} className={s.sticker}>
+        <a href='#top'>
+          Go<i> </i>tOP
+        </a>
+      </div>
 
+      <header className={s.header}>
         {/*<div className={s.logo} onClick={handleLogoClick}>
           <LogoSvg />
         </div>*/}
@@ -146,7 +166,7 @@ const Header: FC = () => {
           <div className={s.tagCircle} ref={circleRef}>
             <TaglineCircle />
           </div>
-          <FamilyRank />
+
           <SignInWithEthereum />
           <button className={s.openMenu} onClick={handleToggle} aria-label='toggle profile'>
             <OpenSignSvg color={clawColor} />

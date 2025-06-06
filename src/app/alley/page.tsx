@@ -79,7 +79,7 @@ export default function Home() {
 
         <ParallaxLayer className={s.alleyBackground} yPercent={30} />
 
-        {/* -- alley menu items (some gated/unavailable) -- */}
+        {/* -- alley menu items (some gated/unavailable) -- 
         <Link href='#' className={`${s.pizza} unavailable ${s.feature}`}>
           Checks
           <Arrowhead />
@@ -87,7 +87,7 @@ export default function Home() {
             <Image src='/assets/images/glow-in-the-dark-closed.png' width='64' height='64' alt='Egg Thredder' />
             <span id='eggCount'>???</span>
           </div>
-        </Link>
+        </Link>*/}
 
         <Link href='#' className={`${s.dailytwo} unavailable ${s.feature}`}>
           Crafts
@@ -103,7 +103,7 @@ export default function Home() {
           <Arrowhead />
           <div className={`${s.eggCount} ${s.tight}`}>
             <Image src='/assets/images/glow-in-the-dark-closed.png' width='64' height='64' alt='Egg Thredder' />
-            <span id='eggCount'>???</span>
+            <span id='eggCount'>1</span>
           </div>
         </Link>
 
@@ -117,7 +117,7 @@ export default function Home() {
         </Link>
 
         <Link href='#' className={`${s.arcade} unavailable ${s.feature}`}>
-          Rats
+          Voting
           <Arrowhead />
           <div className={`${s.eggCount} ${s.tight} ${s.left}`}>
             <Image src='/assets/images/glow-in-the-dark-closed.png' width='64' height='64' alt='Egg Thredder' />
@@ -126,15 +126,17 @@ export default function Home() {
         </Link>
 
         <Link href='/' className={`${s.burrow} ${s.feature} ${level < 1 ? 'unavailable' : ''}`}>
-          Mint
+          Kitchen
           <Arrowhead />
-          <div className={`${s.eggCount} ${s.tight}`}>
-            <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='30' height='30' alt='Daily' className={s.iconImage} />
-            <span>Rank</span>
-            <span className={s.textGreen} id='proLevel'>
-              1
-            </span>
-          </div>
+          {level < 1 && (
+            <div className={`${s.eggCount} ${s.tight}`}>
+              <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='30' height='30' alt='Daily' className={s.iconImage} />
+              <span>Rank</span>
+              <span className={s.textGreen} id='proLevel'>
+                1
+              </span>
+            </div>
+          )}
         </Link>
 
         <Link href='#' className={`${s.dirtydozen} unavailable ${s.feature}`}>
@@ -148,12 +150,12 @@ export default function Home() {
           </div>
         </Link>
 
-        <Link href='/deep-dive' className={`${s.dumpster} unavailable ${s.feature}`}>
-          Papers
+        <Link href='/deep-dive' className={`${s.dumpster} ${s.feature} unavailable`}>
+          DeEp<i> </i>dive
           <Arrowhead />
-          <div className={`${s.eggCount} ${s.tight}`}>
+          <div className={`${s.eggCount} ${s.tight} ${s.left}`}>
             <Image src='/assets/images/glow-in-the-dark-closed.png' width='64' height='64' alt='Egg Thredder' />
-            <span id='eggCount'>50</span>
+            <span id='eggCount'>10</span>
           </div>
         </Link>
 
@@ -164,7 +166,7 @@ export default function Home() {
             <span id='eggCount'>???</span>
           </Link>
           <span className={`${s.login} ${s.feature}`}>
-            SecrEt
+            SewEr
             <Arrowhead />
           </span>
         </div>

@@ -13,29 +13,29 @@
   .dimmer
     @apply absolute top-0 left-0 w-full h-full
     background: linear-gradient(0deg, #0a0a0a, rgba(0,0,0,0) 45%, #000)
-  .egg
-    @apply relative z-[3] w-full h-auto max-w-[460px]
-    transform: translate(-50%, -10%)
+  img.egg
+    @apply relative z-[3] w-full h-auto max-w-[660px] max-h-[605px]
+    transform: translate(-30%, -10%)
   .truck
     @apply max-w-[35vw]
   .links
     @apply absolute flex flex-col md:flex-row items-center justify-center pl-[30%] md:pl-0 gap-[8vw] md:gap-[45%] top-[48%] z-[5]
     transform: translateY(-50%)
     a
-      @apply relative w-[200px] md:w-[45vw] lg:w-[35vw] transition transition-transform text-center text-[#fff] text-[20vw] md:text-[11vw]
+      @apply relative w-[200px] md:w-[45vw] lg:w-[35vw] transition transition-transform text-center text-[#fff] text-[60px] md:text-[11vw]
       font-family: "SKT"
       line-height: 1.1
       text-decoration: none!important
       letter-spacing: 0.03em
-      text-shadow: 0 6px 6px rgba(0,0,0,.5)
+      text-shadow: 0 6px 6px rgba(0,0,0,.5), 0 4px 0 #0a0a0a
       &:nth-child(1)
         &:before
-          @apply block absolute w-[60px] h-[60px] right-[15%] top-[30px] z-[1]
-          background: url(../../public/assets/images/icon-egg.svg) no-repeat 50% 50%
+          @apply block absolute w-[60px] md:w-[100px] h-[60px] right-[5%] top-[10px] z-[1] rotate-[5deg]
+          background: url(../../public/assets/images/ff.svg) no-repeat 50% 50%
           background-size: 100% auto
           content: ""
         &:after
-          @apply block absolute w-[60px] h-[60px] left-[5%] bottom-[-30px] z-[1]
+          @apply block absolute w-[40px] md:w-[60px] h-[60px] left-[5%] bottom-[-30px] z-[1]
           background: url(../../public/assets/images/icon-base.svg) no-repeat 50% 50%
           background-size: 100% auto
           content: ""
@@ -43,19 +43,19 @@
         span
           @apply rotate-[2deg]
         &:before
-          @apply block absolute w-[60px] h-[60px] left-[20%] top-[-30px] z-[1]
+          @apply block absolute w-[40px] md:w-[60px] h-[60px] left-[20%] top-[-30px] z-[1]
           background: url(../../public/assets/images/icon-chrome.svg) no-repeat 50% 50%
           background-size: 100% auto
           content: ""
         &:after
-          @apply block absolute w-[60px] h-[60px] right-[8%] bottom-[30px] z-[1]
+          @apply block absolute w-[40px] md:w-[60px] h-[60px] right-[8%] bottom-[30px] z-[1]
           background: url(../../public/assets/images/icon-chrome-ext.svg) no-repeat 50% 50%
           background-size: 100% auto
           content: ""
       span
         @apply block rotate-[-2deg]
       &:hover, &:active
-        @apply scale-[1.1]
+        @apply scale-[1.1] text-[var(--yellow)]
         animation: jiggle 1s infinite
       &.login
         &:before
@@ -147,7 +147,7 @@
     @apply text-[#aaa]
     //opacity: .8
     //filter: grayscale(1)
-    pointer-events: none
+    //pointer-events: none
     svg
       display: none
     &:hover, &:active
@@ -203,7 +203,7 @@ a.pizza
     animation: bobTight 1s infinite ease-in-out
 
 a.dirtydozen
-  @apply absolute bottom-[77vw] right-[10vw] text-[4vw] rotate-[-8deg] text-[#fff] z-[1]
+  @apply absolute bottom-[69vw] right-[16vw] text-[4vw] rotate-[-10deg] text-[#fff] z-[1]
   line-height: 1
   font-family: "SKT"
   letter-spacing: 0.03em
@@ -231,7 +231,7 @@ a.dailytwo
     animation: bobTight 1s infinite ease-in-out
 
 a.greasepit
-  @apply absolute bottom-[62vw] left-[45vw] text-[2.5vw] rotate-[0] text-[#fff]
+  @apply absolute bottom-[62vw] left-[48vw] text-[3.5vw] rotate-[0] text-[#fff]
   line-height: 1
   font-family: "SKT"
   letter-spacing: 0.03em
@@ -259,7 +259,7 @@ a.dumpster
     animation: bobTight 1s infinite ease-in-out
 
 a.burrow
-  @apply absolute bottom-[40vw] right-[7vw] text-[5vw] rotate-[-5deg] text-[#fff]
+  @apply absolute bottom-[40vw] right-[5vw] text-[5vw] rotate-[-5deg] text-[#fff]
   line-height: 1
   font-family: "SKT"
   letter-spacing: 0.03em
@@ -434,7 +434,7 @@ a.eggCount
     @apply rotate-[-2deg] text-[12vw] md:text-[8vw] pb-[2vw]
     line-height: 1
   p
-    @apply max-w-[90vw] md:max-w-[45vw] text-[#59fd53] text-[6vw] md:text-[4vw]
+    @apply max-w-[90vw] md:max-w-[50vw] text-[#59fd53] text-[6vw] md:text-[4vw]
     line-height: 1
     letter-spacing: 0.02em
     &:nth-child(2n + 1)
@@ -478,14 +478,14 @@ a.eggCount
         @apply w-full max-w-[360px]
 
 .pipe
-  @apply relative mt-12 mb-[-16vw] w-full flex justify-end
+  @apply relative mt-12 mb-[0px] md:mb-[-16vw] w-full flex justify-end
   background: url(../../public/assets/images/mfr.svg) no-repeat 50vw 15vw
   background-size: 42vw 28vw
   img
     @apply w-[75%]
 
 .oegg
-  @apply inline-block relative px-2 -mr-3
+  @apply inline-block relative px-2
   &:after
     @apply absolute block top-0 left-0 w-full h-full mt-[-5px]
     content: ""
@@ -497,8 +497,8 @@ a.eggCount
 
 @variant md
   .banner
-    .egg
-      transform: translateY(0)
+    img.egg
+      transform: translate(0, -5%)
 
 @variant lg
   .steps
@@ -519,39 +519,58 @@ a.eggCount
           @apply w-full max-w-[240px]
 
 .features
-  @apply text-[24px]
+  @apply text-[24px] relative
   li
-    @apply md:py-[2px] py-[1vw] md:text-[1.5vw] text-[3.5vw] flex items-center text-[#0a0a0a] rounded-full
+    @apply md:py-[2px] md:py-[1vw] py-[2px] md:text-[1.5vw] text-[18px] flex items-center text-[#0a0a0a] rounded-full
     text-shadow: none
     line-height: 1
     font-weight: bold
     //font-family: "Instant Karma"
     white-space: nowrap
+    box-shadow: 0 1px 0 #0a0a0a
     &.tight
-      @apply py-[3px] text-[16px] md:text-[1.4vw] text-[#f2f2f2]
+      @apply py-[3px] text-[16px] md:text-[1.4vw] text-[#f2f2f2] rounded-none
       font-weight: 500
       line-height: 1
       line-height: 1
       font-family: "DM Sans"
+      box-shadow: none
       span
         @apply h-[2vw]
       img.iconImage
         @apply max-w-[16px] max-h-[16px] p-[2px]
     &.barItem
       @apply bg-[#59fd53] mb-[2px]
+      &.barHighlight
+        animation: shimmer 4s linear infinite
+        background: linear-gradient(90deg, #59fd53, #bdffba, #59fd53)
+        background-size: 200% 100%
+        border: 1px solid #40b73c
+        border-bottom-width: 3px
     img.iconImage
-      @apply max-w-[24px] max-h-[24px] h-auto p-[4px] mr-[4px]
+      @apply max-w-[24px] max-h-[24px] h-auto p-[4px] ml-[4px] mr-[8px]
       background: transparent url('../../public/assets/images/bullet.svg') no-repeat 50% 50%
       background-size: 100% 100%
     h2
-      @apply text-[3vw] mb-0
+      @apply text-[28px] md:text-[3vw] mb-[6px]
       font-weight: normal
+      text-shadow: 0 2px 0 #0a0a0a
     h3
-      @apply text-[2vw] mb-0
+      @apply text-[20px] md:text-[2vw] mb-0
       letter-spacing: 0.03em
       font-family: "SKT"
       font-weight: normal
+      text-shadow: 0 2px 0 #0a0a0a
     &.listTitle
-      @apply mt-[10px] mb-[4px]
+      @apply mt-[10px] mb-[4px] rounded-none
+      box-shadow: none
     & > span
-      @apply pl-[6px]
+      @apply px-[6px]
+
+@keyframes shimmer
+  0%
+    background-position: 0% 50%
+  50%
+    background-position: 100% 50%
+  100%
+    background-position: 0% 50%

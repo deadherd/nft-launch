@@ -8,6 +8,8 @@ import { Wallet, ConnectWallet, WalletDropdown, WalletDropdownDisconnect, Wallet
 import { Avatar, Name, Address, EthBalance, Identity } from '@coinbase/onchainkit/identity'
 import { createSiweMessage } from 'viem/siwe'
 import { useAccount, useSignMessage, useConfig } from 'wagmi'
+import UserProfileCard from '@/components/UserProfileCard'
+import FamilyRank from './FamilyRank'
 
 // -- start: signin component --
 export default function SignInWithEthereum() {
@@ -28,7 +30,7 @@ export default function SignInWithEthereum() {
     })
 
     await signOut(auth)
-    console.log('Signed out and cleared session cookie')
+    //console.log('Signed out and cleared session cookie')
   }
   // -- end: disconnect fn --
 
@@ -127,6 +129,7 @@ export default function SignInWithEthereum() {
     <Wallet className='ock-wallet'>
       <ConnectWallet className='ock-connect' disconnectedLabel='MFR' onConnect={handleSignIn}>
         <Avatar />
+        <FamilyRank />
       </ConnectWallet>
 
       {statusMessage && (
@@ -142,6 +145,7 @@ export default function SignInWithEthereum() {
           <Address />
           <EthBalance />
         </Identity>
+        <UserProfileCard />
         <WalletDropdownLink className='dd-link dd-settings' href='/settings'>
           Account Settings
         </WalletDropdownLink>

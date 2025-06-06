@@ -74,7 +74,6 @@ body
   color: var(--foreground)
   font-family: "DM Sans", sans-serif
   font-size: 20px
-  //font-weight: 400w
   line-height: 28px
   overflow-x: hidden
   letter-spacing: -.03em
@@ -424,25 +423,75 @@ h2.ock-font-family
   .ock-dropdown
     @apply z-[2] bottom-[74%]
 
+.ock-dropdown
+  a
+    text-decoration: none
+    transition: color .3s, background-color .3s
+    border-bottom: 1px solid rgba(89, 253, 83, .08)
+    &:hover, &:active
+      @apply text-[var(--yellow)]
+      background-color: rgba(89, 253, 83, .3)
+  [data-testid="ockWalletDropdownContent"]
+    border-width: 1px 0 3px 1px
+    & > div
+      & > a
+        & > div:first-child
+          @apply mt-[-3px]
+      & > button
+        @apply py-[8px]
+  [data-testid="ockAvatar_ImageContainer"]
+    @apply relative rounded-md mr-[-6px]
+    img
+      @apply w-full h-auto
+    & > div
+      @apply border-0
+  [data-testid="ockIdentityLayout_container"]
+    @apply p-[2px] bg-[var(--green-alt)] text-[#0a0a0a] pr-[80px]
+  [data-testid="ockIdentity_Text"]
+    @apply text-[16px] text-[#0a0a0a]
+    line-height: 18px
+    font-weight: bold
+  [data-testid="ockAddress"]
+    @apply text-[14px] text-[#0a0a0a]
+    line-height: 16px
+    font-weight: semibold
+    & + span
+      @apply text-[transparent] w-[10px] 
+      background: url(../../public/assets/images/ethereum.svg) no-repeat 50% 50% / auto 12px
+      line-height: 16px
+    button
+      @apply bg-[#fff] text-[#0a0a0a] border-2 border-[#0a0a0a] rounded-sm
+  [data-testid="ockEthBalance"]
+    @apply text-[14px] text-[#0a0a0a]
+    line-height: 16px
 
 .ock-connect
-  @apply relative transition-all duration-300 w-[140px] h-[140px] min-w-[140px] p-0 text-[24px] bottom-[-16px] right-[-20px]
-  background: url(../../public/assets/images/splat_thick_flip.svg) no-repeat 50% 50%
-  text-indent: 10px
-  background-size: contain
+  @apply bg-transparent relative transition-all duration-300 w-[140px] h-[140px] min-w-[140px] p-0 text-[24px] bottom-[-7px] right-[-20px] z-[2]
   font-family: "SKT"
   letter-spacing: 0.07em
   line-height: 1.1
+  color: transparent
   //box-shadow: 0 3px 6px rgba(0,0,0,.4)
+  &:after
+    @apply absolute block top-0 left-0 w-full h-full z-[1] rotate-[10deg]
+    content: ""
+    background: url(../../public/assets/images/rathed-dark-grunge_svg.svg) no-repeat 50% 50% / 33% auto
+  &:before
+    @apply absolute block top-0 left-0 w-full h-full z-[-1]
+    content: ""
+    background: url(../../public/assets/images/splat_thick_flip.svg) no-repeat 50% 50%
+    background-size: contain
   &:hover, &:active
     background-color: rgba(0,0,0,0)!important
   [data-testid="ockAvatar_ImageContainer"]
-    @apply h-[86px] w-[86px] absolute top-[50%] left-[50%] transform-gpu ml-[-10px] mt-[-10px]
+    @apply h-[86px] w-[86px] absolute top-[50%] left-[50%] transform-gpu ml-[-10px] mt-[-11px] rounded-lg z-[2] bg-[#0a0a0a]
     border: 2px solid #59fd53
     perspective: 400px
     transform: rotateX(16deg) rotateY(-24deg) translate(-50%,-50%)
     transform-style: preserve-3d
     box-shadow: 3.5px 3px 0px #349e31, 6px 6px 4px rgba(0,0,0,.12)
+    img
+      @apply relative z-[1] max-w-[100%] h-auto
 [data-testid="ockModalOverlay"]
   @apply border-[2px] border-[var(--green)] bg-[#000]
   //background: url(../../public/assets/images/sewer.jpg) no-repeat 50% 50%
@@ -592,13 +641,15 @@ footer.upside
 
 .pill
   @apply block tracking-wide text-right text-[13px] rounded-sm mt-[-4px] text-right px-[4px] py-[0] rounded-lg
-  .text-shadow: none
+  text-shadow: 0px 1px 0 #0a0a0a
 
 .pulse
-  @apply inline-block relative bottom-[-4px] left-[-6px] text-[20px]
-  text-shadow: 0 2px 0 #0a0a0a
+  @apply inline-block absolute left-[-12px] text-[20px] md:text-[36px] top-[-22px] z-[1]
+  text-shadow: 0 2px 0 #0a0a0a!important
   animation: pulser 1s infinite alternate ease-in-out
-  transform-origin: 0 0
+  transform-origin: 0 100%
+  font-family: "Instant Karma"
+  font-weight: normal
 
 @keyframes pulser
   0%
@@ -681,3 +732,16 @@ p.formnote
 
 .pushRight
   @apply w-full flex justify-end
+
+.activity
+  p
+    @apply mb-0
+  .xp
+    @apply text-2xl
+    font-family: "Instant Karma"
+    line-height: 1
+
+.xpPill
+  @apply inline-block px-[5px] py-[2px] text-[11px] rounded-full text-[#555]
+  background-color: rgba(0,0,0,.4)
+
