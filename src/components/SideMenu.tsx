@@ -1,3 +1,4 @@
+// components/SideMenu.tsx
 import s from '@/styles/Header.module.sass'
 
 export default function SideMenu() {

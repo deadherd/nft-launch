@@ -1,5 +1,6 @@
 'use client'
 
+// app/[username]/page.tsx
 import { useEffect, useState } from 'react'
 import { doc, getDoc, collection, getDocs, Timestamp } from 'firebase/firestore'
 import { db } from '@/lib/firebaseClient'
@@ -111,7 +112,7 @@ export default function ProfilePage() {
         </p>
       )}
 
-      {/*activity.length > 0 && (
+      {activity.length > 0 && (
         <>
           <h4 style={{ marginTop: '2rem' }}>Recent Activity</h4>
           <ul>
@@ -122,7 +123,7 @@ export default function ProfilePage() {
             ))}
           </ul>
         </>
-      )*/}
+      )}
     </div>
   )
 }

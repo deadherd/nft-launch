@@ -1,7 +1,8 @@
-// src/app/docs/page.tsx
+// app/deep-dive/[...slug]/page.tsx
+
 import DocsLayout from '@/components/DocsLayout'
-//import ClientDocsList from "@/components/ClientDocsLists";
-import { getAllDocsMeta, type DocMeta } from '@/lib/mdxService'
+import { getAllDocsMeta } from '@/lib/mdxService'
+import type { DocMeta } from '@/types/DocMeta'
 import { redirect } from 'next/navigation'
 
 export default async function DocsIndex() {
@@ -11,7 +12,7 @@ export default async function DocsIndex() {
 
   return (
     <>
-      <DocsLayout docs={docs} toc={[]} title='DeEp dive' icon='' banner=''>
+      <DocsLayout docs={docs} toc={[]} title='DeEp dive' icon='' banner='' ai='' usertag=''>
         {/*<ClientDocsList docs={docs} />*/}{' '}
       </DocsLayout>
     </>

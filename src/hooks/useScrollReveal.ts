@@ -1,20 +1,22 @@
+'use client'
+
 // hooks/useScrollReveal.ts
 import { useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-// -- register scroll trigger plugin once --
+// register once
 gsap.registerPlugin(ScrollTrigger)
 
-// -- start: animates elements into view w/ fade + slide --
 export default function useScrollReveal(selector = '.reveal') {
   useEffect(() => {
-    // select all matching elements
     const elements = gsap.utils.toArray<HTMLElement>(selector)
 
-    // animate each into view on scroll
+    // store local triggers created by this hook instance
+    const triggers: ScrollTrigger[] = []
+
     elements.forEach((elem) => {
-      gsap.fromTo(
+      const tween = gsap.fromTo(
         elem,
         { autoAlpha: 0, y: 50, filter: 'blur(10px)' },
         {
@@ -30,10 +32,14 @@ export default function useScrollReveal(selector = '.reveal') {
           },
         }
       )
+
+      // store each created ScrollTrigger instance
+      triggers.push(tween.scrollTrigger!)
     })
 
-    // cleanup all scroll triggers on unmount
-    return () => ScrollTrigger.getAll().forEach((st) => st.kill())
+    // cleanup
+    return () => {
+      triggers.forEach((trigger) => trigger.kill())
+    }
   }, [selector])
 }
-// -- end: useScrollReveal --

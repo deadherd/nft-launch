@@ -1,7 +1,6 @@
 'use client'
 
-// INDEX app/page.tsx
-
+// app/sunnyside/pizza-joint/kitchen-hole/page.tsx
 import { useRef } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'

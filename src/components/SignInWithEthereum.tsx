@@ -1,5 +1,6 @@
 'use client'
 
+// components/SignInWithEthereum.tsx
 import { useState, useEffect, useCallback } from 'react'
 import { auth, db } from '@/lib/firebaseClient'
 import { doc, getDoc, setDoc } from 'firebase/firestore'

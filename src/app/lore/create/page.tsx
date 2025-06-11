@@ -1,6 +1,6 @@
-// src/app/lore/create/page.tsx
 'use client'
 
+// app/lore/create/page.tsx
 import Link from 'next/link'
 import { useState, useEffect, type FormEvent } from 'react'
 import { useFirestoreCollection } from '@/hooks/useFirestoreCollection'

@@ -1,5 +1,6 @@
 'use client'
 
+// app/layout/Headers/NavHeader.tsx
 import type { FC } from 'react'
 import Image from 'next/image'
 //import Link from 'next/link'
@@ -14,7 +15,6 @@ import TaglineCircle from '@/components/svg/TaglineCircle'
 import Menu from '@/components/Menu'
 import s from '@/styles/Header.module.sass'
 import CountdownTimer from '@/components/CountdownTimer'
-import HeaderStatus from '@/components/HeaderStatus'
 import useAuthUser from '@/hooks/useAuthUser'
 //import FamilyRank from '@/components/FamilyRank'
 //import SideMenu from '@/components/SideMenu'
@@ -164,8 +164,6 @@ const Header: FC = () => {
         <span id='connected'></span>
         <span id='signedin'></span>
       </div>*/}
-
-      <HeaderStatus />
 
       {!userData && <div className={s.grate}></div>}
 

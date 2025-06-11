@@ -1,5 +1,6 @@
 'use client'
 
+// hooks/useDailyLoginReward.tsx
 import { useEffect, useRef } from 'react'
 import { User } from 'firebase/auth'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'

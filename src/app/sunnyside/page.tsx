@@ -1,21 +1,22 @@
 'use client'
 
+// app/sunnyside/page.tsx
 import Link from 'next/link'
 import Image from 'next/image'
-import Arrowhead from '@/components/svg/Arrowhead'
+import neonZ from '@images/neonZ.png'
+import alleyWanted from '@images/wanted.png'
 import useAuthUser from '@/hooks/useAuthUser'
+import alleyFooter from '@images/manhole.png'
+import Arrowhead from '@/components/svg/Arrowhead'
 import useScrollReveal from '@/hooks/useScrollReveal'
 import AudioAmbience from '@/components/AudioAmbience'
 import ParallaxLayer from '@/components/ParallaxLayer'
-
 import LazySection from '@/layout/Containers/LazySection'
-import neonZ from '@images/neonZ.png'
-import alleyTv from '@images/tv-solo.gif'
-import alleyGloco from '@images/gloco-sign.png'
-import alleyWanted from '@images/wanted.png'
 import bgForegroundTop from '@images/alley-foreground-bg-skyline.png'
 import bgForegroundBottom from '@images/alley-foreground-bg-plain.jpg'
-import alleyFooter from '@images/manhole.png'
+
+//import alleyTv from '@images/tv-solo.gif'
+//import alleyGloco from '@images/gloco-sign.png'
 
 import s from '@/styles/Home.module.sass'
 
@@ -31,7 +32,7 @@ export default function Home() {
       {/* -- content -- */}
       {userData && (
         <div className={s.alleyContent}>
-          <span className='preTitle'>Season One Missions</span>
+          <span className='preTitle'>Season One</span>
           <h2 className='feature'>SunNySide</h2>
           <p>
             Beneath the noise of the city, a <span className='text-[#59fd53] rotate-[-2deg] inline-block'>mischief</span> is forming.
@@ -118,7 +119,7 @@ export default function Home() {
 
         {/* -- henhouse -- */}
         {level >= 1 && <div className={`${s.spriteMap} ${s.spriteBurrow}`}></div>}
-        <Link href='/' className={`${s.burrow} ${s.feature} ${level < 1 ? 'unavailable' : ''}`}>
+        <Link href='/sunnyside/pizza-joint/kitchen-hole' className={`${s.burrow} ${s.feature} ${level < 1 ? 'unavailable' : ''}`}>
           Kitchen
           <span className={s.caption}>Fund the Family</span>
           <Arrowhead />

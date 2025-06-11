@@ -1,6 +1,6 @@
-// layout/containers/LazySection.tsx
 'use client'
 
+// layout/containers/LazySection.tsx
 import type { FC, ReactNode } from 'react'
 import { useState, useEffect, useRef } from 'react'
 

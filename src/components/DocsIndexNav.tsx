@@ -1,10 +1,10 @@
-// src/components/DocsIndexNav.tsx
 'use client'
 
+// components/DocsIndexNav.tsx
 import Link from 'next/link'
 import Image from 'next/image'
 import RandomBlob from './RandomBlob'
-import type { DocMeta } from '@/lib/mdxService'
+import type { DocMeta } from '@/types/DocMeta'
 import s from '@/styles/Docs.module.sass'
 
 interface DocsIndexNavProps {

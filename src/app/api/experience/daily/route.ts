@@ -1,3 +1,5 @@
+// app/api/experience/daily/route.ts
+
 import { NextRequest, NextResponse } from 'next/server'
 import { auth, dbAdmin } from '@/lib/firebaseAdmin'
 

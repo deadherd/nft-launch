@@ -1,6 +1,6 @@
-// components/AudioAmbience.tsx
 'use client'
 
+// components/AudioAmbience.tsx
 import { useEffect, useRef } from 'react'
 
 // -- start: background ambient audio that fades in on first click --

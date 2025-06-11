@@ -1,13 +1,13 @@
-// src/components/DocsLayout.tsx
 'use client'
 
+// components/DocsLayout.tsx
 import React, { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import s from '@/styles/Docs.module.sass'
 import { usePathname } from 'next/navigation'
-import type { DocMeta } from '@/lib/mdxService'
+import type { DocMeta } from '@/types/DocMeta'
 
 // -- load blob art client-side only --
 const RandomBlob = dynamic(() => import('./RandomBlob'), { ssr: false })

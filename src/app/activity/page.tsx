@@ -1,5 +1,6 @@
 'use client'
 
+// app/[username]/page.tsx
 import UserActivityFeed from '@/components/UserActivityFeed'
 import useAuthUser from '@/hooks/useAuthUser'
 

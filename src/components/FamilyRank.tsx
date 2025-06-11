@@ -1,6 +1,7 @@
+// components/FamilyRank.tsx
 import Image from 'next/image'
 import useAuthUser from '@/hooks/useAuthUser'
-import s from '../styles/Header.module.sass'
+import s from '@/styles/Header.module.sass'
 
 // -- start: user stats display --
 export default function FamilyRank() {

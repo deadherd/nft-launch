@@ -1,6 +1,6 @@
-// components/CountdownTimer.tsx
 'use client'
 
+// components/CountdownTimer.tsx
 import { useState, useEffect, useCallback } from 'react'
 import s from '@/styles/CountdownTimer.module.sass'
 

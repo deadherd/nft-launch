@@ -1,7 +1,9 @@
+// components/MintCard.tsx
+
 import { useState } from 'react'
 import { useWriteContract } from 'wagmi'
 import { parseEther } from 'viem'
-import CraftedCollectionABI from '../../crafted-nft/artifacts/contracts/CraftedCollection.sol/CraftedCollection.json'
+import CraftedCollectionABI from '../../../crafted-nft/artifacts/contracts/CraftedCollection.sol/CraftedCollection.json'
 
 export default function MintCard() {
   const proxyAddress = '0x2e51a8FdC067e415CFD5d00b9add5C6Af72d676c'

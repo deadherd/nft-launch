@@ -1,4 +1,6 @@
 'use client'
+
+// components/RandomBlob.tsx
 import React, { useMemo, useId, useRef, useEffect } from 'react'
 import type { ReactNode } from 'react'
 import { gsap } from 'gsap'

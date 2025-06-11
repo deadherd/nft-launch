@@ -2,7 +2,16 @@
 
 import { Timestamp } from 'firebase/firestore'
 
-export type ActivityType = 'daily_login' | 'quest_completed' | 'level_up' | 'egg_hatched' | 'item_acquired' | 'transaction' | 'custom'
+export type ActivityType =
+  | 'daily_login'
+  | 'quest_completed'
+  | 'level_up'
+  | 'egg_hatched'
+  | 'item_acquired'
+  | 'transaction'
+  | 'username_change'
+  | 'location_visit'
+  | 'custom'
 
 // Define meta types based on the activity type
 export type ActivityMeta =

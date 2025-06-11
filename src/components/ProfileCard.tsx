@@ -1,14 +1,14 @@
-import Link from "next/link";
+// components/ProfileCard.tsx
+import Link from 'next/link'
 //import LogoSvg from "@/components/svg/LogoSvg";
-import OpenSignSvg from "@/components/svg/OpenSignSvg";
-import s from "@/styles/ProfileCard.module.sass";
+import OpenSignSvg from '@/components/svg/OpenSignSvg'
+import s from '@/styles/ProfileCard.module.sass'
 
 export default function Page() {
-  
-  const clawColor = "#59fd53";
+  const clawColor = '#59fd53'
 
   return (
-    <div id="profile" className={s.profile}>
+    <div id='profile' className={s.profile}>
       <div className={s.pfp}>{/*<OpenSignSvg color={clawColor} />*/}</div>
       <div className={s.details}>
         <span className={s.nickname}>@Blacktail</span>
@@ -16,19 +16,19 @@ export default function Page() {
         <span className={s.title}>, Don</span>
       </div>
       <div className={s.toolbar}>
-        <Link href="#">
+        <Link href='#'>
           <OpenSignSvg color={clawColor} />
         </Link>
-        <Link href="#">
+        <Link href='#'>
           <OpenSignSvg color={clawColor} />
         </Link>
-        <Link href="#">
+        <Link href='#'>
           <OpenSignSvg color={clawColor} />
         </Link>
-        <Link href="#">
+        <Link href='#'>
           <OpenSignSvg color={clawColor} />
         </Link>
-        <Link href="#">
+        <Link href='#'>
           <OpenSignSvg color={clawColor} />
         </Link>
       </div>
@@ -53,5 +53,5 @@ export default function Page() {
         </li>*/}
       </ul>
     </div>
-  );
+  )
 }

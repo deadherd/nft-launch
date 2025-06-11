@@ -1,17 +1,17 @@
-// src/utils/mdxService.ts
+// lib/mdxService.ts
 
-// deps for fs, path mgmt, md parsing and serialization
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import { unified, type Plugin } from 'unified'
-import remarkParse from 'remark-parse'
 import remarkSlug from 'remark-slug'
-import remarkAutolinkHeadings, { Options as AutolinkOptions } from 'remark-autolink-headings'
-import { visit } from 'unist-util-visit'
 import Slugger from 'github-slugger'
+import remarkParse from 'remark-parse'
+import { visit } from 'unist-util-visit'
+import { unified, type Plugin } from 'unified'
+import type { Root, Text, Heading } from 'mdast'
+import remarkAutolinkHeadings, { Options as AutolinkOptions } from 'remark-autolink-headings'
+import type { DocMeta } from '@/types/DocMeta'
 import { serialize } from 'next-mdx-remote/serialize'
-import type { Root, Heading, Text } from 'mdast'
 
 // base path to mdx content dir
 const docsDir = path.join(process.cwd(), 'src', 'content', 'deep-dive')
@@ -19,17 +19,6 @@ const docsDir = path.join(process.cwd(), 'src', 'content', 'deep-dive')
 // convert plugins to correct type for unified
 const slugPlugin = remarkSlug as unknown as Plugin
 const autolinkPlugin = remarkAutolinkHeadings as unknown as Plugin<[AutolinkOptions?], Root, Root>
-
-// metadata shape for mdx docs
-export type DocMeta = {
-  slug: string
-  title: string
-  order: number | null
-  icon: string | null
-  banner: string | null
-  ai: string | null
-  usertag: string | null
-}
 
 // -- start: get all doc metadata from mdx files --
 export function getAllDocsMeta(): DocMeta[] {

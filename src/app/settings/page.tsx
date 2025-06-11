@@ -1,5 +1,6 @@
 'use client'
 
+// app/settings/page.tsx
 import { useEffect, useState } from 'react'
 import { auth, db } from '@/lib/firebaseClient'
 import { doc, getDoc, setDoc, deleteDoc, serverTimestamp, addDoc, collection } from 'firebase/firestore'

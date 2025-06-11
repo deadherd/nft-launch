@@ -1,10 +1,9 @@
-// src/lib/firebaseClient.ts
-"use client";
+'use client'
 
-// init firebase only once and share across app
-import { initializeApp, getApps } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+// lib/firebaseClient.ts
+import { initializeApp, getApps } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
@@ -13,9 +12,10 @@ const firebaseConfig = {
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
-};
+}
 
-if (!getApps().length) initializeApp(firebaseConfig);
+// init firebase only once and share globally
+if (!getApps().length) initializeApp(firebaseConfig)
 
-export const auth = getAuth();
-export const db = getFirestore();
+export const auth = getAuth()
+export const db = getFirestore()

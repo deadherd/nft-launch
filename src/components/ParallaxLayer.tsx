@@ -1,6 +1,6 @@
-// components/ParallaxLayer.tsx
 'use client'
 
+// components/ParallaxLayer.tsx
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'

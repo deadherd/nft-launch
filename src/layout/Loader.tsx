@@ -1,8 +1,9 @@
 'use client'
 
+// app/layout/Loader.tsx
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import s from '../styles/Container.module.sass'
+import s from '@/styles/Container.module.sass'
 
 const Loader = () => {
   const pathname = usePathname()

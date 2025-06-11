@@ -1,8 +1,10 @@
+// lib/logActivity.ts
+
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '@/lib/firebaseClient'
 import type { ActivityType } from '@/types/ActivityLogEntry'
 
-// Atomic activity logger — final version (per-minute safe)
+// atomic activity logger (per-minute safe)
 export async function logActivity({
   uid,
   type,
@@ -25,11 +27,11 @@ export async function logActivity({
     label,
     xp,
     meta,
-    createdAt: serverTimestamp(), // ✅ still recording real server time
+    createdAt: serverTimestamp(),
   })
 }
 
-// Simple UTC timeCode generator (per minute resolution)
+// simple utc timecode generator (per minute resolution)
 function generateActivityTimeCode(): string {
   const now = new Date()
 
