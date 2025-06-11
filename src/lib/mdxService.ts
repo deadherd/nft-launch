@@ -27,6 +27,8 @@ export type DocMeta = {
   order: number | null
   icon: string | null
   banner: string | null
+  ai: string | null
+  usertag: string | null
 }
 
 // -- start: get all doc metadata from mdx files --
@@ -57,7 +59,9 @@ export function getAllDocsMeta(): DocMeta[] {
       const order = typeof data.order === 'number' ? data.order : null
       const icon = typeof data.icon === 'string' ? data.icon : null
       const banner = typeof data.banner === 'string' ? data.banner : null
-      return { slug, title, order, icon, banner }
+      const ai = typeof data.ai === 'string' ? data.ai : null
+      const usertag = typeof data.usertag === 'string' ? data.usertag : null
+      return { slug, title, order, icon, banner, ai, usertag }
     })
     .sort((a, b) => {
       const diff = (a.order ?? 0) - (b.order ?? 0)
@@ -74,6 +78,8 @@ export function getDocBySlug(slug: string): {
     order: number | null
     icon: string | null
     banner: string | null
+    ai: string | null
+    usertag: string | null
   }
 } {
   const fullPath = path.join(docsDir, `${slug}.mdx`)
@@ -83,7 +89,9 @@ export function getDocBySlug(slug: string): {
   const order = typeof data.order === 'number' ? data.order : null
   const icon = typeof data.icon === 'string' ? data.icon : null
   const banner = typeof data.banner === 'string' ? data.banner : null
-  return { content, data: { title, order, icon, banner } }
+  const ai = typeof data.ai === 'string' ? data.ai : null
+  const usertag = typeof data.usertag === 'string' ? data.usertag : null
+  return { content, data: { title, order, icon, banner, ai, usertag } }
 }
 // -- end: get doc by slug --
 

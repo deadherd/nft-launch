@@ -81,6 +81,22 @@
 .iconTitle
   @apply flex items-center gap-[6px]
 
+.postDetails
+  code:nth-child(2n + 1)
+    @apply rotate-[-2deg] relative mr-[-4px] z-[1] text-[24px] pr-[20px]
+    filter: brightness(120%)
+    box-shadow: 0 2px 4px rgba(0,0,0,.4)
+    letter-spacing: -0.03em
+    font-family: "Instant Karma"
+    line-height: 12px
+    b
+      @apply inline-block pr-[2px] pt-[4px]
+      font-weight: normal
+  code:nth-child(2n + 2)
+    @apply pl-[14px]
+    letter-spacing: -0.03em
+    font-weight: bold
+
 .indexList
   @apply flex flex-wrap items-center w-full text-[28px] text-[#fff] pt-[40px]
   padding-left: 0!important
@@ -129,13 +145,16 @@
   padding: 2rem 1rem 1rem
   min-height: 100vh
   a
-    @apply text-[#fff] text-[16px] block px-[8px]
+    @apply text-[#fff] text-[16px] block px-[8px] py-[3px]
     line-height: 18px
     font-weight: 500
     max-width: 200px
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    &.active
+      color: #ffff0f!important
+      font-weight: bold
   ul
     list-style: none
     margin: 0

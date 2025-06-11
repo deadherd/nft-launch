@@ -194,9 +194,11 @@ export default function SettingsPage() {
         <label>
           <span className='linkTitle'>
             Username{' '}
-            <Link href={`/${newUsername}`} target='_blank'>
-              View Profile
-            </Link>
+            {newUsername && (
+              <Link href={`/${newUsername}`} target='_blank'>
+                View Profile
+              </Link>
+            )}
           </span>
           <input type='text' value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
         </label>

@@ -34,7 +34,7 @@ export default async function DocPage({ params }: PageProps) {
   const docs: DocMeta[] = getAllDocsMeta()
 
   return (
-    <DocsLayout docs={docs} toc={toc} title={data.title} icon={data.icon} banner={data.banner}>
+    <DocsLayout docs={docs} toc={toc} title={data.title} icon={data.icon} banner={data.banner} ai={data.ai} usertag={data.usertag}>
       <DocContent source={source} />
     </DocsLayout>
   )

@@ -11,11 +11,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import OpenSignSvg from '@/components/svg/OpenSignSvg'
 import SignInWithEthereum from '@/components/SignInWithEthereum'
 import TaglineCircle from '@/components/svg/TaglineCircle'
-import Menu from '../../components/Menu'
-import s from '../../styles/Header.module.sass'
+import Menu from '@/components/Menu'
+import s from '@/styles/Header.module.sass'
 import CountdownTimer from '@/components/CountdownTimer'
 import HeaderStatus from '@/components/HeaderStatus'
+import useAuthUser from '@/hooks/useAuthUser'
 //import FamilyRank from '@/components/FamilyRank'
+//import SideMenu from '@/components/SideMenu'
 
 // enable scroll animation plugin
 gsap.registerPlugin(ScrollTrigger)
@@ -26,14 +28,16 @@ const Header: FC = () => {
   const greenRef = useRef<HTMLDivElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const circleRef = useRef<HTMLDivElement>(null)
+  const { userData } = useAuthUser()
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [slideOpen, setSlideOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
-  const [circleVisible, setCircleVisible] = useState(true)
+  //const [circleVisible, setCircleVisible] = useState(true)
 
   // -- start: toggle tagline animation on logo click --
-  const handleLogoClick = () => {
+  {
+    /*const handleLogoClick = () => {
     const el = circleRef.current
     if (!el) return
 
@@ -44,6 +48,7 @@ const Header: FC = () => {
     }
 
     setCircleVisible(!circleVisible)
+  }*/
   }
   // -- end: handleLogoClick --
 
@@ -96,6 +101,25 @@ const Header: FC = () => {
   }, [])
   // -- end --
 
+  {
+    /*// -- start: scroll grate --
+  useEffect(() => {
+    const grate = document.querySelector(`.${s.grate}`)
+    if (!grate) return
+
+    const trigger = ScrollTrigger.create({
+      trigger: document.body,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: true,
+      animation: gsap.fromTo(grate, { y: 0, xPercent: -50 }, { y: '10vh', ease: 'none' }),
+    })
+
+    return () => trigger.kill()
+  }, [userData])
+  // -- end --*/
+  }
+
   // -- body class toggles for each menu state --
   useEffect(() => {
     if (menuOpen) document.body.classList.add('menu-open')
@@ -135,27 +159,30 @@ const Header: FC = () => {
 
   return (
     <>
-      {/* logs for debugging connection/auth state */}
+      {/* logs for debugging connection/auth state 
       <div className={s.logs}>
         <span id='connected'></span>
         <span id='signedin'></span>
-      </div>
+      </div>*/}
 
       <HeaderStatus />
 
-      <div ref={greenRef} className={s.sticker}>
+      {!userData && <div className={s.grate}></div>}
+
+      {/*<div ref={greenRef} className={s.sticker}>
         <a href='#top'>
           Go<i> </i>tOP
         </a>
-      </div>
+      </div>*/}
 
       <header className={s.header}>
         {/*<div className={s.logo} onClick={handleLogoClick}>
           <LogoSvg />
         </div>*/}
 
-        <span className={s.tagline} onClick={handleLogoClick}>
-          <CountdownTimer targetDate='2025-06-06T23:59:00Z' />
+        <span className={s.tagline}>
+          {/*<SideMenu />*/}
+          {!userData ? <span>Yo, slime. Tag up.</span> : <CountdownTimer targetDate='2025-06-10T23:59:00Z' />}
         </span>
 
         <button className={s.openSlideMenu} onClick={handleSlideToggle} aria-label='toggle slide-menu'>

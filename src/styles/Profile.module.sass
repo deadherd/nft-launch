@@ -11,23 +11,31 @@
       @apply mb-0
 
 .dropdownProfile
-  @apply relative w-full text-[#f2f2f2] bg-[#1a1a1a] text-left px-[12px] py-[6px]
+  @apply relative w-full text-[#0a0a0a] bg-[#4ad745] text-left px-[12px] py-[6px]
   a
-    @apply border-none block text-[15px] my-[4px] py-[4px] text-[#59fd53]
+    @apply border-none block text-[15px] my-[4px] py-[4px] text-[#000]
     font-weight: 500
     line-height: 15px
+    text-decoration: underline!important
     &:hover, &:active
       @apply text-[#ffff0f]
       background: none!important
   h1,h2,h3,h4,h5,h6
-    @apply text-[#59fd53]
+    @apply text-[#0a0a0a]
   h3
-    @apply text-[30px] mb-0
+    @apply text-[24px] mb-[5px]
+    font-family: "DM Sans"
+    font-weight: bold
+    letter-spacing: -0.03em
+    &:first-letter
+      text-transform: none
   p
     @apply capitalize mb-[2px] text-[14px]
     line-height: 16px
     &:last-child
       @apply mb-0
+  .level
+    @apply mt-[10px]
   .date
     @apply italic text-[13px] opacity-[.6]
     font-weight: 100

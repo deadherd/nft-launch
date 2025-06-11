@@ -23,6 +23,8 @@ export default function SignInWithEthereum() {
 
   // -- start: disconnect fn (clear firebase + cookie) --
   const handleDisconnect = async () => {
+    const uid = auth.currentUser?.uid
+
     await fetch('/api/siwe/session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -30,7 +32,11 @@ export default function SignInWithEthereum() {
     })
 
     await signOut(auth)
-    //console.log('Signed out and cleared session cookie')
+
+    if (uid) {
+      localStorage.removeItem(`dailyXP:${uid}`)
+    }
+    console.log('Signed out and cleared session cookie')
   }
   // -- end: disconnect fn --
 
@@ -80,7 +86,7 @@ export default function SignInWithEthereum() {
       // set session + sign in
       await setPersistence(auth, browserLocalPersistence)
       await signInWithCustomToken(auth, token)
-
+      localStorage.removeItem(`dailyXP:${auth.currentUser?.uid}`)
       const idToken = await auth.currentUser?.getIdToken()
 
       // set cookie token
@@ -116,10 +122,17 @@ export default function SignInWithEthereum() {
 
   // -- start: auto-trigger auth sync on wallet state --
   useEffect(() => {
+    const delaySignIn = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 500)) // slight delay to allow wallet to stabilize
+      if (!auth.currentUser && address) {
+        handleSignIn()
+      }
+    }
+
     if (!isConnected) {
       handleDisconnect()
-    } else if (!auth.currentUser && address) {
-      handleSignIn()
+    } else {
+      delaySignIn()
     }
   }, [isConnected, address, handleSignIn])
   // -- end: effect --
@@ -133,8 +146,8 @@ export default function SignInWithEthereum() {
       </ConnectWallet>
 
       {statusMessage && (
-        <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-          <div className='bg-gray-800 text-green-400 p-4 rounded'>{statusMessage}</div>
+        <div className='statusOverlay'>
+          <div className='statusMessage'>{statusMessage}</div>
         </div>
       )}
 

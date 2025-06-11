@@ -63,7 +63,7 @@ const UserProfileCard = () => {
   return (
     <div className={s.dropdownProfile}>
       <span className={s.levelCorner}>{profile.level}</span>
-      {profile.username ? <h3>@{profile.username}</h3> : <Link href='/settings'>Select Username</Link>}
+      {profile.username ? <h3>{profile.username}</h3> : <Link href='/settings'>Select Username</Link>}
       {profile.ratType ? (
         <p>
           <b>{profile.ratType}</b>, {profile.secondaryRatType}
@@ -72,8 +72,8 @@ const UserProfileCard = () => {
         <Link href='/settings'>Select Role</Link>
       )}
       {profile.level !== undefined && (
-        <p>
-          <b>Level {profile.level}</b> <span className='xpPill'>{profile.experience}/69</span>
+        <p className={s.level}>
+          <b>Level {profile.level}</b> <span className='xpPill'>{profile.experience} / 69</span>
         </p>
       )}
       <p className={s.date}>

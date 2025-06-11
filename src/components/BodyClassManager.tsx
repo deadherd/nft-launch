@@ -22,7 +22,7 @@ export default function BodyClassManager() {
     if (pathname.startsWith('/settings')) {
       cls = 'settings'
     }
-    if (pathname.startsWith('/alley')) {
+    if (pathname.startsWith('/sunnyside')) {
       cls = 'alley'
     }
     if (pathname.startsWith('/deep-dive')) {

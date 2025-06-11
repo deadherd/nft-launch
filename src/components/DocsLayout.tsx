@@ -20,14 +20,18 @@ interface Props {
   title: string
   icon?: string | null
   banner: string | null
+  ai: string | null
+  usertag: string | null
   children: React.ReactNode
 }
 
 const STORAGE_KEY = 'docs-open-keys'
 
 // -- start: docs layout w/ nav, toc, banner, pagination --
-const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => {
+const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, ai, usertag, children }) => {
   const [openKeys, setOpenKeys] = useState<string[]>([])
+  const [activeHeading, setActiveHeading] = useState<string | null>(null)
+
   const pathname = usePathname()
 
   // -- set body class for top-level folder (for styling) --
@@ -48,6 +52,28 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
       if (stored) setOpenKeys(JSON.parse(stored))
     } catch {}
   }, [])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const headingElements = toc.map((h) => document.getElementById(h.slug)).filter(Boolean) as HTMLElement[]
+      const scrollY = window.scrollY + 100 // offset for sticky headers etc.
+
+      let current = null
+      for (const el of headingElements) {
+        if (el.offsetTop <= scrollY) {
+          current = el.id
+        } else {
+          break
+        }
+      }
+
+      setActiveHeading(current)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // run on mount
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [toc])
 
   // -- prev/next doc pagination lookup --
   const currentIndex = docs.findIndex((d) => pathname === `/deep-dive/${d.slug}`)
@@ -156,6 +182,15 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
         {/* title */}
         <div className={s.mainTitle}>
           <h1>{title}</h1>
+          <div className={s.postDetails}>
+            {usertag && (
+              <code>
+                <b>@</b>
+                <span>{usertag}</span>
+              </code>
+            )}
+            {ai && <code>{ai}</code>}
+          </div>
         </div>
 
         {/* actual page content */}
@@ -185,7 +220,9 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, children }) => 
         <ul>
           {toc.map((h) => (
             <li key={h.slug} className={s[`level${h.level}`]}>
-              <Link href={`#${h.slug}`}>{h.text}</Link>
+              <Link href={`#${h.slug}`} className={h.slug === activeHeading ? s.active : undefined}>
+                {h.text}
+              </Link>
             </li>
           ))}
         </ul>

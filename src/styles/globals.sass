@@ -114,7 +114,6 @@ a
 code
   @apply relative inline-block py-[10px] px-[12px] rotate-[-0.5deg] text-[#0a0a0a] text-[18px] mb-[20px]
   line-height: 22px
-  font-weight: bold
   background: url(../../public/assets/images/cardboard-pattern.jpg) 0 0
   background-size: 100% auto
   font-family: "DM Mono"  
@@ -127,7 +126,7 @@ blockquote
   line-height: 26px
   font-weight: bold
   background: url(../../public/assets/images/block-middle.jpg) 0 0
-  background-size: auto auto
+  background-size: auto 100%
   font-family: "DM Mono"
   &:before
     @apply absolute left-0 bottom-full w-full h-[60px] mb-[-1px]
@@ -418,6 +417,7 @@ h2.ock-font-family
 
 .custom-dark.z-40
   @apply z-[99999999]
+  backdrop-filter: blur(5px)
 
 .ock-wallet
   .ock-dropdown
@@ -443,10 +443,14 @@ h2.ock-font-family
     @apply relative rounded-md mr-[-6px]
     img
       @apply w-full h-auto
+    svg
+      @apply p-[4px]
+      path.ock-icon-color-foreground
+        @apply fill-[#0a0a0a]
     & > div
       @apply border-0
   [data-testid="ockIdentityLayout_container"]
-    @apply p-[2px] bg-[var(--green-alt)] text-[#0a0a0a] pr-[80px]
+    @apply p-[2px] bg-[var(--green)] text-[#0a0a0a] pr-[80px]
   [data-testid="ockIdentity_Text"]
     @apply text-[16px] text-[#0a0a0a]
     line-height: 18px
@@ -558,13 +562,20 @@ select::placeholder
   @apply capitalize
 
 .shadowBar
-  @apply fixed top-0 left-0 w-full h-[80px] z-[990] py-[7px] px-[10px]
+  @apply fixed top-0 left-0 w-full h-[80px] z-[99996] py-[7px] px-[10px]
   pointer-events: none
   background: linear-gradient(0deg, rgba(0,0,0,0), rgba(0,0,0,.8))
 
 footer.upside
-  @apply absolute top-0 left-0 w-full z-[997] pt-[40px] pl-[30px] flex items-start justify-between
+  @apply fixed top-0 left-0 w-full z-[99997] pt-[34px] pl-[30px] pr-[90px] flex items-start justify-between
   font-family: "Instant Karma"
+  .navMenu
+    @apply flex items-center justify-end
+    a
+      @apply w-[60px] h-[60px] flex items-center justify-center
+      background: url(../../public/assets/images/sq-button.svg) no-repeat 50% 50% / 48px 48px
+      svg
+        @apply w-full h-auto max-w-[32px] max-h-[32px]
   p
     @apply mb-0 text-[24px]
     i
@@ -742,6 +753,16 @@ p.formnote
     line-height: 1
 
 .xpPill
-  @apply inline-block px-[5px] py-[2px] text-[11px] rounded-full text-[#555]
-  background-color: rgba(0,0,0,.4)
+  @apply inline-block px-[4px] py-[1px] text-[11px] rounded-full text-[#555] relative top-[-2px]
+  background-color: rgba(0,0,0,.1)
+  line-height: 13px
 
+.statusOverlay
+  @apply fixed inset-0 flex items-center justify-center
+  background-color: rgba(0,0,0,.5)
+  backdrop-filter: blur(5px)
+  
+.statusMessage
+  @apply bg-[#59fd53] text-[#0a0a0a] font-bold tracking-tighter p-4 rounded-md rotate-[-2deg]
+  border: 2px solid #0a0a0a
+  border-bottom-width: 4px

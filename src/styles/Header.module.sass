@@ -2,11 +2,17 @@
 
 .header
   @apply w-full flex flex-nowrap items-center fixed bottom-0 right-0 z-[999999]
+  //backdrop-filter: blur(5px)
   &:after
-    @apply block fixed bottom-0 right-0 w-[100vw] h-[100px] z-[-1]
+    @apply block absolute bottom-0 right-0 w-[100vw] h-[100px] z-[-1]
     pointer-events: none
     content: ""
     background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.8))
+  &:before
+    @apply block absolute bottom-0 right-0 w-[300px] h-[300px] z-[-1]
+    pointer-events: none
+    content: ""
+    background: radial-gradient(circle at bottom right, #000, rgba(0,0,0,0) 50%)
   .pipe
     @apply absolute top-0 right-0 md:right-[-60px] w-[40px] md:w-[60px] md:mt-[5px] transition-[right]
     body:global(.menu-open) &
@@ -17,7 +23,7 @@
       @apply ml-[-10px]
   span
     &.tagline
-      @apply flex-1 text-3xl md:text-5xl text-[#59fd53] fixed bottom-[30px] left-[20px] md:left-[40px]
+      @apply flex-1 text-3xl md:text-5xl text-[#59fd53] fixed bottom-[30px] left-[10px] md:left-[40px]
       font-family: "Instant Karma", sans-serif
       font-weight: normal
       text-shadow: 0 3px 0 #0a0a0a
@@ -54,7 +60,7 @@
         //.pipe
           //@apply right-[0]
       .tagCircle
-        @apply absolute right-[0] bottom-[0] w-[130px] h-[130px] hidden
+        @apply absolute right-[-10px] bottom-[0] w-[130px] h-[130px] hidden
   .logo
     @apply relative order-[-1] md:order-0 ml-[-40px] md:ml-[0px] mr-[5px] md:mr-[0] mb-[-10px]
     svg:global(.logoSvg)
@@ -87,7 +93,7 @@
     @apply hidden
 
 .sticker
-  @apply fixed top-0 left-0 z-[99999] w-full h-[40px] bg-[#59fd53] text-[#0a0a0a] text-[22px]
+  @apply fixed top-0 left-0 z-[99998] w-full h-[40px] bg-[#59fd53] text-[#0a0a0a] text-[22px]
   background: url(../../public/assets/images/edge.svg) no-repeat 50% 50%
   background-size: 100% 100%
   font-family: "SKT"
@@ -149,3 +155,10 @@
 
 .logs
   @apply text-[10px] fixed top-0 left-0 p-[2px] z-[9999999] text-[#fff] opacity-[.3]
+
+.grate
+  @apply fixed bottom-[-5%] left-[50%] w-[100%] h-[110%] z-[99995] min-w-[1000px]
+  background: rgba(0,0,0,.5) url(../../public/assets/images/grate.svg) no-repeat 50% 50% / 110% 105%
+  filter: blur(1px)ww
+  backdrop-filter: blur(10px)
+  transform: translateX(-50%)

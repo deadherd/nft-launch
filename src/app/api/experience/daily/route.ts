@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth, dbAdmin } from '@/lib/firebaseAdmin'
 
-// Helper to log activity under users/{uid}/activity
-async function logActivity(
+// -- Helper: Create a log with predictable ID to prevent duplicates --
+async function logDailyActivityOnce(
   uid: string,
+  dateKey: string,
   entry: {
     type: string
     label: string
@@ -11,17 +12,19 @@ async function logActivity(
     meta?: Record<string, unknown>
   }
 ) {
-  const activityRef = dbAdmin.collection('users').doc(uid).collection('activity')
-  await activityRef.add({
-    ...entry,
-    createdAt: Date.now(),
-  })
+  const activityRef = dbAdmin.collection('users').doc(uid).collection('activity').doc(`daily-${dateKey}`)
+  const doc = await activityRef.get()
+  if (!doc.exists) {
+    await activityRef.set({
+      ...entry,
+      createdAt: Date.now(),
+    })
+  }
 }
 
 export async function POST(req: NextRequest) {
   try {
     const authHeader = req.headers.get('authorization')
-
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return NextResponse.json({ error: 'Missing token' }, { status: 401 })
     }
@@ -32,7 +35,6 @@ export async function POST(req: NextRequest) {
 
     const userRef = dbAdmin.collection('users').doc(uid)
     const userDoc = await userRef.get()
-
     if (!userDoc.exists) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
@@ -48,13 +50,15 @@ export async function POST(req: NextRequest) {
 
     if (now - lastLogin >= oneDay) {
       const newExp = (user.experience || 0) + 10
+      const dateKey = new Date().toISOString().split('T')[0] // e.g., "2025-06-04"
 
       await userRef.update({
         experience: newExp,
         lastLogin: now,
       })
 
-      await logActivity(uid, {
+      // ✅ Only one log per dateKey will ever exist
+      await logDailyActivityOnce(uid, dateKey, {
         type: 'daily_login',
         label: 'Claimed daily XP reward',
         xp: 10,

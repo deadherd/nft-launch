@@ -33,61 +33,61 @@ const Svg: FC<SvgProps> = ({ color = '#59fd53' }) => {
         <text className='svgText'>
           <textPath className='svgTextWhite' href='#circlePath' startOffset={range[0]} textAnchor='middle'>
             <tspan></tspan>
-            <tspan id='mfrEight'>0</tspan>
+            <tspan id='mfrEight'>UP</tspan>
           </textPath>
           <textPath className='svgTextWhite svgTextLarge' href='#circlePath' startOffset={range[1]} textAnchor='middle'>
             <tspan></tspan>
-            <tspan id='mfrOne'>0</tspan>
+            <tspan id='mfrOne'>UP</tspan>
           </textPath>
           <textPath className='svgTextWhite' href='#circlePath' startOffset={range[2]} textAnchor='middle'>
             <tspan></tspan>
-            <tspan id='mfrTwo'>0</tspan>
+            <tspan id='mfrTwo'>UP</tspan>
           </textPath>
           <textPath className='svgTextWhite' href='#circlePath' startOffset={range[3]} textAnchor='middle'>
             <tspan></tspan>
-            <tspan id='mfrThree'>0</tspan>
+            <tspan id='mfrThree'>UP</tspan>
           </textPath>
           <textPath className='svgTextWhite' href='#circlePath' startOffset={range[4]} textAnchor='middle'>
             <tspan></tspan>
-            <tspan id='mfrFour'>0</tspan>
+            <tspan id='mfrFour'>UP</tspan>
           </textPath>
           <textPath className='svgTextWhite' href='#circlePath' startOffset={range[5]} textAnchor='middle'>
             <tspan></tspan>
-            <tspan id='mfrFive'>0</tspan>
+            <tspan id='mfrFive'>UP</tspan>
           </textPath>
           <textPath className='svgTextWhite' href='#circlePath' startOffset={range[6]} textAnchor='middle'>
             <tspan></tspan>
-            <tspan id='mfrSix'>0</tspan>
+            <tspan id='mfrSix'>UP</tspan>
           </textPath>
           <textPath className='svgTextWhite' href='#circlePath' startOffset={range[7]} textAnchor='middle'>
             <tspan></tspan>
-            <tspan id='mfrSeven'>0</tspan>
+            <tspan id='mfrSeven'>UP</tspan>
           </textPath>
         </text>
         <text className='svgTitle'>
           <textPath href='#outerCirclePath' startOffset={range[0]} textAnchor='middle'>
-            <tspan>Rank</tspan>
+            <tspan>TAG</tspan>
           </textPath>
           <textPath href='#outerCirclePath' startOffset={range[1]} textAnchor='middle'>
-            <tspan>Time</tspan>
+            <tspan>TAG</tspan>
           </textPath>
           <textPath href='#outerCirclePath' startOffset={range[2]} textAnchor='middle'>
-            <tspan>Runt</tspan>
+            <tspan>TAG</tspan>
           </textPath>
           <textPath href='#outerCirclePath' startOffset={range[3]} textAnchor='middle'>
-            <tspan>Made</tspan>
+            <tspan>TAG</tspan>
           </textPath>
           <textPath href='#outerCirclePath' startOffset={range[4]} textAnchor='middle'>
-            <tspan>Yolk</tspan>
+            <tspan>TAG</tspan>
           </textPath>
           <textPath href='#outerCirclePath' startOffset={range[5]} textAnchor='middle'>
-            <tspan>Gold</tspan>
+            <tspan>TAG</tspan>
           </textPath>
           <textPath href='#outerCirclePath' startOffset={range[6]} textAnchor='middle'>
-            <tspan>Nosh</tspan>
+            <tspan>TAG</tspan>
           </textPath>
           <textPath href='#outerCirclePath' startOffset={range[7]} textAnchor='middle'>
-            <tspan>Zoom</tspan>
+            <tspan>TAG</tspan>
           </textPath>
         </text>
       </g>

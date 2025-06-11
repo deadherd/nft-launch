@@ -14,7 +14,7 @@
     @apply absolute top-0 left-0 w-full h-full
     background: linear-gradient(0deg, #0a0a0a, rgba(0,0,0,0) 45%, #000)
   img.egg
-    @apply relative z-[3] w-full h-auto max-w-[660px] max-h-[605px]
+    @apply relative z-[3] w-full h-auto max-w-[600px] max-h-[600px]
     transform: translate(-30%, -10%)
   .truck
     @apply max-w-[35vw]
@@ -28,7 +28,8 @@
       text-decoration: none!important
       letter-spacing: 0.03em
       text-shadow: 0 6px 6px rgba(0,0,0,.5), 0 4px 0 #0a0a0a
-      &:nth-child(1)
+      transition: color .3s, scale .3s
+      &:nth-child(2)
         &:before
           @apply block absolute w-[60px] md:w-[100px] h-[60px] right-[5%] top-[10px] z-[1] rotate-[5deg]
           background: url(../../public/assets/images/ff.svg) no-repeat 50% 50%
@@ -39,7 +40,7 @@
           background: url(../../public/assets/images/icon-base.svg) no-repeat 50% 50%
           background-size: 100% auto
           content: ""
-      &:nth-child(2)
+      &:nth-child(1)
         span
           @apply rotate-[2deg]
         &:before
@@ -82,7 +83,9 @@
 .alleyWanted
   @apply absolute bottom-[60.6vw] right-[10.6vw] w-[7vw] h-auto
 .alleyTv
-  @apply absolute bottom-[35vw] left-[10vw] w-[19vw] h-auto
+  @apply absolute bottom-[35vw] left-[10vw] w-[19vw] h-auto z-[3]
+.alleyGloco
+  @apply absolute bottom-[50vw] left-[8vw] w-[10vw] h-auto z-[2]
 .alleyFooter
   @apply absolute bottom-[13.5vw] left-[32vw]
   //opacity: .5
@@ -90,9 +93,9 @@
   .alleyFooterImage
     @apply w-[42.8vw]
 .alleyForeground
-  @apply relative overflow-hidden
+  @apply relative
 .alleySteam
-  @apply fixed top-0 left-0 w-full h-[150%] z-[99999] inset-0 flex items-center justify-center overflow-hidden mix-blend-lighten
+  @apply fixed top-0 left-0 w-full h-[150%] z-[99991] inset-0 flex items-center justify-center overflow-hidden mix-blend-lighten
   pointer-events: none
   video
     @apply w-full h-full object-cover
@@ -147,7 +150,7 @@
     @apply text-[#aaa]
     //opacity: .8
     //filter: grayscale(1)
-    //pointer-events: none
+    pointer-events: none
     svg
       display: none
     &:hover, &:active
@@ -157,11 +160,24 @@
   @apply inline-block w-[3vw] h-[3vw] bg-[#59fd53] rounded-md
 
 
-
-
+.spriteMap
+  @apply absolute w-full h-full z-[1] bottom-0 left-0
+  background: url(../../public/assets/images/alley-foreground-bg-stacked-dump.jpg) no-repeat 0 100% / 100vw auto
+  &.spriteBurrow
+    @apply left-auto right-0 bottom-[23vw] w-[20vw] h-[20vw]
+    background-position: 100% 60%
+  &.spriteCraft
+    @apply left-auto right-[33.8vw] bottom-[41.5vw] w-[10vw] h-[27vw]
+    background-position: 62% 18%
+  &.spriteDeepDive
+    @apply left-[22vw] bottom-[38vw] w-[19vw] h-[25vw]
+    background-position: 27.4% 27.6%
+  &.spriteGloco
+    @apply left-[0] bottom-[49vw] w-[18vw] h-[23vw]
+    background-position: 0 11%
   
 a.gloco
-  @apply absolute bottom-[70vw] left-[5vw] text-[5vw] rotate-[-8deg] text-[#fff] z-[1]
+  @apply absolute bottom-[70vw] left-[5vw] text-[5vw] rotate-[-8deg] text-[#fff]
   line-height: 1
   font-family: "SKT"
   letter-spacing: 0.03em
@@ -175,7 +191,7 @@ a.gloco
     animation: bobTight 1s infinite ease-in-out
 
 a.arcade
-  @apply absolute bottom-[51vw] left-[15vw] text-[5.5vw] rotate-[-2deg] text-[#fff] z-[1]
+  @apply absolute bottom-[51vw] left-[19vw] text-[5.5vw] rotate-[-2deg] text-[#fff]
   line-height: 1
   font-family: "SKT"
   letter-spacing: 0.03em
@@ -189,7 +205,7 @@ a.arcade
     animation: bobTight 1s infinite ease-in-out
 
 a.pizza
-  @apply absolute bottom-[78vw] right-[43vw] text-[3vw] rotate-[2deg] text-[#fff]
+  @apply absolute bottom-[78vw] right-[53vw] text-[3vw] rotate-[-2deg] text-[#fff]
   line-height: 1
   font-family: "SKT"
   letter-spacing: 0.03em
@@ -203,7 +219,7 @@ a.pizza
     animation: bobTight 1s infinite ease-in-out
 
 a.dirtydozen
-  @apply absolute bottom-[69vw] right-[16vw] text-[4vw] rotate-[-10deg] text-[#fff] z-[1]
+  @apply absolute bottom-[76vw] right-[10vw] text-[4vw] rotate-[-10deg] text-[#fff]
   line-height: 1
   font-family: "SKT"
   letter-spacing: 0.03em
@@ -217,7 +233,7 @@ a.dirtydozen
     animation: bobTight 1s infinite ease-in-out
 
 a.dailytwo
-  @apply absolute bottom-[52vw] left-[57vw] text-[3.5vw] rotate-[3deg] text-[#fff]
+  @apply absolute bottom-[61vw] left-[57vw] text-[3.5vw] rotate-[3deg] text-[#fff]
   line-height: 1
   font-family: "SKT"
   letter-spacing: 0.03em
@@ -231,7 +247,7 @@ a.dailytwo
     animation: bobTight 1s infinite ease-in-out
 
 a.greasepit
-  @apply absolute bottom-[62vw] left-[48vw] text-[3.5vw] rotate-[0] text-[#fff]
+  @apply absolute bottom-[50vw] left-[47vw] text-[3.5vw] rotate-[0] text-[#fff]
   line-height: 1
   font-family: "SKT"
   letter-spacing: 0.03em
@@ -241,11 +257,11 @@ a.greasepit
   &:hover, &:active
     @apply text-[#ffff0f]
   svg
-    @apply w-[1vw] h-[5vw] rotate-[90deg] absolute top-[.8vw] left-[50%] ml-[-0.5vw] fill-[#ffff0f]
+    @apply w-[1vw] h-[5vw] rotate-[-90deg] absolute top-[-4.2vw] left-[50%] ml-[-0.5vw] fill-[#ffff0f]
     animation: bobTight 1s infinite ease-in-out
 
 a.dumpster
-  @apply absolute bottom-[62vw] left-[27vw] text-[4vw] rotate-[4deg] text-[#fff]
+  @apply absolute bottom-[64vw] left-[27vw] text-[4vw] rotate-[4deg] text-[#fff]
   line-height: 1
   font-family: "SKT"
   letter-spacing: 0.03em
@@ -273,7 +289,7 @@ a.burrow
     animation: bobTight 1s infinite ease-in-out
 
 .enter
-  @apply absolute bottom-[32vw] left-[53vw] text-[10vw] text-[#fff] z-[1]
+  @apply absolute bottom-[32vw] left-[53vw] text-[10vw] text-[#fff] z-[2]
   user-select: none
   font-family: "SKT"
   text-shadow: 0 4px 0 #0a0a0a
@@ -293,7 +309,7 @@ a.burrow
       animation: bob 1s infinite ease-in-out
 
 .eggCount
-  @apply absolute block bg-[#0a0a0a] text-[#fff] p-[.8vw] pl-[2.5vw] pr-[1.2vw] top-[-12vw] right-[-2vw] z-[1] rotate-[2deg] text-[3vw] flex items-center justify-center rounded-lg gap-[.3vw]
+  @apply absolute block bg-[#0a0a0a] text-[#fff] p-[.8vw] pl-[2.5vw] pr-[1.2vw] top-[-12vw] right-[-2vw] z-[10] rotate-[2deg] text-[3vw] flex items-center justify-center rounded-lg gap-[.3vw]
   border: 2px solid #59fd53
   line-height: 1
   text-decoration: none!important
@@ -316,6 +332,8 @@ a.burrow
     @apply text-[1.3vw] py-[.5vw] pl-[2.6vw] pr-[.6vw] top-[-2.5vw] right-[-1vw] rotate-[7deg]
     &.left
       @apply left-[-1vw] right-auto rotate-[-7deg]
+    &.leftBot
+      @apply left-[-1vw] top-auto bottom-[-2.5vw] right-auto rotate-[7deg]
     span
       @apply h-[1.2vw]
     img
@@ -325,8 +343,8 @@ a.burrow
         @apply max-w-[2vw] max-h-[2vw] left-[.1vw]
         padding: 0.1vw
   &.center
-    @apply left-[50%] rotate-[-2deg] top-[-9vw] right-auto ml-[1.5vw]
-    transform: translateX(-50%)
+    @apply left-[-3vw] rotate-[-7deg] top-[-9vw] right-auto ml-[1.5vw]
+    //transform: translateX(-50%)
   &.product
     @apply left-[50%] top-[50%] rotate-[-2deg] right-auto p-[.5vw]
     span
@@ -352,6 +370,7 @@ a.eggCount
         @apply text-[#0a0a0a]
 
 .feature
+  @apply z-[10]
   &.personal
     .eggCount
       &.tight
@@ -364,6 +383,18 @@ a.eggCount
           @apply border-[#59fd53]
       .iconImage
         @apply bg-[#59fd53]
+  .caption
+    @apply text-[22px] absolute top-[50%] left-[50%] text-center text-[#59fd53] px-[6wpx] py-[2px]
+    //background-color: rgba(0,0,0,.5)
+    font-family: "Instant Karma"
+    transform: translate(-50%, -50%)
+    letter-spacing: -0.03em
+    text-shadow: 0 2px 0 #0a0a0a, -2px 2px 0 #0a0a0a, 2px 2px 0 #0a0a0a, 0 -2px 0 #0a0a0a, 0 3px 5px rgba(0,0,0,1)
+    white-space: nowrap
+    transition: color .3s
+  &:hover, &:active
+    .caption
+      @apply text-[#fff]
 
 
 @keyframes bobTight

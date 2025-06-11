@@ -3,7 +3,7 @@
 // hooks/useAuthUser.ts
 import { useEffect, useState } from 'react'
 import { getAuth, onAuthStateChanged, type User } from 'firebase/auth'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, onSnapshot } from 'firebase/firestore'
 import { db } from '@/lib/firebaseClient'
 import { useDailyLoginReward } from './useDailyLoginReward'
 
@@ -26,21 +26,27 @@ export default function useAuthUser() {
     const auth = getAuth()
 
     // listen for firebase auth state
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (firebaseUser) => {
       setUser(firebaseUser)
 
       if (firebaseUser) {
         const ref = doc(db, 'users', firebaseUser.uid)
-        const snap = await getDoc(ref)
-        if (snap.exists()) {
-          setUserData(snap.data() as UserData)
-        }
+
+        // live listener for userData updates
+        const unsubscribeSnapshot = onSnapshot(ref, (snap) => {
+          if (snap.exists()) {
+            setUserData(snap.data() as UserData)
+          }
+        })
+
+        // clean up snapshot listener when user changes or unmounts
+        return unsubscribeSnapshot
       } else {
         setUserData(null)
       }
     })
 
-    return () => unsubscribe()
+    return () => unsubscribeAuth()
   }, [])
 
   // trigger daily xp reward if logged in

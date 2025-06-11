@@ -10,6 +10,7 @@ import Footer from '@/layout/Footers/LanderFooter'
 import s from '@/styles/Home.module.sass'
 import SignInWithEthereum from '@/components/SignInWithEthereum'
 import { useAccount } from 'wagmi'
+import MintCard from '@/components/MintCard'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -55,19 +56,17 @@ export default function Home() {
         <div className={s.dimmer}></div>
         <div ref={midRef} className={s.links}>
           <ul className={s.features}>
-            <li className='textGreen pulse'>
-              Only <span id='eggCount'>500</span> left!
-            </li>
+            <li className='textGreen pulse'>Limited Edition!</li>
             <li>
               <h2>
                 FiendIng<i> </i>fathErs
               </h2>
             </li>
-            <li className={`${s.barItem} ${s.barHighlight}`}>💎 Founder&apos;s Edition</li>
+            <li className={`${s.barItem} ${s.barHighlight}`}>💎 Founder&apos;s VIP Pass</li>
             <li className={`${s.barItem} ${s.barHighlight}`}>🤑 Unlimited Cracks</li>
             <li className={s.barItem}>
               <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
-              PFP Whitelist
+              Reserved PFP <sub>(x1 ea.)</sub>
             </li>
             <li className={s.barItem}>
               <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
@@ -75,11 +74,11 @@ export default function Home() {
             </li>
             <li className={s.barItem}>
               <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
-              Lifetime VIP Pass
+              Referral Bonuses*
             </li>
             <li className={s.barItem}>
               <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
-              Referral Bonuses*
+              Max. 3 Per Wallet
             </li>
             <span className='pill italic'>* Only for a limited time.</span>
             <li className={s.listTitle}>
@@ -128,13 +127,14 @@ export default function Home() {
             </Link>
           )}
         </div>
-        <Image src='/assets/images/three-eggs.png' alt='MFR Egg' width={660} height={605} className={s.egg} />
+        <Image src='/assets/images/Produx/output_4.png' alt='MFR Egg' width={800} height={800} className={s.egg} />
         <div ref={frontRef} className={s.silhouette}>
           <Image src='/assets/images/silhouette.svg' alt='Rat Group Silhouette Foreground' width={1458} height={296} />
         </div>
       </section>
       <LazySection>
         <section className={s.carousel}>
+          <MintCard />
           <h2>
             Say<i> </i>
             <em>Yes</em>
@@ -198,11 +198,15 @@ export default function Home() {
           <Image className='max-w-[500px] mt-[-10vw]' src='/assets/images/hat-dozen.jpg' alt='MFR Egg Cartons' width={948} height={784} />
         </section>
         <hr className='smudge' />
-        <section className={s.cta}>
+        <section className={`${s.cta} mb-[-100px]`}>
           <h2>
             SheLl<i> </i>RAisEr
           </h2>
-          <p>Ya don&apos;t hatch them, they hatch you. What&apos;s inside remembers. And they&apos;re hungry.</p>
+          <p>
+            You don&apos;t hatch them,
+            <br />
+            they hatch you.
+          </p>
         </section>
         <div className={s.centered}>
           <Image src='/assets/images/plated.jpg' alt='MFR Egg Cartons' width={1092} height={450} />
