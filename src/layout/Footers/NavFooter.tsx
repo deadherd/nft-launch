@@ -7,10 +7,14 @@ import FlyoutMenu from '@/components/FlyoutMenu'
 //import MenuSvg from '@/components/svg/MenuSvg'
 //import UtensilsSvg from '@/components/svg/UtensilsSvg'
 //import useAuthUser from '@/hooks/useAuthUser'
+import { useAudioController } from '@/systems/runtime/AudioProvider'
+import IconAudio from '@images/icons/png64/sound64.png'
+import IconMute from '@images/icons/png64/mute64.png'
 
 // -- start: footer w/ expanding radial flyout menu --
 export default function Footer() {
   //const { userData } = useAuthUser()
+  const { isAudioOn, toggleAudio } = useAudioController()
 
   return (
     <>
@@ -29,15 +33,19 @@ export default function Footer() {
           </p>
         </div>
 
-        {/*<div className='navMenu'>
-          <Link href='#'>
-            <UtensilsSvg color='#0a0a0a' />
-          </Link>
+        <div className='navMenu'>
+          <button onClick={toggleAudio}>
+            <Image src={`${isAudioOn ? IconAudio.src : IconMute.src}`} width='32' height='32' alt='Audio' />
+          </button>
 
-          <Link href='#'>
+          {/*<Link href='#'>
+            <UtensilsSvg color='#0a0a0a' />
+          </Link>*/}
+
+          {/*<Link href='#'>
             <MenuSvg color='#0a0a0a' />
-          </Link>
-        </div>*/}
+          </Link>*/}
+        </div>
 
         <FlyoutMenu />
       </footer>

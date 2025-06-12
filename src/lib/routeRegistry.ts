@@ -3,22 +3,31 @@
 export interface RouteEntry {
   path: string
   bodyClass: string
-  locationId?: string // optional: for locations you're tracking
-  metaTitle?: string // optional: for meta registry links
-  xpReward?: number // optional: you can even merge rewards here later
+  locationId?: string
+  metaTitle?: string
+  xpReward?: number
+  audio?: string
 }
 
 export const RouteRegistry: RouteEntry[] = [
   { path: '/', bodyClass: 'index', metaTitle: 'New Yolk City' },
-  { path: '/settings', bodyClass: 'settings', metaTitle: 'MFR Settings' },
-  { path: '/sunnyside', bodyClass: 'alley', metaTitle: 'Sunnyside Alley', locationId: 'sunnyside_alley', xpReward: 10 },
-  { path: '/sunnyside/pizza-joint/kitchen-hole', bodyClass: 'hole', locationId: 'sunnyside_hole', xpReward: 10 },
+  { path: '/settings', bodyClass: 'settings', metaTitle: 'Settings' },
+  {
+    path: '/sunnyside',
+    bodyClass: 'alley',
+    metaTitle: 'Sunnyside Alley',
+    locationId: 'sunnyside_alley',
+    xpReward: 10,
+    audio: '/assets/audio/city-background-ambience-01.mp3',
+  },
+  { path: '/sunnyside/pizza-joint/kitchen-hole', bodyClass: 'hole', metaTitle: 'Sunnyside Hole', locationId: 'sunnyside_hole', xpReward: 10 },
   { path: '/deep-dive', bodyClass: 'docs', metaTitle: 'Deep Dive' },
   { path: '/activity', bodyClass: 'activity', metaTitle: 'Activity Feed' },
   { path: '/lore/create', bodyClass: 'lorebook', metaTitle: 'Lorebook' },
 ]
 
-// lookup any route entry by current pathname
+// sort longer routes first for correct matching
 export function getRouteEntry(pathname: string): RouteEntry | undefined {
-  return RouteRegistry.find((entry) => pathname.startsWith(entry.path))
+  const sorted = [...RouteRegistry].sort((a, b) => b.path.length - a.path.length)
+  return sorted.find((entry) => pathname.startsWith(entry.path))
 }

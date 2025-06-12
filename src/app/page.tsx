@@ -21,37 +21,6 @@ export default function Home() {
   const midRef = useRef<HTMLDivElement>(null)
   const { isConnected } = useAccount()
 
-  {
-    /*useEffect(() => {
-    if (midRef.current) {
-      // mid layer parallax
-      gsap.to(midRef.current, {
-        yPercent: 10,
-        ease: "none",
-        scrollTrigger: {
-          trigger: midRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    }
-    if (frontRef.current) {
-      // front layer parallax
-      gsap.to(frontRef.current, {
-        yPercent: -50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: frontRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    }
-  }, []);*/
-  }
-
   return (
     <>
       <section className={s.banner}>

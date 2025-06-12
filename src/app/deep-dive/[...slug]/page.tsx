@@ -2,7 +2,8 @@
 
 import DocsLayout from '@/components/DocsLayout'
 import DocContent from '@/components/mdx/MdxContent'
-import { getAllDocsMeta, getDocBySlug, getHeadings, serializeMDX, type DocMeta } from '@/lib/mdxService'
+import { getAllDocsMeta, getDocBySlug, getHeadings, serializeMDX } from '@/lib/mdxService'
+import type { DocMeta } from '@/types/DocMeta'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 // -- type for heading items in toc --

@@ -571,9 +571,12 @@ footer.upside
   font-family: "Instant Karma"
   .navMenu
     @apply flex items-center justify-end
-    a
+    a, button
       @apply w-[60px] h-[60px] flex items-center justify-center
+      transition: scale .3s
       background: url(../../public/assets/images/sq-button.svg) no-repeat 50% 50% / 48px 48px
+      &:hover, &:active
+        @apply scale-[1.1]
       svg
         @apply w-full h-auto max-w-[32px] max-h-[32px]
   p

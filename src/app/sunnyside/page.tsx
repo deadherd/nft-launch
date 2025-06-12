@@ -9,7 +9,6 @@ import useAuthUser from '@/hooks/useAuthUser'
 import alleyFooter from '@images/manhole.png'
 import Arrowhead from '@/components/svg/Arrowhead'
 import useScrollReveal from '@/hooks/useScrollReveal'
-import AudioAmbience from '@/components/AudioAmbience'
 import ParallaxLayer from '@/components/ParallaxLayer'
 import LazySection from '@/layout/Containers/LazySection'
 import bgForegroundTop from '@images/alley-foreground-bg-skyline.png'
@@ -27,8 +26,6 @@ export default function Home() {
   useScrollReveal() // trigger .reveal anims on scroll
   return (
     <>
-      <AudioAmbience />
-
       {/* -- content -- */}
       {userData && (
         <div className={s.alleyContent}>
@@ -53,7 +50,6 @@ export default function Home() {
           </p>
           <LazySection>
             <hr className='smudge' />
-
             <h2 className='reveal'>
               Get<i> </i>madE<i> </i>
               <em>
@@ -119,7 +115,7 @@ export default function Home() {
 
         {/* -- henhouse -- */}
         {level >= 1 && <div className={`${s.spriteMap} ${s.spriteBurrow}`}></div>}
-        <Link href='/sunnyside/pizza-joint/kitchen-hole' className={`${s.burrow} ${s.feature} ${level < 1 ? 'unavailable' : ''}`}>
+        <Link href='/sunnyside/pizza-joint/hole' className={`${s.burrow} ${s.feature} ${level < 1 ? 'unavailable' : ''}`}>
           Kitchen
           <span className={s.caption}>Fund the Family</span>
           <Arrowhead />
