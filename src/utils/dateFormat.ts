@@ -1,5 +1,4 @@
 // utils/dateFormat.ts
-
 import { formatDistanceToNow } from 'date-fns'
 import { Timestamp } from 'firebase/firestore'
 

@@ -1,5 +1,4 @@
 // app/lore/[slug]/page.tsx
-
 import { db } from '@/lib/firebaseClient'
 import { collection, query, where, limit, getDocs, type DocumentData } from 'firebase/firestore'
 import type { Metadata } from 'next'

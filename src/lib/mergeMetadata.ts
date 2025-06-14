@@ -1,5 +1,4 @@
 // lib/mergeMetadata.ts
-
 import type { Metadata } from 'next'
 import { defaultMetadata } from './metaDefaults'
 

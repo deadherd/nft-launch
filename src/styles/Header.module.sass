@@ -67,7 +67,8 @@
       @apply h-[auto] w-[140px]
   body:global(.docs) & + *,
   body:global(.alley) & + *,
-  body:global(.index) & + *
+  body:global(.index) & + *,
+  body:global(.stash) & + *
     @apply md:mt-[-140px]
 
 .openMenu
@@ -93,7 +94,7 @@
     @apply hidden
 
 .sticker
-  @apply fixed top-0 left-0 z-[99998] w-full h-[40px] bg-[#59fd53] text-[#0a0a0a] text-[22px]
+  @apply fixed bottom-0 rotate-[180deg] left-0 z-[9999998] w-full h-[40px] bg-[#59fd53] text-[#0a0a0a] text-[22px] hidden
   background: url(../../public/assets/images/edge.svg) no-repeat 50% 50%
   background-size: 100% 100%
   font-family: "SKT"

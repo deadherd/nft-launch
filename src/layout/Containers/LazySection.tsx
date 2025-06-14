@@ -1,17 +1,17 @@
 'use client'
 
-// layout/containers/LazySection.tsx
+// layout/Containers/LazySection.tsx
 import type { FC, ReactNode } from 'react'
 import { useState, useEffect, useRef } from 'react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-// -- props: children to render + optional root margin --
 interface LazySectionProps {
   children: ReactNode
   rootMargin?: string
+  onVisible?: () => void
 }
 
-// -- start: lazy load section when in viewport --
-const LazySection: FC<LazySectionProps> = ({ children, rootMargin = '200px' }) => {
+const LazySection: FC<LazySectionProps> = ({ children, rootMargin = '600px 0px', onVisible }) => {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
 
@@ -19,23 +19,23 @@ const LazySection: FC<LazySectionProps> = ({ children, rootMargin = '200px' }) =
     const el = ref.current
     if (!el) return
 
-    // setup observer to trigger when section enters view
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true) // show content
-          obs.disconnect() // stop observing once visible
+          setVisible(true)
+          onVisible?.()
+          ScrollTrigger.refresh() // refresh GSAP layout calculations after new content appears
+          obs.disconnect()
         }
       },
-      { rootMargin } // expand viewport margin for early load
+      { rootMargin }
     )
 
     obs.observe(el)
-    return () => obs.disconnect() // cleanup on unmount
-  }, [rootMargin])
+    return () => obs.disconnect()
+  }, [rootMargin, onVisible])
 
   return <div ref={ref}>{visible ? children : null}</div>
 }
-// -- end: lazy section --
 
 export default LazySection

@@ -15,7 +15,7 @@ export function Web3Providers(props: { children: ReactNode }) {
       config={{
         analytics: false,
         appearance: {
-          name: 'Made for Rats', // ui brand name
+          name: 'Made for Rats™', // ui brand name
           logo: '/assets/images/logo-splat.svg', // ui logo
           mode: 'dark', // light | dark | auto
           theme: 'custom', // allows tailwind/css styling

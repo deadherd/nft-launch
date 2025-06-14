@@ -1,8 +1,6 @@
 // INDEX app/layout.tsx
 
-import type { Metadata } from 'next'
 import { DM_Mono, DM_Sans } from 'next/font/google'
-import { defaultMetadata } from '@/lib/metaDefaults'
 import Loader from '@/layout/Loader'
 import Footer from '@/layout/Footers/NavFooter'
 import Header from '@/layout/Headers/NavHeader'
@@ -14,6 +12,11 @@ import BodyClassManager from '@/systems/runtime/BodyClassManager'
 import '@/styles/globals.sass'
 import '@coinbase/onchainkit/styles.css'
 
+import { resolveMetadata } from '@/lib/resolveMetadata'
+export async function generateMetadata({ pathname }: { pathname: string }) {
+  return resolveMetadata(pathname)
+}
+
 const dmMono = DM_Mono({
   variable: '--font-dm-mono',
   subsets: ['latin'],
@@ -24,8 +27,6 @@ const dmSans = DM_Sans({
   variable: '--font-dm-sans',
   subsets: ['latin'],
 })
-
-export const metadata: Metadata = defaultMetadata
 
 export default function RootLayout({
   children,

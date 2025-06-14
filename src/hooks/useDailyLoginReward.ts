@@ -20,7 +20,7 @@ export const useDailyLoginReward = (user: User | null) => {
     const localCache = localStorage.getItem(localStorageKey)
 
     if (localCache === today) {
-      console.log('[DAILY XP] Already claimed today (local cache)')
+      //console.log('[DAILY XP] Already claimed today (local cache)')
       hasClaimed.current = true
       return
     }
@@ -39,7 +39,7 @@ export const useDailyLoginReward = (user: User | null) => {
         const lastClaimed: string | undefined = userData.lastDailyXPClaimed
 
         if (lastClaimed === today) {
-          console.log('[DAILY XP] Already claimed today (server check)')
+          //console.log('[DAILY XP] Already claimed today (server check)')
           localStorage.setItem(localStorageKey, today)
           hasClaimed.current = true
           return
@@ -61,7 +61,7 @@ export const useDailyLoginReward = (user: User | null) => {
 
         localStorage.setItem(localStorageKey, today)
         hasClaimed.current = true
-        console.log('[DAILY XP] Granted: 10 XP (verified server-side)')
+        //console.log('[DAILY XP] Granted: 10 XP (verified server-side)')
       } catch (err) {
         console.error('[DAILY XP] Error during XP grant:', err)
       }

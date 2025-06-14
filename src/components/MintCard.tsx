@@ -1,5 +1,4 @@
 // components/MintCard.tsx
-
 import { useState } from 'react'
 import { useWriteContract } from 'wagmi'
 import { parseEther } from 'viem'

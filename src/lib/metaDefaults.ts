@@ -1,5 +1,4 @@
 // lib/metaDefaults.ts
-
 import type { Metadata } from 'next'
 
 export const defaultMetadata: Metadata = {

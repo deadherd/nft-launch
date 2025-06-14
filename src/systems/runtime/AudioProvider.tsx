@@ -27,18 +27,18 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     ambienceRef.current = new Audio()
     ambienceRef.current.loop = true
     ambienceRef.current.volume = 0
-    console.log('[Audio] Ambience object created')
+    //console.log('[Audio] Ambience object created')
   }, [])
 
   // handle route change and load correct audio
   useEffect(() => {
     if (!hasInteracted.current) {
-      console.log('[Audio] Waiting for user interaction...')
+      //console.log('[Audio] Waiting for user interaction...')
       return
     }
 
     const route = getRouteEntry(pathname)
-    console.log('[Audio] Route loaded:', route)
+    //console.log('[Audio] Route loaded:', route)
 
     const audioPath = route?.audio ?? null
     const ambience = ambienceRef.current
@@ -48,16 +48,16 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     }
 
     if (audioPath) {
-      console.log('[Audio] Attempting to load:', audioPath)
+      //console.log('[Audio] Attempting to load:', audioPath)
       ambience.src = audioPath
       ambience.load()
 
       if (isAudioOn) {
-        console.log('[Audio] Playing ambience...')
+        //console.log('[Audio] Playing ambience...')
         ambience
           .play()
           .then(() => {
-            console.log('[Audio] Playback started successfully')
+            //console.log('[Audio] Playback started successfully')
             fadeIn(ambience)
           })
           .catch((err) => {
@@ -65,14 +65,14 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
           })
       }
     } else {
-      console.log('[Audio] No audio assigned for this route. Stopping.')
+      //console.log('[Audio] No audio assigned for this route. Stopping.')
       ambience.pause()
       ambience.src = ''
     }
   }, [pathname, isAudioOn])
 
   const fadeIn = (audio: HTMLAudioElement) => {
-    console.log('[Audio] Starting fade-in')
+    //console.log('[Audio] Starting fade-in')
     clearInterval(fadeRef.current!)
     let elapsed = 0
     fadeRef.current = setInterval(() => {
@@ -80,23 +80,23 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       audio.volume = Math.min(0.5, (elapsed / 2000) * 0.5)
       if (elapsed >= 2000) {
         clearInterval(fadeRef.current!)
-        console.log('[Audio] Fade-in complete')
+        //console.log('[Audio] Fade-in complete')
       }
     }, 50)
   }
 
   const toggleAudio = () => {
     if (!hasInteracted.current) {
-      console.log('[Audio] First toggle = unlocking audio autoplay')
+      //console.log('[Audio] First toggle = unlocking audio autoplay')
       hasInteracted.current = true
     }
-    console.log('[Audio] Toggling audio. Current state:', isAudioOn)
+    //console.log('[Audio] Toggling audio. Current state:', isAudioOn)
     setIsAudioOn((prev) => !prev)
   }
 
   const playSFX = (sfxPath: string) => {
     if (!hasInteracted.current) {
-      console.log('[SFX] Ignored: no interaction yet')
+      //console.log('[SFX] Ignored: no interaction yet')
       return
     }
     if (sfxRef.current) {

@@ -1,7 +1,6 @@
 'use client'
 
 // layout/Footers/NavFooter.tsx
-//import Link from 'next/link'
 import Image from 'next/image'
 import FlyoutMenu from '@/components/FlyoutMenu'
 //import MenuSvg from '@/components/svg/MenuSvg'

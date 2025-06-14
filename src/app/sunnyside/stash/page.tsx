@@ -1,6 +1,6 @@
 'use client'
 
-// app/sunnyside/pizza-joint/kitchen-hole/page.tsx
+// app/sunnyside/whole/page.tsx
 import { useRef } from 'react'
 import Link from 'next/link'
 import { gsap } from 'gsap'

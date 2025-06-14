@@ -1,6 +1,6 @@
-// src/components/MdxContent.tsx
 'use client'
 
+// src/components/MdxContent.tsx
 import dynamic from 'next/dynamic'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 

@@ -22,7 +22,7 @@ export const useAddExperience = (user: User | null) => {
 
       const userData = userSnap.data()
       const currentXP = userData.experience ?? 0
-      const currentLevel = userData.level ?? 1
+      //const currentLevel = userData.level ?? 1
 
       const newXP = currentXP + amount
       const updates: Partial<{
@@ -33,13 +33,13 @@ export const useAddExperience = (user: User | null) => {
       if (newXP >= 69) {
         updates.level = increment(1)
         updates.experience = newXP - 69
-        console.log('[XP] Level up! New level:', currentLevel + 1)
+        //console.log('[XP] Level up! New level:', currentLevel + 1)
       } else {
         updates.experience = newXP
       }
 
       await updateDoc(userRef, updates)
-      console.log('[XP] Experience updated:', updates)
+      //console.log('[XP] Experience updated:', updates)
     },
     [user]
   )

@@ -1,5 +1,4 @@
 // hooks/useFirestoreCollection.ts
-
 import { useState, useEffect } from 'react'
 import {
   collection,

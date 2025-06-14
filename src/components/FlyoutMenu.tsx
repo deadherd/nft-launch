@@ -6,13 +6,8 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import SpotDotsSvg from '@/components/svg/SpotDotsSvg'
-
-interface MenuItem {
-  icon: string
-  title: string
-  link: string
-  className?: string
-}
+import { getRouteEntry } from '@/lib/routeRegistry'
+import useAuthUser from '@/hooks/useAuthUser'
 
 const gridPositions = [
   [-1, 0],
@@ -27,23 +22,9 @@ const gridPositions = [
 
 const spacing = 80
 
-const menuByRoute: Record<string, MenuItem[]> = {
-  '/sunnyside': [
-    { icon: 'lab-mouse_128.png', title: '', link: '#bottom', className: 'explore' },
-    { icon: 'list_128.png', title: 'Deep Dive', link: '/deep-dive', className: 'papers' },
-    { icon: 'buynow_128.png', title: 'Kitchen', link: '/', className: 'kitchen' },
-    //{ icon: 'smartphone02_128.png', title: 'Tags', link: '/settings', className: 'tags' },
-    //{ icon: 'dollar_sign_128.png', title: 'Nest Egg', link: '/deep-dive/nest-egg', className: 'next-egg' },
-  ],
-  '/deep-dive': [{ icon: 'packaging2_128.png', title: 'Exit', link: '/sunnyside', className: 'parent' }],
-  '/activity': [{ icon: 'packaging2_128.png', title: 'Exit', link: '/sunnyside', className: 'parent' }],
-  '/settings': [{ icon: 'packaging2_128.png', title: 'Exit', link: '/sunnyside', className: 'parent' }],
-  '/': [{ icon: 'packaging2_128.png', title: 'Exit', link: '/sunnyside', className: 'parent' }],
-  // Add more routes as needed
-}
-
 const FlyoutMenu = () => {
   const pathname = usePathname()
+  const { userData, loading } = useAuthUser()
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -58,18 +39,19 @@ const FlyoutMenu = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const findClosestMenu = (path: string): MenuItem[] => {
-    let current = path
-    while (current !== '') {
-      if (menuByRoute[current]) return menuByRoute[current]
-      current = current.substring(0, current.lastIndexOf('/')) || '/'
-      if (current === path) break // prevent infinite loop
-    }
-    return []
-  }
-  const menuItems = findClosestMenu(pathname)
+  if (loading) return null
 
-  if (menuItems.length === 0) return null
+  const routeEntry = getRouteEntry(pathname)
+  const menuItems = routeEntry?.menuItems || []
+
+  const visibleMenuItems = menuItems.filter((item) => {
+    // Example rule: If menu links to a gated route, check if locationId exists
+    const linkedEntry = getRouteEntry(item.link)
+    if (!linkedEntry?.locationId) return true // non-gated routes always show
+    return userData?.locations?.includes(linkedEntry.locationId)
+  })
+
+  if (visibleMenuItems.length === 0) return null
 
   return (
     <div

@@ -1,5 +1,4 @@
-// app/layout/Footers/LanderFooter.tsx
-
+// layout/Footers/LanderFooter.tsx
 import Image from 'next/image'
 import Link from 'next/link'
 import LazySection from '../Containers/LazySection'

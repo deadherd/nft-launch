@@ -3,7 +3,6 @@
 // app/layout/Headers/NavHeader.tsx
 import type { FC } from 'react'
 import Image from 'next/image'
-//import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useRef, useEffect, useState } from 'react'
 import { gsap } from 'gsap'
@@ -17,7 +16,7 @@ import s from '@/styles/Header.module.sass'
 import CountdownTimer from '@/components/CountdownTimer'
 import useAuthUser from '@/hooks/useAuthUser'
 //import FamilyRank from '@/components/FamilyRank'
-//import SideMenu from '@/components/SideMenu'
+import TopBar from '@/components/TopBar'
 
 // enable scroll animation plugin
 gsap.registerPlugin(ScrollTrigger)
@@ -25,7 +24,7 @@ gsap.registerPlugin(ScrollTrigger)
 // -- start: header component --
 const Header: FC = () => {
   const pathname = usePathname()
-  const greenRef = useRef<HTMLDivElement>(null)
+
   const audioRef = useRef<HTMLAudioElement>(null)
   const circleRef = useRef<HTMLDivElement>(null)
   const { userData } = useAuthUser()
@@ -88,38 +87,6 @@ const Header: FC = () => {
     return () => trigger.kill()
   }, [])
 
-  // -- start: reveal green sticker on scroll --
-  useEffect(() => {
-    const el = greenRef.current
-    if (!el) return
-    gsap.set(el, { autoAlpha: 0 })
-    ScrollTrigger.create({
-      start: 800,
-      onEnter: () => gsap.to(el, { autoAlpha: 1, duration: 0.3 }),
-      onLeaveBack: () => gsap.to(el, { autoAlpha: 0, duration: 0.3 }),
-    })
-  }, [])
-  // -- end --
-
-  {
-    /*// -- start: scroll grate --
-  useEffect(() => {
-    const grate = document.querySelector(`.${s.grate}`)
-    if (!grate) return
-
-    const trigger = ScrollTrigger.create({
-      trigger: document.body,
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: true,
-      animation: gsap.fromTo(grate, { y: 0, xPercent: -50 }, { y: '10vh', ease: 'none' }),
-    })
-
-    return () => trigger.kill()
-  }, [userData])
-  // -- end --*/
-  }
-
   // -- body class toggles for each menu state --
   useEffect(() => {
     if (menuOpen) document.body.classList.add('menu-open')
@@ -159,29 +126,20 @@ const Header: FC = () => {
 
   return (
     <>
-      {/* logs for debugging connection/auth state 
-      <div className={s.logs}>
-        <span id='connected'></span>
-        <span id='signedin'></span>
-      </div>*/}
+      {/*!userData && (
+        <div className={s.grate}>
+          <SignInWithEthereum />
+        </div>
+      )*/}
 
-      {!userData && <div className={s.grate}></div>}
-
-      {/*<div ref={greenRef} className={s.sticker}>
-        <a href='#top'>
-          Go<i> </i>tOP
-        </a>
-      </div>*/}
+      <TopBar />
 
       <header className={s.header}>
         {/*<div className={s.logo} onClick={handleLogoClick}>
           <LogoSvg />
         </div>*/}
 
-        <span className={s.tagline}>
-          {/*<SideMenu />*/}
-          {!userData ? <span>Yo, slime. Tag up.</span> : <CountdownTimer targetDate='2025-06-10T23:59:00Z' />}
-        </span>
+        <span className={s.tagline}>{!userData ? <span>Yo, slime. Tag up.</span> : <CountdownTimer targetDate='2025-06-20T23:59:00Z' />}</span>
 
         <button className={s.openSlideMenu} onClick={handleSlideToggle} aria-label='toggle slide-menu'>
           <Image src='/assets/images/slide-in-sm.svg' alt='MFR Slide In' width={200} height={100} />

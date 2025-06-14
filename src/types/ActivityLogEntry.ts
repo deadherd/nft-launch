@@ -1,5 +1,4 @@
 // types/ActivityLogEntry.ts
-
 import { Timestamp } from 'firebase/firestore'
 
 export type ActivityType =

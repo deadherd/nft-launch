@@ -1,5 +1,4 @@
 // hooks/useLocationTracker.ts
-
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import { LOCATIONS } from '@/lib/locationRegistry'
@@ -30,7 +29,7 @@ export function useLocationTracker() {
         return
       }
 
-      // First time visit → award XP & log activity
+      // First time visit -> award XP & log activity
       await setDoc(ref, {
         visitedAt: serverTimestamp(),
       })

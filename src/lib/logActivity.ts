@@ -1,5 +1,4 @@
 // lib/logActivity.ts
-
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '@/lib/firebaseClient'
 import type { ActivityType } from '@/types/ActivityLogEntry'
