@@ -1,3 +1,5 @@
+'use client'
+
 // components/MintCard.tsx
 import { useState } from 'react'
 import { useWriteContract } from 'wagmi'

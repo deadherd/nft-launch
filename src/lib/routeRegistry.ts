@@ -2,16 +2,13 @@
 import type { RouteEntry } from '@/types/Route'
 
 export const RouteRegistry: RouteEntry[] = [
-  /* -- Home -- */
   { path: '/', bodyClass: 'index', metaTitle: 'New Yolk City' },
-  /* -- Settings -- */
   {
     path: '/settings',
     bodyClass: 'settings',
     metaTitle: 'My Settings',
     menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
   },
-  /* -- Sunnyside -- */
   {
     path: '/sunnyside',
     bodyClass: 'alley',
@@ -25,7 +22,6 @@ export const RouteRegistry: RouteEntry[] = [
       //{ icon: 'buynow_128.png', title: 'Kitchen', link: '/', className: 'kitchen' },
     ],
   },
-  /* -- Sunnyside Stash -- */
   {
     path: '/sunnyside/stash',
     bodyClass: 'stash',
@@ -34,11 +30,8 @@ export const RouteRegistry: RouteEntry[] = [
     xpReward: 15,
     menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/sunnyside', className: 'exit' }],
   },
-  /* -- Deep Dive -- */
   { path: '/deep-dive', bodyClass: 'docs', metaTitle: 'Deep Dive' },
-  /* -- Activity -- */
   { path: '/activity', bodyClass: 'activity', metaTitle: 'Activity Feed' },
-  /* -- Lorebook -- */
   { path: '/lore/book', bodyClass: 'lorebook', metaTitle: 'Lorebook' },
 ]
 

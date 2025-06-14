@@ -12,8 +12,10 @@ import BodyClassManager from '@/systems/runtime/BodyClassManager'
 import '@/styles/globals.sass'
 import '@coinbase/onchainkit/styles.css'
 
+import { headers } from 'next/headers'
 import { resolveMetadata } from '@/lib/resolveMetadata'
-export async function generateMetadata({ pathname }: { pathname: string }) {
+export async function generateMetadata() {
+  const pathname = (await headers()).get('next-url') ?? '/'
   return resolveMetadata(pathname)
 }
 

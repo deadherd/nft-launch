@@ -1,61 +1,24 @@
-'use client'
+// app/sunnyside/stash/page.tsx
 
-// app/sunnyside/whole/page.tsx
-import { useRef } from 'react'
+import { generateStaticMetadata } from '@/lib/metadataRouter'
+export const generateMetadata = generateStaticMetadata('/sunnyside/stash')
+
 import Link from 'next/link'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import LazySection from '@/layout/Containers/LazySection'
 import Footer from '@/layout/Footers/LanderFooter'
 import s from '@/styles/Home.module.sass'
 import SignInWithEthereum from '@/components/SignInWithEthereum'
-import { useAccount } from 'wagmi'
 import MintCard from '@/components/MintCard'
 
-gsap.registerPlugin(ScrollTrigger)
-
 export default function Home() {
-  const frontRef = useRef<HTMLDivElement>(null)
-  const midRef = useRef<HTMLDivElement>(null)
-  const { isConnected } = useAccount()
-
-  {
-    /*useEffect(() => {
-    if (midRef.current) {
-      // mid layer parallax
-      gsap.to(midRef.current, {
-        yPercent: 10,
-        ease: "none",
-        scrollTrigger: {
-          trigger: midRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    }
-    if (frontRef.current) {
-      // front layer parallax
-      gsap.to(frontRef.current, {
-        yPercent: -50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: frontRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    }
-  }, []);*/
-  }
+  const isConnected = true
 
   return (
     <>
       <section className={s.banner}>
         <div className={s.dimmer}></div>
-        <div ref={midRef} className={s.links}>
+        <div className={s.links}>
           <ul className={s.features}>
             <li className='textGreen pulse'>Limited Edition!</li>
             <li>
@@ -67,7 +30,7 @@ export default function Home() {
             <li className={`${s.barItem} ${s.barHighlight}`}>🤑 Unlimited Cracks</li>
             <li className={s.barItem}>
               <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
-              Reserved PFP <sub>(x1 ea.)</sub>
+              Reserved PFP
             </li>
             <li className={s.barItem}>
               <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
@@ -129,7 +92,7 @@ export default function Home() {
           )}
         </div>
         <Image src='/assets/images/Produx/output_4.png' alt='MFR Egg' width={800} height={800} className={s.egg} />
-        <div ref={frontRef} className={s.silhouette}>
+        <div className={s.silhouette}>
           <Image src='/assets/images/silhouette.svg' alt='Rat Group Silhouette Foreground' width={1458} height={296} />
         </div>
       </section>
