@@ -24,7 +24,9 @@ export default function Home() {
       <HookInjector hook={useScrollReveal} />
       {/* -- content -- */}
       <div className={s.alleyContent}>
-        <span className='preTitle'>Season One</span>
+        <span className='preTitle'>
+          Season<i> </i>One
+        </span>
         <h2 className='feature'>SunNySide</h2>
         <p>
           Beneath the noise of the city, a <span className='text-[#59fd53] rotate-[-2deg] inline-block'>mischief</span> is forming.
@@ -82,11 +84,25 @@ export default function Home() {
         {/* -- vibes -- */}
         <Link href='/settings' className={`${s.vibes} ${s.feature} unavailable`}>
           <div className={s.rotater}>
-            Kitchen
-            <span className={s.caption}>Sunnyside Pizza</span>
+            Recruit
+            <span className={s.caption}>Claim Usertag</span>
             <Arrowhead />
             <div className={`${s.eggCount}`}>
-              <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Daily' />x<span>69</span>
+              <Image src='/assets/images/icons/icon-green_fiending-fathers.svg' width='64' height='64' alt='Egg Thredder' className={s.brandF} />
+              <span>Only Fiends</span>
+            </div>
+          </div>
+        </Link>
+
+        {/* -- deep dive -- */}
+        <div className={`${s.spriteMap} ${s.spriteDeepDive}`}></div>
+        <Link href='/deep-dive' className={`${s.dumpster} ${s.feature} unavailable`}>
+          <div className={s.rotater}>
+            Docs
+            <span className={s.caption}>Hot Box</span>
+            <Arrowhead />
+            <div className={`${s.eggCount}`}>
+              <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Daily' />x<span>222</span>
             </div>
           </div>
         </Link>
@@ -94,14 +110,14 @@ export default function Home() {
         {/* -- massions -- */}
         <Link href='#' className={`${s.massions} ${s.feature} unavailable`} id='bottom'>
           <div className={s.rotater}>
-            Factory
-            <span className={s.caption}>Sunnyside Row</span>
+            Snactory
+            <span className={s.caption}>Vending Row</span>
             <Arrowhead />
             <div className={`${s.eggCount}`}>
               <div className={s.meter}>
                 <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Egg Thredder' />
               </div>
-              x<span>222</span>
+              x<span>444</span>
             </div>
           </div>
         </Link>
@@ -124,8 +140,8 @@ export default function Home() {
         <Link href='/sunnyside/stash' className={`${s.spriteMap} ${s.spriteBurrow}`}></Link>
         <Link href='/sunnyside/stash' className={`${s.stash} ${s.feature}`}>
           <div className={s.rotater}>
-            staSh
-            <span className={s.caption}>Initiation</span>
+            Stash
+            <span className={s.caption}>Get Started</span>
             <Arrowhead />
             <div className={`${s.eggCount}`}>
               <Image src='/assets/images/icons/icon_rathed.svg' width='64' height='64' alt='Daily' className={s.brandMfr} />
@@ -152,24 +168,11 @@ export default function Home() {
           </div>
         </Link>*/}
 
-        {/* -- deep dive -- */}
-        <div className={`${s.spriteMap} ${s.spriteDeepDive}`}></div>
-        <Link href='/deep-dive' className={`${s.dumpster} ${s.feature} unavailable`}>
-          <div className={s.rotater}>
-            LabrARy
-            <span className={s.caption}>Sunnyside Lab</span>
-            <Arrowhead />
-            <div className={`${s.eggCount}`}>
-              <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Daily' />x<span>444</span>
-            </div>
-          </div>
-        </Link>
-
         {/* -- tv -- */}
         <Image src={alleyTv.src} className={s.alleyTv} width='255' height='196' alt='Television' />
         <Link href='#' className={`${s.arcade} ${s.feature} unavailable`}>
           <div className={s.rotater}>
-            R<span className={s.blinkGlitch}>AI</span>n<span className={s.caption}>Sunnyspace</span>
+            Get<i> </i>P<span className={s.blinkGlitch}>AI</span>d<span className={s.caption}>Sunnyside Station</span>
             <Arrowhead />
             <div className={`${s.eggCount}`}>
               <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Egg Thredder' />x<span>666</span>
@@ -181,8 +184,8 @@ export default function Home() {
         <Image src={alleyGloco.src} className={s.alleyGloco} width='138' height='286' alt='Glo-Co Sign' />
         <Link href='#' className={`${s.gloco} ${s.feature} unavailable`}>
           <div className={s.rotater}>
-            tOxinS
-            <span className={s.caption}>Mutation</span>
+            EconOmy
+            <span className={s.caption}>Sunnyside Pools</span>
             <Arrowhead />
             <div className={`${s.eggCount}`}>
               <Image src='/assets/images/icons/icon-green_fiending-fathers.svg' width='64' height='64' alt='Egg Thredder' className={s.brandF} />
@@ -194,8 +197,8 @@ export default function Home() {
         {/* -- sewer -- */}
         <Link href='#' className={`${s.enter} ${s.feature} unavailable`}>
           <div className={s.rotater}>
-            Family
-            <span className={s.caption}>Collection</span>
+            Traphouse
+            <span className={s.caption}>Sunnyside Port</span>
             <Arrowhead />
             <div className={`${s.eggCount}`}>
               <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Egg Thredder' />x<span>888</span>

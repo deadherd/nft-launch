@@ -17,8 +17,9 @@ export const RouteRegistry: RouteEntry[] = [
     xpReward: 15,
     audio: '/assets/audio/city-background-ambience-01.mp3',
     menuItems: [
-      { icon: 'lab-mouse_128.png', title: '', link: '#bottom', className: 'explore' },
-      //{ icon: 'list_128.png', title: 'Deep Dive', link: '/deep-dive', className: 'wpapers' },
+      //{ icon: 'lab-mouse_128.png', title: '', link: '#bottom', className: 'explore' },
+      { icon: 'list_128.png', title: 'Whitepaper', link: '/deep-dive', className: 'docs' },
+      { icon: 'list_128.png', title: 'Season', link: '/sunnyside', className: 'season' },
       //{ icon: 'buynow_128.png', title: 'Kitchen', link: '/', className: 'kitchen' },
     ],
   },
@@ -36,7 +37,7 @@ export const RouteRegistry: RouteEntry[] = [
 ]
 
 export function getRouteEntry(pathname: string): RouteEntry | undefined {
-  console.log('>>> Pathname received:', pathname)
+  //console.log('>>> Pathname received:', pathname)
   const normalizedPath = normalizePath(pathname)
   const normalizedRegistry = RouteRegistry.map((entry) => ({
     ...entry,

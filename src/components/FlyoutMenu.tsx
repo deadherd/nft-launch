@@ -7,7 +7,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import SpotDotsSvg from '@/components/svg/SpotDotsSvg'
 import { getRouteEntry } from '@/lib/routeRegistry'
-import useAuthUser from '@/hooks/useAuthUser'
 
 const gridPositions = [
   [-1, 0],
@@ -24,7 +23,6 @@ const spacing = 80
 
 const FlyoutMenu = () => {
   const pathname = usePathname()
-  const { userData, loading } = useAuthUser()
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -39,19 +37,10 @@ const FlyoutMenu = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  if (loading) return null
-
   const routeEntry = getRouteEntry(pathname)
   const menuItems = routeEntry?.menuItems || []
 
-  const visibleMenuItems = menuItems.filter((item) => {
-    // Example rule: If menu links to a gated route, check if locationId exists
-    const linkedEntry = getRouteEntry(item.link)
-    if (!linkedEntry?.locationId) return true // non-gated routes always show
-    return userData?.locations?.includes(linkedEntry.locationId)
-  })
-
-  if (visibleMenuItems.length === 0) return null
+  if (menuItems.length === 0) return null
 
   return (
     <div

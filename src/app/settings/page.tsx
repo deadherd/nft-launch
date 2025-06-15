@@ -8,6 +8,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import s from '@/styles/Container.module.sass'
 import Link from 'next/link'
 import Image from 'next/image'
+import { containsBannedWords } from '@/utils/bannedWords'
 
 export default function SettingsPage() {
   const [uid, setUid] = useState<string | null>(null)
@@ -20,6 +21,25 @@ export default function SettingsPage() {
   const [originalRatType, setOriginalRatType] = useState('')
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(true)
+  const [usernameValid, setUsernameValid] = useState(false)
+  const [usernameStatus, setUsernameStatus] = useState<'loading' | 'available' | 'unavailable' | null>(null)
+
+  const sanitizeUsername = (value: string) => {
+    let v = value.replace(/\s+/g, '_').toLowerCase()
+    // strip any characters except letters, numbers, underscores and dashes
+    v = v.replace(/[^a-z0-9_-]/g, '')
+    return v
+  }
+
+  const isValidUsername = (value: string) => {
+    if (value.length < 6) return false
+    if (!/^[a-z]/.test(value)) return false
+    if (/__|--/.test(value)) return false
+    if ((value.match(/[_-]/g) || []).length > 2) return false
+    if (/[^a-z0-9_-]/.test(value)) return false
+    if (containsBannedWords(value)) return false
+    return true
+  }
 
   const ratDescriptions: Record<string, { text: string; icon: string }> = {
     trader: {
@@ -78,6 +98,8 @@ export default function SettingsPage() {
           const u = userData.username || ''
           setCurrentUsername(u)
           setNewUsername(u)
+          setUsernameValid(true)
+          setUsernameStatus(null)
           const ratTypeVal = userData.ratType || ''
           setRatType(ratTypeVal)
           setOriginalRatType(ratTypeVal)
@@ -108,16 +130,42 @@ export default function SettingsPage() {
     return () => unsub()
   }, [])
 
+  useEffect(() => {
+    if (!usernameValid || newUsername === currentUsername) {
+      setUsernameStatus(null)
+      return
+    }
+
+    setUsernameStatus('loading')
+    const timer = setTimeout(async () => {
+      try {
+        const ref = doc(db, 'profiles', newUsername)
+        const snap = await getDoc(ref)
+        setUsernameStatus(snap.exists() ? 'unavailable' : 'available')
+      } catch (err) {
+        console.error(err)
+        setUsernameStatus(null)
+      }
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [newUsername, usernameValid, currentUsername])
+
+  const handleUsernameChange = (val: string) => {
+    const cleaned = sanitizeUsername(val)
+    setNewUsername(cleaned)
+    const valid = isValidUsername(cleaned)
+    setUsernameValid(valid)
+    setUsernameStatus(null)
+  }
+
   const handleSave = async () => {
     if (!uid) return
 
-    const cleanedUsername = newUsername
-      .trim()
-      .toLowerCase()
-      .replace(/[^a-z0-9_]/g, '')
+    const cleanedUsername = sanitizeUsername(newUsername.trim())
 
-    if (cleanedUsername.length < 5) {
-      setMessage('⚠️ Username must be at least 5 characters and contain only letters, numbers, or underscores.')
+    if (cleanedUsername !== currentUsername && !isValidUsername(cleanedUsername)) {
+      setMessage('⚠️ Invalid username.')
       return
     }
 
@@ -201,7 +249,16 @@ export default function SettingsPage() {
               </Link>
             )}
           </span>
-          <input type='text' value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
+
+          <input type='text' value={newUsername} onChange={(e) => handleUsernameChange(e.target.value)} />
+          {newUsername && (
+            <p className='labelDesc'>
+              {usernameStatus === 'loading' && 'Checking...'}
+              {usernameStatus === 'available' && 'Username available'}
+              {usernameStatus === 'unavailable' && 'Username unavailable'}
+              {!usernameStatus && !usernameValid && newUsername !== currentUsername && 'Invalid username'}
+            </p>
+          )}
         </label>
 
         <label>
@@ -254,8 +311,8 @@ export default function SettingsPage() {
         <div className='pushRight'>
           <button
             onClick={handleSave}
-            disabled={loading || !hasChanges || newUsername.trim().length < 5}
-            className={`button ${!hasChanges || newUsername.trim().length < 5 ? 'disabled' : ''}`}
+            disabled={loading || !hasChanges || !usernameValid || (usernameStatus === 'unavailable' && newUsername !== currentUsername)}
+            className={`button ${!hasChanges || !usernameValid || (usernameStatus === 'unavailable' && newUsername !== currentUsername) ? 'disabled' : ''}`}
           >
             Save
           </button>
