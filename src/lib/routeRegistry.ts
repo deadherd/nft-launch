@@ -10,6 +10,18 @@ export const RouteRegistry: RouteEntry[] = [
     menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
   },
   {
+    path: '/settings/usertag',
+    bodyClass: 'settings',
+    metaTitle: 'My Usertag',
+    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
+  },
+  {
+    path: '/settings/role',
+    bodyClass: 'settings',
+    metaTitle: 'My Roles',
+    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
+  },
+  {
     path: '/sunnyside',
     bodyClass: 'alley',
     metaTitle: 'Sunnyside Alley',
