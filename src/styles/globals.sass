@@ -106,8 +106,7 @@ img, video
 
 a 
   @apply text-[#ffff0f]
-  &:hover, &:active
-    @apply underline
+  text-decoration: none
   i 
     @apply inline-block w-[.2em]
   .preTitle i 
@@ -524,9 +523,15 @@ form
 
 // style inputs, selects, textareas
 input, textarea
-  @apply bg-gray-700 border border-gray-600 rounded px-3 py-2 mb-4 text-green-400 placeholder-gray-500
+  @apply bg-gray-700 border border-gray-600 rounded px-3 py-2 mb-4 text-[var(--green-disabled)] placeholder-gray-500
   // ensure glow on input text
-  text-shadow: 0 0 4px rgba(52,211,153,0.6)
+  &:focus
+    @apply text-[var(--green)]
+    outline: 1px solid #ffff0f
+    text-shadow: 0 0 4px rgba(52,211,153,0.6)
+  &.changed
+    border-color: #ffff0f
+    outline: 2px solid #ffff0f
 
 // style the select dropdown control
 select
@@ -700,7 +705,7 @@ a.dd-link
 
 .button
   @apply text-[#0a0a0a] min-w-[180px] text-[32px] py-[10px] px-[15px]
-  background: transparent url(../../public/assets/images/sq-button.svg) no-repeat 50% 50% / 100% 100%
+  background: transparent url(../../public/assets/images/sq-button-yellow.svg) no-repeat 50% 50% / 100% 100%
   font-family: "SKT"
   letter-spacing: 0.03em
   transition: scale .3s
@@ -711,9 +716,12 @@ a.dd-link
     pointer-events: none
 
 form
-  @apply mb-[120px]
+  @apply mb-[120px] relative
   border: 1px solid var(--green)
   border-bottom-width: 4px
+  p.labelNotify
+    @apply text-[16px] py-[5px] px-[12px] mt-[4px] rounded-md text-[#0a0a0a] bg-[#ffff0f]
+    line-height: 1.2
   p.labelDesc
     @apply text-[16px] py-[5px] px-[12px] mt-[4px] rounded-md text-[#333] flex items-center gap-[8px]
     background: rgba(255,255,255,.7)
@@ -727,13 +735,15 @@ form
       @apply hidden
     span
       @apply block
-      &.linkTitle
-        @apply block flex items-center justify-between
-        a
-          @apply text-[16px]
-          font-family: "DM Sans"
-          font-weight: medium
-          letter-spacing: 0
+  .linkTitle
+    @apply absolute right-[5px] top-[-30px] flex items-center justify-between
+    a
+      @apply text-[16px]
+      font-family: "DM Sans"
+      font-weight: medium
+      letter-spacing: 0
+      text-decoration: none
+      opacity: .4
   select
     @apply pr-[10px]
     //appearance: base-select
@@ -773,3 +783,9 @@ p.formnote
   @apply bg-[#59fd53] text-[#0a0a0a] font-bold tracking-tighter p-4 rounded-md rotate-[-2deg]
   border: 2px solid #0a0a0a
   border-bottom-width: 4px
+
+body
+  &.settings, &.activity
+  min-height: 100vh
+  background: #0a0a0a url(../../public/assets/images/dumpster-inside.jpg) no-repeat 0 100%
+  background-size: 100% auto

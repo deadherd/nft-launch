@@ -6,7 +6,7 @@ import { auth, db } from '@/lib/firebaseClient'
 import { doc, getDoc, setDoc, deleteDoc, serverTimestamp, addDoc, collection } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
 import s from '@/styles/Container.module.sass'
-import Link from 'next/link'
+//import Link from 'next/link'
 import { containsBannedWords } from '@/utils/bannedWords'
 
 export default function UsertagSettingsPage() {
@@ -24,18 +24,19 @@ export default function UsertagSettingsPage() {
   const [usernameStatus, setUsernameStatus] = useState<'loading' | 'available' | 'unavailable' | null>(null)
 
   const sanitizeUsername = (value: string) => {
-    let v = value.replace(/\s+/g, '_').toLowerCase()
-    // strip any characters except letters, numbers, underscores and dashes
-    v = v.replace(/[^a-z0-9_-]/g, '')
+    let v = value.replace(/[-\s]+/g, '_').toLowerCase()
+    // strip any characters except letters, numbers and underscores
+    v = v.replace(/[^a-z0-9_]/g, '')
     return v
   }
 
   const isValidUsername = (value: string) => {
     if (value.length < 6) return false
     if (!/^[a-z]/.test(value)) return false
-    if (/__|--/.test(value)) return false
-    if ((value.match(/[_-]/g) || []).length > 2) return false
-    if (/[^a-z0-9_-]/.test(value)) return false
+    if (/__/.test(value)) return false
+    if ((value.match(/_/g) || []).length > 2) return false
+    if (/[^a-z0-9_]/.test(value)) return false
+    if (/_$/.test(value)) return false
     if (containsBannedWords(value)) return false
     return true
   }
@@ -197,19 +198,16 @@ export default function UsertagSettingsPage() {
   return (
     <div className={s.container}>
       <form className={s.form}>
-        <h1 className='feature'>Usertag</h1>
-
+        <h1 className='feature'>Profile</h1>
+        <span className='linkTitle'>{newUsername && <a target='_blank'>🔒 View Profile</a>}</span>
         <label>
-          <span className='linkTitle'>
-            Usertag{' '}
-            {newUsername && (
-              <Link href={`/${newUsername}`} target='_blank'>
-                View Profile
-              </Link>
-            )}
-          </span>
-
-          <input type='text' value={newUsername} onChange={(e) => handleUsernameChange(e.target.value)} />
+          <span>Usertag</span>
+          <input
+            type='text'
+            value={newUsername}
+            onChange={(e) => handleUsernameChange(e.target.value)}
+            className={currentUsername && newUsername !== currentUsername ? 'changed' : ''}
+          />
           {(() => {
             const msg =
               usernameStatus === 'loading'
@@ -221,13 +219,14 @@ export default function UsertagSettingsPage() {
                 : !usernameStatus && !usernameValid && newUsername !== currentUsername
                 ? 'Invalid username'
                 : ''
-            return msg ? <p className='labelDesc'>{msg}</p> : null
+            return msg ? <p className='labelNotify'>{msg}</p> : null
           })()}
         </label>
 
         <label>
           <span>Bio</span>
-          <textarea value={bio} onChange={(e) => setBio(e.target.value)} rows={3} />
+          <textarea disabled value='🔒' onChange={(e) => setBio(e.target.value)} rows={3} />
+          {/*<textarea value={bio} onChange={(e) => setBio(e.target.value)} rows={3} />*/}
         </label>
 
         <div className='pushRight'>

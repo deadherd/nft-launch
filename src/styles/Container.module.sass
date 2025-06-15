@@ -33,9 +33,18 @@
   to
     background-color:#bcffb8
     transform: translateY(-100%) scaleY(1.5)
-
+.centered
+  @apply text-center
 .panel
-  @apply flex items-stretch h-[20vw] gap-[2vw] p-[2vw]
+  @apply flex flex-col items-center h-[20vw] gap-[1vw] p-[2vw]
   a
-    @apply flex-1 text-center flex items-center justify-center text-[32px] bg-[#59fd53] text-[#0a0a0a] rounded-lg
-    font-family: "Instant Karma"
+    @apply text-center flex items-center justify-center text-[20px] bg-[#1e2939] w-full text-[#59fd53] rounded-lg max-w-[400px] px-[20px] py-[10px]
+    border: 1px solid #59fd53
+    border-width: 1px 1px 3px 1px
+    font-weight: bold
+    transition: color .3s, background-color .3s, rotate .3s
+    &:hover, &:active
+      @apply bg-[#59fd53] text-[#0a0a0a] border-[#3bac37] rotate-[-1deg]
+    &:nth-child(2n+1)
+      &:hover, &:active
+        @apply rotate-[1deg]

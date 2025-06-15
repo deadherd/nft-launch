@@ -2,7 +2,12 @@
 import type { RouteEntry } from '@/types/Route'
 
 export const RouteRegistry: RouteEntry[] = [
-  { path: '/', bodyClass: 'index', metaTitle: 'New Yolk City' },
+  {
+    path: '/',
+    bodyClass: 'index',
+    metaTitle: 'New Yolk City',
+    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
+  },
   {
     path: '/settings',
     bodyClass: 'settings',
@@ -43,9 +48,23 @@ export const RouteRegistry: RouteEntry[] = [
     xpReward: 15,
     menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/sunnyside', className: 'exit' }],
   },
-  { path: '/deep-dive', bodyClass: 'docs', metaTitle: 'Deep Dive' },
-  { path: '/activity', bodyClass: 'activity', metaTitle: 'Activity Feed' },
-  { path: '/lore/book', bodyClass: 'lorebook', metaTitle: 'Lorebook' },
+  {
+    path: '/deep-dive',
+    bodyClass: 'docs',
+    metaTitle: 'Deep Dive',
+    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
+  },
+  {
+    path: '/activity',
+    bodyClass: 'activity',
+    metaTitle: 'Activity Feed',
+    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
+  },
+  {
+    path: '/lore/book',
+    bodyClass: 'lorebook',
+    metaTitle: 'Lorebook',
+  },
 ]
 
 export function getRouteEntry(pathname: string): RouteEntry | undefined {
