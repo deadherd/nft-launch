@@ -15,14 +15,18 @@ export const useDailyLoginReward = (user: User | null) => {
   useEffect(() => {
     if (!user || hasClaimed.current) return
 
-    const today = new Date().toISOString().split('T')[0]
+    const now = Date.now()
+    const oneDay = 1000 * 60 * 60 * 24
     const localStorageKey = `dailyXP:${user.uid}`
     const localCache = localStorage.getItem(localStorageKey)
 
-    if (localCache === today) {
-      //console.log('[DAILY XP] Already claimed today (local cache)')
-      hasClaimed.current = true
-      return
+    if (localCache) {
+      const lastClaimed = parseInt(localCache, 10)
+      if (!isNaN(lastClaimed) && now - lastClaimed < oneDay) {
+        //console.log('[DAILY XP] Already claimed within 24h (local cache)')
+        hasClaimed.current = true
+        return
+      }
     }
 
     const reward = async () => {
@@ -36,11 +40,11 @@ export const useDailyLoginReward = (user: User | null) => {
         }
 
         const userData = userSnap.data()
-        const lastClaimed: string | undefined = userData.lastDailyXPClaimed
+        const lastClaimed: number | undefined = userData.lastDailyXPClaimed
 
-        if (lastClaimed === today) {
-          //console.log('[DAILY XP] Already claimed today (server check)')
-          localStorage.setItem(localStorageKey, today)
+        if (typeof lastClaimed === 'number' && now - lastClaimed < oneDay) {
+          //console.log('[DAILY XP] Already claimed within 24h (server check)')
+          localStorage.setItem(localStorageKey, lastClaimed.toString())
           hasClaimed.current = true
           return
         }
@@ -56,10 +60,10 @@ export const useDailyLoginReward = (user: User | null) => {
         })
 
         await updateDoc(userRef, {
-          lastDailyXPClaimed: today,
+          lastDailyXPClaimed: now,
         })
 
-        localStorage.setItem(localStorageKey, today)
+        localStorage.setItem(localStorageKey, now.toString())
         hasClaimed.current = true
         //console.log('[DAILY XP] Granted: 10 XP (verified server-side)')
       } catch (err) {

@@ -109,8 +109,8 @@ a
   text-decoration: none
   i 
     @apply inline-block w-[.2em]
-  .preTitle i 
-    @apply inline-block w-[.2em]
+.preTitle i 
+  @apply inline-block w-[.2em]
 
 code
   @apply relative inline-block py-[10px] px-[12px] rotate-[-0.5deg] text-[#0a0a0a] text-[18px] mb-[20px]
@@ -574,7 +574,7 @@ select::placeholder
   background: linear-gradient(0deg, rgba(0,0,0,0), rgba(0,0,0,.8))
 
 footer.upside
-  @apply fixed top-0 left-0 w-full z-[99997] pt-[34px] pl-[30px] pr-[90px] flex items-start justify-between
+  @apply fixed top-0 left-0 w-full z-[99997] pt-[34px] pl-[30px] pr-[95px] flex items-start justify-between
   font-family: "Instant Karma"
   .navMenu
     @apply flex items-center justify-end
@@ -654,7 +654,7 @@ footer.upside
   @apply text-[50%]
 
 .preTitle
-  @apply block text-[2vw] tracking-wide font-bold mb-[1vw]
+  @apply block text-[1.8vw] tracking-wide mb-[2vw] rotate-[-4deg] ml-[-1vw] text-[#59fd53]
   font-family: "SKT"
   text-shadow: 0 2px 0 #0a0a0a
   letter-spacing: 0.06em
@@ -785,7 +785,8 @@ p.formnote
   border-bottom-width: 4px
 
 body
-  &.settings, &.activity
-  min-height: 100vh
-  background: #0a0a0a url(../../public/assets/images/dumpster-inside.jpg) no-repeat 0 100%
-  background-size: 100% auto
+  &.settings,
+  &.activity
+    min-height: 100vh
+    background: #0a0a0a url(../../public/assets/images/dumpster-inside.jpg) no-repeat 0 100%
+    background-size: 100% auto
