@@ -51,7 +51,7 @@ export default function CreateLorePage() {
   const { user } = useAuthUser()
 
   // form hooks (always called)
-  const { items, addItem, updateItem } = useFirestoreCollection<LoreItem>('loreItems')
+  const { items, addItem, updateItem } = useFirestoreCollection<LoreItem>('lore')
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [slug, setSlug] = usePersistentState('lore:slug', '')
   const [title, setTitle] = usePersistentState('lore:title', '')

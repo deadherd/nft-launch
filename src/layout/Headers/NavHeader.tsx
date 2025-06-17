@@ -10,6 +10,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 //import LogoSvg from '@/components/svg/LogoSvg'
 import OpenSignSvg from '@/components/svg/OpenSignSvg'
 import SignInWithEthereum from '@/components/SignInWithEthereum'
+import SignInButton from '@/components/SignInButton'
 import TaglineCircle from '@/components/svg/TaglineCircle'
 import Menu from '@/components/Menu'
 import s from '@/styles/Header.module.sass'
@@ -17,6 +18,7 @@ import CountdownTimer from '@/components/CountdownTimer'
 import useAuthUser from '@/hooks/useAuthUser'
 //import FamilyRank from '@/components/FamilyRank'
 import TopBar from '@/components/TopBar'
+import { useAccount } from 'wagmi'
 
 // enable scroll animation plugin
 gsap.registerPlugin(ScrollTrigger)
@@ -28,6 +30,7 @@ const Header: FC = () => {
   const audioRef = useRef<HTMLAudioElement>(null)
   const circleRef = useRef<HTMLDivElement>(null)
   const { userData } = useAuthUser()
+  const { isConnected } = useAccount()
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [slideOpen, setSlideOpen] = useState(false)
@@ -139,7 +142,9 @@ const Header: FC = () => {
           <LogoSvg />
         </div>*/}
 
-        <span className={s.tagline}>{!userData ? <span>Yo, slime. Tag up.</span> : <CountdownTimer targetDate='2025-06-20T23:59:00Z' />}</span>
+        <span className={s.tagline}>
+          {!userData ? isConnected ? <SignInButton /> : <span>Yo, slime. Tag up.</span> : <CountdownTimer targetDate='2025-06-20T23:59:00Z' />}
+        </span>
 
         <button className={s.openSlideMenu} onClick={handleSlideToggle} aria-label='toggle slide-menu'>
           <Image src='/assets/images/slide-in-sm.svg' alt='MFR Slide In' width={200} height={100} />

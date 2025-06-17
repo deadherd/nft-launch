@@ -9,7 +9,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 export const revalidate = 60 // isr cache
 
 export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
-  const snapshot = await getDocs(collection(db, 'loreItems'))
+  const snapshot = await getDocs(collection(db, 'lore'))
   return snapshot.docs
     .map((docSnap) => (docSnap.data() as DocumentData).slug as string)
     .filter((slug): slug is string => typeof slug === 'string')
@@ -18,7 +18,7 @@ export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const snap = await getDocs(query(collection(db, 'loreItems'), where('slug', '==', slug), limit(1)))
+  const snap = await getDocs(query(collection(db, 'lore'), where('slug', '==', slug), limit(1)))
   if (snap.empty) {
     return { title: 'Not Found' }
   }
@@ -38,7 +38,7 @@ type Lore = {
 
 export default async function LorePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const snap = await getDocs(query(collection(db, 'loreItems'), where('slug', '==', slug), limit(1)))
+  const snap = await getDocs(query(collection(db, 'lore'), where('slug', '==', slug), limit(1)))
   if (snap.empty) {
     notFound()
   }
