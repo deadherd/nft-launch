@@ -8,10 +8,10 @@ import { useRef, useEffect, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 //import LogoSvg from '@/components/svg/LogoSvg'
-import OpenSignSvg from '@/components/svg/OpenSignSvg'
+//import OpenSignSvg from '@/components/svg/OpenSignSvg'
 import SignInWithEthereum from '@/components/SignInWithEthereum'
 import SignInButton from '@/components/SignInButton'
-import TaglineCircle from '@/components/svg/TaglineCircle'
+//import TaglineCircle from '@/components/svg/TaglineCircle'
 import Menu from '@/components/Menu'
 import s from '@/styles/Header.module.sass'
 import CountdownTimer from '@/components/CountdownTimer'
@@ -28,7 +28,7 @@ const Header: FC = () => {
   const pathname = usePathname()
 
   const audioRef = useRef<HTMLAudioElement>(null)
-  const circleRef = useRef<HTMLDivElement>(null)
+  //const circleRef = useRef<HTMLDivElement>(null)
   const { userData } = useAuthUser()
   const { isConnected } = useAccount()
 
@@ -108,7 +108,8 @@ const Header: FC = () => {
   // -- end menu toggles --
 
   // -- start: open/close main menu with sound --
-  const handleToggle = () => {
+  {
+    /*const handleToggle = () => {
     const willOpen = !menuOpen
     setProfileOpen(false)
     setMenuOpen(willOpen)
@@ -116,6 +117,7 @@ const Header: FC = () => {
       audioRef.current.currentTime = 0
       audioRef.current.play().catch(() => {})
     }
+  }*/
   }
   // -- end: handleToggle --
 
@@ -125,7 +127,7 @@ const Header: FC = () => {
   }
   // -- end --
 
-  const clawColor = menuOpen ? '#0a0a0a' : '#59fd53'
+  //const clawColor = menuOpen ? '#0a0a0a' : '#59fd53'
 
   return (
     <>
@@ -141,24 +143,27 @@ const Header: FC = () => {
         {/*<div className={s.logo} onClick={handleLogoClick}>
           <LogoSvg />
         </div>*/}
-
-        <span className={s.tagline}>
-          {!userData ? isConnected ? <SignInButton /> : <span>Yo, slime. Tag up.</span> : <CountdownTimer targetDate='2025-06-20T23:59:00Z' />}
-        </span>
+        {pathname === '/' ? (
+          <span className={s.tagline}></span>
+        ) : (
+          <span className={s.tagline}>
+            {!userData ? isConnected ? <SignInButton /> : <span>Yo, slime. Tag up.</span> : <CountdownTimer targetDate='2025-06-20T23:59:00Z' />}
+          </span>
+        )}
 
         <button className={s.openSlideMenu} onClick={handleSlideToggle} aria-label='toggle slide-menu'>
           <Image src='/assets/images/slide-in-sm.svg' alt='MFR Slide In' width={200} height={100} />
         </button>
 
         <span className={s.menu}>
-          <div className={s.tagCircle} ref={circleRef}>
+          {/*<div className={s.tagCircle} ref={circleRef}>
             <TaglineCircle />
-          </div>
+          </div>*/}
 
           <SignInWithEthereum />
-          <button className={s.openMenu} onClick={handleToggle} aria-label='toggle profile'>
+          {/*<button className={s.openMenu} onClick={handleToggle} aria-label='toggle profile'>
             <OpenSignSvg color={clawColor} />
-          </button>
+          </button>*/}
 
           <div className='sewage'>
             <Image src='/assets/images/menu-pipe.png' alt='MFR Pipe' width={124} height={232} className={s.pipe} />

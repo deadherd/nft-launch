@@ -9,6 +9,7 @@ import FlyoutMenu from '@/components/FlyoutMenu'
 import { useAudioController } from '@/systems/runtime/AudioProvider'
 import IconAudio from '@images/icons/png64/sound64.png'
 import IconMute from '@images/icons/png64/mute64.png'
+//import Link from 'next/link'
 
 // -- start: footer w/ expanding radial flyout menu --
 export default function Footer() {
@@ -37,11 +38,9 @@ export default function Footer() {
             <Image src={`${isAudioOn ? IconAudio.src : IconMute.src}`} width='32' height='32' alt='Audio' />
           </button>
 
-          {/*<Link href='#'>
-            <UtensilsSvg color='#0a0a0a' />
-          </Link>*/}
-
-          {/*<Link href='#'>
+          {/*          <Link href='#'>
+            <Image src='/assets/images/icons/png64/help64.png' width='32' height='32' alt='Audio' />
+          </Link><Link href='#'>
             <MenuSvg color='#0a0a0a' />
           </Link>*/}
         </div>

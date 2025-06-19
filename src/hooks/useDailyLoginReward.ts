@@ -10,7 +10,15 @@ import { logActivity } from '@/lib/logActivity'
 
 export const useDailyLoginReward = (user: User | null) => {
   const hasClaimed = useRef(false)
+  const prevUid = useRef<string | null>(null)
   const addXP = useAddExperience(user)
+
+  useEffect(() => {
+    if (user?.uid !== prevUid.current) {
+      hasClaimed.current = false
+      prevUid.current = user?.uid ?? null
+    }
+  }, [user?.uid])
 
   useEffect(() => {
     if (!user || hasClaimed.current) return

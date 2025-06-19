@@ -7,6 +7,7 @@ export const RouteRegistry: RouteEntry[] = [
     path: '/',
     bodyClass: 'index',
     metaTitle: 'New Yolk City',
+    audio: '/assets/audio/city-background-ambience-01.mp3',
     menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
   },
   /* -- S E T T I N G S -- */
