@@ -23,7 +23,7 @@
       @apply ml-[-10px]
   span
     &.tagline
-      @apply flex-1 text-3xl md:text-5xl text-[#fff] fixed bottom-[30px] left-[10px] md:left-[40px]
+      @apply flex-1 text-3xl md:text-5xl text-[#fff] fixed bottom-[20px] left-[10px] md:left-[20px]
       font-family: "Instant Karma", sans-serif
       font-weight: normal
       text-shadow: 0 3px 0 #0a0a0a
@@ -157,6 +157,12 @@
 .grate
   @apply fixed bottom-[-5%] left-[50%] w-[100%] h-[110%] z-[99995] min-w-[1000px]
   background: rgba(0,0,0,.5) url(../../public/assets/images/grate.svg) no-repeat 50% 50% / 110% 105%
-  filter: blur(1px)ww
+  filter: blur(1px)
   backdrop-filter: blur(10px)
   transform: translateX(-50%)
+
+.location
+  @apply flex flex-col text-[32px] rotate-[-2deg]
+  line-height: 24px
+  .locationCity
+    @apply text-[.65em] text-[#59fd53]

@@ -16,7 +16,7 @@ export default function HomeEntryGate() {
 
   return (
     <Link href='/sunnyside' className='button'>
-      Explore
+      Become a Founder
     </Link>
   )
 }

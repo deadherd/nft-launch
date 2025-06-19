@@ -14,7 +14,7 @@ import SignInButton from '@/components/SignInButton'
 //import TaglineCircle from '@/components/svg/TaglineCircle'
 import Menu from '@/components/Menu'
 import s from '@/styles/Header.module.sass'
-import CountdownTimer from '@/components/CountdownTimer'
+//import CountdownTimer from '@/components/CountdownTimer'
 import useAuthUser from '@/hooks/useAuthUser'
 //import FamilyRank from '@/components/FamilyRank'
 import TopBar from '@/components/TopBar'
@@ -144,10 +144,27 @@ const Header: FC = () => {
           <LogoSvg />
         </div>*/}
         {pathname === '/' ? (
-          <span className={s.tagline}></span>
+          <span className={s.tagline}>
+            <div className={s.location}>
+              <span className={s.locationCity}>USA</span>
+              <span>New Yolk City</span>
+            </div>
+          </span>
         ) : (
           <span className={s.tagline}>
-            {!userData ? isConnected ? <SignInButton /> : <span>Yo, slime. Tag up.</span> : <CountdownTimer targetDate='2025-06-20T23:59:00Z' />}
+            {/*!userData ? isConnected ? <SignInButton /> : <span>Yo, slime. Tag up.</span> : <CountdownTimer targetDate='2025-06-20T23:59:00Z' />*/}
+            {!userData ? (
+              isConnected ? (
+                <SignInButton />
+              ) : (
+                <span>Yo, slime. Tag up.</span>
+              )
+            ) : (
+              <div className={s.location}>
+                <span className={s.locationCity}>New Yolk City</span>
+                <span>Sunnyside Alley</span>
+              </div>
+            )}
           </span>
         )}
 
