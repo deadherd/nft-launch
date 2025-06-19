@@ -34,3 +34,51 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Access Gates
+
+The project includes optional wrapper components for gating access based on wallet state, Firebase authentication and NFT ownership.
+
+### `WalletGate`
+Wraps its children only when a wallet is connected.
+
+```tsx
+<WalletGate fallback={<ConnectWallet />}>
+  {...content}
+</WalletGate>
+```
+
+### `FirebaseGate`
+Ensures the user is signed in with Firebase before rendering children.
+
+```tsx
+<FirebaseGate fallback={<SignInWithEthereum />}>
+  {...content}
+</FirebaseGate>
+```
+
+### `NftTraitGate`
+Checks that the connected wallet owns an NFT from the configured contract with a specific trait.
+
+```tsx
+<NftTraitGate traitType="Role" traitValue="Founder" fallback={<p>No access</p>}>
+  {...content}
+</NftTraitGate>
+```
+
+### Nesting Gates
+Gates can be combined to protect sections of the UI:
+
+```tsx
+<WalletGate fallback={<ConnectWallet />}> 
+  <FirebaseGate fallback={<SignInWithEthereum />}> 
+    <NftTraitGate traitType="Role" traitValue="Founder" fallback={<p>No access</p>}>
+      {children}
+    </NftTraitGate>
+  </FirebaseGate>
+</WalletGate>
+```
+
+The NFT contract address used by `NftTraitGate` is defined in `src/lib/contracts.ts` as `MAIN_NFT_CONTRACT`.
+Update it in one place if the address changes.
+
