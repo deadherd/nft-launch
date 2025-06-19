@@ -1,25 +1,19 @@
 // INDEX app/page.tsx
 
-import Link from 'next/link'
 import Image from 'next/image'
 import neonZ from '@images/neonZ.png'
 import useScrollReveal from '@/hooks/useScrollReveal'
 import ParallaxLayer from '@/components/ParallaxLayer'
 import bgForegroundTop from '@images/alley-foreground-bg-skyline.png'
 import HookInjector from '@/components/HookInjector'
-import useAuthUser from '@/hooks/useAuthUser'
-import { useAccount } from 'wagmi'
 import s from '@/styles/Home.module.sass'
+import HomeEntryGate from '@/components/HomeEntryGate'
 
 // page metadata
 import { generateStaticMetadata } from '@/lib/metadataRouter'
-import SignInButton from '@/components/SignInButton'
-import SignInWithEthereum from '@/components/SignInWithEthereum'
 export const generateMetadata = generateStaticMetadata('/')
 
 export default function Home() {
-  const { userData } = useAuthUser()
-  const { isConnected } = useAccount()
   return (
     <>
       <HookInjector hook={useScrollReveal} />
@@ -61,17 +55,7 @@ export default function Home() {
         <p className='reveal'>We manufacture presence.</p>
         <p className='text-[#59fd53] text-[120%] rotate-[-2deg] reveal'>And we don&apos;t stop.</p>
 
-        {!userData ? (
-          isConnected ? (
-            <SignInButton />
-          ) : (
-            <SignInWithEthereum />
-          )
-        ) : (
-          <Link href='/sunnyside' className='button'>
-            Explore
-          </Link>
-        )}
+        <HomeEntryGate />
       </div>
       {/* end */}
 
