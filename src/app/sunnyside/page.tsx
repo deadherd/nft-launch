@@ -144,7 +144,7 @@ export default function Home() {
         {/* -- sewer -- */}
         <Link href='#' className={`${s.enter} ${s.feature} unavailable`}>
           <div className={s.rotater}>
-            Paychex
+            PromOte
             <span className={s.caption}>Sunnyside Drop</span>
             <Arrowhead />
             <div className={`${s.eggCount}`}>
