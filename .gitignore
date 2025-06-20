@@ -1,6 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-/crafted-nft/
-/engine/
+/crafted-nft/*
+!/crafted-nft/artifacts/
+/crafted-nft/artifacts/*
+!/crafted-nft/artifacts/**/*.json
 
 # dependencies
 /node_modules
