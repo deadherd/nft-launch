@@ -66,6 +66,15 @@ Checks that the connected wallet owns an NFT from the configured contract with a
 </NftTraitGate>
 ```
 
+### `NftCountGate`
+Checks that the connected wallet holds at least a minimum number of NFTs from the configured contract.
+
+```tsx
+<NftCountGate minimum={2} fallback={<p>No access</p>}>
+  {...content}
+</NftCountGate>
+```
+
 ### Nesting Gates
 Gates can be combined to protect sections of the UI:
 
@@ -79,7 +88,7 @@ Gates can be combined to protect sections of the UI:
 </WalletGate>
 ```
 
-The NFT contract address used by `NftTraitGate` is defined in `src/lib/contracts.ts` as `MAIN_NFT_CONTRACT`.
+The NFT contract address used by `NftTraitGate` and `NftCountGate` is defined in `src/lib/contracts.ts` as `MAIN_NFT_CONTRACT`.
 Update it in one place if the address changes.
 
 ### `AuthGate`
