@@ -151,3 +151,20 @@ To start the app locally:
 npm run dev
 ```
 
+
+## Troubleshooting
+
+If you encounter `FirebaseError: Missing or insufficient permissions`, check your Firestore Security Rules. For local development you can allow authenticated users to read and write by using:
+
+```firestore
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
+
+Errors such as `Unexpected token 'M', "Must be au" is not valid JSON` usually mean an API route returned an HTML error page. Verify that all environment variables listed above are set correctly so the backend can authenticate with Firebase.
