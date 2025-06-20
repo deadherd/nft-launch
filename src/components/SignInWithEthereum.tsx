@@ -22,24 +22,7 @@ export default function SignInWithEthereum() {
   const { signMessageAsync } = useSignMessage()
   const { chains: cfgChains } = useConfig()
 
-  // -- start: disconnect fn (clear firebase + cookie) --
-  const handleDisconnect = async () => {
-    const uid = auth.currentUser?.uid
-
-    await fetch('/api/siwe/session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: '' }),
-    })
-
-    await signOut(auth)
-
-    if (uid) {
-      localStorage.removeItem(`dailyXP:${uid}`)
-    }
-    console.log('Signed out and cleared session cookie')
-  }
-  // -- end: disconnect fn --
+  // auth disconnect handled globally
 
   // -- start: handle sign in fn --
   const handleSignIn = useCallback(async () => {
@@ -121,22 +104,7 @@ export default function SignInWithEthereum() {
   }, [address, chain, cfgChains, signMessageAsync])
   // -- end: handle sign in fn --
 
-  // -- start: auto-trigger auth sync on wallet state --
-  useEffect(() => {
-    const delaySignIn = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 500)) // slight delay to allow wallet to stabilize
-      if (!auth.currentUser && address) {
-        handleSignIn()
-      }
-    }
-
-    if (!isConnected) {
-      handleDisconnect()
-    } else {
-      delaySignIn()
-    }
-  }, [isConnected, address, handleSignIn])
-  // -- end: effect --
+  // auth state is now managed by AuthProvider
 
   // -- start: render wallet ui --
   return (
