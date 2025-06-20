@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import { MAIN_NFT_CONTRACT } from '@/lib/contracts'
+import type { AlchemyNftsResponse, OwnedNft } from '@/types/Nft'
 
 interface UseHasNftTraitResult {
   hasTrait: boolean
@@ -27,11 +28,11 @@ export default function useHasNftTrait(traitType: string, traitValue: string): U
         const apiKey = process.env.NEXT_PUBLIC_ALCHEMY_KEY
         const url = `https://base-sepolia.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner?owner=${address}&contractAddresses[]=${MAIN_NFT_CONTRACT}&withMetadata=true`
         const res = await fetch(url)
-        const data = await res.json()
-        const owned = data.ownedNfts || []
-        const match = owned.some((nft: any) =>
+        const data = (await res.json()) as AlchemyNftsResponse
+        const owned = data.ownedNfts ?? []
+        const match = owned.some((nft: OwnedNft) =>
           nft.rawMetadata?.attributes?.some(
-            (attr: any) => attr.trait_type === traitType && attr.value === traitValue
+            (attr) => attr.trait_type === traitType && attr.value === traitValue
           )
         )
         setHasTrait(match)
