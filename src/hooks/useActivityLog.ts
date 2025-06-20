@@ -18,27 +18,36 @@ export function useActivityLog(uid: string) {
     const q = query(collection(db, `users/${uid}/activity`), orderBy('createdAt', 'desc'))
 
     // live snapshot listener
-    const unsub = onSnapshot(q, (snap) => {
-      const items = snap.docs.map((doc) => {
-        const data = doc.data()
-        return {
-          id: doc.id,
-          type: data.type as ActivityType,
-          label: data.label,
-          xp: data.xp,
-          createdAt: (() => {
-            const raw = data.createdAt
-            if (raw instanceof Date) return raw
-            if (typeof raw === 'number') return new Date(raw)
-            if (raw?.toDate) return raw.toDate()
-            return undefined
-          })(),
-          meta: data.meta,
-        }
-      })
+    const unsub = onSnapshot(
+      q,
+      {
+        next: (snap) => {
+          const items = snap.docs.map((doc) => {
+            const data = doc.data()
+            return {
+              id: doc.id,
+              type: data.type as ActivityType,
+              label: data.label,
+              xp: data.xp,
+              createdAt: (() => {
+                const raw = data.createdAt
+                if (raw instanceof Date) return raw
+                if (typeof raw === 'number') return new Date(raw)
+                if (raw?.toDate) return raw.toDate()
+                return undefined
+              })(),
+              meta: data.meta,
+            }
+          })
 
-      setLog(items)
-    })
+          setLog(items)
+        },
+        error: (err) => {
+          console.error('[ActivityLog] Snapshot error:', err)
+          setLog([])
+        },
+      }
+    )
 
     return () => unsub()
   }, [uid])

@@ -43,13 +43,20 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
       if (firebaseUser) {
         const ref = doc(db, 'users', firebaseUser.uid)
-        unsubscribeSnapshot = onSnapshot(ref, (snap) => {
-          if (snap.exists()) {
-            setUserData(snap.data() as UserData)
-          } else {
+        unsubscribeSnapshot = onSnapshot(ref, {
+          next: (snap) => {
+            if (snap.exists()) {
+              setUserData(snap.data() as UserData)
+            } else {
+              setUserData(null)
+            }
+            setLoading(false)
+          },
+          error: (err) => {
+            console.error('[AuthProvider] Snapshot error:', err)
             setUserData(null)
-          }
-          setLoading(false)
+            setLoading(false)
+          },
         })
       } else {
         setUserData(null)
