@@ -37,8 +37,21 @@ export async function POST(request: NextRequest): Promise<NextResponse<VerifySuc
       nonce: stored,
     })
 
+    // ensure user document exists before returning token
+    const uid = siwe.address
+    const userRef = admin.firestore().collection('users').doc(uid)
+    const userSnap = await userRef.get()
+    if (!userSnap.exists) {
+      await userRef.set({
+        address: uid,
+        experience: 0,
+        level: 1,
+        createdAt: Date.now(),
+      })
+    }
+
     // create a custom token for this address
-    const firebaseToken = await admin.auth().createCustomToken(siwe.address)
+    const firebaseToken = await admin.auth().createCustomToken(uid)
 
     return NextResponse.json({ ok: true, token: firebaseToken })
   } catch (err: unknown) {
