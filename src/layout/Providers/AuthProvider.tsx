@@ -1,16 +1,8 @@
 'use client'
 
 // app/layout/Providers/AuthProvider.tsx
-import { createContext, useContext, useEffect, useState } from 'react'
-import {
-  browserLocalPersistence,
-  setPersistence,
-  signInWithCustomToken,
-  signOut,
-  getAuth,
-  onAuthStateChanged,
-  type User,
-} from 'firebase/auth'
+import { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import { browserLocalPersistence, setPersistence, signInWithCustomToken, signOut, getAuth, onAuthStateChanged, type User } from 'firebase/auth'
 import { doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore'
 import { useAccount, useSignMessage, useConfig } from 'wagmi'
 import { createSiweMessage } from 'viem/siwe'
@@ -60,7 +52,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     await signOut(getAuth())
   }
 
-  const handleSignIn = async () => {
+  const handleSignIn = useCallback(async () => {
     if (!address) return
     try {
       const chainId = chain?.id ?? cfgChains[0].id
@@ -107,7 +99,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     } catch (err) {
       console.error('[AuthProvider] Sign-in error:', err)
     }
-  }
+  }, [address, chain, cfgChains, signMessageAsync])
 
   useEffect(() => {
     const auth = getAuth()
@@ -176,15 +168,9 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     }
 
     syncWallet()
-  }, [address, isConnected])
+  }, [address, isConnected, handleSignIn])
 
-  return (
-    <AuthContext.Provider
-      value={{ user, userData, address, isConnected, hasNft, loading }}
-    >
-      {children}
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={{ user, userData, address, isConnected, hasNft, loading }}>{children}</AuthContext.Provider>
 }
 // -- end: AuthProvider --
 

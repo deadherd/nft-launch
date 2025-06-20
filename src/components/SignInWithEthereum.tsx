@@ -1,10 +1,10 @@
 'use client'
 
 // components/SignInWithEthereum.tsx
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { auth, db } from '@/lib/firebaseClient'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
-import { signInWithCustomToken, signOut, setPersistence, browserLocalPersistence } from 'firebase/auth'
+import { signInWithCustomToken, setPersistence, browserLocalPersistence } from 'firebase/auth'
 import { Wallet, ConnectWallet, WalletDropdown, WalletDropdownDisconnect, WalletDropdownLink } from '@coinbase/onchainkit/wallet'
 import { Avatar, Name, Address, EthBalance, Identity } from '@coinbase/onchainkit/identity'
 import { createSiweMessage } from 'viem/siwe'
@@ -18,7 +18,7 @@ export default function SignInWithEthereum() {
   const [statusMessage, setStatusMessage] = useState<string | null>(null)
 
   // wagmi wallet state + signing config
-  const { address, chain, isConnected } = useAccount()
+  const { address, chain } = useAccount()
   const { signMessageAsync } = useSignMessage()
   const { chains: cfgChains } = useConfig()
 
