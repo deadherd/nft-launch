@@ -82,3 +82,63 @@ Gates can be combined to protect sections of the UI:
 The NFT contract address used by `NftTraitGate` is defined in `src/lib/contracts.ts` as `MAIN_NFT_CONTRACT`.
 Update it in one place if the address changes.
 
+### `AuthGate`
+Renders children only when `userData` has loaded and the user is authenticated.
+
+```tsx
+<AuthGate fallback={<p>Please sign in</p>}>
+  {...content}
+</AuthGate>
+```
+
+### `DataGate`
+Checks custom conditions against `UserData`.
+
+```tsx
+<DataGate condition={(u) => u.rank > 3} fallback={<p>No access</p>}>
+  {...content}
+</DataGate>
+```
+
+### `LocationGate`
+Ensures the connected user has visited a location before showing the content.
+
+```tsx
+<LocationGate locationId="sunnyside" fallback={<p>Visit Sunnyside first</p>}>
+  {...content}
+</LocationGate>
+```
+
+## Environment Variables
+
+Create a `.env.local` file in the project root and provide the following keys:
+
+```bash
+NEXT_PUBLIC_FIREBASE_API_KEY=...
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=...
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
+NEXT_PUBLIC_FIREBASE_APP_ID=...
+NEXT_PUBLIC_ONCHAINKIT_API_KEY=...
+NEXT_PUBLIC_ALCHEMY_KEY=...
+FIREBASE_PROJECT_ID=...
+FIREBASE_CLIENT_EMAIL=...
+FIREBASE_PRIVATE_KEY=...
+```
+
+## Development
+
+Run the type checker and linter before committing:
+
+```bash
+npx tsc --noEmit
+npm run lint
+```
+
+To start the app locally:
+
+```bash
+npm run dev
+```
+

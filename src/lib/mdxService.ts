@@ -7,7 +7,7 @@ import Slugger from 'github-slugger'
 import remarkParse from 'remark-parse'
 import { visit } from 'unist-util-visit'
 import { unified, type Plugin } from 'unified'
-import type { Root, Text, Heading } from 'mdast'
+import type { Root, Text, Heading, PhrasingContent } from 'mdast'
 import remarkAutolinkHeadings, { Options as AutolinkOptions } from 'remark-autolink-headings'
 import type { DocMeta } from '@/types/DocMeta'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -91,9 +91,9 @@ export function getHeadings(raw: string) {
 
   visit(tree, 'heading', (node: Heading) => {
     if (node.depth >= 2 && node.depth <= 4) {
-      const text = node.children
+      const text = (node.children as PhrasingContent[])
         .filter((c): c is Text => c.type === 'text')
-        .map((c) => c.value)
+        .map((c: Text) => c.value)
         .join('')
       headings.push({ text, slug: slugger.slug(text), level: node.depth })
     }
