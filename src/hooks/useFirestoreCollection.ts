@@ -31,12 +31,18 @@ export function useFirestoreCollection<D extends DocumentData>(collectionName: s
   useEffect(() => {
     const colRef = collection(db, collectionName) as CollectionReference<D>
 
-    const unsub = onSnapshot(colRef, (snap) => {
-      const docs = snap.docs.map((d) => ({
-        id: d.id,
-        ...(d.data() as D),
-      }))
-      setItems(docs)
+    const unsub = onSnapshot(colRef, {
+      next: (snap) => {
+        const docs = snap.docs.map((d) => ({
+          id: d.id,
+          ...(d.data() as D),
+        }))
+        setItems(docs)
+      },
+      error: (err) => {
+        console.error('[FirestoreCollection] Snapshot error:', err)
+        setItems([])
+      },
     })
 
     return () => unsub()
