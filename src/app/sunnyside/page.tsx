@@ -12,6 +12,7 @@ import ParallaxLayer from '@/components/ParallaxLayer'
 
 // page metadata
 import { generateStaticMetadata } from '@/lib/metadataRouter'
+import FirebaseGate from '@/components/gates/FirebaseGate'
 export const generateMetadata = generateStaticMetadata('/sunnyside')
 
 export default function Home() {
@@ -84,21 +85,23 @@ export default function Home() {
         </Link>
 
         {/* -- stash -- */}
-        <Link href='/sunnyside/stash' className={`${s.spriteMap} ${s.spriteBurrow}`}></Link>
-        <Link href='/sunnyside/stash' className={`${s.stash} ${s.feature}`}>
-          <div className={s.rotater}>
-            Fund
-            <span className={s.caption}>Stash Hole</span>
-            <Arrowhead />
-            <div className={`${s.eggCount}`}>
-              <Image src='/assets/images/icons/icon_rathed.svg' width='64' height='64' alt='Daily' className={s.brandMfr} />
-              <span>Level</span>
-              <span className={s.textGreen} id='proLevel'>
-                1
-              </span>
+        <FirebaseGate>
+          <Link href='/sunnyside/stash' className={`${s.spriteMap} ${s.spriteBurrow}`}></Link>
+          <Link href='/sunnyside/stash' className={`${s.stash} ${s.feature}`}>
+            <div className={s.rotater}>
+              Fund
+              <span className={s.caption}>Stash Hole</span>
+              <Arrowhead />
+              <div className={`${s.eggCount}`}>
+                <Image src='/assets/images/icons/icon_rathed.svg' width='64' height='64' alt='Daily' className={s.brandMfr} />
+                <span>Level</span>
+                <span className={s.textGreen} id='proLevel'>
+                  1
+                </span>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </FirebaseGate>
 
         <div className={`${s.spriteMap} ${s.spriteCraft}`}></div>
 

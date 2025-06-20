@@ -9,7 +9,7 @@ import LazySection from '@/layout/Containers/LazySection'
 import Footer from '@/layout/Footers/LanderFooter'
 import s from '@/styles/Home.module.sass'
 import SignInWithEthereum from '@/components/SignInWithEthereum'
-import MintCard from '@/components/MintCard'
+//import MintCard from '@/components/MintCard'
 
 export default function Home() {
   const isConnected = true
@@ -98,7 +98,7 @@ export default function Home() {
       </section>
       <LazySection>
         <section className={s.carousel}>
-          <MintCard />
+          {/*<MintCard />*/}
           <h2>
             Say<i> </i>
             <em>Yes</em>
