@@ -168,3 +168,5 @@ service cloud.firestore {
 ```
 
 Errors such as `Unexpected token 'M', "Must be au" is not valid JSON` usually mean an API route returned an HTML error page. Verify that all environment variables listed above are set correctly so the backend can authenticate with Firebase.
+
+If you encounter `Service account object must contain a string "project_id" property`, the Firebase Admin credentials are incomplete. Ensure `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL` and `FIREBASE_PRIVATE_KEY` are defined in `.env.local`.
