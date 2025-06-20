@@ -1,6 +1,6 @@
 // app/lore/[slug]/page.tsx
-import { db } from '@/lib/firebaseClient'
-import { collection, query, where, limit, getDocs, type DocumentData } from 'firebase/firestore'
+import { dbAdmin } from '@/lib/firebaseAdmin'
+import type { DocumentData } from 'firebase-admin/firestore'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 // render MDX remotely
@@ -9,16 +9,20 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 export const revalidate = 60 // isr cache
 
 export async function generateStaticParams(): Promise<Array<{ slug: string }>> {
-  const snapshot = await getDocs(collection(db, 'lore'))
+  const snapshot = await dbAdmin.collection('lore').get()
   return snapshot.docs
-    .map((docSnap) => (docSnap.data() as DocumentData).slug as string)
+    .map((docSnap) => docSnap.data().slug as string)
     .filter((slug): slug is string => typeof slug === 'string')
     .map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const snap = await getDocs(query(collection(db, 'lore'), where('slug', '==', slug), limit(1)))
+  const snap = await dbAdmin
+    .collection('lore')
+    .where('slug', '==', slug)
+    .limit(1)
+    .get()
   if (snap.empty) {
     return { title: 'Not Found' }
   }
@@ -38,7 +42,11 @@ type Lore = {
 
 export default async function LorePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const snap = await getDocs(query(collection(db, 'lore'), where('slug', '==', slug), limit(1)))
+  const snap = await dbAdmin
+    .collection('lore')
+    .where('slug', '==', slug)
+    .limit(1)
+    .get()
   if (snap.empty) {
     notFound()
   }
