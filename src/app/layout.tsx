@@ -40,18 +40,17 @@ export default function RootLayout({
       <body className={`${dmSans.variable} ${dmMono.variable} antialiased`} id='top'>
         <Loader />
         <BodyClassManager />
-        {/* -- firebase sdk -- */}
-        <AuthProvider>
-          {/* -- onchainkit sdk + siwe | https://docs.base.org/builderkits/onchainkit -- */}
-          <Web3Providers>
+        {/* -- web3 sdk + firebase -- */}
+        <Web3Providers>
+          <AuthProvider>
             {/* -- runtime mgr -- */}
             <ClientAppShell>
               <Header />
               <main>{children}</main>
               <Footer />
             </ClientAppShell>
-          </Web3Providers>
-        </AuthProvider>
+          </AuthProvider>
+        </Web3Providers>
       </body>
     </html>
   )
