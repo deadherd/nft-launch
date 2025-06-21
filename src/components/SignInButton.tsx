@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { auth, db } from '@/lib/firebaseClient'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { browserLocalPersistence, setPersistence, signInWithCustomToken } from 'firebase/auth'
@@ -11,10 +11,12 @@ export default function SignInButton() {
   const { address, chain } = useAccount()
   const { signMessageAsync } = useSignMessage()
   const { chains: cfgChains } = useConfig()
+  const [loading, setLoading] = useState(false)
 
   const handleSignIn = useCallback(async () => {
     try {
       if (!address) return
+      setLoading(true)
 
       const chainId = chain?.id ?? cfgChains[0].id
       const { nonce } = await fetch('/api/siwe/nonce').then((r) => r.json())
@@ -64,14 +66,23 @@ export default function SignInButton() {
       }
     } catch (err) {
       console.error('Sign-in error:', err)
+    } finally {
+      setLoading(false)
     }
   }, [address, chain, cfgChains, signMessageAsync])
 
   if (!address) return null
 
   return (
-    <button className='button' onClick={handleSignIn} type='button'>
-      Sign In
-    </button>
+    <>
+      <button className='button' onClick={handleSignIn} disabled={loading} type='button'>
+        Sign In
+      </button>
+      {loading && (
+        <div className='statusOverlay'>
+          <div className='statusMessage'>Signing in…</div>
+        </div>
+      )}
+    </>
   )
 }
