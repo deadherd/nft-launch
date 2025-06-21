@@ -7,6 +7,7 @@ import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { signInWithCustomToken, setPersistence, browserLocalPersistence } from 'firebase/auth'
 import { Wallet, ConnectWallet, WalletDropdown, WalletDropdownDisconnect, WalletDropdownLink } from '@coinbase/onchainkit/wallet'
 import { Avatar, Name, Address, EthBalance, Identity } from '@coinbase/onchainkit/identity'
+import ChainInfo from './ChainInfo'
 import { createSiweMessage } from 'viem/siwe'
 import { useAccount, useSignMessage, useConfig } from 'wagmi'
 import UserProfileCard from '@/components/UserProfileCard'
@@ -127,6 +128,7 @@ export default function SignInWithEthereum() {
           <Address />
           <EthBalance />
         </Identity>
+        <ChainInfo />
         <UserProfileCard />
         <WalletDropdownLink className='dd-link dd-settings' href='/settings'>
           Account Settings
