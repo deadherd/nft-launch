@@ -8,33 +8,33 @@ export const RouteRegistry: RouteEntry[] = [
     bodyClass: 'index',
     metaTitle: 'New Yolk City',
     audio: '/assets/audio/city-background-ambience-01.mp3',
-    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
+    menuId: 'default',
   },
   /* -- S E T T I N G S -- */
   {
     path: '/settings',
     bodyClass: 'settings',
     metaTitle: 'My Settings',
-    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
+    menuId: 'default',
   },
   {
     path: '/settings/role',
     bodyClass: 'settings',
     metaTitle: 'My Roles',
-    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
+    menuId: 'default',
   },
   {
     path: '/settings/usertag',
     bodyClass: 'settings',
     metaTitle: 'My Usertag',
-    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
+    menuId: 'default',
   },
   /* -- A C T I V I T Y -- */
   {
     path: '/activity',
     bodyClass: 'activity',
     metaTitle: 'Activity Feed',
-    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
+    menuId: 'default',
   },
   /* -- S U N N Y S I D E -- */
   {
@@ -44,12 +44,7 @@ export const RouteRegistry: RouteEntry[] = [
     locationId: 'sunnyside',
     xpReward: 15,
     audio: '/assets/audio/city-background-ambience-01.mp3',
-    menuItems: [
-      //{ icon: 'lab-mouse_128.png', title: '', link: '#bottom', className: '' },
-      //{ icon: 'list_128.png', title: 'Deep Dive', link: '/deep-dive', className: '' },
-      //{ icon: 'list_128.png', title: 'Season', link: '/sunnyside', className: '' },
-      { icon: 'buynow_128.png', title: 'Stash', link: '/sunnyside/stash', className: '' },
-    ],
+    menuId: 'sunnyside',
   },
   {
     path: '/sunnyside/stash',
@@ -57,7 +52,7 @@ export const RouteRegistry: RouteEntry[] = [
     metaTitle: 'Sunnyside Stash',
     locationId: 'sunnyside_stash',
     xpReward: 15,
-    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/sunnyside', className: 'exit' }],
+    menuId: 'sunnysideExit',
   },
   {
     path: '/sunnyside/row',
@@ -65,14 +60,14 @@ export const RouteRegistry: RouteEntry[] = [
     metaTitle: 'Sunnyside Row',
     locationId: 'sunnyside_row',
     xpReward: 15,
-    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/sunnyside', className: 'exit' }],
+    menuId: 'sunnysideExit',
   },
   /* -- D E E P   D I V E -- */
   {
     path: '/deep-dive',
     bodyClass: 'docs',
     metaTitle: 'Deep Dive',
-    menuItems: [{ icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' }],
+    menuId: 'default',
   },
   /* -- L O R E -- */
   {

@@ -7,7 +7,7 @@ export interface RouteEntry {
   ogImage?: string
   xpReward?: number
   audio?: string
-  menuItems?: MenuItem[]
+  menuId?: string
 }
 
 export interface MenuItem {

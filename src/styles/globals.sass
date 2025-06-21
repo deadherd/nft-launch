@@ -596,8 +596,19 @@ footer.upside
   .iconImage
     @apply inline-block bg-[#555] rounded-full relative top-[0] mr-[3px]
   .toolbar
-    @apply fixed top-[0] right-[0] pt-[44px] pr-[40px]
-    background: radial-gradient(circle at top right, #000, rgba(0,0,0,0) 50%)
+    @apply fixed
+    &.bottom-left
+      @apply bottom-[0] left-[0] pb-[44px] pl-[40px]
+      background: radial-gradient(circle at bottom left, #000, rgba(0,0,0,0) 50%)
+    &.bottom-right
+      @apply bottom-[0] right-[0] pb-[44px] pr-[40px]
+      background: radial-gradient(circle at bottom right, #000, rgba(0,0,0,0) 50%)
+    &.top-left
+      @apply top-[0] left-[0] pt-[44px] pl-[40px]
+      background: radial-gradient(circle at top left, #000, rgba(0,0,0,0) 50%)
+    &.top-right
+      @apply top-[0] right-[0] pt-[44px] pr-[40px]
+      background: radial-gradient(circle at top right, #000, rgba(0,0,0,0) 50%)
     button.hamburger
       @apply absolute top-[35px] right-[30px] w-[60px] h-[60px] z-20
       svg
