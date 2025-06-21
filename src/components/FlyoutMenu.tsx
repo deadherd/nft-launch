@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import SpotDotsSvg from '@/components/svg/SpotDotsSvg'
-import { getRouteEntry } from '@/lib/routeRegistry'
+import { getRouteEntry } from '@/lib/getRouteEntry'
 import { getMenuItems } from '@/lib/menuRegistry'
 
 const gridPositions = [

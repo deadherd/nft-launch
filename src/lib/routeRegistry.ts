@@ -77,28 +77,3 @@ export const RouteRegistry: RouteEntry[] = [
   },
 ]
 
-export function getRouteEntry(pathname: string): RouteEntry | undefined {
-  //console.log('>>> Pathname received:', pathname)
-  const normalizedPath = normalizePath(pathname)
-  const normalizedRegistry = RouteRegistry.map((entry) => ({
-    ...entry,
-    normalizedPath: normalizePath(entry.path),
-  }))
-
-  // try exact match
-  const exactMatch = normalizedRegistry.find((entry) => entry.normalizedPath === normalizedPath)
-  if (exactMatch) return exactMatch
-
-  // fall back to startsWith for any parent routes
-  const fallbackMatch = normalizedRegistry
-    .sort((a, b) => b.normalizedPath.length - a.normalizedPath.length)
-    .find((entry) => normalizedPath.startsWith(entry.normalizedPath))
-
-  return fallbackMatch
-}
-
-function normalizePath(path?: string): string {
-  const safePath = (path ?? '').replace(/\/+$/, '')
-  //console.log('[normalizePath] Input:', path, '=> Normalized:', safePath)
-  return safePath
-}

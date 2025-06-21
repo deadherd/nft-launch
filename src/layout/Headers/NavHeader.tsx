@@ -19,6 +19,8 @@ import useAuthUser from '@/hooks/useAuthUser'
 //import FamilyRank from '@/components/FamilyRank'
 import TopBar from '@/components/TopBar'
 import { useAccount } from 'wagmi'
+import { getRouteEntry } from '@/lib/getRouteEntry'
+import { LOCATIONS } from '@/lib/locationRegistry'
 
 // enable scroll animation plugin
 gsap.registerPlugin(ScrollTrigger)
@@ -31,6 +33,10 @@ const Header: FC = () => {
   //const circleRef = useRef<HTMLDivElement>(null)
   const { userData } = useAuthUser()
   const { isConnected } = useAccount()
+
+  const routeEntry = getRouteEntry(pathname)
+  const isLocation = !!routeEntry?.locationId &&
+    LOCATIONS.some((loc) => loc.id === routeEntry.locationId)
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [slideOpen, setSlideOpen] = useState(false)
@@ -159,12 +165,12 @@ const Header: FC = () => {
               ) : (
                 <span>Yo, slime. Tag up.</span>
               )
-            ) : (
+            ) : isLocation ? (
               <div className={s.location}>
                 <span className={s.locationCity}>New Yolk City</span>
-                <span className={s.youAreHere}>Sunnyside Alley</span>
+                <span className={s.youAreHere}>{routeEntry?.metaTitle}</span>
               </div>
-            )}
+            ) : null}
           </span>
         )}
 

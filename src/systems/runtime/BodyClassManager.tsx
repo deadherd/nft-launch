@@ -3,7 +3,8 @@
 // systems/runtime/BodyClassManager.tsx
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
-import { getRouteEntry, RouteRegistry } from '@/lib/routeRegistry'
+import { RouteRegistry } from '@/lib/routeRegistry'
+import { getRouteEntry } from '@/lib/getRouteEntry'
 
 export default function BodyClassManager() {
   const pathname = usePathname()
