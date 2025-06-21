@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import SpotDotsSvg from '@/components/svg/SpotDotsSvg'
 import { getRouteEntry } from '@/lib/routeRegistry'
+import { getMenuItems } from '@/lib/menuRegistry'
 
 const gridPositions = [
   [-1, 0],
@@ -21,7 +22,20 @@ const gridPositions = [
 
 const spacing = 80
 
-const FlyoutMenu = () => {
+type Corner = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right'
+
+interface FlyoutMenuProps {
+  corner?: Corner
+}
+
+const orientationModifiers: Record<Corner, [number, number]> = {
+  'top-right': [1, 1],
+  'top-left': [-1, 1],
+  'bottom-right': [1, -1],
+  'bottom-left': [-1, -1],
+}
+
+const FlyoutMenu = ({ corner = 'bottom-left' }: FlyoutMenuProps) => {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
 
@@ -38,13 +52,13 @@ const FlyoutMenu = () => {
   }, [])
 
   const routeEntry = getRouteEntry(pathname)
-  const menuItems = routeEntry?.menuItems || []
+  const menuItems = getMenuItems(routeEntry?.menuId)
 
   if (menuItems.length === 0) return null
 
   return (
     <div
-      className='toolbar'
+      className={`toolbar ${corner}`}
       style={{
         width: open ? '400px' : '100px',
         height: open ? '400px' : '100px',
@@ -57,6 +71,7 @@ const FlyoutMenu = () => {
 
         const distance = Math.sqrt(x * x + y * y)
         const brightness = Math.max(0.1, 1 + 0.075 * distance)
+        const [xMod, yMod] = orientationModifiers[corner]
 
         return (
           <Link
@@ -64,7 +79,9 @@ const FlyoutMenu = () => {
             href={item.link}
             className={`absolute top-[35px] right-[30px] w-[60px] h-[60px] ${item.className || ''}`}
             style={{
-              transform: open ? `translate(${x * spacing}px, ${y * spacing}px)` : 'translate(0px, 0px) scale(0)',
+              transform: open
+                ? `translate(${x * spacing * xMod}px, ${y * spacing * yMod}px)`
+                : 'translate(0px, 0px) scale(0)',
               opacity: open ? 1 : 0,
               filter: `brightness(${brightness})`,
               transition: 'transform 0.4s ease, opacity 0.3s ease, filter 0.3s ease, margin-top 0.3s ease',
