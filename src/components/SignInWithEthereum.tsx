@@ -127,11 +127,7 @@ export default function SignInWithEthereum() {
         <ChainInfo />
         <Identity className='px-4 pt-3 pb-2' hasCopyAddressOnClick>
           <Avatar />
-          {userData?.username ? (
-            <span className='usertag'>{userData.username}</span>
-          ) : (
-            <Name />
-          )}
+          {userData?.username ? <span className='usertag'>{userData.username}</span> : <Name />}
           <Address />
           <EthBalance />
         </Identity>
