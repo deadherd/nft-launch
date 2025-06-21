@@ -162,7 +162,7 @@ const Header: FC = () => {
             ) : (
               <div className={s.location}>
                 <span className={s.locationCity}>New Yolk City</span>
-                <span>Sunnyside Alley</span>
+                <span className={s.youAreHere}>Sunnyside Alley</span>
               </div>
             )}
           </span>
