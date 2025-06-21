@@ -1,7 +1,7 @@
 // lib/resolveMetadata.ts
 import type { Metadata } from 'next'
 import { mergeMetadata } from './mergeMetadata'
-import { getRouteEntry } from './routeRegistry'
+import { getRouteEntry } from './getRouteEntry'
 
 export function resolveMetadata(pathname: string): Metadata {
   const routeEntry = getRouteEntry(pathname)

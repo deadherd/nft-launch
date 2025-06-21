@@ -3,7 +3,7 @@
 // systems/runtime/AudioProvider.tsx
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { getRouteEntry } from '@/lib/routeRegistry'
+import { getRouteEntry } from '@/lib/getRouteEntry'
 
 type AudioContextType = {
   isAudioOn: boolean
