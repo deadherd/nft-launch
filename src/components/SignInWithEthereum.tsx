@@ -122,13 +122,13 @@ export default function SignInWithEthereum() {
       )}
 
       <WalletDropdown className='ock-dropdown'>
+        <ChainInfo />
         <Identity className='px-4 pt-3 pb-2' hasCopyAddressOnClick>
           <Avatar />
           <Name />
           <Address />
           <EthBalance />
         </Identity>
-        <ChainInfo />
         <UserProfileCard />
         <WalletDropdownLink className='dd-link dd-settings' href='/settings'>
           Account Settings

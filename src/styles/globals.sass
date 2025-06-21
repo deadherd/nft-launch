@@ -489,14 +489,30 @@ h2.ock-font-family
   &:hover, &:active
     background-color: rgba(0,0,0,0)!important
   [data-testid="ockAvatar_ImageContainer"]
-    @apply h-[86px] w-[86px] absolute top-[50%] left-[50%] transform-gpu ml-[-10px] mt-[-11px] rounded-lg z-[2] bg-[#0a0a0a]
+    @apply h-[86px] w-[86px] absolute top-[50%] left-[50%] transform-gpu ml-[-10px] mt-[-11px] rounded-lg z-[2]
+    background-color: rgba(10,10,10,.1)
     border: 2px solid #59fd53
     perspective: 400px
     transform: rotateX(16deg) rotateY(-24deg) translate(-50%,-50%)
     transform-style: preserve-3d
     box-shadow: 3.5px 3px 0px #349e31, 6px 6px 4px rgba(0,0,0,.12)
+    & > div
+      border: 0
     img
       @apply relative z-[1] max-w-[100%] h-auto
+    &::before
+      @apply absolute block top-0 left-0 w-full h-full z-[-1]
+      background: var(--green-alt) url(../../public/assets/images/icons/icon_rathed.svg) no-repeat 50% 50% / 90% 90%
+      content: ""
+    &::after
+      @apply absolute block top-[2%] left-[2%] w-[96%] h-[96%] z-[1] opacity-[.3] rounded-md
+      background: repeating-linear-gradient(0deg,rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5) 1px, rgba(0, 0, 0, 0.3) 2px, rgba(0, 0, 0, 0.3) 3px)
+      content: ""
+      box-shadow: inset 1px 1px 5px rgba(0,0,0,.5)
+      //mix-blend-mode: ovewwrlay
+      animation: flicker .1s infinite forwards
+  [data-testid="ock-defaultAvatarSVG"]
+    @apply hidden
 [data-testid="ockModalOverlay"]
   @apply border-[2px] border-[var(--green)] bg-[#000]
   //background: url(../../public/assets/images/sewer.jpg) no-repeat 50% 50%
@@ -505,6 +521,12 @@ h2.ock-font-family
   border-top-right-radius: 0
   border-bottom-right-radius: 0
   border-right: 0
+
+@keyframes flicker
+  0%
+    background-position: 0 0
+  50%
+    background-position: 0 3px
 
 .ock-bg-default.ock-text-foreground-muted.ock-font-family.text-xs.px-2 
   @apply rounded-md
@@ -800,4 +822,9 @@ body
   &.activity
     min-height: 100vh
     background: #0a0a0a url(../../public/assets/images/dumpster-inside.jpg) no-repeat 0 100%
-    background-size: 100% auto
+    background-size: 100% 
+    
+.chain-info
+  @apply text-left text-[13px] block px-[8px] py-[2px]
+  line-height: 1
+  font-weight: 500

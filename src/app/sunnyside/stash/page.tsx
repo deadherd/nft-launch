@@ -8,7 +8,7 @@ import LazySection from '@/layout/Containers/LazySection'
 import Footer from '@/layout/Footers/LanderFooter'
 import s from '@/styles/Home.module.sass'
 import SignInWithEthereum from '@/components/SignInWithEthereum'
-import MintNowButton from '@/components/MintNowButton'
+import Link from 'next/link'
 //import MintCard from '@/components/MintCard'
 
 export default function Home() {
@@ -38,7 +38,7 @@ export default function Home() {
             </li>
             <li className={s.barItem}>
               <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
-              Referral Bonuses*
+              Referral Tagbacks*
             </li>
             <li className={s.barItem}>
               <Image src='/assets/images/rathed-dark-grunge_svg.svg' width='24' height='24' alt='Daily' className={s.iconImage} />
@@ -79,7 +79,7 @@ export default function Home() {
               </a>
             </>
           ) : (
-            <MintNowButton>
+            <Link href='#'>
               <div className={`${s.eggCount} ${s.countLarge} ${s.product}`}>
                 <span id='eggPrice'>.03 ETH</span>
               </div>
@@ -88,7 +88,7 @@ export default function Home() {
                 <br />
                 NOw
               </span>
-            </MintNowButton>
+            </Link>
           )}
         </div>
         <Image src='/assets/images/Produx/output_4.png' alt='MFR Egg' width={800} height={800} className={s.egg} />
@@ -146,11 +146,11 @@ export default function Home() {
           </div>
         </section>
         <div className={s.centered}>
-          <MintNowButton className={`${s.biglink} ${s.bigLinkLeft} ${s.noarrow}`}> 
+          <Link href='/deep-dive' className={`${s.biglink} ${s.bigLinkLeft} ${s.noarrow}`}>
             Buy
             <Image src='/assets/images/glow-in-the-dark-closed.png' alt='Learn More' width={200} height={203} />
             Now
-          </MintNowButton>
+          </Link>
         </div>
         <hr />
         <section className={s.cta}>
@@ -175,11 +175,11 @@ export default function Home() {
         <div className={s.centered}>
           <Image src='/assets/images/plated.jpg' alt='MFR Egg Cartons' width={1092} height={450} />
           <br />
-          <MintNowButton className={`${s.biglink} ${s.bigLinkLeft} ${s.noarrow}`}> 
+          <Link href='/deep-dive' className={`${s.biglink} ${s.bigLinkLeft} ${s.noarrow}`}>
             Buy
             <Image src='/assets/images/glow-in-the-dark-closed.png' alt='Learn More' width={200} height={203} />
             Now
-          </MintNowButton>
+          </Link>
         </div>
       </LazySection>
       <LazySection>

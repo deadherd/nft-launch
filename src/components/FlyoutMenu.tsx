@@ -79,9 +79,7 @@ const FlyoutMenu = ({ corner = 'bottom-left' }: FlyoutMenuProps) => {
             href={item.link}
             className={`absolute top-[35px] right-[30px] w-[60px] h-[60px] ${item.className || ''}`}
             style={{
-              transform: open
-                ? `translate(${x * spacing * xMod}px, ${y * spacing * yMod}px)`
-                : 'translate(0px, 0px) scale(0)',
+              transform: open ? `translate(${x * spacing * xMod}px, ${y * spacing * yMod}px)` : 'translate(0px, 0px) scale(0)',
               opacity: open ? 1 : 0,
               filter: `brightness(${brightness})`,
               transition: 'transform 0.4s ease, opacity 0.3s ease, filter 0.3s ease, margin-top 0.3s ease',
@@ -102,7 +100,7 @@ const FlyoutMenu = ({ corner = 'bottom-left' }: FlyoutMenuProps) => {
         }}
         aria-label='toggle flyout menu'
       >
-        <SpotDotsSvg color='#ffff0f' />
+        <SpotDotsSvg color='#59fd53' />
       </button>
     </div>
   )

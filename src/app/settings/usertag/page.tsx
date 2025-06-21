@@ -8,6 +8,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import s from '@/styles/Container.module.sass'
 //import Link from 'next/link'
 import { containsBannedWords } from '@/utils/bannedWords'
+import NftCountGate from '@/components/gates/NftCountGate'
 
 export default function UsertagSettingsPage() {
   const [uid, setUid] = useState<string | null>(null)
@@ -198,16 +199,18 @@ export default function UsertagSettingsPage() {
   return (
     <div className={s.container}>
       <form className={s.form}>
-        <h1 className='feature'>Profile</h1>
+        <h1 className='feature'>TagbAcks</h1>
         <span className='linkTitle'>{newUsername && <a target='_blank'>🔒 View Profile</a>}</span>
         <label>
           <span>Usertag</span>
-          <input
-            type='text'
-            value={newUsername}
-            onChange={(e) => handleUsernameChange(e.target.value)}
-            className={currentUsername && newUsername !== currentUsername ? 'changed' : ''}
-          />
+          <NftCountGate minimum={1} fallback={'Currently only for Fiending Fathers. Please check back later or get your hustle on.'}>
+            <input
+              type='text'
+              value={newUsername}
+              onChange={(e) => handleUsernameChange(e.target.value)}
+              className={currentUsername && newUsername !== currentUsername ? 'changed' : ''}
+            />
+          </NftCountGate>
           {(() => {
             const msg =
               usernameStatus === 'loading'
@@ -223,21 +226,23 @@ export default function UsertagSettingsPage() {
           })()}
         </label>
 
-        <label>
+        {/*<label>
           <span>Bio</span>
           <textarea disabled value='🔒' onChange={(e) => setBio(e.target.value)} rows={3} />
-          {/*<textarea value={bio} onChange={(e) => setBio(e.target.value)} rows={3} />*/}
-        </label>
+          <textarea value={bio} onChange={(e) => setBio(e.target.value)} rows={3} />
+        </label>*/}
 
-        <div className='pushRight'>
-          <button
-            onClick={handleSave}
-            disabled={loading || !hasChanges || !usernameValid || (usernameStatus === 'unavailable' && newUsername !== currentUsername)}
-            className={`button ${!hasChanges || !usernameValid || (usernameStatus === 'unavailable' && newUsername !== currentUsername) ? 'disabled' : ''}`}
-          >
-            Save
-          </button>
-        </div>
+        <NftCountGate minimum={1}>
+          <div className='pushRight'>
+            <button
+              onClick={handleSave}
+              disabled={loading || !hasChanges || !usernameValid || (usernameStatus === 'unavailable' && newUsername !== currentUsername)}
+              className={`button ${!hasChanges || !usernameValid || (usernameStatus === 'unavailable' && newUsername !== currentUsername) ? 'disabled' : ''}`}
+            >
+              Save
+            </button>
+          </div>
+        </NftCountGate>
 
         {message && <p className='formnote'>{message}</p>}
       </form>
