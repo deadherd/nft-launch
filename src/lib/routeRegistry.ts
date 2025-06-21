@@ -15,19 +15,19 @@ export const RouteRegistry: RouteEntry[] = [
     path: '/settings',
     bodyClass: 'settings',
     metaTitle: 'My Settings',
-    menuId: 'default',
+    menuId: 'settings',
   },
   {
     path: '/settings/role',
     bodyClass: 'settings',
     metaTitle: 'My Roles',
-    menuId: 'default',
+    menuId: 'settings',
   },
   {
     path: '/settings/usertag',
     bodyClass: 'settings',
     metaTitle: 'My Usertag',
-    menuId: 'default',
+    menuId: 'settings',
   },
   /* -- A C T I V I T Y -- */
   {

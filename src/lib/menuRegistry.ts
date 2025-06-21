@@ -5,6 +5,10 @@ export const MenuRegistry: Record<string, MenuItem[]> = {
     { icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' },
     { icon: 'arrow_left_128.png', title: 'Exit', link: '/', className: 'exit' },
   ],
+  settings: [
+    { icon: 'buildings_128.png', title: 'New Yolk', link: '/', className: 'new-yolk' },
+    { icon: 'radiation_128.png', title: 'Sunnyside', link: '/sunnyside', className: 'sunnyside' },
+  ],
   //sunnyside: [{ icon: 'buynow_128.png', title: 'Stash', link: '/sunnyside/stash', className: '' }],
 }
 

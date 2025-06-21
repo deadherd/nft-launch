@@ -32,7 +32,7 @@ export default function Home() {
 
         {/* -- vibes -- */}
         <NftCountGate minimum={1}>
-          <Link href='/settings' className={`${s.vibes} ${s.feature} unavailable`}>
+          <Link href='/settings/usertag' className={`${s.vibes} ${s.feature}`}>
             <div className={s.rotater}>
               Recruit
               <span className={s.caption}>$Tagbacks</span>
@@ -73,19 +73,21 @@ export default function Home() {
           </div>
         </Link>
 
-        <Image src={alleyWanted.src} className={s.alleyWanted} width='99' height='235' alt='Wanted' />
-        {/* -- next egg -- */}
-        <Link href='/deep-dive/nest-egg' className={`${s.dirtydozen} ${s.feature}`}>
-          <div className={s.rotater}>
-            <span className={s.caption}></span>
-            <div className={`${s.eggCount}`}>
-              <Image src='/assets/images/ff-egg-gold.png' width='40' height='80' alt='Gold Egg Threader' />$
-              <span className={s.textGreen} id='proLevel'>
-                0
-              </span>
+        <FirebaseGate>
+          <Image src={alleyWanted.src} className={s.alleyWanted} width='99' height='235' alt='Wanted' />
+          {/* -- nest egg -- */}
+          <Link href='/deep-dive/nest-egg' className={`${s.dirtydozen} ${s.feature}`}>
+            <div className={s.rotater}>
+              <span className={s.caption}></span>
+              <div className={`${s.eggCount}`}>
+                <Image src='/assets/images/ff-egg-gold.png' width='40' height='80' alt='Gold Egg Threader' />$
+                <span className={s.textGreen} id='proLevel'>
+                  0
+                </span>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </FirebaseGate>
 
         {/* -- stash -- */}
         <FirebaseGate>
