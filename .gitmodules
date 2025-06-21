@@ -1,0 +1,3 @@
+[submodule "crafted-nft"]
+	path = crafted-nft
+	url = https://github.com/deadherd/crafted-nft
