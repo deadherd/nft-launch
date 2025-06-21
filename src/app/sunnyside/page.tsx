@@ -34,8 +34,8 @@ export default function Home() {
         <NftCountGate minimum={1}>
           <Link href='/settings/usertag' className={`${s.vibes} ${s.feature}`}>
             <div className={s.rotater}>
-              Recruit
-              <span className={s.caption}>$Tagbacks</span>
+              TagbAcks
+              <span className={s.caption}>Claim Usertag</span>
               <Arrowhead />
               <div className={`${s.eggCount}`}>
                 <Image src='/assets/images/icons/icon-green_fiending-fathers.svg' width='64' height='64' alt='Egg Thredder' className={s.brandF} />
@@ -49,8 +49,8 @@ export default function Home() {
         <div className={`${s.spriteMap} ${s.spriteDeepDive}`}></div>
         <Link href='/deep-dive' className={`${s.dumpster} ${s.feature} unavailable`}>
           <div className={s.rotater}>
-            Organize
-            <span className={s.caption}>Deep Dive</span>
+            ProtOcol
+            <span className={s.caption}>The Hot Box</span>
             <Arrowhead />
             <div className={`${s.eggCount}`}>
               <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Daily' />x<span>222</span>
@@ -152,8 +152,8 @@ export default function Home() {
         {/* -- sewer -- */}
         <Link href='#' className={`${s.enter} ${s.feature} unavailable`}>
           <div className={s.rotater}>
-            PromOte
-            <span className={s.caption}>Sunnyside Drop</span>
+            Drops
+            <span className={s.caption}>Sunnyside Sewers</span>
             <Arrowhead />
             <div className={`${s.eggCount}`}>
               <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Egg Thredder' />x<span>888</span>
