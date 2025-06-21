@@ -29,6 +29,12 @@ export const RouteRegistry: RouteEntry[] = [
     metaTitle: 'My Usertag',
     menuId: 'settings',
   },
+  {
+    path: '/telegram/login',
+    bodyClass: 'settings',
+    metaTitle: 'Telegram Login',
+    menuId: 'default',
+  },
   /* -- A C T I V I T Y -- */
   {
     path: '/activity',

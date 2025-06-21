@@ -8,9 +8,12 @@ declare namespace NodeJS {
     NEXT_PUBLIC_FIREBASE_APP_ID: string
     NEXT_PUBLIC_ONCHAINKIT_API_KEY: string
     NEXT_PUBLIC_ALCHEMY_KEY: string
+    NEXT_PUBLIC_APP_URL: string
     FIREBASE_PROJECT_ID: string
     FIREBASE_CLIENT_EMAIL: string
     FIREBASE_PRIVATE_KEY: string
+    TELEGRAM_BOT_TOKEN: string
+    TELEGRAM_GROUP_ID?: string
   }
 }
 
