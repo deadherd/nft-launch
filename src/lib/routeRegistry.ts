@@ -52,7 +52,7 @@ export const RouteRegistry: RouteEntry[] = [
     metaTitle: 'Sunnyside Stash',
     locationId: 'sunnyside_stash',
     xpReward: 15,
-    menuId: 'sunnysideExit',
+    menuId: 'default',
   },
   {
     path: '/sunnyside/row',
@@ -60,7 +60,7 @@ export const RouteRegistry: RouteEntry[] = [
     metaTitle: 'Sunnyside Row',
     locationId: 'sunnyside_row',
     xpReward: 15,
-    menuId: 'sunnysideExit',
+    menuId: 'default',
   },
   /* -- D E E P   D I V E -- */
   {

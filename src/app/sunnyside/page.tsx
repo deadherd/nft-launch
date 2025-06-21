@@ -13,6 +13,7 @@ import ParallaxLayer from '@/components/ParallaxLayer'
 // page metadata
 import { generateStaticMetadata } from '@/lib/metadataRouter'
 import FirebaseGate from '@/components/gates/FirebaseGate'
+import NftCountGate from '@/components/gates/NftCountGate'
 export const generateMetadata = generateStaticMetadata('/sunnyside')
 
 export default function Home() {
@@ -30,17 +31,19 @@ export default function Home() {
         <Image src={bgForegroundBottom.src} className={s.foregroundImage} width='1344' height='1049' alt='New Yolk City Alley' />
 
         {/* -- vibes -- */}
-        <Link href='/settings' className={`${s.vibes} ${s.feature} unavailable`}>
-          <div className={s.rotater}>
-            Recruit
-            <span className={s.caption}>$Tagbacks</span>
-            <Arrowhead />
-            <div className={`${s.eggCount}`}>
-              <Image src='/assets/images/icons/icon-green_fiending-fathers.svg' width='64' height='64' alt='Egg Thredder' className={s.brandF} />
-              <span>Only Fiends</span>
+        <NftCountGate minimum={1}>
+          <Link href='/settings' className={`${s.vibes} ${s.feature} unavailable`}>
+            <div className={s.rotater}>
+              Recruit
+              <span className={s.caption}>$Tagbacks</span>
+              <Arrowhead />
+              <div className={`${s.eggCount}`}>
+                <Image src='/assets/images/icons/icon-green_fiending-fathers.svg' width='64' height='64' alt='Egg Thredder' className={s.brandF} />
+                <span>Only Fiends</span>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </NftCountGate>
 
         {/* -- deep dive -- */}
         <div className={`${s.spriteMap} ${s.spriteDeepDive}`}></div>
