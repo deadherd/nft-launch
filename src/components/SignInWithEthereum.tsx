@@ -10,6 +10,7 @@ import { Avatar, Name, Address, EthBalance, Identity } from '@coinbase/onchainki
 import ChainInfo from './ChainInfo'
 import { createSiweMessage } from 'viem/siwe'
 import { useAccount, useSignMessage, useConfig } from 'wagmi'
+import useAuthUser from '@/hooks/useAuthUser'
 import UserProfileCard from '@/components/UserProfileCard'
 import FamilyRank from './FamilyRank'
 
@@ -19,9 +20,10 @@ export default function SignInWithEthereum() {
   const [statusMessage, setStatusMessage] = useState<string | null>(null)
 
   // wagmi wallet state + signing config
-  const { address, chain } = useAccount()
+  const { address, chain, isConnected } = useAccount()
   const { signMessageAsync } = useSignMessage()
   const { chains: cfgChains } = useConfig()
+  const { user, userData } = useAuthUser()
 
   // auth disconnect handled globally
 
@@ -125,7 +127,11 @@ export default function SignInWithEthereum() {
         <ChainInfo />
         <Identity className='px-4 pt-3 pb-2' hasCopyAddressOnClick>
           <Avatar />
-          <Name />
+          {userData?.username ? (
+            <span className='usertag'>{userData.username}</span>
+          ) : (
+            <Name />
+          )}
           <Address />
           <EthBalance />
         </Identity>
@@ -136,6 +142,11 @@ export default function SignInWithEthereum() {
         <WalletDropdownLink className='dd-link dd-activity' href='/activity'>
           Activity
         </WalletDropdownLink>
+        {isConnected && !user && (
+          <button className='dd-link dd-signin' onClick={handleSignIn} type='button'>
+            Sign In
+          </button>
+        )}
         <WalletDropdownDisconnect />
       </WalletDropdown>
     </Wallet>

@@ -8,5 +8,6 @@ export interface UserData {
   money?: number
   lastLogin?: number
   locations?: string[]
+  username?: string
   // add additional fields for user profile here
 }
