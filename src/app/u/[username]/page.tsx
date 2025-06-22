@@ -4,6 +4,8 @@
 import { useEffect, useState } from 'react'
 import { doc, getDoc, collection, getDocs, Timestamp } from 'firebase/firestore'
 import { db } from '@/lib/firebaseClient'
+import { MAIN_NFT_CONTRACT } from '@/lib/contracts'
+import type { OwnedNft, AlchemyNftsResponse } from '@/types/Nft'
 import { useParams } from 'next/navigation'
 import s from '@/styles/Profile.module.sass'
 
@@ -28,6 +30,8 @@ export default function ProfilePage() {
   const { username } = useParams<{ username: string }>()
   const [profile, setProfile] = useState<ProfileData | null>(null)
   const [activity, setActivity] = useState<ActivityItem[]>([])
+  const [nfts, setNfts] = useState<OwnedNft[]>([])
+  const [filter, setFilter] = useState('')
   const [notFound, setNotFound] = useState(false)
 
   useEffect(() => {
@@ -64,6 +68,21 @@ export default function ProfilePage() {
         })
 
         setActivity(items)
+
+      try {
+        const userSnap = await getDoc(doc(db, 'users', data.uid))
+        const address = userSnap.exists() ? (userSnap.data() as any).address : null
+        if (address) {
+          const apiKey = process.env.NEXT_PUBLIC_ALCHEMY_KEY
+          const url = `https://base-sepolia.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner?owner=${address}&contractAddresses[]=${MAIN_NFT_CONTRACT}`
+          const res = await fetch(url)
+          const nftData = (await res.json()) as AlchemyNftsResponse
+          setNfts(nftData.ownedNfts ?? [])
+        }
+      } catch (err) {
+        console.error('Error loading NFTs:', err)
+        setNfts([])
+      }
       } catch (err) {
         console.error('Error loading profile or activity:', err)
         setNotFound(true)
@@ -121,6 +140,38 @@ export default function ProfilePage() {
                 <strong>{item.label}</strong> — {item.xp} XP on {item.createdAt.toLocaleDateString()}
               </li>
             ))}
+          </ul>
+        </>
+      )}
+
+      {nfts.length > 0 && (
+        <>
+          <h4 style={{ marginTop: '2rem' }}>Shells</h4>
+          <input
+            type='text'
+            placeholder='Filter traits'
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          />
+          <ul>
+            {nfts
+              .filter((nft) =>
+                filter
+                  ? nft.rawMetadata?.attributes?.some((a) =>
+                      `${a.trait_type} ${a.value}`
+                        .toLowerCase()
+                        .includes(filter.toLowerCase())
+                    )
+                  : true
+              )
+              .map((nft, idx) => {
+                const tokenId = parseInt((nft as any).tokenId, 16)
+                return (
+                  <li key={idx}>
+                    <a href={`/shell/${tokenId}`}>Shell #{tokenId}</a>
+                  </li>
+                )
+              })}
           </ul>
         </>
       )}

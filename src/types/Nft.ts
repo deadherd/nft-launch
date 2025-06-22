@@ -8,6 +8,7 @@ export interface NftMetadata {
 }
 
 export interface OwnedNft {
+  tokenId?: string
   rawMetadata?: NftMetadata
 }
 

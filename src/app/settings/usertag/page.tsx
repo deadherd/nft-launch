@@ -200,7 +200,11 @@ export default function UsertagSettingsPage() {
     <div className={s.container}>
       <form className={s.form}>
         <h1 className='feature'>TagbAcks</h1>
-        <span className='linkTitle'>{newUsername && <a target='_blank'>🔒 View Profile</a>}</span>
+        <span className='linkTitle'>
+          {newUsername && (
+            <a href={`/u/${newUsername}`} target='_blank'>🔒 View Profile</a>
+          )}
+        </span>
         <label>
           <span>Usertag</span>
           <NftCountGate minimum={1} fallback={'Currently only for Fiending Fathers. Please check back later or get your hustle on.'}>
