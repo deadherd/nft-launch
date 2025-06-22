@@ -52,12 +52,20 @@ export default function MintCard() {
 
       const provider = new JsonRpcProvider(`https://base-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`)
       const receipt = await provider.waitForTransaction(hash)
+      if (!receipt) {
+        throw new Error('Transaction receipt not found')
+      }
+
       const iface = new Interface(CraftedCollectionABI.abi)
       const ids: string[] = []
       for (const log of receipt.logs) {
         try {
           const parsed = iface.parseLog(log)
-          if (parsed.name === 'Transfer' && parsed.args?.to?.toLowerCase() === address?.toLowerCase()) {
+          if (
+            parsed &&
+            parsed.name === 'Transfer' &&
+            parsed.args?.to?.toLowerCase() === address?.toLowerCase()
+          ) {
             ids.push(parsed.args.tokenId.toString())
           }
         } catch {}
