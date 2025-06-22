@@ -71,7 +71,9 @@ export default function ProfilePage() {
 
       try {
         const userSnap = await getDoc(doc(db, 'users', data.uid))
-        const address = userSnap.exists() ? (userSnap.data() as any).address : null
+        const address = userSnap.exists()
+          ? (userSnap.data() as { address?: string }).address
+          : null
         if (address) {
           const apiKey = process.env.NEXT_PUBLIC_ALCHEMY_KEY
           const url = `https://base-sepolia.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner?owner=${address}&contractAddresses[]=${MAIN_NFT_CONTRACT}`
@@ -165,7 +167,7 @@ export default function ProfilePage() {
                   : true
               )
               .map((nft, idx) => {
-                const tokenId = parseInt((nft as any).tokenId, 16)
+                const tokenId = parseInt(nft.tokenId ?? '0', 16)
                 return (
                   <li key={idx}>
                     <a href={`/shell/${tokenId}`}>Shell #{tokenId}</a>
