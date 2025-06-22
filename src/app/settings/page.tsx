@@ -11,6 +11,7 @@ export default function SettingsPage() {
         <Link href='/settings/usertag'>Set Usertag</Link>
         <Link href='/settings/role'>Set Role/s</Link>
         <Link href='/settings/purchases'>View Purchases</Link>
+        <Link href='/activity'>View Activity</Link>
       </div>
     </div>
   )

@@ -163,6 +163,9 @@ export default function SignInWithEthereum() {
             <WalletDropdownLink className='dd-link dd-activity' href='/activity'>
               Activity
             </WalletDropdownLink>
+            <WalletDropdownLink className='dd-link' href='/settings/purchases'>
+              Purchases
+            </WalletDropdownLink>
           </>
         )}
         <ChainInfo />
