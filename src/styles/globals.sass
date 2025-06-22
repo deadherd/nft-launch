@@ -457,7 +457,7 @@ h2.ock-font-family
     line-height: 18px
     font-weight: bold
   [data-testid="ockAddress"]
-    @apply text-[14px] text-[#0a0a0a]
+    @apply text-[14px] text-[#0a0a0a] flex-1
     line-height: 16px
     font-weight: semibold
     & + span
@@ -818,9 +818,12 @@ p.formnote
   backdrop-filter: blur(5px)
   
 .statusMessage
-  @apply bg-[#59fd53] text-[#0a0a0a] font-bold tracking-tighter p-4 rounded-md rotate-[-2deg]
-  border: 2px solid #0a0a0a
-  border-bottom-width: 4px
+  @apply bg-[#1e2939] text-[#59fd53] font-bold tracking-tighter p-4 rounded-md rotate-[-2deg] text-[18px]
+  border: 1px solid #59fd53
+  border-bottom-width: 3px
+  font-family: "DM Sans"
+  text-shadow: 0 0 6px rgba(52,211,153,0.8)
+  
 
 body
   &.settings,
@@ -830,6 +833,16 @@ body
     background-size: 100% 
     
 .chain-info
-  @apply text-left text-[13px] block px-[8px] py-[2px]
+  @apply text-left text-[10px] block px-[8px] uppercase py-[4px] text-[#0a0a0a] bg-[var(--green-alt)]
   line-height: 1
-  font-weight: 500
+  font-weight: 700
+  letter-spacing: .1em
+  border-top: 1px solid var(--green)
+
+.name-plate
+  @apply text-[#0a0a0a] text-left block font-bold px-3 pt-1
+  background-color: rgba(89, 253, 83, .75)
+
+.mfr-profile
+  background: var(--green) url(../../public/assets/images/metal-yellow-dirty.jpg) repeat-y 0 0 / 100% auto
+  

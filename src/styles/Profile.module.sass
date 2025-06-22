@@ -11,14 +11,15 @@
       @apply mb-0
 
 .dropdownProfile
-  @apply relative w-full text-[#0a0a0a] bg-[#4ad745] text-left px-[12px] py-[6px]
+  @apply relative w-full text-[#0a0a0a] text-left px-[12px] py-[6px]
+  background-color: rgba(89, 253, 83, .75)
   a
     @apply border-none block text-[15px] my-[4px] py-[4px] text-[#000]
     font-weight: 500
     line-height: 15px
     text-decoration: underline!important
     &:hover, &:active
-      @apply text-[#ffff0f]
+      @apply opacity-[.6]
       background: none!important
   h1,h2,h3,h4,h5,h6
     @apply text-[#0a0a0a]
@@ -44,7 +45,7 @@
     img
       @apply max-h-[32px] w-auto
   .levelCorner
-    @apply absolute block top-[-42px] right-[3px] min-w-[40px] h-[40px] flex items-center justify-center bg-[#0a0a0a] text-[#fff] text-[28px] px-[8px] rounded-lg
+    @apply absolute block top-[10px] right-[3px] min-w-[40px] h-[40px] flex items-center justify-center bg-[#0a0a0a] text-[#fff] text-[28px] px-[8px] rounded-lg
     border: 2px solid #59fd53
     font-weight: 900
 

@@ -107,8 +107,6 @@ export default function SignInWithEthereum() {
   }, [address, chain, cfgChains, signMessageAsync])
   // -- end: handle sign in fn --
 
-  // auth state is now managed by AuthProvider
-
   // -- start: render wallet ui --
   return (
     <Wallet className='ock-wallet'>
@@ -125,13 +123,21 @@ export default function SignInWithEthereum() {
 
       <WalletDropdown className='ock-dropdown'>
         <ChainInfo />
-        <Identity className='px-4 pt-3 pb-2' hasCopyAddressOnClick>
-          <Avatar />
-          {userData?.username ? <span className='usertag'>{userData.username}</span> : <Name />}
+        <Identity className='px-4 pt-3 pb-2'>
           <Address />
-          <EthBalance />
+          <EthBalance className='ddEthBal' />
         </Identity>
-        <UserProfileCard />
+        <div className='chain-info'>My Account</div>
+        <div className='mfr-profile'>
+          {userData?.username ? (
+            <span className='name-plate'>@{userData.username}</span>
+          ) : (
+            <Identity>
+              <Name />
+            </Identity>
+          )}
+          <UserProfileCard />
+        </div>
         <WalletDropdownLink className='dd-link dd-settings' href='/settings'>
           Account Settings
         </WalletDropdownLink>
@@ -139,8 +145,14 @@ export default function SignInWithEthereum() {
           Activity
         </WalletDropdownLink>
         {isConnected && !user && (
-          <button className='dd-link dd-signin' onClick={handleSignIn} type='button'>
-            Sign In
+          <button
+            className='cursor-pointer ock-bg-default active:bg-[var(--ock-bg-default-active)] hover:bg-[var(--ock-bg-default-hover)] ock-text-foreground relative flex items-center px-4 py-3 dd-link dd-activity'
+            onClick={handleSignIn}
+            type='button'
+          >
+            <span className='ock-font-family font-normal text-base'>
+              <b>Sign In</b>
+            </span>
           </button>
         )}
         <WalletDropdownDisconnect />

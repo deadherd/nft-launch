@@ -63,14 +63,14 @@ const UserProfileCard = () => {
 
   return (
     <div className={s.dropdownProfile}>
-      <span className={s.levelCorner}>{profile.level}</span>
-      {profile.username ? <h3>{profile.username}</h3> : <Link href='/settings'>Select Username</Link>}
+      {/*<span className={s.levelCorner}>{profile.level}</span>*/}
+      {!profile.username && <Link href='/settings/usertag'>Claim Usertag</Link>}
       {profile.ratType ? (
         <p>
           <b>{profile.ratType}</b>, {profile.secondaryRatType}
         </p>
       ) : (
-        <Link href='/settings'>Select Role</Link>
+        <Link href='/settings/role'>Select Role</Link>
       )}
       {profile.level !== undefined && (
         <p className={s.level}>
