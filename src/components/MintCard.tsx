@@ -141,7 +141,7 @@ export default function MintCard() {
       <div className='label'>
         Current Price (<CountdownTimer targetDate='2025-06-23T23:59:00Z' />)
       </div>
-      <p className='priceBox'>0.03</p>
+      <p className='priceBox'>{(Number(totalPrice) / 1e18).toFixed(2)}</p>
 
       <div className='gap-2 mb-4'>
         <label className='block hidden'>How Many?</label>
