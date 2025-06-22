@@ -6,6 +6,7 @@ import Footer from '@/layout/Footers/NavFooter'
 import Header from '@/layout/Headers/NavHeader'
 import AuthProvider from '@/layout/Providers/AuthProvider'
 import { Web3Providers } from '@/layout/Providers/Web3Providers'
+import { MintModalProvider } from '@/layout/Providers/MintModalProvider'
 import ClientAppShell from '@/systems/runtime/ClientAppShell'
 import BodyClassManager from '@/systems/runtime/BodyClassManager'
 
@@ -43,12 +44,14 @@ export default function RootLayout({
         {/* -- web3 sdk + firebase -- */}
         <Web3Providers>
           <AuthProvider>
-            {/* -- runtime mgr -- */}
-            <ClientAppShell>
-              <Header />
-              <main>{children}</main>
-              <Footer />
-            </ClientAppShell>
+            <MintModalProvider>
+              {/* -- runtime mgr -- */}
+              <ClientAppShell>
+                <Header />
+                <main>{children}</main>
+                <Footer />
+              </ClientAppShell>
+            </MintModalProvider>
           </AuthProvider>
         </Web3Providers>
       </body>
