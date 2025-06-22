@@ -130,8 +130,8 @@ export default function MintCard() {
       <button disabled={isPending || maxAllowed === 0} onClick={handleMint}>
         {isPending ? 'Minting...' : `Mint x${quantity}`}
       </button>
-      {maxAllowed === 0 && <p>You already hold max. three (3) shells</p>}
-      <div className='errorMessage'>{error && <p style={{ color: 'red' }}>Error: {error.message}</p>}</div>
+      {maxAllowed === 0 && <p className='errorMessage'>You hold max. (3) shells, baller.</p>}
+      <div className='errorMessage'>{error && <p>Error: {error.message}</p>}</div>
     </div>
   )
 }

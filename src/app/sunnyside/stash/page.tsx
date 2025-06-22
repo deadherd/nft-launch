@@ -80,7 +80,7 @@ export default function Home() {
               </a>
             }
           >
-            <BuyNowButton>
+            <BuyNowButton className={s.buyNow}>
               <div className={`${s.eggCount} ${s.countLarge} ${s.product}`}>
                 <span id='eggPrice'>.03 ETH</span>
               </div>

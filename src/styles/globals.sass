@@ -556,6 +556,7 @@ form
 // style inputs, selects, textareas
 input, textarea
   @apply bg-gray-700 border border-gray-600 rounded px-3 py-2 mb-4 text-[var(--green-disabled)] placeholder-gray-500
+  border-width: 1px 1px 3px 1px
   // ensure glow on input text
   &:focus
     @apply text-[var(--green)]
@@ -892,4 +893,19 @@ body
     font-weight: 500
 
 .qtyRow
-  @apply flex items-stretch
+  @apply flex items-stretch w-full
+  input
+    @apply mb-0 flex-1 rounded-none
+  button
+    @apply flex-0 min-w-[60px]
+    &:nth-child(1)
+      border-top-right-radius: 0
+      border-bottom-right-radius: 0
+    &:nth-child(3)
+      border-top-left-radius: 0
+      border-bottom-left-radius: 0
+
+.errorMessage
+  @apply text-[18px] px-2 pt-4 bg-[var(--purple)] m-0 text-center text-[var(--green)] font-bold
+  text-shadow: 0 0 6px rgba(52,211,153,0.8)
+  line-height: 20px
