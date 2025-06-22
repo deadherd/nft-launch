@@ -877,7 +877,7 @@ body
     background-size: 100% auto
 
 .mintModalWrapper
-  @apply relative bg-[var(--color-dark)] p-6 rounded-lg
+  @apply relative
 
 .mint-card
   @apply bg-gray-800 max-w-[400px] rounded-lg overflow-hidden p-4
@@ -891,17 +891,26 @@ body
     border-bottom-width: 3px
     text-shadow: 0 2px 4px rgba(0,0,0,.3)
     font-weight: 500
+    &:disabled
+      @apply opacity-[.4]
+  label, .label
+    @apply text-[14px] font-bold text-gray-400 mb-1
+    line-height: 1.2
+    div
+      @apply inline-block font-normal
 
 .qtyRow
   @apply flex items-stretch w-full
   input
-    @apply mb-0 flex-1 rounded-none
+    @apply mb-0 flex-1 rounded-none text-[28px] font-bold
   button
     @apply flex-0 min-w-[60px]
     &:nth-child(1)
+      border-top-left-radius: 0
       border-top-right-radius: 0
       border-bottom-right-radius: 0
     &:nth-child(3)
+      border-top-right-radius: 0
       border-top-left-radius: 0
       border-bottom-left-radius: 0
 
@@ -909,3 +918,17 @@ body
   @apply text-[18px] px-2 pt-4 bg-[var(--purple)] m-0 text-center text-[var(--green)] font-bold
   text-shadow: 0 0 6px rgba(52,211,153,0.8)
   line-height: 20px
+
+.mintButton
+  @apply font-bold
+
+.priceBox
+  @apply text-[28px] font-bold relative flex items-center justify-center gap-[8px] w-full py-4 bg-gray-900 rounded-md mb-0
+  border-bottom-right-radius: 0
+  border-bottom-left-radius: 0
+  &::after
+    @apply block w-[24px] h-[24px] rounded-full
+    background: var(--yellow) url(../../public/assets/images/ethereum.svg) no-repeat 50% 50% / auto 80%
+    content: ""
+    border: 1px solid var(--green-alt)
+    border-bottom-width: 3px

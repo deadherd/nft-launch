@@ -10,18 +10,11 @@ import useAuthUser from '@/hooks/useAuthUser'
 import { useAddExperience } from '@/hooks/useAddExperience'
 import { logActivity } from '@/lib/logActivity'
 import { db } from '@/lib/firebaseClient'
-import {
-  addDoc,
-  collection,
-  serverTimestamp,
-  doc,
-  updateDoc,
-  increment,
-  getDoc,
-} from 'firebase/firestore'
+import { addDoc, collection, serverTimestamp, doc, updateDoc, increment, getDoc } from 'firebase/firestore'
 import { getNextPurchaseId } from '@/lib/purchaseCounter'
 import useNftCount from '@/hooks/useNftCount'
 import Image from 'next/image'
+import CountdownTimer from './CountdownTimer'
 
 export default function MintCard() {
   const proxyAddress = '0x2e51a8FdC067e415CFD5d00b9add5C6Af72d676c'
@@ -144,11 +137,14 @@ export default function MintCard() {
 
   return (
     <div className='mint-card'>
-      <Image src='/assets/images/nft.jpg' alt='MFR NFT' width='300' height='300' />
-      <p>Price: 0.03 ETH each</p>
+      <Image src='/assets/images/nft.jpg' alt='MFR NFT' width='200' height='200' />
+      <div className='label'>
+        Current Price (<CountdownTimer targetDate='2025-06-23T23:59:00Z' />)
+      </div>
+      <p className='priceBox'>0.03</p>
 
-      <div className='flex items-center gap-2 mb-4'>
-        <label className='mr-2 hidden'>Quantity:</label>
+      <div className='gap-2 mb-4'>
+        <label className='block hidden'>How Many?</label>
         <div className='qtyRow'>
           <button type='button' onClick={decrease} disabled={quantity <= 1} className='px-3 bg-gray-700 border border-gray-600 rounded-l disabled:opacity-50'>
             -
@@ -171,23 +167,18 @@ export default function MintCard() {
           </button>
         </div>
       </div>
-      
-      <div className='mb-4'>
-        <label className='block'>Referral</label>
-        <input
-          type='text'
-          value={referral}
-          onChange={(e) => handleReferralChange(e.target.value)}
-        />
-      </div>
 
-      <button disabled={isPending || maxAllowed === 0} onClick={handleMint}>
+      <button className='mintButton' disabled={isPending || maxAllowed === 0} onClick={handleMint}>
         {isPending ? 'Minting...' : `Mint x${quantity}`}
       </button>
       {maxAllowed === 0 && <p className='errorMessage'>You hold max. (3) shells, baller.</p>}
       <div className='errorMessage'>
         {error && <p>Error: {error.message}</p>}
         {refStatus === 'not_found' && <p>User not found</p>}
+      </div>
+      <div className='w-full'>
+        <label className='block hidden'>Tag a Connect?</label>
+        <input className='w-full mb-0' type='text' value={referral} onChange={(e) => handleReferralChange(e.target.value)} placeholder='Tag Your Connect' />
       </div>
     </div>
   )
