@@ -7,7 +7,7 @@ interface RadioactiveProps {
   color?: string;
 }
 
-const Radioactive: FC<RadioactiveProps> = ({ color = "#59fd53" }) => {
+const Radioactive: FC<RadioactiveProps> = ({ color = "var(--color-mfr-glow)" }) => {
   return (
     <svg
       width="90"

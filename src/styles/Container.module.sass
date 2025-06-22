@@ -4,8 +4,8 @@
   @apply w-full max-w-[999px] mx-auto
 
 .loader
-  @apply fixed top-0 left-0 w-full h-full bg-[#0a0a0a] z-[99999999]
-  background: radial-gradient(#1a1a1a,#0a0a0a)
+  @apply fixed top-0 left-0 w-full h-full bg-[var(--color-dark)] z-[99999999]
+  background: radial-gradient(#1a1a1a,var(--color-dark))
 
 .nest
   @apply absolute top-[50%] left-[50%]
@@ -15,7 +15,7 @@
   @apply inline-block ml-2 mr-2 rounded-full
   width: 2rem
   height: 2rem
-  background-color: #59fd53
+  background-color: var(--color-mfr-glow)
   animation: bouncyBouncy 0.7s infinite alternate
   &:nth-of-type(2)
     animation-delay: 0.25s
@@ -38,13 +38,13 @@
 .panel
   @apply flex flex-col items-center h-[20vw] gap-[1vw] p-[2vw]
   a
-    @apply text-center flex items-center justify-center text-[20px] bg-[#1e2939] w-full text-[#59fd53] rounded-lg max-w-[400px] px-[20px] py-[10px]
-    border: 1px solid #59fd53
+    @apply text-center flex items-center justify-center text-[20px] bg-[#1e2939] w-full text-[var(--color-mfr-glow)] rounded-lg max-w-[400px] px-[20px] py-[10px]
+    border: 1px solid var(--color-mfr-glow)
     border-width: 1px 1px 3px 1px
     font-weight: bold
     transition: color .3s, background-color .3s, rotate .3s
     &:hover, &:active
-      @apply bg-[#59fd53] text-[#0a0a0a] border-[#3bac37] rotate-[-1deg]
+      @apply bg-[var(--color-mfr-glow)] text-[var(--color-dark)] border-[#3bac37] rotate-[-1deg]
     &:nth-child(2n+1)
       &:hover, &:active
         @apply rotate-[1deg]

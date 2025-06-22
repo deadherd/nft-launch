@@ -1,4 +1,5 @@
 @forward "tailwindcss"
+@use "./theme"
 
 @font-face
   font-family: 'SKT'
@@ -18,7 +19,7 @@
 
 :root
   // theme
-  --dark: #0a0a0a
+  --dark: var(--color-dark)
   --dark-alt: #1a1a1a
   --dark-hover: #2a2a2a
   --dark-active: #3a3a3a
@@ -32,14 +33,14 @@
 
   --light-disabled: rgba(245,245,245,.5)
 
-  --green: #59fd53
+  --green: var(--color-mfr-glow)
   --green-alt: #4cdd47
   --green-hover: #6dfc85
   --green-active: #aaffcc
 
   --green-disabled: rgba(89, 253, 83,.5)
 
-  --yellow: #ffff0f
+  --yellow: var(--color-mfr-yellow)
   --yellow-alt: #f0f017
   --yellow-hover: #ecff80
   --yellow-active: #ffffb7
@@ -62,7 +63,7 @@
 
 @media (prefers-color-scheme: dark)
   :root
-    --background: #0a0a0a
+    --background: var(--color-dark)
     --foreground: #ededed
 
 html
@@ -105,7 +106,7 @@ img, video
   height: auto
 
 a 
-  @apply text-[#ffff0f]
+  @apply text-[var(--color-mfr-yellow)]
   text-decoration: none
   i 
     @apply inline-block w-[.2em]
@@ -113,7 +114,7 @@ a
   @apply inline-block w-[.2em]
 
 code, .carbboard
-  @apply relative inline-block py-[10px] px-[12px] rotate-[-0.5deg] text-[#0a0a0a] text-[18px] mb-[20px]
+  @apply relative inline-block py-[10px] px-[12px] rotate-[-0.5deg] text-[var(--color-dark)] text-[18px] mb-[20px]
   line-height: 22px
   background: url(../../public/assets/images/cardboard-pattern.jpg) 0 0
   background-size: 100% auto
@@ -123,7 +124,7 @@ p code
   @apply py-[0] px-[2px] mx-[2px] mb-[0]
 
 blockquote
-  @apply relative inline-block py-[10px] px-[24px] rotate-[0.5deg] text-[#0a0a0a] text-[22px] mt-[70px] mb-[55px]
+  @apply relative inline-block py-[10px] px-[24px] rotate-[0.5deg] text-[var(--color-dark)] text-[22px] mt-[70px] mb-[55px]
   line-height: 26px
   font-weight: bold
   background: url(../../public/assets/images/block-middle.jpg) 0 0
@@ -180,7 +181,7 @@ h1,h2
   letter-spacing: 0.02em
   &.feature
     @apply text-[#fff] relative inline-block
-    text-shadow: 0 2px 0 #59fd53
+    text-shadow: 0 2px 0 var(--color-mfr-glow)
     line-height: 1.1
     &:after
       @apply block absolute top-[-.05em] right-[.5vw] w-[5.5vw] h-[80%]
@@ -189,13 +190,13 @@ h1,h2
   i
     @apply inline-block w-[.2em]
   em
-    @apply inline-block text-[#59fd53] ml-[-.06em] pr-[.04em]
+    @apply inline-block text-[var(--color-mfr-glow)] ml-[-.06em] pr-[.04em]
     transform: skew(10deg, 0)
 
 h3,h4,h5
   font-family: "Instant Karma"
   margin-bottom: 10px
-  color: #59fd53
+  color: var(--color-mfr-glow)
   letter-spacing: 0.02em
   &:first-letter
     @apply uppercase
@@ -211,12 +212,12 @@ h6
     @apply inline-block w-[.2em]
 
 section
-  text-shadow: 0 4px 0px #0a0a0a
+  text-shadow: 0 4px 0px var(--color-dark)
 
 .menu-links
-  @apply fixed flex overflow-hidden items-center justify-center w-full h-[0] bottom-0 left-0 z-[993] text-[8vw] lg:text-[54px] text-[#0a0a0a]
+  @apply fixed flex overflow-hidden items-center justify-center w-full h-[0] bottom-0 left-0 z-[993] text-[8vw] lg:text-[54px] text-[var(--color-dark)]
   a
-    @apply px-8 py-3 flex flex items-center justify-center text-center text-[#0a0a0a]
+    @apply px-8 py-3 flex flex items-center justify-center text-center text-[var(--color-dark)]
     font-family: "SKT"
     letter-spacing: 0.01em
     text-decoration: none!important
@@ -246,7 +247,7 @@ section
       animation-delay: 6.1s
 
 .menu
-  @apply fixed w-full h-[0] bottom-0 left-0 z-[992] overflow-hidden text-[#0a0a0a]
+  @apply fixed w-full h-[0] bottom-0 left-0 z-[992] overflow-hidden text-[var(--color-dark)]
   //background: linear-gradient(180deg,rgba(129,237,76,.4),rgba(129,237,76,.8))
   .menublob
     @apply min-w-[0] absolute top-[50%] left-[40%] transition-all duration-[300ms]
@@ -447,17 +448,17 @@ h2.ock-font-family
     svg
       @apply p-[4px]
       path.ock-icon-color-foreground
-        @apply fill-[#0a0a0a]
+        @apply fill-[var(--color-dark)]
     & > div
       @apply border-0
   [data-testid="ockIdentityLayout_container"]
-    @apply p-[2px] bg-[var(--green)] text-[#0a0a0a] pr-[80px]
+    @apply p-[2px] bg-[var(--green)] text-[var(--color-dark)] pr-[80px]
   [data-testid="ockIdentity_Text"]
-    @apply text-[16px] text-[#0a0a0a]
+    @apply text-[16px] text-[var(--color-dark)]
     line-height: 18px
     font-weight: bold
   [data-testid="ockAddress"]
-    @apply text-[14px] text-[#0a0a0a] flex-1
+    @apply text-[14px] text-[var(--color-dark)] flex-1
     line-height: 16px
     font-weight: semibold
     & + span
@@ -465,13 +466,13 @@ h2.ock-font-family
       background: url(../../public/assets/images/ethereum.svg) no-repeat 50% 50% / auto 12px
       line-height: 16px
     button
-      @apply bg-[#fff] text-[#0a0a0a] border-2 border-[#0a0a0a] rounded-sm
+      @apply bg-[#fff] text-[var(--color-dark)] border-2 border-[var(--color-dark)] rounded-sm
   [data-testid="ockEthBalance"]
-    @apply text-[14px] text-[#0a0a0a]
+    @apply text-[14px] text-[var(--color-dark)]
     line-height: 16px
 
 .usertag
-  @apply text-[16px] text-[#0a0a0a]
+  @apply text-[16px] text-[var(--color-dark)]
   line-height: 18px
   font-weight: bold
 
@@ -496,7 +497,7 @@ h2.ock-font-family
   [data-testid="ockAvatar_ImageContainer"]
     @apply h-[86px] w-[86px] absolute top-[50%] left-[50%] transform-gpu ml-[-10px] mt-[-11px] rounded-lg z-[2]
     background-color: rgba(10,10,10,.1)
-    border: 2px solid #59fd53
+    border: 2px solid var(--color-mfr-glow)
     perspective: 400px
     transform: rotateX(16deg) rotateY(-24deg) translate(-50%,-50%)
     transform-style: preserve-3d
@@ -554,15 +555,15 @@ input, textarea
   // ensure glow on input text
   &:focus
     @apply text-[var(--green)]
-    outline: 1px solid #ffff0f
+    outline: 1px solid var(--color-mfr-yellow)
     text-shadow: 0 0 4px rgba(52,211,153,0.6)
   &.changed
-    border-color: #ffff0f
-    outline: 2px solid #ffff0f
+    border-color: var(--color-mfr-yellow)
+    outline: 2px solid var(--color-mfr-yellow)
 
 // style the select dropdown control
 select
-  @apply block bg-[#59fd53] border border-gray-600 rounded px-3 py-2 mb-4 text-[#0a0a0a] relative
+  @apply block bg-[var(--color-mfr-glow)] border border-gray-600 rounded px-3 py-2 mb-4 text-[var(--color-dark)] relative
   font-weight: 500
   appearance: none            // hide default arrow
   background-position: right 0.75rem center
@@ -647,7 +648,7 @@ footer.upside
       background-size: 100% 100%
       span
         @apply relative inline-block top-[-8px] text-[#fff] w-[150%] ml-[-25%] text-[18px]
-        text-shadow: 0 -1.5px 0 #0a0a0a, -1.5px 0 0 #0a0a0a, 1.5px 0 0 #0a0a0a, 0 -2px 0 #0a0a0a, -1.5px -1.5px 0 #0a0a0a, 1.5px -1.5px 0 #0a0a0a
+        text-shadow: 0 -1.5px 0 var(--color-dark), -1.5px 0 0 var(--color-dark), 1.5px 0 0 var(--color-dark), 0 -2px 0 var(--color-dark), -1.5px -1.5px 0 var(--color-dark), 1.5px -1.5px 0 var(--color-dark)
         transition: all .3s
       &:hover, &:active
         @apply mt-[-4px]
@@ -669,7 +670,7 @@ footer.upside
   @apply fill-[#fff]
 
 .svgTextGreen
-  @apply fill-[#59fd53]
+  @apply fill-[var(--color-mfr-glow)]
 
 .svgTitle
   @apply text-[9px] uppercase text-[#fff]
@@ -692,21 +693,21 @@ footer.upside
   @apply text-[50%]
 
 .preTitle
-  @apply block text-[1.8vw] tracking-wide mb-[2vw] rotate-[-4deg] ml-[-1vw] text-[#59fd53]
+  @apply block text-[1.8vw] tracking-wide mb-[2vw] rotate-[-4deg] ml-[-1vw] text-[var(--color-mfr-glow)]
   font-family: "SKT"
-  text-shadow: 0 2px 0 #0a0a0a
+  text-shadow: 0 2px 0 var(--color-dark)
   letter-spacing: 0.06em
 
 .textGreen
-  color: #59fd53!important
+  color: var(--color-mfr-glow)!important
 
 .pill
   @apply block tracking-wide text-right text-[13px] rounded-sm mt-[-4px] text-right px-[4px] py-[0] rounded-lg
-  text-shadow: 0px 1px 0 #0a0a0a
+  text-shadow: 0px 1px 0 var(--color-dark)
 
 .pulse
   @apply inline-block absolute left-[-12px] text-[20px] md:text-[36px] top-[-22px] z-[1]
-  text-shadow: 0 2px 0 #0a0a0a!important
+  text-shadow: 0 2px 0 var(--color-dark)!important
   animation: pulser 1s infinite alternate ease-in-out
   transform-origin: 0 100%
   font-family: "Instant Karma"
@@ -742,7 +743,7 @@ a.dd-link
     filter: blur(20px)
 
 .button
-  @apply text-[#0a0a0a] min-w-[180px] text-[32px] py-[10px] px-[15px]
+  @apply text-[var(--color-dark)] min-w-[180px] text-[32px] py-[10px] px-[15px]
   background: transparent url(../../public/assets/images/sq-button-yellow.svg) no-repeat 50% 50% / 100% 100%
   font-family: "SKT"
   letter-spacing: 0.03em
@@ -758,7 +759,7 @@ form
   border: 1px solid var(--green)
   border-bottom-width: 4px
   p.labelNotify
-    @apply text-[16px] py-[5px] px-[12px] mt-[4px] rounded-md text-[#0a0a0a] bg-[#ffff0f]
+    @apply text-[16px] py-[5px] px-[12px] mt-[4px] rounded-md text-[var(--color-dark)] bg-[var(--color-mfr-yellow)]
     line-height: 1.2
   p.labelDesc
     @apply text-[16px] py-[5px] px-[12px] mt-[4px] rounded-md text-[#333] flex items-center gap-[8px]
@@ -818,8 +819,8 @@ p.formnote
   backdrop-filter: blur(5px)
   
 .statusMessage
-  @apply bg-[#1e2939] text-[#59fd53] font-bold tracking-tighter p-4 rounded-md rotate-[-2deg] text-[18px]
-  border: 1px solid #59fd53
+  @apply bg-[#1e2939] text-[var(--color-mfr-glow)] font-bold tracking-tighter p-4 rounded-md rotate-[-2deg] text-[18px]
+  border: 1px solid var(--color-mfr-glow)
   border-bottom-width: 3px
   font-family: "DM Sans"
   text-shadow: 0 0 6px rgba(52,211,153,0.8)
@@ -829,18 +830,18 @@ body
   &.settings,
   &.activity
     min-height: 100vh
-    background: #0a0a0a url(../../public/assets/images/dumpster-inside.jpg) no-repeat 0 100%
+    background: var(--color-dark) url(../../public/assets/images/dumpster-inside.jpg) no-repeat 0 100%
     background-size: 100% 
     
 .chain-info
-  @apply text-left text-[10px] block px-[8px] uppercase py-[4px] text-[#0a0a0a] bg-[var(--green-alt)]
+  @apply text-left text-[10px] block px-[8px] uppercase py-[4px] text-[var(--color-dark)] bg-[var(--green-alt)]
   line-height: 1
   font-weight: 700
   letter-spacing: .1em
   border-top: 1px solid var(--green)
 
 .name-plate
-  @apply text-[#0a0a0a] text-left block font-bold px-3 pt-1
+  @apply text-[var(--color-dark)] text-left block font-bold px-3 pt-1
   background-color: rgba(89, 253, 83, .75)
 
 .mfr-profile

@@ -7,7 +7,7 @@ interface SvgProps {
   color?: string;
 }
 
-const Svg: FC<SvgProps> = ({ color = "#59fd53" }) => {
+const Svg: FC<SvgProps> = ({ color = "var(--color-mfr-glow)" }) => {
   return (
     <svg
       width="34"

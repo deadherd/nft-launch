@@ -125,7 +125,7 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, ai, usertag, ch
                 {meta ? (
                   <Link href={`/deep-dive/${meta.slug}`} className={[s.navLink, pathname === `/deep-dive/${meta.slug}` && s.active].filter(Boolean).join(' ')}>
                     {meta.icon && (
-                      <RandomBlob size={40} fill='#59fd53'>
+                      <RandomBlob size={40} fill='var(--color-mfr-glow)'>
                         <Image src={meta.icon} alt={meta.title} width={40} height={40} style={{ display: 'block' }} />
                       </RandomBlob>
                     )}
@@ -154,7 +154,7 @@ const DocsLayout: React.FC<Props> = ({ docs, toc, title, banner, ai, usertag, ch
                           className={[s.navLinkChild, pathname === `/deep-dive/${child.slug}` && s.active].filter(Boolean).join(' ')}
                         >
                           {child.icon && (
-                            <RandomBlob size={30} fill='#59fd53'>
+                            <RandomBlob size={30} fill='var(--color-mfr-glow)'>
                               <Image src={child.icon} alt={child.title} width={30} height={30} style={{ display: 'block' }} />
                             </RandomBlob>
                           )}

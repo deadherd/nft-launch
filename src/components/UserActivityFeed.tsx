@@ -41,7 +41,7 @@ const UserActivityFeed: FC<Props> = ({ uid }) => {
           {filtered.length === 0 && <li className='text-gray-400 text-sm py-4'>No activity yet.</li>}
 
           {filtered.map((entry: ActivityLogEntry) => (
-            <li key={entry.id} className='py-[2px] px-[10px] flex items-center gap-3 text-[#0a0a0a]'>
+            <li key={entry.id} className='py-[2px] px-[10px] flex items-center gap-3 text-[var(--color-dark)]'>
               <div className='w-[24px] h-[28px] flex items-center justify-center'>
                 <Image src={`/assets/images/icons/png/${ActivityRegistry[entry.type]?.icon ?? 'default.png'}`} alt={entry.type} width={24} height={24} />
               </div>
