@@ -9,7 +9,6 @@ import Footer from '@/layout/Footers/LanderFooter'
 import s from '@/styles/Home.module.sass'
 import SignInWithEthereum from '@/components/SignInWithEthereum'
 import BuyNowButton from '@/components/BuyNowButton'
-//import MintCard from '@/components/MintCard'
 
 export default function Home() {
   const isConnected = true
