@@ -9,5 +9,6 @@ export interface UserData {
   lastLogin?: number
   locations?: string[]
   username?: string
+  tagback?: string | null
   // add additional fields for user profile here
 }

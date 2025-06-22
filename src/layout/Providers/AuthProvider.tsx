@@ -93,6 +93,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
             experience: 0,
             level: 1,
             createdAt: Date.now(),
+            tagback: null,
           })
         }
       }

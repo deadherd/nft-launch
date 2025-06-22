@@ -23,6 +23,9 @@ export default function UsertagSettingsPage() {
   const [loading, setLoading] = useState(true)
   const [usernameValid, setUsernameValid] = useState(false)
   const [usernameStatus, setUsernameStatus] = useState<'loading' | 'available' | 'unavailable' | null>(null)
+  const [tagback, setTagback] = useState('')
+  const [currentTagback, setCurrentTagback] = useState('')
+  const [tagbackStatus, setTagbackStatus] = useState<'loading' | 'found' | 'not_found' | null>(null)
 
   const sanitizeUsername = (value: string) => {
     let v = value.replace(/[-\s]+/g, '_').toLowerCase()
@@ -61,6 +64,9 @@ export default function UsertagSettingsPage() {
           setNewUsername(u)
           setUsernameValid(true)
           setUsernameStatus(null)
+          const tb = userData.tagback || ''
+          setTagback(tb)
+          setCurrentTagback(tb)
           const ratTypeVal = userData.ratType || ''
           setRatType(ratTypeVal)
           setOriginalRatType(ratTypeVal)
@@ -112,6 +118,27 @@ export default function UsertagSettingsPage() {
     return () => clearTimeout(timer)
   }, [newUsername, usernameValid, currentUsername])
 
+  useEffect(() => {
+    if (!tagback) {
+      setTagbackStatus(null)
+      return
+    }
+
+    setTagbackStatus('loading')
+    const timer = setTimeout(async () => {
+      try {
+        const ref = doc(db, 'profiles', tagback)
+        const snap = await getDoc(ref)
+        setTagbackStatus(snap.exists() ? 'found' : 'not_found')
+      } catch (err) {
+        console.error(err)
+        setTagbackStatus(null)
+      }
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [tagback])
+
   const handleUsernameChange = (val: string) => {
     const cleaned = sanitizeUsername(val)
     setNewUsername(cleaned)
@@ -120,10 +147,17 @@ export default function UsertagSettingsPage() {
     setUsernameStatus(null)
   }
 
+  const handleTagbackChange = (val: string) => {
+    const cleaned = sanitizeUsername(val)
+    setTagback(cleaned)
+    setTagbackStatus(null)
+  }
+
   const handleSave = async () => {
     if (!uid) return
 
     const cleanedUsername = sanitizeUsername(newUsername.trim())
+    const cleanedTagback = sanitizeUsername(tagback.trim())
 
     if (cleanedUsername !== currentUsername && !isValidUsername(cleanedUsername)) {
       setMessage('⚠️ Invalid username.')
@@ -145,6 +179,16 @@ export default function UsertagSettingsPage() {
         return
       }
 
+      if (cleanedTagback) {
+        const tbRef = doc(db, 'profiles', cleanedTagback)
+        const tbSnap = await getDoc(tbRef)
+        if (!tbSnap.exists()) {
+          setTagbackStatus('not_found')
+          setLoading(false)
+          return
+        }
+      }
+
       const data = {
         uid,
         username: cleanedUsername,
@@ -155,7 +199,11 @@ export default function UsertagSettingsPage() {
       }
 
       await setDoc(newProfileRef, data)
-      await setDoc(userRef, { username: cleanedUsername, bio, ratType, secondaryRatType: secondaryRatType || null }, { merge: true })
+      await setDoc(
+        userRef,
+        { username: cleanedUsername, bio, ratType, secondaryRatType: secondaryRatType || null, tagback: cleanedTagback || null },
+        { merge: true }
+      )
 
       if (oldProfileRef) {
         await deleteDoc(oldProfileRef)
@@ -170,6 +218,7 @@ export default function UsertagSettingsPage() {
       })
 
       setCurrentUsername(cleanedUsername)
+      setCurrentTagback(cleanedTagback)
       setOriginalBio(bio)
       setOriginalRatType(ratType)
       setMessage('Settings updated successfully.')
@@ -181,7 +230,12 @@ export default function UsertagSettingsPage() {
     }
   }
 
-  const hasChanges = newUsername !== currentUsername || bio !== originalBio || ratType !== originalRatType || secondaryRatType !== originalSecondaryRatType
+  const hasChanges =
+    newUsername !== currentUsername ||
+    bio !== originalBio ||
+    ratType !== originalRatType ||
+    secondaryRatType !== originalSecondaryRatType ||
+    tagback !== currentTagback
 
   useEffect(() => {
     if (!ratType && secondaryRatType) {
@@ -230,6 +284,18 @@ export default function UsertagSettingsPage() {
           })()}
         </label>
 
+        <label>
+          <span>Tagback</span>
+          <input
+            type='text'
+            value={tagback}
+            onChange={(e) => handleTagbackChange(e.target.value)}
+          />
+          {tagbackStatus === 'not_found' && (
+            <p className='errorMessage'>Usertag not found</p>
+          )}
+        </label>
+
         {/*<label>
           <span>Bio</span>
           <textarea disabled value='🔒' onChange={(e) => setBio(e.target.value)} rows={3} />
@@ -240,8 +306,14 @@ export default function UsertagSettingsPage() {
           <div className='pushRight'>
             <button
               onClick={handleSave}
-              disabled={loading || !hasChanges || !usernameValid || (usernameStatus === 'unavailable' && newUsername !== currentUsername)}
-              className={`button ${!hasChanges || !usernameValid || (usernameStatus === 'unavailable' && newUsername !== currentUsername) ? 'disabled' : ''}`}
+              disabled={
+                loading ||
+                !hasChanges ||
+                !usernameValid ||
+                (usernameStatus === 'unavailable' && newUsername !== currentUsername) ||
+                tagbackStatus === 'not_found'
+              }
+              className={`button ${!hasChanges || !usernameValid || (usernameStatus === 'unavailable' && newUsername !== currentUsername) || tagbackStatus === 'not_found' ? 'disabled' : ''}`}
             >
               Save
             </button>
