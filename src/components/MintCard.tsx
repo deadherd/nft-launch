@@ -1,7 +1,7 @@
 'use client'
 
 // components/MintCard.tsx
-import { useState, type ChangeEvent } from 'react'
+import { useState, useEffect, type ChangeEvent } from 'react'
 import { useWriteContract } from 'wagmi'
 import { parseEther } from 'viem'
 import { JsonRpcProvider, Interface } from 'ethers'
@@ -10,7 +10,15 @@ import useAuthUser from '@/hooks/useAuthUser'
 import { useAddExperience } from '@/hooks/useAddExperience'
 import { logActivity } from '@/lib/logActivity'
 import { db } from '@/lib/firebaseClient'
-import { addDoc, collection, serverTimestamp, doc, updateDoc, increment } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  doc,
+  updateDoc,
+  increment,
+  getDoc,
+} from 'firebase/firestore'
 import { getNextPurchaseId } from '@/lib/purchaseCounter'
 import useNftCount from '@/hooks/useNftCount'
 import Image from 'next/image'
@@ -22,10 +30,19 @@ export default function MintCard() {
   const totalPrice: bigint = pricePerNFT * BigInt(quantity)
 
   const { writeContractAsync, isPending, error } = useWriteContract()
-  const { user, address } = useAuthUser()
+  const { user, userData, address } = useAuthUser()
   const addXP = useAddExperience(user)
   const { count } = useNftCount()
   const maxAllowed = Math.max(0, 3 - count)
+
+  const [referral, setReferral] = useState('')
+  const [refStatus, setRefStatus] = useState<'loading' | 'found' | 'not_found' | null>(null)
+
+  const sanitizeUsername = (value: string) => {
+    let v = value.replace(/[-\s]+/g, '_').toLowerCase()
+    v = v.replace(/[^a-z0-9_]/g, '')
+    return v
+  }
 
   const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value)
@@ -36,6 +53,30 @@ export default function MintCard() {
 
   const increase = () => setQuantity((q) => Math.min(maxAllowed, q + 1))
   const decrease = () => setQuantity((q) => Math.max(1, q - 1))
+
+  const handleReferralChange = (val: string) => {
+    const cleaned = sanitizeUsername(val)
+    setReferral(cleaned)
+    setRefStatus(null)
+  }
+
+  useEffect(() => {
+    if (!referral) {
+      setRefStatus(null)
+      return
+    }
+    setRefStatus('loading')
+    const timer = setTimeout(async () => {
+      try {
+        const snap = await getDoc(doc(db, 'profiles', referral))
+        setRefStatus(snap.exists() ? 'found' : 'not_found')
+      } catch (err) {
+        console.error('Referral check failed:', err)
+        setRefStatus(null)
+      }
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [referral])
 
   const handleMint = async (): Promise<void> => {
     if (!user) return
@@ -83,6 +124,10 @@ export default function MintCard() {
         totalSpent: increment(Number(totalPrice) / 1e18),
       })
 
+      if (referral && refStatus === 'found' && !(userData && userData.tagback)) {
+        await updateDoc(userRef, { tagback: referral })
+      }
+
       await logActivity({
         uid: user.uid,
         type: 'transaction',
@@ -126,12 +171,24 @@ export default function MintCard() {
           </button>
         </div>
       </div>
+      
+      <div className='mb-4'>
+        <label className='block'>Referral</label>
+        <input
+          type='text'
+          value={referral}
+          onChange={(e) => handleReferralChange(e.target.value)}
+        />
+      </div>
 
       <button disabled={isPending || maxAllowed === 0} onClick={handleMint}>
         {isPending ? 'Minting...' : `Mint x${quantity}`}
       </button>
       {maxAllowed === 0 && <p className='errorMessage'>You hold max. (3) shells, baller.</p>}
-      <div className='errorMessage'>{error && <p>Error: {error.message}</p>}</div>
+      <div className='errorMessage'>
+        {error && <p>Error: {error.message}</p>}
+        {refStatus === 'not_found' && <p>User not found</p>}
+      </div>
     </div>
   )
 }
