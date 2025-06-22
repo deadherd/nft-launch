@@ -122,7 +122,7 @@ export default function SignInWithEthereum() {
       )}
 
       <WalletDropdown className='ock-dropdown'>
-        <div className='chain-info'>Linked Account</div>
+        <div className='chain-info'>My Account</div>
         <div className='mfr-profile'>
           {userData?.username ? (
             <span className='name-plate'>@{userData.username}</span>
@@ -163,7 +163,7 @@ export default function SignInWithEthereum() {
             <WalletDropdownLink className='dd-link dd-activity' href='/activity'>
               Activity
             </WalletDropdownLink>
-            <WalletDropdownLink className='dd-link' href='/settings/purchases'>
+            <WalletDropdownLink className='dd-link dd-purchases' href='/purchases'>
               Purchases
             </WalletDropdownLink>
           </>

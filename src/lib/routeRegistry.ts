@@ -42,6 +42,13 @@ export const RouteRegistry: RouteEntry[] = [
     metaTitle: 'Activity Feed',
     menuId: 'default',
   },
+  /* -- P U R C H A S E S -- */
+  {
+    path: '/purchases',
+    bodyClass: 'activity',
+    metaTitle: 'View Purchases',
+    menuId: 'default',
+  },
   /* -- S U N N Y S I D E -- */
   {
     path: '/sunnyside',
@@ -82,4 +89,3 @@ export const RouteRegistry: RouteEntry[] = [
     metaTitle: 'Lorebook',
   },
 ]
-

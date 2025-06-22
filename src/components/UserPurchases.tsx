@@ -27,31 +27,19 @@ const UserPurchases: FC<Props> = ({ uid }) => {
 
   return (
     <div className='space-y-4 max-w-xl mx-auto'>
-      <h2 className='feature'>Purchases</h2>
       <div className='flex items-center justify-end gap-2'>
-        <input
-          type='date'
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-          className='text-black px-1 py-0.5 rounded'
-        />
-        <span>-</span>
-        <input
-          type='date'
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-          className='text-black px-1 py-0.5 rounded'
-        />
+        <input type='date' value={startDate} onChange={(e) => setStartDate(e.target.value)} className='fromDate flex-1' />
+        <input type='date' value={endDate} onChange={(e) => setEndDate(e.target.value)} className='toDate flex-1' />
         {(startDate || endDate) && (
           <button
-            className='text-xs underline'
+            className='resetDate'
             onClick={() => {
               setStartDate('')
               setEndDate('')
             }}
             type='button'
           >
-            Reset
+            X
           </button>
         )}
       </div>

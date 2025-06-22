@@ -45,32 +45,37 @@ export default function Home() {
         </NftCountGate>
 
         {/* -- deep dive -- */}
-        <div className={`${s.spriteMap} ${s.spriteDeepDive}`}></div>
-        <Link href='/deep-dive' className={`${s.dumpster} ${s.feature} unavailable`}>
-          <div className={s.rotater}>
-            ProtOcol
-            <span className={s.caption}>Deep Dive</span>
-            <Arrowhead />
-            <div className={`${s.eggCount}`}>
-              <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Daily' />x<span>222</span>
+        <NftCountGate minimum={1}>
+          <div className={`${s.spriteMap} ${s.spriteDeepDive}`}></div>
+          <Link href='/deep-dive' className={`${s.dumpster} ${s.feature} unavailable`}>
+            <div className={s.rotater}>
+              ProtOcol
+              <span className={s.caption}>Deep Dive</span>
+              <Arrowhead />
+              <div className={`${s.eggCount}`}>
+                <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Daily' />x<span>888</span>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </NftCountGate>
 
         {/* -- massions -- */}
-        <Link href='#' className={`${s.massions} ${s.feature} unavailable`} id='bottom'>
-          <div className={s.rotater}>
-            Factory
-            <span className={s.caption}>Snack Row</span>
-            <Arrowhead />
-            <div className={`${s.eggCount}`}>
-              <div className={s.meter}>
-                <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Egg Thredder' />
+        <NftCountGate minimum={1}>
+          <div className={`${s.spriteMap} ${s.spriteCraft}`}></div>
+          <Link href='#' className={`${s.massions} ${s.feature} unavailable`} id='bottom'>
+            <div className={s.rotater}>
+              Factory
+              <span className={s.caption}>Snack Row</span>
+              <Arrowhead />
+              <div className={`${s.eggCount}`}>
+                <div className={s.meter}>
+                  <Image src='/assets/images/ff-egg-foil.png' width='64' height='64' alt='Egg Thredder' />
+                </div>
+                <span>0</span>/12
               </div>
-              x<span>444</span>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </NftCountGate>
 
         <FirebaseGate>
           <Image src={alleyWanted.src} className={s.alleyWanted} width='99' height='235' alt='Wanted' />
@@ -107,58 +112,63 @@ export default function Home() {
           </Link>
         </FirebaseGate>
 
-        <div className={`${s.spriteMap} ${s.spriteCraft}`}></div>
-
-        {/* -- crafting -- }
-        <Link href='#' className={`${s.dailytwo} ${s.feature}`}>
-          <div className={s.rotater}>
-            Traits
-            <span className={s.caption}>🔒</span>
-            <Arrowhead />
-            <div className={`${s.eggCount}`}>
-              <Image src='/assets/images/ff-egg-foil.png' width='64' height='64' alt='Egg Thredder' />x<span id='eggCount'>300</span>
+        {/* -- crafting -- */}
+        <NftCountGate minimum={1}>
+          <Link href='#' className={`${s.dailytwo} ${s.feature} unavailable`}>
+            <div className={s.rotater}>
+              CoOkboOK
+              <span className={s.caption}>Pizza Joint</span>
+              <Arrowhead />
+              <div className={`${s.eggCount}`}>
+                <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Egg Thredder' />x<span>888</span>
+              </div>
             </div>
-            
-          </div>
-        </Link>*/}
+          </Link>
+        </NftCountGate>
 
         {/* -- tv -- */}
-        <Image src={alleyTv.src} className={s.alleyTv} width='255' height='196' alt='Television' />
-        <Link href='#' className={`${s.arcade} ${s.feature} unavailable`}>
-          <div className={s.rotater}>
-            Tr<span className={s.blinkGlitch}>AI</span>ts<span className={s.caption}>Tox Box</span>
-            <Arrowhead />
-            <div className={`${s.eggCount}`}>
-              <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Egg Thredder' />x<span>666</span>
+        <NftCountGate minimum={1}>
+          <Image src={alleyTv.src} className={s.alleyTv} width='255' height='196' alt='Television' />
+          <Link href='#' className={`${s.arcade} ${s.feature} unavailable`}>
+            <div className={s.rotater}>
+              Tr<span className={s.blinkGlitch}>AI</span>ts<span className={s.caption}>Tox Box</span>
+              <Arrowhead />
+              <div className={`${s.eggCount}`}>
+                <Image src='/assets/images/full-trash-bag-green-200x200.png' width='64' height='64' alt='Egg Thredder' />x<span>1,000</span>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </NftCountGate>
 
         {/* -- gloco -- */}
-        <Image src={alleyGloco.src} className={s.alleyGloco} width='138' height='286' alt='Glo-Co Sign' />
-        <Link href='#' className={`${s.gloco} ${s.feature} unavailable`}>
-          <div className={s.rotater}>
-            Toxins
-            <span className={s.caption}>Sunnyside Pools</span>
-            <Arrowhead />
-            <div className={`${s.eggCount}`}>
-              <Image src='/assets/images/icons/icon-green_fiending-fathers.svg' width='64' height='64' alt='Egg Thredder' className={s.brandF} />
-              <span>3:1</span>
+        <NftCountGate minimum={1}>
+          <Image src={alleyGloco.src} className={s.alleyGloco} width='138' height='286' alt='Glo-Co Sign' />
+          <Link href='#' className={`${s.gloco} ${s.feature} unavailable`}>
+            <div className={s.rotater}>
+              Toxins
+              <span className={s.caption}>Sunnyside Pools</span>
+              <Arrowhead />
+              <div className={`${s.eggCount}`}>
+                <Image src='/assets/images/icons/icon-green_fiending-fathers.svg' width='64' height='64' alt='Egg Thredder' className={s.brandF} />
+                <span>3:1</span>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </NftCountGate>
 
         {/* -- sewer -- */}
-        <Link href='#' className={`${s.enter} ${s.feature} unavailable`}>
-          <div className={s.rotater}>
-            drops
-            <span className={s.caption}>Sewer System</span>
-            <Arrowhead />
-            <div className={`${s.eggCount}`}>
-              <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Egg Thredder' />x<span>888</span>
+        <NftCountGate minimum={1}>
+          <Link href='#' className={`${s.enter} ${s.feature} unavailable`}>
+            <div className={s.rotater}>
+              drops
+              <span className={s.caption}>Sewer System</span>
+              <Arrowhead />
+              <div className={`${s.eggCount}`}>
+                <Image src='/assets/images/glow-in-the-dark.png' width='64' height='64' alt='Egg Thredder' />x<span>500</span>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </NftCountGate>
 
         {/* -- manhole -- */}
         <div className={s.alleyFooter}>

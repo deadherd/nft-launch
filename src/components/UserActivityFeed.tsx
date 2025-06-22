@@ -24,7 +24,6 @@ const UserActivityFeed: FC<Props> = ({ uid }) => {
   return (
     <div className='space-y-4 max-w-xl mx-auto'>
       <div className='flex items-center justify-between'>
-        <h2 className='feature'>Activity</h2>
         <div className='select'>
           <select value={filter} onChange={(e) => setFilter(e.target.value)}>
             {activityTypes.map((type) => (

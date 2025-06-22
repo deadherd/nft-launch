@@ -185,6 +185,8 @@ h1,h2
     @apply text-[#fff] relative inline-block
     text-shadow: 0 2px 0 var(--color-mfr-glow)
     line-height: 1.1
+    &.center
+      @apply text-center mx-auto
     &:after
       @apply block absolute top-[-.05em] right-[.5vw] w-[5.5vw] h-[80%]
       content: ""
@@ -562,6 +564,8 @@ input, textarea
   &.changed
     border-color: var(--color-mfr-yellow)
     outline: 2px solid var(--color-mfr-yellow)
+  &::-webkit-calendar-picker-indicator
+    filter: invert(1)
 
 // style the select dropdown control
 select
@@ -732,6 +736,8 @@ a.dd-link
       content: ""
   &.dd-activity > div:after
     background-image: url(../../public/assets/images/icons/png64/clock64.png)
+  &.dd-purchases > div:after
+    background-image: url(../../public/assets/images/icons/png64/happy_smile64.png)
 
 .fadeonload
   animation: 2s fader 10s ease-out forwards
@@ -852,4 +858,35 @@ body
 .disconnect
   > *
     @apply text-[var(--green-alt)] text-[15px]
+    font-weight: 500
+
+.fromDate, .toDate
+  @apply mb-0
+
+.resetDate
+  @apply bg-[var(--green)] text-[var(--dark)] font-bold w-[42px] text-center rounded-sm
+  line-height: 42px
+
+.mintModal
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black/80
+  &:after
+    @apply block absolute top-[-10px] left-[10px] w-[140px] h-auto z-[1]
+    content: ""
+    background: url(../../public/assets/images/drip-three-heavy.svg) no-repeat 50% 0
+    background-size: 100% auto
+
+.mintModalWrapper
+  @apply relative bg-[var(--color-dark)] p-6 rounded-lg
+
+.mint-card
+  @apply bg-gray-800 max-w-[400px] rounded-lg overflow-hidden p-4
+  border: 1px solid var(--green)
+  border-bottom-width: 3px
+  img
+    @apply rounded-md mb-[20px]
+  button
+    @apply w-full bg-[var(--green)] text-[var(--dark)] text-center py-2 rounded-md
+    border: 1px solid var(--green-alt)
+    border-bottom-width: 3px
+    text-shadow: 0 2px 4px rgba(0,0,0,.3)
     font-weight: 500

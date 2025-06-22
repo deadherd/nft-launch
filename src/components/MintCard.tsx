@@ -10,16 +10,10 @@ import useAuthUser from '@/hooks/useAuthUser'
 import { useAddExperience } from '@/hooks/useAddExperience'
 import { logActivity } from '@/lib/logActivity'
 import { db } from '@/lib/firebaseClient'
-import {
-  addDoc,
-  collection,
-  serverTimestamp,
-  doc,
-  updateDoc,
-  increment,
-} from 'firebase/firestore'
+import { addDoc, collection, serverTimestamp, doc, updateDoc, increment } from 'firebase/firestore'
 import { getNextPurchaseId } from '@/lib/purchaseCounter'
 import useNftCount from '@/hooks/useNftCount'
+import Image from 'next/image'
 
 export default function MintCard() {
   const proxyAddress = '0x2e51a8FdC067e415CFD5d00b9add5C6Af72d676c'
@@ -61,11 +55,7 @@ export default function MintCard() {
       for (const log of receipt.logs) {
         try {
           const parsed = iface.parseLog(log)
-          if (
-            parsed &&
-            parsed.name === 'Transfer' &&
-            parsed.args?.to?.toLowerCase() === address?.toLowerCase()
-          ) {
+          if (parsed && parsed.name === 'Transfer' && parsed.args?.to?.toLowerCase() === address?.toLowerCase()) {
             ids.push(parsed.args.tokenId.toString())
           }
         } catch {}
@@ -104,8 +94,8 @@ export default function MintCard() {
 
   return (
     <div className='mint-card'>
-      <h2>Mint Your NFT</h2>
-      <p>Price: 0.01 ETH each</p>
+      <Image src='/assets/images/nft.jpg' alt='MFR NFT' width='300' height='300' />
+      <p>Price: 0.03 ETH each</p>
 
       <div>
         <label>Quantity: </label>
@@ -113,14 +103,10 @@ export default function MintCard() {
       </div>
 
       <button disabled={isPending || maxAllowed === 0} onClick={handleMint}>
-        {isPending ? 'Minting...' : `Mint ${quantity}`}
+        {isPending ? 'Minting...' : `Mint x${quantity}`}
       </button>
-      {maxAllowed === 0 && <p>You already hold the max. three (3) shells</p>}
-      <br />
-      <br />
-      <br />
-      <br />
-      {error && <p style={{ color: 'red' }}>Error: {error.message}</p>}
+      {maxAllowed === 0 && <p>You already hold max. three (3) shells</p>}
+      <div className='errorMessage'>{error && <p style={{ color: 'red' }}>Error: {error.message}</p>}</div>
     </div>
   )
 }
