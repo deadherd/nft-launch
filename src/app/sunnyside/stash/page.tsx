@@ -10,10 +10,9 @@ import s from '@/styles/Home.module.sass'
 import SignInWithEthereum from '@/components/SignInWithEthereum'
 import BuyNowButton from '@/components/BuyNowButton'
 import LimitedEditionLabel from '@/components/LimitedEditionLabel'
+import WalletGate from '@/components/gates/WalletGate'
 
 export default function Home() {
-  const isConnected = true
-
   return (
     <>
       <section className={s.banner}>
@@ -69,8 +68,8 @@ export default function Home() {
               MFR Usertags
             </li>
           </ul>
-          {!isConnected ? (
-            <>
+          <WalletGate
+            fallback={
               <a className={s.login}>
                 <SignInWithEthereum />
                 <span>
@@ -79,8 +78,8 @@ export default function Home() {
                   Now
                 </span>
               </a>
-            </>
-          ) : (
+            }
+          >
             <BuyNowButton>
               <div className={`${s.eggCount} ${s.countLarge} ${s.product}`}>
                 <span id='eggPrice'>.03 ETH</span>
@@ -91,7 +90,7 @@ export default function Home() {
                 NOw
               </span>
             </BuyNowButton>
-          )}
+          </WalletGate>
         </div>
         <Image src='/assets/images/Produx/output_4.png' alt='MFR Egg' width={800} height={800} className={s.egg} />
         <div className={s.silhouette}>
