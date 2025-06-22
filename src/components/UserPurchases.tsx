@@ -18,10 +18,10 @@ const UserPurchases: FC<Props> = ({ uid }) => {
   return (
     <div className='space-y-4 max-w-xl mx-auto'>
       <h2 className='feature'>Purchases</h2>
-      <blockquote className='w-full'>
+      <div className='w-full carbboard'>
         <ul className='divide-y divide-gray-700 activity'>
           {purchases.map((p) => (
-            <li key={p.id} className='py-[2px] px-[10px] text-[var(--color-dark)]'>
+            <li key={p.id} className='py-[2px] px-[10px]'>
               <p className='text-sm'>
                 <b>
                   Copped x{p.quantity} Shell{p.quantity > 1 ? 's' : ''}
@@ -34,7 +34,7 @@ const UserPurchases: FC<Props> = ({ uid }) => {
             </li>
           ))}
         </ul>
-      </blockquote>
+      </div>
     </div>
   )
 }
