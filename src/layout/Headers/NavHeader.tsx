@@ -14,7 +14,7 @@ import SignInButton from '@/components/SignInButton'
 //import TaglineCircle from '@/components/svg/TaglineCircle'
 import Menu from '@/components/Menu'
 import s from '@/styles/Header.module.sass'
-//import CountdownTimer from '@/components/CountdownTimer'
+import CountdownTimer from '@/components/CountdownTimer'
 import useAuthUser from '@/hooks/useAuthUser'
 //import FamilyRank from '@/components/FamilyRank'
 import TopBar from '@/components/TopBar'
@@ -35,8 +35,7 @@ const Header: FC = () => {
   const { isConnected } = useAccount()
 
   const routeEntry = getRouteEntry(pathname)
-  const isLocation = !!routeEntry?.locationId &&
-    LOCATIONS.some((loc) => loc.id === routeEntry.locationId)
+  const isLocation = !!routeEntry?.locationId && LOCATIONS.some((loc) => loc.id === routeEntry.locationId)
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [slideOpen, setSlideOpen] = useState(false)
@@ -76,6 +75,8 @@ const Header: FC = () => {
   }, [pathname])
   // -- end --
 
+  {
+    /*
   useEffect(() => {
     const header = document.querySelector(`.${s.header}`)
     if (!header || document.body.scrollHeight <= 1000) return
@@ -95,6 +96,8 @@ const Header: FC = () => {
 
     return () => trigger.kill()
   }, [])
+  */
+  }
 
   // -- body class toggles for each menu state --
   useEffect(() => {
@@ -167,7 +170,9 @@ const Header: FC = () => {
               )
             ) : isLocation ? (
               <div className={s.location}>
-                <span className={s.locationCity}>New Yolk City</span>
+                <span className={s.locationCity}>
+                  <CountdownTimer targetDate='2025-06-22T23:59:00Z' />
+                </span>
                 <span className={s.youAreHere}>{routeEntry?.metaTitle}</span>
               </div>
             ) : null}

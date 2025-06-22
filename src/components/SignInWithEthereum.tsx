@@ -122,12 +122,7 @@ export default function SignInWithEthereum() {
       )}
 
       <WalletDropdown className='ock-dropdown'>
-        <ChainInfo />
-        <Identity className='px-4 pt-3 pb-2'>
-          <Address />
-          <EthBalance className='ddEthBal' />
-        </Identity>
-        <div className='chain-info'>My Account</div>
+        <div className='chain-info'>Connected Account</div>
         <div className='mfr-profile'>
           {userData?.username ? (
             <span className='name-plate'>@{userData.username}</span>
@@ -155,6 +150,11 @@ export default function SignInWithEthereum() {
             </span>
           </button>
         )}
+        <ChainInfo />
+        <Identity className='px-4 pt-3 pb-2'>
+          <Address />
+          <EthBalance className='ddEthBal' />
+        </Identity>
         <WalletDropdownDisconnect />
       </WalletDropdown>
     </Wallet>

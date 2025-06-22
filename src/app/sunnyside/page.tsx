@@ -1,19 +1,19 @@
 // app/sunnyside/page.tsx
 import Link from 'next/link'
 import Image from 'next/image'
+import s from '@/styles/Home.module.sass'
+import alleyTv from '@images/tv-solo.gif'
 import alleyWanted from '@images/wanted.png'
 import alleyFooter from '@images/manhole.png'
 import Arrowhead from '@/components/svg/Arrowhead'
-import bgForegroundBottom from '@images/alley-foreground-bg-plain.jpg'
-import s from '@/styles/Home.module.sass'
-import alleyTv from '@images/tv-solo.gif'
 import alleyGloco from '@images/gloco-sign-fall.png'
 import ParallaxLayer from '@/components/ParallaxLayer'
+import FirebaseGate from '@/components/gates/FirebaseGate'
+import NftCountGate from '@/components/gates/NftCountGate'
+import bgForegroundBottom from '@images/alley-foreground-bg-plain.jpg'
 
 // page metadata
 import { generateStaticMetadata } from '@/lib/metadataRouter'
-import FirebaseGate from '@/components/gates/FirebaseGate'
-import NftCountGate from '@/components/gates/NftCountGate'
 export const generateMetadata = generateStaticMetadata('/sunnyside')
 
 export default function Home() {
