@@ -9,9 +9,11 @@ import Footer from '@/layout/Footers/LanderFooter'
 import s from '@/styles/Home.module.sass'
 import SignInWithEthereum from '@/components/SignInWithEthereum'
 import BuyNowButton from '@/components/BuyNowButton'
+import useTotalSupply from '@/hooks/useTotalSupply'
 
 export default function Home() {
   const isConnected = true
+  const totalSupply = useTotalSupply()
 
   return (
     <>
@@ -19,7 +21,9 @@ export default function Home() {
         <div className={s.dimmer}></div>
         <div className={s.links}>
           <ul className={s.features}>
-            <li className='textGreen pulse'>Limited Edition!</li>
+            <li className='textGreen pulse'>
+              {`Limited Edition${typeof totalSupply === 'number' ? ` – ${totalSupply}/888 minted` : '!'}`}
+            </li>
             <li>
               <h2>
                 FiendIng<i> </i>fathErs
