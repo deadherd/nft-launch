@@ -122,7 +122,7 @@ export default function SignInWithEthereum() {
       )}
 
       <WalletDropdown className='ock-dropdown'>
-        <div className='chain-info'>Connected Account</div>
+        <div className='chain-info'>Linked Account</div>
         <div className='mfr-profile'>
           {userData?.username ? (
             <span className='name-plate'>@{userData.username}</span>
@@ -133,29 +133,44 @@ export default function SignInWithEthereum() {
           )}
           <UserProfileCard />
         </div>
-        <WalletDropdownLink className='dd-link dd-settings' href='/settings'>
-          Account Settings
-        </WalletDropdownLink>
-        <WalletDropdownLink className='dd-link dd-activity' href='/activity'>
-          Activity
-        </WalletDropdownLink>
-        {isConnected && !user && (
+        {isConnected && !user ? (
           <button
             className='cursor-pointer ock-bg-default active:bg-[var(--ock-bg-default-active)] hover:bg-[var(--ock-bg-default-hover)] ock-text-foreground relative flex items-center px-4 py-3 dd-link dd-activity'
             onClick={handleSignIn}
             type='button'
           >
-            <span className='ock-font-family font-normal text-base'>
-              <b>Sign In</b>
-            </span>
+            <div className='absolute left-3 flex h-[1.125rem] w-[1.125rem] items-center justify-center rotate-[180deg] mt-[-3px]'>
+              <svg role='img' aria-label='ock-disconnect-svg' width='100%' height='100%' viewBox='0 0 16 20' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                <title>Disconnect</title>
+                <path
+                  d='M11.0668 0.91803L11.0668 2.93852L2.02049 2.93852L2.02049 15.0615L11.0668 15.0615L11.0668 17.082L-7.06549e-07 17.082L0 0.918029L11.0668 0.91803Z'
+                  className='fill-[#ffffff]'
+                ></path>
+                <path
+                  d='M12.3273 12.8963L16.0002 9.02606L12.346 4.95902L10.843 6.30941L12.3623 8.00032L5.53321 8.00032L5.53321 10.0208L12.2706 10.0208L10.8617 11.5054L12.3273 12.8963Z'
+                  className='fill-[#ffffff]'
+                ></path>
+              </svg>
+            </div>
+
+            <span className='ock-font-family font-medium text-base pl-[1.3rem]'>Sign In</span>
           </button>
+        ) : (
+          <>
+            <WalletDropdownLink className='dd-link dd-settings' href='/settings'>
+              Account Settings
+            </WalletDropdownLink>
+            <WalletDropdownLink className='dd-link dd-activity' href='/activity'>
+              Activity
+            </WalletDropdownLink>
+          </>
         )}
         <ChainInfo />
-        <Identity className='px-4 pt-3 pb-2'>
+        <Identity className='px-4 pt-6 pb-5'>
           <Address />
           <EthBalance className='ddEthBal' />
         </Identity>
-        <WalletDropdownDisconnect />
+        <WalletDropdownDisconnect className='disconnect' />
       </WalletDropdown>
     </Wallet>
   )

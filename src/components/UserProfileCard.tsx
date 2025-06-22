@@ -52,7 +52,12 @@ const UserProfileCard = () => {
   }, [])
 
   if (notFound) return <p className={s.miniLoading}>User not found.</p>
-  if (!user || !profile) return <p className={s.miniLoading}>Please sign in...</p>
+  if (!user || !profile)
+    return (
+      <p className={s.miniLoading}>
+        <i>Please accept sign in...</i>
+      </p>
+    )
 
   const createdAtDate =
     profile.createdAt instanceof Timestamp
