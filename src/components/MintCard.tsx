@@ -10,7 +10,15 @@ import useAuthUser from '@/hooks/useAuthUser'
 import { useAddExperience } from '@/hooks/useAddExperience'
 import { logActivity } from '@/lib/logActivity'
 import { db } from '@/lib/firebaseClient'
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  doc,
+  updateDoc,
+  increment,
+} from 'firebase/firestore'
+import { getNextPurchaseId } from '@/lib/purchaseCounter'
 import useNftCount from '@/hooks/useNftCount'
 
 export default function MintCard() {
@@ -55,12 +63,21 @@ export default function MintCard() {
         } catch {}
       }
 
+      const purchaseId = await getNextPurchaseId()
+
       await addDoc(collection(db, 'users', user.uid, 'purchases'), {
         amount: Number(totalPrice) / 1e18,
         quantity,
         nftIds: ids,
         txHash: hash,
         createdAt: serverTimestamp(),
+        purchaseId,
+      })
+
+      const userRef = doc(db, 'users', user.uid)
+      await updateDoc(userRef, {
+        purchasesCount: increment(1),
+        totalSpent: increment(Number(totalPrice) / 1e18),
       })
 
       await logActivity({
