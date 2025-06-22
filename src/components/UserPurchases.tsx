@@ -11,10 +11,15 @@ interface Props {
 
 const UserPurchases: FC<Props> = ({ uid }) => {
   const purchases = usePurchases(uid)
-  const [filterDate, setFilterDate] = useState('')
-  const filtered = filterDate
-    ? purchases.filter((p) => safeFormatDate(p.createdAt) === filterDate)
-    : purchases
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+
+  const filtered = purchases.filter((p) => {
+    const date = safeFormatDate(p.createdAt)
+    if (startDate && date < startDate) return false
+    if (endDate && date > endDate) return false
+    return true
+  })
 
   if (purchases.length === 0) {
     return <p className='text-center text-gray-400'>No purchases yet.</p>
@@ -23,13 +28,32 @@ const UserPurchases: FC<Props> = ({ uid }) => {
   return (
     <div className='space-y-4 max-w-xl mx-auto'>
       <h2 className='feature'>Purchases</h2>
-      <div className='flex justify-end'>
+      <div className='flex items-center justify-end gap-2'>
         <input
           type='date'
-          value={filterDate}
-          onChange={(e) => setFilterDate(e.target.value)}
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
           className='text-black px-1 py-0.5 rounded'
         />
+        <span>-</span>
+        <input
+          type='date'
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+          className='text-black px-1 py-0.5 rounded'
+        />
+        {(startDate || endDate) && (
+          <button
+            className='text-xs underline'
+            onClick={() => {
+              setStartDate('')
+              setEndDate('')
+            }}
+            type='button'
+          >
+            Reset
+          </button>
+        )}
       </div>
       <div className='w-full carbboard'>
         <ul className='divide-y divide-gray-700 activity'>
