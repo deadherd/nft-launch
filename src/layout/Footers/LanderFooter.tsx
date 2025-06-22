@@ -1,6 +1,6 @@
 // layout/Footers/LanderFooter.tsx
 import Image from 'next/image'
-import Link from 'next/link'
+import BuyNowButton from '@/components/BuyNowButton'
 import LazySection from '../Containers/LazySection'
 import s from '@/styles/Footer.module.sass'
 
@@ -20,9 +20,9 @@ export default function Footer() {
 
             {/* -- cta button link -- */}
             <div className={s.links}>
-              <Link href='/deep-dive'>
+              <BuyNowButton>
                 <Image src='/assets/images/get-yolked.svg' alt='MFR Get Yolked' width={200} height={70} className={s.cstore} />
-              </Link>
+              </BuyNowButton>
             </div>
           </div>
 
