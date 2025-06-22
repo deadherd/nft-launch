@@ -52,7 +52,7 @@ function generatePath(size: number, points: number, variance: number, tension: n
 }
 // -- end: path gen --
 
-export default function RandomBlob({ size = 200, points = 16, variance = 0.25, tension = 1, fill = '#59fd53', children }: RandomBlobProps) {
+export default function RandomBlob({ size = 200, points = 16, variance = 0.25, tension = 1, fill = 'var(--color-mfr-glow)', children }: RandomBlobProps) {
   const clipId = useId()
   const pathRef = useRef<SVGPathElement>(null)
 

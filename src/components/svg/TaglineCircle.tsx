@@ -10,7 +10,7 @@ interface SvgProps {
 
 const range = ['4%', '16.5%', '29%', '41.5%', '54%', '66.5%', '79%', '91.5%']
 
-const Svg: FC<SvgProps> = ({ color = '#59fd53' }) => {
+const Svg: FC<SvgProps> = ({ color = 'var(--color-mfr-glow)' }) => {
   const [angle, setAngle] = useState(0)
 
   useEffect(() => {

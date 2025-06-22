@@ -100,7 +100,7 @@ const FlyoutMenu = ({ corner = 'bottom-left' }: FlyoutMenuProps) => {
         }}
         aria-label='toggle flyout menu'
       >
-        <SpotDotsSvg color='#59fd53' />
+        <SpotDotsSvg color='var(--color-mfr-glow)' />
       </button>
     </div>
   )

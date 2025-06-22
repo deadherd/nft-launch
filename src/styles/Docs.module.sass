@@ -13,11 +13,11 @@
 .leftNav
   @apply w-[300px] flex-[0_0_200px] fixed md:static right-[100%] md:left-0 md:right-[auto] top-0 z-[999] px-[1rem] pt-[100px] md:pt-[20px] transition-all
   min-height: 100vh
-  //background: linear-gradient(0deg, #59fd53, #495638)
+  //background: linear-gradient(0deg, var(--color-mfr-glow), #495638)
   body:global(.slide-menu-open) &
     @apply mr-[-300px] bg-[#495638]
-  //background-color: #59fd53
-  //color: #0a0a0a
+  //background-color: var(--color-mfr-glow)
+  //color: var(--color-dark)
   ul
     list-style: none
     margin: 0
@@ -38,21 +38,21 @@
         //letter-spacing: .03em
         text-decoration: none!important
         svg path
-          @apply fill-[#59fd53]
+          @apply fill-[var(--color-mfr-glow)]
         &:hover, &:active
-          color: #ffff0f
+          color: var(--color-mfr-yellow)
           //text-decoration: underline!important
           svg path
-            @apply fill-[#ffff0f]
+            @apply fill-[var(--color-mfr-yellow)]
         &.active
           @apply rotate-[-1deg] scale-[1.2]
           transform-origin: 0 100%
-          color: #ffff0f
+          color: var(--color-mfr-yellow)
           font-weight: bold
           cursor: default 
           //text-decoration: underline!important
           svg path
-            @apply fill-[#ffff0f]
+            @apply fill-[var(--color-mfr-yellow)]
 
 .mainContent
   @apply flex-1 mt-[-40px] flex flex-col items-center
@@ -63,7 +63,7 @@
       @apply mt-[-50px]
     h1
       @apply text-[#fff] relative inline-block md:mt-[80px] mt-[20px]
-      text-shadow: 0 2px 0 #59fd53
+      text-shadow: 0 2px 0 var(--color-mfr-glow)
       line-height: 1.1
       &:after
         @apply block absolute top-[-8px] right-[10px] w-[140px] h-[120%]
@@ -110,18 +110,18 @@
       content: none!important
     a
       @apply flex flex-col items-center gap-[5px] text-[#fff]
-      text-shadow: 0 2px 0px #0a0a0a
+      text-shadow: 0 2px 0px var(--color-dark)
       text-decoration: none!important
       svg path
         @apply fill-[#fff]
       &:hover, &:active
-        @apply text-[#59fd53]
+        @apply text-[var(--color-mfr-glow)]
         svg path
-          @apply fill-[#59fd53]
+          @apply fill-[var(--color-mfr-glow)]
     &.indexFolder
       @apply basis-[100%] items-start
       h2
-        @apply text-[#59fd53]
+        @apply text-[var(--color-mfr-glow)]
 
 .pagination
   @apply w-full flex items-start justify-between max-w-[690px] pt-[40px] pb-[60px] min-h-[340px]
@@ -136,9 +136,9 @@
       svg path
         @apply fill-[#fff]
       &:hover, &:active
-        @apply text-[#59fd53]
+        @apply text-[var(--color-mfr-glow)]
         svg path
-          @apply fill-[#59fd53]
+          @apply fill-[var(--color-mfr-glow)]
 
 .rightToc
   @apply text-[18px] flex-[0_0_14w0px] hidden
@@ -153,7 +153,7 @@
     overflow: hidden
     text-overflow: ellipsis
     &.active
-      color: #ffff0f!important
+      color: var(--color-mfr-yellow)!important
       font-weight: bold
   ul
     list-style: none
@@ -188,16 +188,16 @@ ul
     &.expanded
       @apply mt-[20px] mb-[20px]
       //.navTitle
-        //@apply text-[#ffff0f]
+        //@apply text-[var(--color-mfr-yellow)]
       //.toggleIcon
-        //@apply text-[#ffff0f]
+        //@apply text-[var(--color-mfr-yellow)]
     &.activeFolder
       .navTitle
         @apply text-[#555] cursor-default
         font-weight: bold
       //.navFolder
       .toggleIcon
-        @apply opacity-0 text-[#ffff0f]
+        @apply opacity-0 text-[var(--color-mfr-yellow)]
 
 .navFolder
   @apply flex cursor-pointer text-[#fff] gap-[4px]
@@ -206,12 +206,12 @@ ul
   .navTitle
     @apply text-[18px] capitalize text-[#fff]
     &:hover, &:active
-      color: #ffff0f
+      color: var(--color-mfr-yellow)
     //font-weight: bold
     //font-family: "Instant Karma"
     //letter-spacing: .05em
   .toggleIcon
-    @apply text-[#59fd53] text-[20px]
+    @apply text-[var(--color-mfr-glow)] text-[20px]
     
     line-height: 20px
     font-family: "Instant Karma"

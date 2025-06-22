@@ -7,7 +7,7 @@ interface SpotDotsProps {
   color?: string;
 }
 
-const SpotDots: FC<SpotDotsProps> = ({ color = "#59fd53" }) => {
+const SpotDots: FC<SpotDotsProps> = ({ color = "var(--color-mfr-glow)" }) => {
   return (
     <svg
       id="Layer_2"

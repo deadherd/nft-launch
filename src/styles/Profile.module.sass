@@ -1,17 +1,17 @@
 @reference 'tailwindcss'
 
 .profile
-  @apply w-full max-w-[800px] mx-auto mt-[200px] text-[#0a0a0a] bg-[#59fd53] rounded-lg p-[20px]
+  @apply w-full max-w-[800px] mx-auto mt-[200px] text-[var(--color-dark)] bg-[var(--color-mfr-glow)] rounded-lg p-[20px]
   outline: 1px solid blue
   h1,h2,h3,h4,h5,h6
-    @apply text-[#0a0a0a]
+    @apply text-[var(--color-dark)]
   p
     @apply capitalize
     &:last-child
       @apply mb-0
 
 .dropdownProfile
-  @apply relative w-full text-[#0a0a0a] text-left px-[12px] py-[6px]
+  @apply relative w-full text-[var(--color-dark)] text-left px-[12px] py-[6px]
   background-color: rgba(89, 253, 83, .75)
   a
     @apply border-none block text-[15px] my-[4px] py-[4px] text-[#000]
@@ -22,7 +22,7 @@
       @apply opacity-[.6]
       background: none!important
   h1,h2,h3,h4,h5,h6
-    @apply text-[#0a0a0a]
+    @apply text-[var(--color-dark)]
   h3
     @apply text-[24px] mb-[5px]
     font-family: "DM Sans"
@@ -45,9 +45,9 @@
     img
       @apply max-h-[32px] w-auto
   .levelCorner
-    @apply absolute block top-[10px] right-[3px] min-w-[40px] h-[40px] flex items-center justify-center bg-[#0a0a0a] text-[#fff] text-[28px] px-[8px] rounded-lg
-    border: 2px solid #59fd53
+    @apply absolute block top-[10px] right-[3px] min-w-[40px] h-[40px] flex items-center justify-center bg-[var(--color-dark)] text-[#fff] text-[28px] px-[8px] rounded-lg
+    border: 2px solid var(--color-mfr-glow)
     font-weight: 900
 
 .miniLoading
-  @apply block text-left text-[15px] p-[8px] bg-[#45c640] mb-0 text-[#0a0a0a]
+  @apply block text-left text-[15px] p-[8px] bg-[#45c640] mb-0 text-[var(--color-dark)]

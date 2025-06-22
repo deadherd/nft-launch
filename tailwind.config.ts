@@ -13,14 +13,14 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          demorat: "#6615f7",
+          demorat: "var(--color-brand-demorat)",
         },
-        dark: "#0a0a0a",
-        light: "#f8f8f8",
+        dark: "var(--color-dark)",
+        light: "var(--color-light)",
         mfr: {
-          glow: "#59fd53",
-          green: "#68c460",
-          yellow: "#ffff0f",
+          glow: "var(--color-mfr-glow)",
+          green: "var(--color-mfr-green)",
+          yellow: "var(--color-mfr-yellow)",
         },
       },
       fontFamily: {

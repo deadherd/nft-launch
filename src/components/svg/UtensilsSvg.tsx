@@ -7,7 +7,7 @@ interface UtensilsProps {
   color?: string;
 }
 
-const Utensils: FC<UtensilsProps> = ({ color = "#59fd53" }) => {
+const Utensils: FC<UtensilsProps> = ({ color = "var(--color-mfr-glow)" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

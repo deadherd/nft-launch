@@ -3,22 +3,22 @@
 .profile
   @apply flex flex-wrap items-center content-center text-left bg-[#1a1a1a] text-[#fff] text-[14px] rounded-lg absolute top-[-8px] right-[-11px] origin-top-right w-[300px] z-[-1]
   box-shadow: 0 0 3px rgba(89, 253, 83,.5)
-  border: 4px solid #59fd53
+  border: 4px solid var(--color-mfr-glow)
   line-height: 1
   .pfp
     @apply relative block w-[54px] h-[54px] rounded-[4px] flex items-center justify-center
     background: url(../../public/assets/images/kitchen-bg.jpg) no-repeat 50% 50%
     background-size: cover
-    //border: 1px dashed #59fd53
+    //border: 1px dashed var(--color-mfr-glow)
     svg
       @apply w-[90%] h-[90%]
   .details
     @apply px-2 pt-[4px]
   .name
-    //@apply text-[#59fd53]
+    //@apply text-[var(--color-mfr-glow)]
     font-weight: bold
   .nickname
-    @apply block italic text-[24px] text-[#59fd53] ml-[-4px]
+    @apply block italic text-[24px] text-[var(--color-mfr-glow)] ml-[-4px]
     font-family: "Instant Karma"
   .stats
     @apply basis-[100%] w-full mx-1 my-[0] rounded-sm text-[16px]
@@ -29,7 +29,7 @@
         @apply text-[#777] pl-1
         font-weight: 500
       .statNumber
-        @apply min-w-[30px] h-[30px] bg-[#0a0a0a] flex items-center justify-center rounded-sm text-[22px] py-1 px-2 min-w-[100px] text-center
+        @apply min-w-[30px] h-[30px] bg-[var(--color-dark)] flex items-center justify-center rounded-sm text-[22px] py-1 px-2 min-w-[100px] text-center
         line-height: 1
         font-weight: bold
         b
@@ -38,9 +38,9 @@
     @apply basis-[100%] flex gap-[4px] p-1 pb-[0]
     a
       @apply flex-1 basis-[36px] h-[36px] flex items-center justify-center bg-[#2a2a2a] rounded-[4px] transition-transform
-      border: 1px dashed #59fd53
+      border: 1px dashed var(--color-mfr-glow)
       &:hover, &:active
         @apply  scale-[1.1vw] bg-[#3a3a3a]
         border-style: solid
       svg
-        @apply max-w-[28px] max-h-[28px] fill-[#59fd53]
+        @apply max-w-[28px] max-h-[28px] fill-[var(--color-mfr-glow)]

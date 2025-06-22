@@ -26,7 +26,7 @@
       @apply flex-1 text-3xl md:text-5xl text-[#fff] fixed bottom-[20px] left-[10px] md:left-[20px]
       font-family: "Instant Karma", sans-serif
       font-weight: normal
-      text-shadow: 0 3px 0 #0a0a0a
+      text-shadow: 0 3px 0 var(--color-dark)
       span
         @apply inline-block px-1
       body:global(.docs) &
@@ -94,17 +94,17 @@
     @apply hidden
 
 .sticker
-  @apply fixed bottom-0 rotate-[180deg] left-0 z-[9999998] w-full h-[40px] bg-[#59fd53] text-[#0a0a0a] text-[22px] hidden
+  @apply fixed bottom-0 rotate-[180deg] left-0 z-[9999998] w-full h-[40px] bg-[var(--color-mfr-glow)] text-[var(--color-dark)] text-[22px] hidden
   background: url(../../public/assets/images/edge.svg) no-repeat 50% 50%
   background-size: 100% 100%
   font-family: "SKT"
   a
-    @apply absolute top-[10px] left-[33%] text-[#0a0a0a]
+    @apply absolute top-[10px] left-[33%] text-[var(--color-dark)]
     line-height: 16px
     text-decoration: none!important
 
 .stat
-  @apply block min-w-[63px] w-auto h-auto text-[20px] absolute bottom-[117px] right-[110px] bg-[#59fd53] text-[#0a0a0a] flex items-center justify-end rounded-md z-[1] gap-[8px] pr-[14px] pl-[6px]
+  @apply block min-w-[63px] w-auto h-auto text-[20px] absolute bottom-[117px] right-[110px] bg-[var(--color-mfr-glow)] text-[var(--color-dark)] flex items-center justify-end rounded-md z-[1] gap-[8px] pr-[14px] pl-[6px]
   &:hover, &:active
     @apply gap-[14px]
   transition: gap .3s
@@ -165,4 +165,4 @@
   @apply flex flex-col text-[32px] rotate-[-2deg]
   line-height: 24px
   .locationCity
-    @apply text-[.65em] text-[#59fd53]
+    @apply text-[.65em] text-[var(--color-mfr-glow)]

@@ -24,21 +24,21 @@ export default function Home() {
         </span>
         <h2 className='feature'>SunNySide</h2>
         <p>
-          Beneath the noise of the city, a <span className='text-[#59fd53] rotate-[-2deg] inline-block'>mischief</span> is forming.
+          Beneath the noise of the city, a <span className='text-[var(--color-mfr-glow)] rotate-[-2deg] inline-block'>mischief</span> is forming.
         </p>
         <p className='reveal'>
-          Quiet claws & <span className='text-[#59fd53] rotate-[2deg] inline-block'>sharp minds</span> working in lockstep.
+          Quiet claws & <span className='text-[var(--color-mfr-glow)] rotate-[2deg] inline-block'>sharp minds</span> working in lockstep.
         </p>
         <p className='reveal'>
-          Each new recruit is another stitch in the <span className='text-[#59fd53] rotate-[-2deg] inline-block'>shadow</span>.
+          Each new recruit is another stitch in the <span className='text-[var(--color-mfr-glow)] rotate-[-2deg] inline-block'>shadow</span>.
         </p>
         <p className='reveal'>
-          Every shell cracked funds the next <span className='text-[#59fd53] rotate-[-2deg] inline-block'>mission</span>.
+          Every shell cracked funds the next <span className='text-[var(--color-mfr-glow)] rotate-[-2deg] inline-block'>mission</span>.
         </p>
         <p className='reveal'>By the time they notice, we&apos;ll be too big.</p>
         <p className='reveal'>Too rooted.</p>
         <p className='reveal'>
-          <span className='text-[#59fd53] rotate-[-2deg] inline-block'>TOO FED.</span>
+          <span className='text-[var(--color-mfr-glow)] rotate-[-2deg] inline-block'>TOO FED.</span>
         </p>
         <hr className='smudge' />
         <h2 className='reveal'>
@@ -49,11 +49,11 @@ export default function Home() {
         </h2>
         <p className='reveal'>If you feel it... that need to belong to something real...</p>
         <p className='reveal'>
-          This is your <span className='text-[#59fd53] rotate-[2deg] inline-block'>opportunity</span>.
+          This is your <span className='text-[var(--color-mfr-glow)] rotate-[2deg] inline-block'>opportunity</span>.
         </p>
         <p className='reveal'>We manufacture more than just products...</p>
         <p className='reveal'>We manufacture presence.</p>
-        <p className='text-[#59fd53] text-[120%] rotate-[-2deg] reveal'>And we don&apos;t stop.</p>
+        <p className='text-[var(--color-mfr-glow)] text-[120%] rotate-[-2deg] reveal'>And we don&apos;t stop.</p>
 
         <HomeEntryGate />
       </div>

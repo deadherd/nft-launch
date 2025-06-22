@@ -133,7 +133,7 @@ const Header: FC = () => {
   }
   // -- end --
 
-  //const clawColor = menuOpen ? '#0a0a0a' : '#59fd53'
+  //const clawColor = menuOpen ? 'var(--color-dark)' : 'var(--color-mfr-glow)'
 
   return (
     <>
