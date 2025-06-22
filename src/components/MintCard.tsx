@@ -1,7 +1,7 @@
 'use client'
 
 // components/MintCard.tsx
-import { useState } from 'react'
+import { useState, type ChangeEvent } from 'react'
 import { useWriteContract } from 'wagmi'
 import { parseEther } from 'viem'
 import { JsonRpcProvider, Interface } from 'ethers'
@@ -15,9 +15,9 @@ import useNftCount from '@/hooks/useNftCount'
 
 export default function MintCard() {
   const proxyAddress = '0x2e51a8FdC067e415CFD5d00b9add5C6Af72d676c'
-  const [quantity, setQuantity] = useState(1)
-  const pricePerNFT = parseEther('0.01')
-  const totalPrice = pricePerNFT * BigInt(quantity)
+  const [quantity, setQuantity] = useState<number>(1)
+  const pricePerNFT: bigint = parseEther('0.01')
+  const totalPrice: bigint = pricePerNFT * BigInt(quantity)
 
   const { writeContractAsync, isPending, error } = useWriteContract()
   const { user, address } = useAuthUser()
@@ -25,12 +25,12 @@ export default function MintCard() {
   const { count } = useNftCount()
   const maxAllowed = Math.max(0, 3 - count)
 
-  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value)
     setQuantity(val > maxAllowed ? maxAllowed : val)
   }
 
-  const handleMint = async () => {
+  const handleMint = async (): Promise<void> => {
     if (!user) return
     if (maxAllowed === 0) return
     try {

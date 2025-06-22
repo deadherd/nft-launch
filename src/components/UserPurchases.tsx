@@ -23,10 +23,10 @@ const UserPurchases: FC<Props> = ({ uid }) => {
           {purchases.map((p) => (
             <li key={p.id} className='py-[2px] px-[10px] text-[var(--color-dark)]'>
               <p className='text-sm'>
-                <b>{p.quantity} shell{p.quantity > 1 ? 's' : ''}</b> — {p.amount} ETH
-              </p>
-              <p className='text-xs'>
-                <Link href={`https://basescan.org/tx/${p.txHash}`} target='_blank'>tx</Link>
+                <b>{p.quantity} shell{p.quantity > 1 ? 's' : ''}</b> —{' '}
+                <Link href={`https://basescan.org/tx/${p.txHash}`} target='_blank'>
+                  {p.amount} ETH
+                </Link>
               </p>
             </li>
           ))}
