@@ -9,11 +9,10 @@ import Footer from '@/layout/Footers/LanderFooter'
 import s from '@/styles/Home.module.sass'
 import SignInWithEthereum from '@/components/SignInWithEthereum'
 import BuyNowButton from '@/components/BuyNowButton'
-import useTotalSupply from '@/hooks/useTotalSupply'
+import LimitedEditionLabel from '@/components/LimitedEditionLabel'
 
 export default function Home() {
   const isConnected = true
-  const totalSupply = useTotalSupply()
 
   return (
     <>
@@ -22,7 +21,7 @@ export default function Home() {
         <div className={s.links}>
           <ul className={s.features}>
             <li className='textGreen pulse'>
-              {`Limited Edition${typeof totalSupply === 'number' ? ` – ${totalSupply}/888 minted` : '!'}`}
+              <LimitedEditionLabel />
             </li>
             <li>
               <h2>
