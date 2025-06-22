@@ -29,8 +29,13 @@ export default function MintCard() {
 
   const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
     const val = Number(e.target.value)
-    setQuantity(val > maxAllowed ? maxAllowed : val)
+    if (Number.isNaN(val)) return
+    const clamped = Math.max(1, Math.min(maxAllowed, val))
+    setQuantity(clamped)
   }
+
+  const increase = () => setQuantity((q) => Math.min(maxAllowed, q + 1))
+  const decrease = () => setQuantity((q) => Math.max(1, q - 1))
 
   const handleMint = async (): Promise<void> => {
     if (!user) return
@@ -97,9 +102,34 @@ export default function MintCard() {
       <Image src='/assets/images/nft.jpg' alt='MFR NFT' width='300' height='300' />
       <p>Price: 0.03 ETH each</p>
 
-      <div>
-        <label>Quantity: </label>
-        <input type='number' min='1' max={maxAllowed} value={quantity} onChange={handleQuantityChange} />
+      <div className='flex items-center gap-2 mb-4'>
+        <label className='mr-2'>Quantity:</label>
+        <div className='flex'>
+          <button
+            type='button'
+            onClick={decrease}
+            disabled={quantity <= 1}
+            className='px-3 py-1 bg-gray-700 border border-gray-600 rounded-l disabled:opacity-50'
+          >
+            -
+          </button>
+          <input
+            type='number'
+            min='1'
+            max={maxAllowed}
+            value={quantity}
+            onChange={handleQuantityChange}
+            className='w-12 text-center bg-gray-700 border-t border-b border-gray-600'
+          />
+          <button
+            type='button'
+            onClick={increase}
+            disabled={quantity >= maxAllowed}
+            className='px-3 py-1 bg-gray-700 border border-gray-600 rounded-r disabled:opacity-50'
+          >
+            +
+          </button>
+        </div>
       </div>
 
       <button disabled={isPending || maxAllowed === 0} onClick={handleMint}>
