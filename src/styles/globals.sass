@@ -870,7 +870,7 @@ body
 .mintModal
   @apply fixed inset-0 z-50 flex items-center justify-center bg-black/80
   &:after
-    @apply block absolute top-[-10px] left-[10px] w-[140px] h-auto z-[1]
+    @apply block absolute top-[-10px] left-[10px] w-[140px] h-[300px] z-[1]
     content: ""
     background: url(../../public/assets/images/drip-three-heavy.svg) no-repeat 50% 0
     background-size: 100% auto
@@ -890,3 +890,6 @@ body
     border-bottom-width: 3px
     text-shadow: 0 2px 4px rgba(0,0,0,.3)
     font-weight: 500
+
+.qtyRow
+  @apply flex items-stretch

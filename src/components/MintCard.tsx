@@ -103,14 +103,9 @@ export default function MintCard() {
       <p>Price: 0.03 ETH each</p>
 
       <div className='flex items-center gap-2 mb-4'>
-        <label className='mr-2'>Quantity:</label>
-        <div className='flex'>
-          <button
-            type='button'
-            onClick={decrease}
-            disabled={quantity <= 1}
-            className='px-3 py-1 bg-gray-700 border border-gray-600 rounded-l disabled:opacity-50'
-          >
+        <label className='mr-2 hidden'>Quantity:</label>
+        <div className='qtyRow'>
+          <button type='button' onClick={decrease} disabled={quantity <= 1} className='px-3 bg-gray-700 border border-gray-600 rounded-l disabled:opacity-50'>
             -
           </button>
           <input
@@ -119,13 +114,13 @@ export default function MintCard() {
             max={maxAllowed}
             value={quantity}
             onChange={handleQuantityChange}
-            className='w-12 text-center bg-gray-700 border-t border-b border-gray-600'
+            className='text-center bg-gray-700 border-t border-b border-gray-600 flex-1 mb-0'
           />
           <button
             type='button'
             onClick={increase}
             disabled={quantity >= maxAllowed}
-            className='px-3 py-1 bg-gray-700 border border-gray-600 rounded-r disabled:opacity-50'
+            className='px-3 bg-gray-700 border border-gray-600 rounded-r disabled:opacity-50'
           >
             +
           </button>
