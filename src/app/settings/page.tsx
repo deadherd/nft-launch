@@ -10,6 +10,7 @@ export default function SettingsPage() {
       <div className={s.panel}>
         <Link href='/settings/usertag'>Set Usertag</Link>
         <Link href='/settings/role'>Set Role/s</Link>
+        <Link href='/settings/purchases'>Purchases</Link>
       </div>
     </div>
   )
