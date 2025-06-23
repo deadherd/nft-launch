@@ -161,7 +161,7 @@ export default function MintCard() {
       <div className='mint-image'>Maximum three (3) per wallet.</div>
       <div className='mint-content'>
         <div className='label'>
-          Current Price (<CountdownTimer targetDate='2025-06-23T23:59:00Z' />)
+          Current Price (<CountdownTimer targetDate='2025-06-24T23:59:00Z' />)
         </div>
         <p className='priceBox'>{(Number(totalPrice) / 1e18).toFixed(2)}</p>
 
