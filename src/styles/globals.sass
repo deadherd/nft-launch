@@ -719,7 +719,7 @@ footer.upside
   @apply text-[50%]
 
 .preTitle
-  @apply block text-[1.8vw] tracking-wide mb-[2vw] rotate-[-4deg] ml-[-1vw] text-[var(--color-mfr-glow)]
+  @apply inline-block text-[1.8vw] tracking-wide mb-[2vw] rotate-[-4deg] ml-[-1vw] text-[var(--color-mfr-glow)]
   font-family: "SKT"
   text-shadow: 0 2px 0 var(--color-dark)
   letter-spacing: 0.06em
@@ -992,13 +992,14 @@ body
   @apply fixed top-6 left-6 z-[99999999] flex flex-col gap-2
 
 .toast
-  @apply bg-gray-800 text-[var(--green)] text-center px-5 pt-3 pb-2 rounded-md shadow pointer-events-auto text-sm text-[18px] rotate-[1deg] font-bold min-w-[160px]
+  @apply bg-gray-800 text-[var(--green)] text-center px-5 py-3 rounded-md shadow pointer-events-auto text-sm text-[16px] rotate-[1deg] font-bold min-w-[160px]
   text-shadow: 0 0 6px rgba(52,211,153,0.8)
   border: 1px solid var(--green)
   border-bottom-width: 3px
   transform-origin: 0 0
   max-height: 200px
   transition: opacity 0.5s, margin 0.5s, padding 0.5s, max-height 0.5s
+  line-height: 18px
 
 .toast.closing
   opacity: 0

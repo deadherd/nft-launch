@@ -8,7 +8,7 @@ import bgForegroundTop from '@images/alley-foreground-bg-skyline.png'
 import HookInjector from '@/components/HookInjector'
 import s from '@/styles/Home.module.sass'
 import HomeEntryGate from '@/components/HomeEntryGate'
-import ToastButton from '@/components/ToastButton'
+//import ToastButton from '@/components/ToastButton'
 
 // page metadata
 import { generateStaticMetadata } from '@/lib/metadataRouter'
@@ -23,6 +23,7 @@ export default function Home() {
         <span className='preTitle'>
           Season<i> </i>Zero
         </span>
+        <br />
         <h2 className='feature'>SunNySide</h2>
         <p>
           Beneath the noise of the city, a <span className='text-[var(--color-mfr-glow)] rotate-[-2deg] inline-block'>mischief</span> is forming.
@@ -57,7 +58,6 @@ export default function Home() {
         <p className='text-[var(--color-mfr-glow)] text-[120%] rotate-[-2deg] reveal'>And we don&apos;t stop.</p>
 
         <HomeEntryGate />
-        <ToastButton />
       </div>
       {/* end */}
 
