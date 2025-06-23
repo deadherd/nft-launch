@@ -1,5 +1,3 @@
-@reference 'tailwindcss'
-
 .header
   @apply w-full flex flex-nowrap items-center fixed bottom-0 right-0 z-[999999]
   //backdrop-filter: blur(5px)
@@ -14,7 +12,7 @@
     content: ""
     background: radial-gradient(circle at bottom right, #000, rgba(0,0,0,0) 50%)
   .pipe
-    @apply absolute top-0 right-0 md:right-[-60px] w-[40px] md:w-[60px] md:mt-[5px] transition-[right]
+    @apply absolute top-[0] right-0 md:right-[-60px] w-[40px] md:w-[60px] md:mt-[5px] transition-[right]
     body:global(.menu-open) &
       @apply md:right-[-10px]
   body:global(.docs) &
@@ -94,7 +92,7 @@
     @apply hidden
 
 .sticker
-  @apply fixed bottom-0 rotate-[180deg] left-0 z-[9999998] w-full h-[40px] bg-[var(--color-mfr-glow)] text-[var(--color-dark)] text-[22px] hidden
+  @apply fixed bottom-0 rotate-[180deg] left-[0] z-[9999998] w-full h-[40px] bg-[var(--color-mfr-glow)] text-[var(--color-dark)] text-[22px] hidden
   background: url(../../public/assets/images/edge.svg) no-repeat 50% 50%
   background-size: 100% 100%
   font-family: "SKT"

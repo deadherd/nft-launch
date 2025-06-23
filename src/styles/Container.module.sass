@@ -1,12 +1,10 @@
-@reference 'tailwindcss'
-
 .container
   @apply w-full max-w-[999px] mx-auto
   &.tight
     @apply max-w-[420px]
 
 .loader
-  @apply fixed top-0 left-0 w-full h-full bg-[var(--color-dark)] z-[99999999]
+  @apply fixed top-[0] left-[0] w-full h-full bg-[var(--color-dark)] z-[99999999]
   background: radial-gradient(#1a1a1a,var(--color-dark))
 
 .nest

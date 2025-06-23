@@ -207,7 +207,7 @@ const Header: FC = () => {
             ) : isLocation ? (
               <div className={s.location}>
                 <span className={s.locationCity}>
-                  <CountdownTimer targetDate='2025-06-23T23:59:00Z' />
+                  <CountdownTimer targetDate='2025-06-24T23:59:00Z' />
                 </span>
                 <span className={s.youAreHere}>{routeEntry?.metaTitle}</span>
               </div>

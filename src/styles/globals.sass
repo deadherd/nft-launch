@@ -261,7 +261,7 @@ section
     transform: translate(-50%,-50%)
 
 .sewage
-  @apply absolute top-0 right-0 overflow-hidden w-0 h-[100vh] z-[990]
+  @apply absolute top-[0] right-0 overflow-hidden w-0 h-[100vh] z-[990]
   body.menu-open &
     @apply w-full
 
@@ -491,11 +491,11 @@ h2.ock-font-family
   color: transparent
   //box-shadow: 0 3px 6px rgba(0,0,0,.4)
   &:after
-    @apply absolute block top-0 left-0 w-full h-full z-[1] rotate-[10deg]
+    @apply absolute block top-[0] left-0 w-full h-full z-[1] rotate-[10deg]
     content: ""
     background: url(../../public/assets/images/rathed-dark-grunge_svg.svg) no-repeat 50% 50% / 33% auto
   &:before
-    @apply absolute block top-0 left-0 w-full h-full z-[-1]
+    @apply absolute block top-[0] left-0 w-full h-full z-[-1]
     content: ""
     background: url(../../public/assets/images/splat_thick_flip.svg) no-repeat 50% 50%
     background-size: contain
@@ -514,7 +514,7 @@ h2.ock-font-family
     img
       @apply relative z-[1] max-w-[100%] h-auto
     &::before
-      @apply absolute block top-0 left-0 w-full h-full z-[-1]
+      @apply absolute block top-[0] left-0 w-full h-full z-[-1]
       background: var(--yellow) url(../../public/assets/images/icons/icon_rathed.svg) no-repeat 50% 50% / 90% 90%
       content: ""
     &::after
@@ -623,12 +623,12 @@ select::placeholder
   @apply capitalize
 
 .shadowBar
-  @apply fixed top-0 left-0 w-full h-[80px] z-[99996] py-[7px] px-[10px]
+  @apply fixed top-[0] left-0 w-full h-[80px] z-[99996] py-[7px] px-[10px]
   pointer-events: none
   background: linear-gradient(0deg, rgba(0,0,0,0), rgba(0,0,0,.8))
 
 footer.upside
-  @apply fixed top-0 left-0 w-full z-[99997] pt-[34px] pl-[30px] pr-[95px] flex items-start justify-between
+  @apply fixed top-[0] left-0 w-full z-[99997] pt-[34px] pl-[30px] pr-[95px] flex items-start justify-between
   font-family: "Instant Karma"
   .navMenu
     @apply flex items-center justify-end
@@ -751,7 +751,7 @@ a.dd-link
     @apply relative w-[20px] h-[20px]
     background: url(../../public/assets/images/bullet.svg) no-repeat 50% 50% / 100% 100%
     &:after
-      @apply absolute top-0 left-0 w-full h-full z-[1]
+      @apply absolute top-[0] left-0 w-full h-full z-[1]
       background: transparent url(../../public/assets/images/icons/png64/settings64.png) no-repeat 50% 50% / 90% 90%
       content: ""
   &.dd-activity > div:after
