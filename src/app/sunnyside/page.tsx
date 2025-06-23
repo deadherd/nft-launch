@@ -53,7 +53,8 @@ export default function Home() {
               <span className={s.caption}>Deep Dive</span>
               <Arrowhead />
               <div className={`${s.eggCount}`}>
-                <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Daily' />x<span>888</span>
+                <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Daily' />
+                <span>Locked</span>
               </div>
             </div>
           </Link>
@@ -71,7 +72,7 @@ export default function Home() {
                 <div className={s.meter}>
                   <Image src='/assets/images/ff-egg-foil.png' width='64' height='64' alt='Egg Thredder' />
                 </div>
-                <span>0</span>/12
+                <span>Locked</span>
               </div>
             </div>
           </Link>
@@ -120,7 +121,8 @@ export default function Home() {
               <span className={s.caption}>Pizza Joint</span>
               <Arrowhead />
               <div className={`${s.eggCount}`}>
-                <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Egg Thredder' />x<span>888</span>
+                <Image src='/assets/images/ff-egg.png' width='64' height='64' alt='Egg Thredder' />
+                <span>Locked</span>
               </div>
             </div>
           </Link>
@@ -134,7 +136,8 @@ export default function Home() {
               Tr<span className={s.blinkGlitch}>AI</span>ts<span className={s.caption}>Tox Box</span>
               <Arrowhead />
               <div className={`${s.eggCount}`}>
-                <Image src='/assets/images/full-trash-bag-green-200x200.png' width='64' height='64' alt='Egg Thredder' />x<span>1,000</span>
+                <Image src='/assets/images/full-trash-bag-green-200x200.png' width='64' height='64' alt='Egg Thredder' />
+                <span>Locked</span>
               </div>
             </div>
           </Link>
@@ -164,7 +167,8 @@ export default function Home() {
               <span className={s.caption}>Sewer System</span>
               <Arrowhead />
               <div className={`${s.eggCount}`}>
-                <Image src='/assets/images/glow-in-the-dark.png' width='64' height='64' alt='Egg Thredder' />x<span>500</span>
+                <Image src='/assets/images/glow-in-the-dark.png' width='64' height='64' alt='Egg Thredder' />
+                <span>Locked</span>
               </div>
             </div>
           </Link>
