@@ -9,7 +9,8 @@
   letter-spacing: 0.02em
 
 .leftNav
-  @apply w-[300px] flex-[0_0_200px] fixed md:static right-[100%] md:left-[0] md:right-[auto] top-[0] z-[999] px-[1rem] pt-[100px] md:pt-[20px] transition-all
+  @apply w-[300px] flex-[0_0_200px] fixed right-[100%] top-[0] z-[999] px-[1rem] pt-[100px] transition-all
+  @apply md:static md:left-[0] md:right-[auto] md:pt-[20px]
   min-height: 100vh
   //background: linear-gradient(0deg, var(--color-mfr-glow), #495638)
   body:global(.slide-menu-open) &
