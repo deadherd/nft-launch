@@ -3,12 +3,12 @@
 import { useRef, useEffect } from 'react'
 import { useActivityLog } from '@/hooks/useActivityLog'
 import useAuthUser from '@/hooks/useAuthUser'
-import { useBreadcrumbs } from '@/layout/Providers/BreadcrumbProvider'
+import { useToasts } from '@/layout/Providers/ToastProvider'
 
-export function useActivityBreadcrumbs() {
+export function useActivityToasts() {
   const { user } = useAuthUser()
   const log = useActivityLog(user?.uid ?? '')
-  const { addBreadcrumb } = useBreadcrumbs()
+  const { addToast } = useToasts()
 
   const initialized = useRef(false)
   const lastSeen = useRef(0)
@@ -35,7 +35,7 @@ export function useActivityBreadcrumbs() {
       newEntries
         .slice()
         .reverse()
-        .forEach((e) => addBreadcrumb(e.label))
+        .forEach((e) => addToast(e.label))
     }
-  }, [log, addBreadcrumb])
+  }, [log, addToast])
 }

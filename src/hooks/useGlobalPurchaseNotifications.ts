@@ -3,7 +3,7 @@
 import { collectionGroup, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { useEffect, useRef } from 'react'
 import { db } from '@/lib/firebaseClient'
-import { useBreadcrumbs } from '@/layout/Providers/BreadcrumbProvider'
+import { useToasts } from '@/layout/Providers/ToastProvider'
 
 function getTime(val: any): number {
   if (!val) return 0
@@ -14,7 +14,7 @@ function getTime(val: any): number {
 }
 
 export function useGlobalPurchaseNotifications() {
-  const { addBreadcrumb } = useBreadcrumbs()
+  const { addToast } = useToasts()
   const initialized = useRef(false)
   const lastSeen = useRef(0)
 
@@ -35,7 +35,7 @@ export function useGlobalPurchaseNotifications() {
           if (ts > lastSeen.current) {
             lastSeen.current = ts
             const quantity = (doc as any).quantity ?? 1
-            addBreadcrumb(
+            addToast(
               `Someone purchased x${quantity} Shell${quantity > 1 ? 's' : ''}!`
             )
           }
@@ -47,5 +47,5 @@ export function useGlobalPurchaseNotifications() {
     )
 
     return () => unsub()
-  }, [addBreadcrumb])
+  }, [addToast])
 }
