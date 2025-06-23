@@ -20,23 +20,17 @@ export default function Menu({ purchaseInfo }: MenuProps) {
       {purchaseInfo && (
         <div className='purchaseSuccess'>
           <div className='successBox'>
-            <p className='mb-2 font-bold'>Purchase Complete!</p>
             <p>
-              Copped x{purchaseInfo.quantity} Shell{purchaseInfo.quantity > 1 ? 's' : ''} for{' '}
-              {purchaseInfo.amount} ETH
+              Minted x{purchaseInfo.quantity} Shell{purchaseInfo.quantity > 1 ? 's' : ''} for {purchaseInfo.amount} ETH
             </p>
             <ul>
               {purchaseInfo.ids.map((id) => (
                 <li key={id}>
-                  <a href={`/shell/${id}`}>Shell #{id}</a>
+                  <a href={`/shell/${id}`}>MFR Shell #{id}</a>
                 </li>
               ))}
             </ul>
-            <button
-              type='button'
-              className='closeButton mt-4'
-              onClick={() => window.dispatchEvent(new Event('closeSplat'))}
-            >
+            <button type='button' className='closeButton mt-4' onClick={() => window.dispatchEvent(new Event('closeSplat'))}>
               Close
             </button>
           </div>

@@ -966,8 +966,19 @@ body
     border-bottom-width: 3px
 
 .purchaseSuccess
-  @apply fixed inset-0 flex items-center justify-center bg-black/80 z-[1000]
+  @apply fixed inset-0 flex items-center justify-center z-[1000]
   .successBox
-    @apply bg-gray-800 text-center p-4
+    @apply text-center p-4 text-[38px] text-[var(--dark)]
+    li
+      @apply block py-1
+    a
+      @apply inline-block text-[var(--green)] font-bold text-[30px] px-6 py-2 bg-gray-800 rounded-lg mt-1
+      line-height: 36px
+      border: 2px solid var(--dark)
+      border-bottom-width: 4px
+    p
+      font-family: "Instant Karma"
     button.closeButton
-      @apply bg-[var(--green)] text-[var(--dark)] px-4 py-2 rounded-md
+      @apply bg-gray-800 text-[var(--green)] px-4 py-2 rounded-md text-[15px] font-medium
+      border: 1px solid var(--dark)
+      border-bottom-width: 3px

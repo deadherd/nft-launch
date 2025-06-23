@@ -124,11 +124,13 @@ const Header: FC = () => {
   // -- start: listen for splat menu events --
   useEffect(() => {
     const openHandler = (e: Event) => {
-      const detail = (e as CustomEvent<{
-        quantity: number
-        amount: number
-        ids: string[]
-      }>).detail
+      const detail = (
+        e as CustomEvent<{
+          quantity: number
+          amount: number
+          ids: string[]
+        }>
+      ).detail
       setProfileOpen(false)
       setMenuOpen(true)
       setPurchaseInfo(detail)
@@ -205,7 +207,7 @@ const Header: FC = () => {
             ) : isLocation ? (
               <div className={s.location}>
                 <span className={s.locationCity}>
-                  <CountdownTimer targetDate='2025-06-22T23:59:00Z' />
+                  <CountdownTimer targetDate='2025-06-23T23:59:00Z' />
                 </span>
                 <span className={s.youAreHere}>{routeEntry?.metaTitle}</span>
               </div>
