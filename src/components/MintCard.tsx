@@ -31,6 +31,15 @@ export default function MintCard() {
   const [referral, setReferral] = useState('')
   const [refStatus, setRefStatus] = useState<'loading' | 'found' | 'not_found' | null>(null)
 
+  const referralClass =
+    refStatus === 'loading'
+      ? 'checking'
+      : refStatus === 'found'
+      ? 'success'
+      : refStatus === 'not_found'
+      ? 'error'
+      : ''
+
   const sanitizeUsername = (value: string) => {
     let v = value.replace(/[-\s]+/g, '_').toLowerCase()
     v = v.replace(/[^a-z0-9_]/g, '')
@@ -176,7 +185,13 @@ export default function MintCard() {
         <hr />
         <div className='tagBox'>
           <label className='block hidden'>Tag a Connect?</label>
-          <input className='w-full mb-0' type='text' value={referral} onChange={(e) => handleReferralChange(e.target.value)} placeholder='Tag Your Connect' />
+          <input
+            className={`w-full mb-0 ${referralClass}`}
+            type='text'
+            value={referral}
+            onChange={(e) => handleReferralChange(e.target.value)}
+            placeholder='Tag Your Connect'
+          />
         </div>
         <div className='errorMessage'>
           {error && <p>Error: {error.message}</p>}
