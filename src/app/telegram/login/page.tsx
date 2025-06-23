@@ -1,19 +1,19 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { getAuth } from 'firebase/auth'
 import AuthGate from '@/components/gates/AuthGate'
 
 export default function TelegramLoginPage() {
-  const params = useSearchParams()
-  const chatId = params.get('chatId') || ''
-  const username = params.get('username') || ''
   const [status, setStatus] = useState('Linking Telegram...')
 
   const linkTelegram = async () => {
     try {
       const token = await getAuth().currentUser!.getIdToken()
+      const params = new URLSearchParams(window.location.search)
+      const chatId = params.get('chatId') || ''
+      const username = params.get('username') || ''
+
       await fetch('/api/telegram/link', {
         method: 'POST',
         headers: {
