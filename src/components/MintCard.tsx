@@ -136,7 +136,7 @@ export default function MintCard() {
 
       await addXP(23 * quantity)
 
-      document.dispatchEvent(
+      window.dispatchEvent(
         new CustomEvent('openSplat', {
           detail: {
             quantity,
@@ -149,8 +149,8 @@ export default function MintCard() {
       setQuantity(1)
       setTxError('')
     } catch (err) {
-      const e = err as any
-      const msg = e?.shortMessage || e?.message || 'Transaction failed'
+      const e = err as Error & { shortMessage?: string }
+      const msg = e?.shortMessage || e.message || 'Transaction failed'
       setTxError(String(msg).split('\n')[0])
       console.error('Mint error:', err)
     }
@@ -205,7 +205,7 @@ export default function MintCard() {
           />
         </div>
         <div className='errorMessage'>
-          {(txError || error) && <p>{txError || (error?.message.split('\n')[0])}</p>}
+          {(txError || error) && <p>{txError || error?.message.split('\n')[0]}</p>}
           {refStatus === 'not_found' && <>User not found</>}
         </div>
       </div>
