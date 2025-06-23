@@ -562,20 +562,27 @@ input, textarea
     @apply text-[var(--green)]
     outline: 1px solid var(--color-mfr-yellow)
     text-shadow: 0 0 4px rgba(52,211,153,0.6)
-  &.changed
-    border-color: var(--color-mfr-yellow)
-    outline: 2px solid var(--color-mfr-yellow)
-  &.checking
-    border-color: var(--color-mfr-yellow)
-    animation: pulser 1s infinite alternate
-  &.success
-    border-color: var(--green-alt)
-    outline: 2px solid var(--green-alt)
-  &.error
-    border-color: var(--red)
-    outline: 2px solid var(--red)
   &::-webkit-calendar-picker-indicator
     filter: invert(1)
+
+.changed input
+  border-color: var(--color-mfr-yellow)
+  outline: 2px solid var(--color-mfr-yellow)
+.checking input
+  border-color: var(--color-mfr-yellow)
+  animation: pulser 1s infinite alternate
+.success
+  @apply relative
+  &:after
+    @apply absolute block top-[50%] right-[5px] w-[36px] h-[36px] mt-[-20px] bg-green-400 rounded-full
+    content: ""
+    background: url(../../public/assets/images/icons/icon-green_fiending-fathers.svg) no-repeat 50% 50% / auto 100%
+  input
+    border-color: var(--green-alt)
+    outline: 2px solid var(--green-alt)
+.error input
+  border-color: var(--red)
+  outline: 2px solid var(--red)
 
 // style the select dropdown control
 select
@@ -916,7 +923,7 @@ body
       @apply font-bold py-4 mb-2
     
   label, .label
-    @apply text-[14px] font-bold text-gray-400 mb-1
+    @apply text-[15px] font-bold text-gray-400 mb-1
     line-height: 1.2
     div
       @apply inline-block font-normal
@@ -937,7 +944,7 @@ body
       border-bottom-left-radius: 0
 
 .errorMessage
-  @apply text-[18px] px-2 bg-[var(--purple)] m-0 text-center text-[var(--green)] font-bold
+  @apply text-[18px] px-2 bg-[var(--purple)] mb-0 mt-2 text-center text-[var(--green)] font-bold
   text-shadow: 0 0 6px rgba(52,211,153,0.8)
   line-height: 20px
 

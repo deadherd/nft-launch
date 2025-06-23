@@ -31,14 +31,7 @@ export default function MintCard() {
   const [referral, setReferral] = useState('')
   const [refStatus, setRefStatus] = useState<'loading' | 'found' | 'not_found' | null>(null)
 
-  const referralClass =
-    refStatus === 'loading'
-      ? 'checking'
-      : refStatus === 'found'
-      ? 'success'
-      : refStatus === 'not_found'
-      ? 'error'
-      : ''
+  const referralClass = refStatus === 'loading' ? 'checking' : refStatus === 'found' ? 'success' : refStatus === 'not_found' ? 'error' : ''
 
   const sanitizeUsername = (value: string) => {
     let v = value.replace(/[-\s]+/g, '_').toLowerCase()
@@ -154,7 +147,6 @@ export default function MintCard() {
         <p className='priceBox'>{(Number(totalPrice) / 1e18).toFixed(2)}</p>
 
         <div className='gap-2 mb-4'>
-          <label className='block hidden'>How Many?</label>
           <div className='qtyRow'>
             <button type='button' onClick={decrease} disabled={quantity <= 1} className='px-3 bg-gray-700 border border-gray-600 rounded-l disabled:opacity-50'>
               -
@@ -183,19 +175,19 @@ export default function MintCard() {
         </button>
         {maxAllowed === 0 && <p className='errorMessage'>You hold max. (3) shells, baller.</p>}
         <hr />
-        <div className='tagBox'>
-          <label className='block hidden'>Tag a Connect?</label>
+        <div className={`tagBox ${referralClass}`}>
           <input
-            className={`w-full mb-0 ${referralClass}`}
+            className={`w-full mb-0`}
             type='text'
             value={referral}
             onChange={(e) => handleReferralChange(e.target.value)}
-            placeholder='Tag Your Connect'
+            placeholder='Tagbacks'
+            name='usertag'
           />
         </div>
         <div className='errorMessage'>
           {error && <p>Error: {error.message}</p>}
-          {refStatus === 'not_found' && <p>User not found</p>}
+          {refStatus === 'not_found' && <>User not found</>}
         </div>
       </div>
     </div>
