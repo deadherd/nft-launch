@@ -40,6 +40,11 @@ const Header: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [slideOpen, setSlideOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
+  const [purchaseInfo, setPurchaseInfo] = useState<{
+    quantity: number
+    amount: number
+    ids: string[]
+  } | null>(null)
   //const [circleVisible, setCircleVisible] = useState(true)
 
   // -- start: toggle tagline animation on logo click --
@@ -115,6 +120,35 @@ const Header: FC = () => {
     else document.body.classList.remove('open-profile')
   }, [profileOpen])
   // -- end menu toggles --
+
+  // -- start: listen for splat menu events --
+  useEffect(() => {
+    const openHandler = (e: Event) => {
+      const detail = (e as CustomEvent<{
+        quantity: number
+        amount: number
+        ids: string[]
+      }>).detail
+      setProfileOpen(false)
+      setMenuOpen(true)
+      setPurchaseInfo(detail)
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0
+        audioRef.current.play().catch(() => {})
+      }
+    }
+    const closeHandler = () => {
+      setMenuOpen(false)
+      setPurchaseInfo(null)
+    }
+    window.addEventListener('openSplat', openHandler)
+    window.addEventListener('closeSplat', closeHandler)
+    return () => {
+      window.removeEventListener('openSplat', openHandler)
+      window.removeEventListener('closeSplat', closeHandler)
+    }
+  }, [])
+  // -- end splat events --
 
   // -- start: open/close main menu with sound --
   {
@@ -205,7 +239,7 @@ const Header: FC = () => {
           <source src='/assets/audio/hit_splat.aac' type='audio/aac' />
         </audio>
 
-        <Menu />
+        <Menu purchaseInfo={purchaseInfo} />
       </header>
     </>
   )
