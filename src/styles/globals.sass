@@ -565,6 +565,15 @@ input, textarea
   &.changed
     border-color: var(--color-mfr-yellow)
     outline: 2px solid var(--color-mfr-yellow)
+  &.checking
+    border-color: var(--color-mfr-yellow)
+    animation: pulser 1s infinite alternate
+  &.success
+    border-color: var(--green-alt)
+    outline: 2px solid var(--green-alt)
+  &.error
+    border-color: var(--red)
+    outline: 2px solid var(--red)
   &::-webkit-calendar-picker-indicator
     filter: invert(1)
 
