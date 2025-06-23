@@ -2,7 +2,13 @@ import type { Config } from 'tailwindcss'
 
 const config: Config = {
   darkMode: 'class',
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}', './src/content/**/*.mdx', './src/**/*.{sass,scss}'],
+  content: [
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/layout/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/content/**/*.mdx',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/styles/**/*.{sass,scss}',
+  ],
   theme: {
     extend: {
       colors: {
@@ -15,6 +21,7 @@ const config: Config = {
           glow: 'var(--color-mfr-glow)',
           green: 'var(--color-mfr-green)',
           yellow: 'var(--color-mfr-yellow)',
+          purple: 'var(--color-mfr-purple)',
         },
       },
       fontFamily: {

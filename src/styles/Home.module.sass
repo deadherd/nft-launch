@@ -1,5 +1,7 @@
+@reference 'tailwindcss'
+
 .background
-  @apply absolute -z-1 -top-[20vw] left-[0] w-full
+  @apply absolute -z-1 -top-[20vw] left-0 w-full
   img
     @apply w-full
 
@@ -9,7 +11,7 @@
   &.bannerKitchen
     background: url("../../public/assets/images/dirty-kitchen-bg.jpg") no-repeat 50% 50%
   .dimmer
-    @apply absolute top-[0] left-[0] w-full h-full
+    @apply absolute top-[0] left-0 w-full h-full
     background: linear-gradient(0deg, var(--color-dark), rgba(0,0,0,0) 45%, #000)
   img.egg
     @apply relative z-[3] w-full h-auto max-w-[600px] max-h-[600px]
@@ -65,7 +67,7 @@
           @apply absolute top-[50%] left-[50%] z-10
           transform: translate(-50%, -50%)
   .silhouette
-    @apply absolute bottom-[0] md:bottom-[-10%] left-[0] w-full z-[4]
+    @apply absolute bottom-[0] md:bottom-[-10%] left-0 w-full z-[4]
     img
       @apply w-[160%] md:w-full max-w-[160%] md:max-w-full mx-[-30%] md:mx-[0] md:w-full
     &:after
@@ -93,7 +95,7 @@
 .alleyForeground
   @apply relative
 .alleySteam
-  @apply fixed top-[0] left-[0] w-full h-[150%] z-[99991] inset-0 flex items-center justify-center overflow-hidden mix-blend-lighten
+  @apply fixed top-[0] left-0 w-full h-[150%] z-[99991] inset-0 flex items-center justify-center overflow-hidden mix-blend-lighten
   pointer-events: none
   video
     @apply w-full h-full object-cover
@@ -159,7 +161,7 @@
 
 
 .spriteMap
-  @apply absolute w-full h-full z-[1] bottom-[0] left-[0]
+  @apply absolute w-full h-full z-[1] bottom-0 left-0
   background: url(../../public/assets/images/alley-foreground-bg-stacked-dump.jpg) no-repeat 0 100% / 100vw auto
   &.spriteBurrow
     @apply left-auto right-0 bottom-[23vw] w-[20vw] h-[20vw]
@@ -401,20 +403,20 @@
 .oegg
   @apply inline-block relative px-2
   &:after
-    @apply absolute block top-[0] left-[0] w-full h-full mt-[-5px]
+    @apply absolute block top-[0] left-0 w-full h-full mt-[-5px]
     content: ""
     user-select: none
     background: url(../../public/assets/images/oegg.png) no-repeat 50% 50%
     background-size: 108% auto
 
-//@screen sm
+//@variant sm
 
-@screen md
+@variant md
   .banner
     img.egg
       transform: translate(0, -5%)
 
-@screen lg
+@variant lg
   .steps
     @apply flex-row pb-16
     .step
