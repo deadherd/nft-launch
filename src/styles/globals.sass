@@ -96,6 +96,9 @@ body
   &.open-profile
     #profile
       @apply flex
+  &.index
+    header
+      @apply hidden
 p
   margin-bottom: 15px
 
@@ -895,10 +898,10 @@ body
 .mintModalWrapper
   @apply relative w-full max-w-[400px] rotate-[-1deg]
   .closeButton
-    @apply absolute top-[-24px] right-[-24px] w-[48px] h-[48px] flex items-center justify-center text-[var(--dark)] font-bold rounded-full bg-[var(--green)]
+    @apply absolute top-[24px] right-[-24px] w-[48px] h-[48px] flex items-center justify-center text-[var(--dark)] font-bold rounded-full bg-[var(--green)] z-[99999999]
 
 .mint-card
-  @apply bg-gray-800 w-full rounded-lg overflow-hidden
+  @apply bg-gray-800 w-full rounded-lg overflow-hidden relative 
   border: 1px solid var(--green)
   border-bottom-width: 3px
   .mint-image
@@ -934,6 +937,7 @@ body
     @apply mb-0 flex-1 rounded-none text-[28px] font-bold
   button
     @apply flex-0 min-w-[60px]
+    filter: brightness(40%)
     &:nth-child(1)
       border-top-left-radius: 0
       border-top-right-radius: 0
