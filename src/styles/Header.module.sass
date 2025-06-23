@@ -1,13 +1,13 @@
 .header
-  @apply w-full flex flex-nowrap items-center fixed bottom-0 right-0 z-[999999]
+  @apply w-full flex flex-nowrap items-center fixed bottom-[0] right-0 z-[999999]
   //backdrop-filter: blur(5px)
   &:after
-    @apply block absolute bottom-0 right-0 w-[100vw] h-[100px] z-[-1]
+    @apply block absolute bottom-[0] right-0 w-[100vw] h-[100px] z-[-1]
     pointer-events: none
     content: ""
     background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.8))
   &:before
-    @apply block absolute bottom-0 right-0 w-[300px] h-[300px] z-[-1]
+    @apply block absolute bottom-[0] right-0 w-[300px] h-[300px] z-[-1]
     pointer-events: none
     content: ""
     background: radial-gradient(circle at bottom right, #000, rgba(0,0,0,0) 50%)
@@ -92,7 +92,7 @@
     @apply hidden
 
 .sticker
-  @apply fixed bottom-0 rotate-[180deg] left-[0] z-[9999998] w-full h-[40px] bg-[var(--color-mfr-glow)] text-[var(--color-dark)] text-[22px] hidden
+  @apply fixed bottom-[0] rotate-[180deg] left-[0] z-[9999998] w-full h-[40px] bg-[var(--color-mfr-glow)] text-[var(--color-dark)] text-[22px] hidden
   background: url(../../public/assets/images/edge.svg) no-repeat 50% 50%
   background-size: 100% 100%
   font-family: "SKT"
