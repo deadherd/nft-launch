@@ -9,7 +9,7 @@ import { Web3Providers } from '@/layout/Providers/Web3Providers'
 import { MintModalProvider } from '@/layout/Providers/MintModalProvider'
 import ClientAppShell from '@/systems/runtime/ClientAppShell'
 import BodyClassManager from '@/systems/runtime/BodyClassManager'
-import { BreadcrumbProvider } from '@/layout/Providers/BreadcrumbProvider'
+import { ToastProvider } from '@/layout/Providers/ToastProvider'
 
 import '@/styles/globals.sass'
 import '@coinbase/onchainkit/styles.css'
@@ -46,14 +46,14 @@ export default function RootLayout({
         <Web3Providers>
           <AuthProvider>
             <MintModalProvider>
-              <BreadcrumbProvider>
+              <ToastProvider>
                 {/* -- runtime mgr -- */}
                 <ClientAppShell>
                   <Header />
                   <main>{children}</main>
                   <Footer />
                 </ClientAppShell>
-              </BreadcrumbProvider>
+              </ToastProvider>
             </MintModalProvider>
           </AuthProvider>
         </Web3Providers>
