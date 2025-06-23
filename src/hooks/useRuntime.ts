@@ -2,6 +2,8 @@
 
 // hooks/useRuntime.ts
 import { useLocationTracker } from '@/hooks/useLocationTracker'
+import { useActivityBreadcrumbs } from '@/hooks/useActivityBreadcrumbs'
+import { useGlobalPurchaseNotifications } from '@/hooks/useGlobalPurchaseNotifications'
 //import { useXPRewardManager } from '@/hooks/useXPRewardManager'
 //import { useQuestSystem } from '@/hooks/useQuestSystem'
 //import { useAnalyticsTracker } from '@/hooks/useAnalyticsTracker'
@@ -9,6 +11,8 @@ import { useLocationTracker } from '@/hooks/useLocationTracker'
 // Registry array of runtime managers (each is a hook function)
 const RuntimeManagers = [
   useLocationTracker,
+  useActivityBreadcrumbs,
+  useGlobalPurchaseNotifications,
   //useXPRewardManager,
   //useQuestSystem,
   //useAnalyticsTracker,
