@@ -865,7 +865,7 @@ body
   @apply mb-0
 
 .resetDate
-  @apply bg-[var(--green)] text-[var(--dark)] font-bold w-[42px] text-center rounded-sm
+  @apply bg-[var(--green)] text-[var(--dark)] font-bold basis-[42px] text-center rounded-sm
   line-height: 42px
 
 .mintModal
@@ -877,14 +877,24 @@ body
     background-size: 100% auto
 
 .mintModalWrapper
-  @apply relative
+  @apply relative w-full max-w-[400px] rotate-[-1deg]
+  .closeButton
+    @apply absolute top-[-24px] right-[-24px] w-[48px] h-[48px] flex items-center justify-center text-[var(--dark)] font-bold rounded-full bg-[var(--green)]
 
 .mint-card
-  @apply bg-gray-800 max-w-[400px] rounded-lg overflow-hidden p-4
+  @apply bg-gray-800 w-full rounded-lg overflow-hidden
   border: 1px solid var(--green)
   border-bottom-width: 3px
+  .mint-image
+    @apply block min-h-[300px] mb-4 text-center p-4 text-[#fff] text-[15px]
+    text-shadow: 0 1px 3px rgba(0,0,0,.4)
+    background: url(../../public/assets/images/nft.jpg) no-repeat 50% 50% / cover
+  .mint-content
+    @apply px-3 pb-3
+  hr
+    @apply mt-1 mb-3
   img
-    @apply rounded-md mb-[20px]
+    @apply rounded-md mb-[20px] w-full h-auto
   button
     @apply w-full bg-[var(--green)] text-[var(--dark)] text-center py-2 rounded-md
     border: 1px solid var(--green-alt)
@@ -893,6 +903,9 @@ body
     font-weight: 500
     &:disabled
       @apply opacity-[.4]
+    &.mintButton
+      @apply font-bold py-4 mb-2
+    
   label, .label
     @apply text-[14px] font-bold text-gray-400 mb-1
     line-height: 1.2
@@ -915,12 +928,15 @@ body
       border-bottom-left-radius: 0
 
 .errorMessage
-  @apply text-[18px] px-2 pt-4 bg-[var(--purple)] m-0 text-center text-[var(--green)] font-bold
+  @apply text-[18px] px-2 bg-[var(--purple)] m-0 text-center text-[var(--green)] font-bold
   text-shadow: 0 0 6px rgba(52,211,153,0.8)
   line-height: 20px
 
-.mintButton
-  @apply font-bold
+
+.tagBox
+  @apply w-full
+  input
+    @apply mb-0
 
 .priceBox
   @apply text-[28px] font-bold relative flex items-center justify-center gap-[8px] w-full py-4 bg-gray-900 rounded-md mb-0
