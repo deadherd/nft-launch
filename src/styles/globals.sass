@@ -964,3 +964,11 @@ body
     content: ""
     border: 1px solid var(--green-alt)
     border-bottom-width: 3px
+
+// -- start: purchase success overlay --
+.purchaseSuccess
+  @apply fixed inset-0 flex items-center justify-center bg-black/80 z-[1000]
+  .successBox
+    @apply carbboard bg-gray-800 text-center p-4
+    button.closeButton
+      @apply bg-[var(--green)] text-[var(--dark)] px-4 py-2 rounded-md

@@ -15,6 +15,7 @@ import { getNextPurchaseId } from '@/lib/purchaseCounter'
 import useNftCount from '@/hooks/useNftCount'
 //import Image from 'next/image'
 import CountdownTimer from './CountdownTimer'
+import { useMintModal } from '@/layout/Providers/MintModalProvider'
 
 export default function MintCard() {
   const proxyAddress = '0x2e51a8FdC067e415CFD5d00b9add5C6Af72d676c'
@@ -27,6 +28,8 @@ export default function MintCard() {
   const addXP = useAddExperience(user)
   const { count } = useNftCount()
   const maxAllowed = Math.max(0, 3 - count)
+  const { close } = useMintModal()
+  const [txError, setTxError] = useState('')
 
   const [referral, setReferral] = useState('')
   const [refStatus, setRefStatus] = useState<'loading' | 'found' | 'not_found' | null>(null)
@@ -132,7 +135,23 @@ export default function MintCard() {
       })
 
       await addXP(23 * quantity)
+
+      document.dispatchEvent(
+        new CustomEvent('openSplat', {
+          detail: {
+            quantity,
+            amount: Number(totalPrice) / 1e18,
+            ids,
+          },
+        })
+      )
+      close()
+      setQuantity(1)
+      setTxError('')
     } catch (err) {
+      const e = err as any
+      const msg = e?.shortMessage || e?.message || 'Transaction failed'
+      setTxError(String(msg).split('\n')[0])
       console.error('Mint error:', err)
     }
   }
@@ -186,7 +205,7 @@ export default function MintCard() {
           />
         </div>
         <div className='errorMessage'>
-          {error && <p>Error: {error.message}</p>}
+          {(txError || error) && <p>{txError || (error?.message.split('\n')[0])}</p>}
           {refStatus === 'not_found' && <>User not found</>}
         </div>
       </div>
