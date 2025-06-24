@@ -41,14 +41,11 @@ if (!getApps().length) {
 
 const db = getFirestore()
 
-async function sendMessage(chatId, text, replyMarkup = null) {
-  const payload = { chat_id: chatId, text }
-  if (replyMarkup) payload.reply_markup = replyMarkup
-
+async function sendMessage(chatId, text) {
   await fetch(`${API}/sendMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({ chat_id: chatId, text }),
   })
 }
 
@@ -65,17 +62,11 @@ async function handleUpdate(update) {
   if (text === '/login') {
     const existing = await findUserByChatId(msg.from.id)
     if (existing) {
-      return sendMessage(msg.chat.id, 'Your Telegram is already connected to the site.')
+      await sendMessage(msg.chat.id, 'Your Telegram is already connected to the site.')
+      return
     }
-
     const link = `${APP_URL}/telegram/login?chatId=${msg.from.id}&username=${encodeURIComponent(msg.from.username || '')}`
-
-    // build an inline keyboard with a single “Login” button
-    const keyboard = {
-      inline_keyboard: [[{ text: '🔑 Connect your account', url: link }]],
-    }
-
-    await sendMessage(msg.chat.id, 'Tap the button below to connect your account:', keyboard)
+    await sendMessage(msg.chat.id, `Open this link to connect your account:\n${link}`)
   }
 
   if (text === '/logout') {
