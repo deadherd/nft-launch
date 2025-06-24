@@ -26,8 +26,6 @@ const config: Config = {
       },
       fontFamily: {
         regular: ['dm sans', 'sans serif'],
-        title: ['Covered By Your Grace', 'sans serif'],
-        mfr: ['SKT', 'Covered By Your Grace', 'sans serif'],
       },
     },
   },
