@@ -190,6 +190,7 @@ export default function MintCard() {
           {isPending ? 'Minting...' : `Mint x${quantity}`}
         </button>
         {maxAllowed === 0 && <p className='errorMessage'>You hold max. (3) shells, baller.</p>}
+        {(txError || error) && <p className='errorMessage'>{txError || error?.message.split('\n')[0]}</p>}
         <hr />
         <div className={`tagBox ${referralClass}`}>
           <input
@@ -201,10 +202,7 @@ export default function MintCard() {
             name='usertag'
           />
         </div>
-        <div className='errorMessage'>
-          {(txError || error) && <p>{txError || error?.message.split('\n')[0]}</p>}
-          {refStatus === 'not_found' && <>User not found</>}
-        </div>
+        <div className='errorMessage'>{refStatus === 'not_found' && <>User not found</>}</div>
       </div>
     </div>
   )

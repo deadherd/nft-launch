@@ -182,8 +182,48 @@ If you encounter `FirebaseError: Missing or insufficient permissions`, check you
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
+
+    // Public profiles
+    match /profiles/{username} {
+      allow read: if true;
+      allow write: if request.auth != null &&
+                    request.auth.uid == request.resource.data.uid &&
+                    request.resource.data.username == username &&
+                    username.size() >= 5;
+    }
+
+    // User documents and their subcollections
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      // Purchases are readable by any signed-in user for global notifications
+      match /purchases/{purchaseId} {
+        allow read: if request.auth != null;
+        allow write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // Activity logs are public on profile pages
+      match /activity/{activityId} {
+        allow read: if true;
+        allow write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // Other subcollections (e.g., locations) remain private
+      match /{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Global purchase counter used by the mint page
+    match /meta/purchaseCounter {
       allow read, write: if request.auth != null;
+    }
+
+    // Lore entries (editable by authenticated authors)
+    match /lore/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null &&
+                    request.auth.uid == request.resource.data.authorId;
     }
   }
 }
