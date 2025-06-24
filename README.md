@@ -196,10 +196,9 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
 
-      // Purchases are readable by any signed-in user for global notifications
+      // Purchases are private to each user
       match /purchases/{purchaseId} {
-        allow read: if request.auth != null;
-        allow write: if request.auth != null && request.auth.uid == userId;
+        allow read, write: if request.auth != null && request.auth.uid == userId;
       }
 
       // Activity logs are public on profile pages
@@ -214,10 +213,6 @@ service cloud.firestore {
       }
     }
 
-    // Global purchase counter used by the mint page
-    match /meta/purchaseCounter {
-      allow read, write: if request.auth != null;
-    }
 
     // Lore entries (editable by authenticated authors)
     match /lore/{docId} {
