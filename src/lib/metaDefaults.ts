@@ -18,7 +18,7 @@ export const defaultMetadata: Metadata = {
     siteName: 'Made for Rats',
     images: [
       {
-        url: 'https://maderats.com/og-image.jpg',
+        url: 'https://maderats.com/assets/images/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Made for Rats - New Yolk City',
@@ -33,7 +33,7 @@ export const defaultMetadata: Metadata = {
     description: "You're either family... or breakfast.",
     site: '@MadeForRats',
     creator: '@MadeForRats',
-    images: ['https://maderats.com/og-image.jpg'],
+    images: ['https://maderats.com/assets/images/og-image.jpg'],
   },
   category: 'game',
 }
