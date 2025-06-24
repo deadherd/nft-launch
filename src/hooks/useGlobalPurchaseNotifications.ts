@@ -9,6 +9,7 @@ import {
 import { useEffect, useRef } from "react";
 import { db } from "@/lib/firebaseClient";
 import { useToasts } from "@/layout/Providers/ToastProvider";
+import useAuthUser from "@/hooks/useAuthUser";
 import type { TimestampLike } from "@/utils/getTime";
 import { getTime } from "@/utils/getTime";
 
@@ -21,10 +22,12 @@ interface PurchaseDoc {
 
 export function useGlobalPurchaseNotifications() {
   const { addToast } = useToasts();
+  const { user } = useAuthUser();
   const initialized = useRef(false);
   const lastSeen = useRef(0);
 
   useEffect(() => {
+    if (!user) return;
     const q = query(
       collectionGroup(db, "purchases"),
       orderBy("createdAt", "desc"),
@@ -58,5 +61,5 @@ export function useGlobalPurchaseNotifications() {
     );
 
     return () => unsub();
-  }, [addToast]);
+  }, [addToast, user]);
 }
