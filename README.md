@@ -168,7 +168,7 @@ npm run dev
 
 ## Telegram Bot
 
-A bot can listen for the `/login` command and send users to `/telegram/login`. Provide `TELEGRAM_BOT_TOKEN` in your environment and optionally `TELEGRAM_GROUP_ID` to update titles in a group.
+A bot can listen for the `/login` command and send users to `/telegram/login`. Provide `TELEGRAM_BOT_TOKEN` in your environment and optionally `TELEGRAM_GROUP_ID` to update titles in a group. When a user links their Telegram account the bot now sends them a confirmation message and, if they already have a username on the site, updates their display name in the configured group.
 
 ## Troubleshooting
 
