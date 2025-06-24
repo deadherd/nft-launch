@@ -10,7 +10,7 @@ if (!TOKEN) {
 const API = `https://api.telegram.org/bot${TOKEN}`
 // Use a sensible default when NEXT_PUBLIC_APP_URL is not provided so the
 // login link works during local development.
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://localhost:3000'
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 
 // Firebase Admin setup for tracking linked users
 import { initializeApp, cert, getApps } from 'firebase-admin/app'
@@ -41,11 +41,14 @@ if (!getApps().length) {
 
 const db = getFirestore()
 
-async function sendMessage(chatId, text) {
+async function sendMessage(chatId, text, replyMarkup = null) {
+  const payload = { chat_id: chatId, text }
+  if (replyMarkup) payload.reply_markup = replyMarkup
+
   await fetch(`${API}/sendMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text }),
+    body: JSON.stringify(payload),
   })
 }
 
@@ -62,11 +65,17 @@ async function handleUpdate(update) {
   if (text === '/login') {
     const existing = await findUserByChatId(msg.from.id)
     if (existing) {
-      await sendMessage(msg.chat.id, 'Your Telegram is already connected to the site.')
-      return
+      return sendMessage(msg.chat.id, 'Your Telegram is already connected to the site.')
     }
+
     const link = `${APP_URL}/telegram/login?chatId=${msg.from.id}&username=${encodeURIComponent(msg.from.username || '')}`
-    await sendMessage(msg.chat.id, `Open this link to connect your account:\n${link}`)
+
+    // build an inline keyboard with a single “Login” button
+    const keyboard = {
+      inline_keyboard: [[{ text: '🔑 Connect your account', url: link }]],
+    }
+
+    await sendMessage(msg.chat.id, 'Tap the button below to connect your account:', keyboard)
   }
 
   if (text === '/logout') {
