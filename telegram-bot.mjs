@@ -1,5 +1,5 @@
 // Simple Telegram bot using long polling
-// Run with: node telegram-bot.js
+// Run with: node telegram-bot.mjs
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN
 if (!TOKEN) {
@@ -11,12 +11,12 @@ const API = `https://api.telegram.org/bot${TOKEN}`
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || ''
 
 // Firebase Admin setup for tracking linked users
-const {
+import {
   initializeApp,
   cert,
   getApps,
-} = require('firebase-admin/app')
-const { getFirestore, FieldValue } = require('firebase-admin/firestore')
+} from 'firebase-admin/app'
+import { getFirestore, FieldValue } from 'firebase-admin/firestore'
 
 function normalizeKey(value) {
   const replaced = value.replace(/\\n/g, '\n')
