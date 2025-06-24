@@ -5,7 +5,7 @@ import { env } from '@/lib/env'
 const TELEGRAM_API = `https://api.telegram.org/bot${env.telegram.botToken}`
 const GROUP_ID = env.telegram.groupId
 
-async function updateNickname(chatId: string, usertag: string, level: number) {
+async function updateDisplayName(chatId: string, username: string) {
   if (!GROUP_ID) return
   try {
     await fetch(`${TELEGRAM_API}/setChatAdministratorCustomTitle`, {
@@ -14,8 +14,20 @@ async function updateNickname(chatId: string, usertag: string, level: number) {
       body: JSON.stringify({
         chat_id: GROUP_ID,
         user_id: chatId,
-        custom_title: `${usertag} (${level})`,
+        custom_title: username,
       }),
+    })
+  } catch (err) {
+    console.error('[TELEGRAM]', err)
+  }
+}
+
+async function sendTelegramMessage(chatId: string, text: string) {
+  try {
+    await fetch(`${TELEGRAM_API}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text }),
     })
   } catch (err) {
     console.error('[TELEGRAM]', err)
@@ -55,9 +67,10 @@ export async function POST(req: NextRequest) {
     )
 
     if (user.username) {
-      const level = user.level ?? 1
-      await updateNickname(chatId, user.username, level)
+      await updateDisplayName(chatId, user.username)
     }
+
+    await sendTelegramMessage(chatId, 'You are now connected to the site.')
 
     return NextResponse.json({ success: true })
   } catch (err) {
