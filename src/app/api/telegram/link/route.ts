@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth, dbAdmin } from '@/lib/firebaseAdmin'
+import { env } from '@/lib/env'
 
-const TELEGRAM_API = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}`
-const GROUP_ID = process.env.TELEGRAM_GROUP_ID
+const TELEGRAM_API = `https://api.telegram.org/bot${env.telegram.botToken}`
+const GROUP_ID = env.telegram.groupId
 
 async function updateNickname(chatId: string, usertag: string, level: number) {
   if (!GROUP_ID) return
