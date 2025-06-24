@@ -35,10 +35,5 @@ export const defaultMetadata: Metadata = {
     creator: '@MadeForRats',
     images: ['https://maderats.com/og-image.jpg'],
   },
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
-  },
   category: 'game',
 }
