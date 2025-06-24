@@ -17,7 +17,7 @@ if (!getApps().length) {
       clientEmail: assertEnv('FIREBASE_CLIENT_EMAIL', process.env.FIREBASE_CLIENT_EMAIL),
       privateKey: (() => {
         const key = assertEnv('FIREBASE_PRIVATE_KEY', process.env.FIREBASE_PRIVATE_KEY)
-        const normalized = key.replace(/\\n/g, '\n')
+        const normalized = key //.replace(/\\n/g, '\n')
         return normalized.includes('BEGIN') ? normalized : Buffer.from(normalized, 'base64').toString('utf8')
       })(),
     }),
