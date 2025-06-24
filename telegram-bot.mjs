@@ -11,18 +11,12 @@ const API = `https://api.telegram.org/bot${TOKEN}`
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || ''
 
 // Firebase Admin setup for tracking linked users
-import {
-  initializeApp,
-  cert,
-  getApps,
-} from 'firebase-admin/app'
+import { initializeApp, cert, getApps } from 'firebase-admin/app'
 import { getFirestore, FieldValue } from 'firebase-admin/firestore'
 
 function normalizeKey(value) {
   const replaced = value.replace(/\\n/g, '\n')
-  return replaced.includes('BEGIN')
-    ? replaced
-    : Buffer.from(replaced, 'base64').toString('utf8')
+  return replaced.includes('BEGIN') ? replaced : Buffer.from(replaced, 'base64').toString('utf8')
 }
 
 function assertEnv(name, value) {
@@ -79,10 +73,7 @@ async function handleUpdate(update) {
       await sendMessage(msg.chat.id, 'No linked account found.')
       return
     }
-    await db
-      .collection('users')
-      .doc(existing.id)
-      .update({ telegramChatId: FieldValue.delete(), telegramUsername: FieldValue.delete() })
+    await db.collection('users').doc(existing.id).update({ telegramChatId: FieldValue.delete(), telegramUsername: FieldValue.delete() })
     await sendMessage(msg.chat.id, 'Your Telegram account has been disconnected.')
   }
 }
