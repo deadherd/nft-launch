@@ -8,7 +8,9 @@ if (!TOKEN) {
 }
 
 const API = `https://api.telegram.org/bot${TOKEN}`
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || ''
+// Use a sensible default when NEXT_PUBLIC_APP_URL is not provided so the
+// login link works during local development.
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://localhost:3000'
 
 // Firebase Admin setup for tracking linked users
 import { initializeApp, cert, getApps } from 'firebase-admin/app'
