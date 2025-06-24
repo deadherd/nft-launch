@@ -6,6 +6,8 @@ import FlyoutMenu from '@/components/FlyoutMenu'
 import { useAudioController } from '@/systems/runtime/AudioProvider'
 import IconAudio from '@images/icons/png64/sound64.png'
 import IconMute from '@images/icons/png64/mute64.png'
+import IconTelegram from '@images/icons/png/telegram_128.png'
+import Link from 'next/link'
 
 // -- start: footer w/ expanding radial flyout menu --
 export default function Footer() {
@@ -32,6 +34,9 @@ export default function Footer() {
           <button onClick={toggleAudio}>
             <Image src={`${isAudioOn ? IconAudio.src : IconMute.src}`} width='32' height='32' alt='Audio' />
           </button>
+          <Link href='https://t.me/maderats' target='_blank'>
+            <Image src={IconTelegram.src} width='32' height='32' alt='TG' />
+          </Link>
         </div>
 
         <FlyoutMenu corner='top-right' />
