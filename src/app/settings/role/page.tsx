@@ -119,6 +119,16 @@ export default function RoleSettingsPage() {
     }
   }
 
+  const handleTweet = () => {
+    if (!username) return
+    const origin = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
+    const url = `${origin}/assets/images/rathed.svg`
+    const text = `I just set my role as ${ratType} on Made for Rats!`
+    const shareUrl =
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}&via=${username}`
+    window.open(shareUrl, '_blank')
+  }
+
   const hasChanges = ratType !== originalRatType || secondaryRatType !== originalSecondaryRatType
 
   if (loading)
@@ -179,6 +189,7 @@ export default function RoleSettingsPage() {
           <button onClick={handleSave} disabled={loading || !hasChanges} className={`button ${!hasChanges ? 'disabled' : ''}`}>
             Save
           </button>
+          <button type='button' onClick={handleTweet} className='button'>Tweet Role</button>
         </div>
 
         {message && <p className='formnote'>{message}</p>}
