@@ -88,4 +88,9 @@ export const RouteRegistry: RouteEntry[] = [
     bodyClass: 'lorebook',
     metaTitle: 'Lorebook',
   },
+  {
+    path: '/lore/book/manage',
+    bodyClass: 'lorebook',
+    metaTitle: 'Manage Lore',
+  },
 ]
