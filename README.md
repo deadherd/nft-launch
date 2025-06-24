@@ -2,7 +2,9 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies with `npm install` (or `yarn`, `pnpm`, etc.) before running the dev server.
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -122,6 +124,15 @@ Ensures the connected user has visited a location before showing the content.
 
 Create a `.env.local` file in the project root and provide the following keys:
 
+- `NEXT_PUBLIC_FIREBASE_*` - Firebase client configuration
+- `NEXT_PUBLIC_ONCHAINKIT_API_KEY` - OnchainKit API key
+- `NEXT_PUBLIC_ALCHEMY_KEY` - Alchemy key for Base network
+- `NEXT_PUBLIC_APP_URL` - public URL of your site for sign-in links
+- `FIREBASE_*` - Firebase Admin service account credentials (private key may include newlines)
+- `TELEGRAM_BOT_TOKEN` - token for your Telegram bot
+- `TELEGRAM_GROUP_ID` - optional group chat ID for nickname updates
+
+
 ```bash
 NEXT_PUBLIC_FIREBASE_API_KEY=...
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
@@ -155,15 +166,10 @@ To start the app locally:
 npm run dev
 ```
 
-To start the Telegram bot:
-
-```bash
-node telegram-bot.js
-```
 
 ## Telegram Bot
 
-Use `/login` in Telegram to receive a link that will connect your Telegram account to your profile. The bot uses long polling and requires `TELEGRAM_BOT_TOKEN` in your environment. Optionally set `TELEGRAM_GROUP_ID` if you want the bot to update user titles in a group.
+A bot can listen for the `/login` command and send users to `/telegram/login`. Provide `TELEGRAM_BOT_TOKEN` in your environment and optionally `TELEGRAM_GROUP_ID` to update titles in a group.
 
 
 ## Troubleshooting
