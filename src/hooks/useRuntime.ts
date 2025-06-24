@@ -3,7 +3,6 @@
 // hooks/useRuntime.ts
 import { useLocationTracker } from '@/hooks/useLocationTracker'
 import { useActivityToasts } from '@/hooks/useActivityToasts'
-import { useGlobalPurchaseNotifications } from '@/hooks/useGlobalPurchaseNotifications'
 //import { useXPRewardManager } from '@/hooks/useXPRewardManager'
 //import { useQuestSystem } from '@/hooks/useQuestSystem'
 //import { useAnalyticsTracker } from '@/hooks/useAnalyticsTracker'
@@ -12,7 +11,6 @@ import { useGlobalPurchaseNotifications } from '@/hooks/useGlobalPurchaseNotific
 const RuntimeManagers = [
   useLocationTracker,
   useActivityToasts,
-  useGlobalPurchaseNotifications,
   //useXPRewardManager,
   //useQuestSystem,
   //useAnalyticsTracker,

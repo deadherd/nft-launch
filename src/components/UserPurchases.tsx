@@ -48,9 +48,7 @@ const UserPurchases: FC<Props> = ({ uid }) => {
           {filtered.map((p) => (
             <li key={p.id} className='py-[2px] px-[10px]'>
               <p className='text-sm'>
-                <b>
-                  #{p.purchaseId ?? '–'} – Copped x{p.quantity} Shell{p.quantity > 1 ? 's' : ''}
-                </b>{' '}
+                <b>Copped x{p.quantity} Shell{p.quantity > 1 ? 's' : ''}</b>{' '}
                 for{' '}
                 <Link href={`https://basescan.org/tx/${p.txHash}`} target='_blank'>
                   {p.amount} ETH

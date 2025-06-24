@@ -11,7 +11,6 @@ import { useAddExperience } from '@/hooks/useAddExperience'
 import { logActivity } from '@/lib/logActivity'
 import { db } from '@/lib/firebaseClient'
 import { addDoc, collection, serverTimestamp, doc, updateDoc, increment, getDoc } from 'firebase/firestore'
-import { getNextPurchaseId } from '@/lib/purchaseCounter'
 import useNftCount from '@/hooks/useNftCount'
 //import Image from 'next/image'
 import CountdownTimer from './CountdownTimer'
@@ -105,15 +104,12 @@ export default function MintCard() {
         } catch {}
       }
 
-      const purchaseId = await getNextPurchaseId()
-
       await addDoc(collection(db, 'users', user.uid, 'purchases'), {
         amount: Number(totalPrice) / 1e18,
         quantity,
         nftIds: ids,
         txHash: hash,
         createdAt: serverTimestamp(),
-        purchaseId,
         tagback: referral && refStatus === 'found' ? referral : null,
       })
 
