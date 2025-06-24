@@ -2,14 +2,14 @@
 @use "./theme"
 
 @font-face
-  font-family: 'SKT'
+  font-family: var(--font-skt)
   src: url('/assets/fonts/SKTANDDESTROY.woff2') format('woff2'), url('/assets/fonts/SKTANDDESTROY.woff') format('woff')
   font-weight: normal
   font-style: normal
 
 @font-face
-  font-family: 'Instant Karma'
-  src: url('/assets/fonts/bleedcry.woff2') format('woff2'), url('/assets/fonts/bleedcry.woff') format('woff')
+  font-family: 'Bleedcry'
+  src: url('/assets/fonts/Bleedcry.woff2') format('woff2'), url('/assets/fonts/Bleedcry.woff') format('woff')
   font-weight: normal
   font-style: normal
 
@@ -73,7 +73,7 @@ body
   @apply pt-[140px]
   background: var(--background)
   color: var(--foreground)
-  font-family: "DM Sans", sans-serif
+  font-family: var(--font-dm-sans), sans-serif
   font-size: 20px
   line-height: 28px
   overflow-x: hidden
@@ -121,7 +121,7 @@ code, .carbboard
   line-height: 22px
   background: url(../../public/assets/images/cardboard-pattern.jpg) 0 0
   background-size: 100% auto
-  font-family: "DM Mono"  
+  font-family: var(--font-dm-mono)  
 
 p code
   @apply py-[0] px-[2px] mx-[2px] mb-[0]
@@ -132,7 +132,7 @@ blockquote
   font-weight: bold
   background: url(../../public/assets/images/block-middle.jpg) 0 0
   background-size: auto 100%
-  font-family: "DM Mono"
+  font-family: var(--font-dm-mono)
   a
     @apply text-[var(--green-alt)]
   &:before
@@ -180,7 +180,7 @@ hr
       background-size: 100% auto
 
 h1,h2
-  font-family: "SKT"
+  font-family: var(--font-skt)
   margin-bottom: 20px
   color: #fff
   letter-spacing: 0.02em
@@ -201,7 +201,7 @@ h1,h2
     transform: skew(10deg, 0)
 
 h3,h4,h5
-  font-family: "Instant Karma"
+  font-family: var(--font-bleedcry)
   margin-bottom: 10px
   color: var(--color-mfr-glow)
   letter-spacing: 0.02em
@@ -225,7 +225,7 @@ section
   @apply fixed flex overflow-hidden items-center justify-center w-full h-[0] bottom-[0] left-0 z-[993] text-[8vw] lg:text-[54px] text-[var(--color-dark)]
   a
     @apply px-8 py-3 flex flex items-center justify-center text-center text-[var(--color-dark)]
-    font-family: "SKT"
+    font-family: var(--font-skt)
     letter-spacing: 0.01em
     text-decoration: none!important
     img
@@ -420,7 +420,7 @@ button
 
   
 h2.ock-font-family
-  font-family: "SKT"
+  font-family: var(--font-skt)
   font-weight: normal
   font-size: 24px
 
@@ -485,7 +485,7 @@ h2.ock-font-family
 
 .ock-connect
   @apply bg-transparent relative transition-all duration-300 w-[140px] h-[140px] min-w-[140px] p-0 text-[24px] bottom-[-7px] right-[-20px] z-[2]
-  font-family: "SKT"
+  font-family: var(--font-skt)
   letter-spacing: 0.07em
   line-height: 1.1
   color: transparent
@@ -554,7 +554,7 @@ form
     & > span
       @apply text-[24px] text-[#fff]
       letter-spacing: .03em
-      font-family: "Instant Karma"
+      font-family: var(--font-bleedcry)
 
 // style inputs, selects, textareas
 input, textarea
@@ -629,7 +629,7 @@ select::placeholder
 
 footer.upside
   @apply fixed top-[0] left-0 w-full z-[99997] pt-[34px] pl-[30px] pr-[95px] flex items-start justify-between
-  font-family: "Instant Karma"
+  font-family: var(--font-bleedcry)
   .navMenu
     @apply flex items-center justify-end
     a, button
@@ -701,12 +701,12 @@ footer.upside
 .svgTitle
   @apply text-[9px] uppercase text-[#fff]
   letter-spacing: .1em
-  font-family: "DM Sans"
+  font-family: var(--font-dm-sans)
   font-weight: bold
 
 .svgText
   @apply text-[24px]
-  font-family: "Instant Karma"
+  font-family: var(--font-bleedcry)
 
 #mfrAmountDecimal
   @apply inline-block text-[50%] pl-[4px]
@@ -720,7 +720,7 @@ footer.upside
 
 .preTitle
   @apply inline-block text-[1.8vw] tracking-wide mb-[2vw] rotate-[-4deg] ml-[-1vw] text-[var(--color-mfr-glow)]
-  font-family: "SKT"
+  font-family: var(--font-skt)
   text-shadow: 0 2px 0 var(--color-dark)
   letter-spacing: 0.06em
 
@@ -736,7 +736,7 @@ footer.upside
   text-shadow: 0 2px 0 var(--color-dark)!important
   animation: pulser 1s infinite alternate ease-in-out
   transform-origin: 0 100%
-  font-family: "Instant Karma"
+  font-family: var(--font-bleedcry)
   font-weight: normal
 
 @keyframes pulser
@@ -773,7 +773,7 @@ a.dd-link
 .button
   @apply text-[var(--color-dark)] min-w-[180px] text-[32px] py-[10px] px-[15px]
   background: transparent url(../../public/assets/images/sq-button-yellow.svg) no-repeat 50% 50% / 100% 100%
-  font-family: "SKT"
+  font-family: var(--font-skt)
   letter-spacing: 0.03em
   transition: scale .3s
   &:hover, &:active
@@ -806,7 +806,7 @@ form
     @apply absolute right-[5px] top-[-30px] flex items-center justify-between
     a
       @apply text-[16px]
-      font-family: "DM Sans"
+      font-family: var(--font-dm-sans)
       font-weight: medium
       letter-spacing: 0
       text-decoration: none
@@ -833,7 +833,7 @@ p.formnote
     @apply mb-0
   .xp
     @apply text-2xl
-    font-family: "Instant Karma"
+    font-family: var(--font-bleedcry)
     line-height: 1
 
 .xpPill
@@ -850,7 +850,7 @@ p.formnote
   @apply bg-[#1e2939] text-[var(--color-mfr-glow)] font-bold tracking-tighter p-4 rounded-md rotate-[-2deg] text-[18px]
   border: 1px solid var(--color-mfr-glow)
   border-bottom-width: 3px
-  font-family: "DM Sans"
+  font-family: var(--font-dm-sans)
   text-shadow: 0 0 6px rgba(52,211,153,0.8)
   
 
@@ -981,7 +981,7 @@ body
       border: 2px solid var(--dark)
       border-bottom-width: 4px
     p
-      font-family: "Instant Karma"
+      font-family: var(--font-bleedcry)
     button.closeButton
       @apply bg-gray-800 text-[var(--green)] px-4 py-2 rounded-md text-[15px] font-medium
       border: 1px solid var(--dark)

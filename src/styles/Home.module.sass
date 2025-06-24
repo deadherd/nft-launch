@@ -23,7 +23,7 @@
     transform: translateY(-50%)
     a, button.buyNow
       @apply relative w-[200px] md:w-[45vw] lg:w-[35vw] transition transition-transform text-center text-[#fff] text-[60px] md:text-[11vw]
-      font-family: "SKT"
+      font-family: var(--font-skt)
       line-height: 1.1
       text-decoration: none!important
       letter-spacing: 0.03em
@@ -120,7 +120,7 @@
   @apply w-full max-w-[90vw] md:max-w-[52vw] mx-auto absolute left-[5vw] md:left-[40vw] top-[20vw] z-[99] text-[4.5vw]
   line-height: .9
   //transform: translateX(-50%)
-  font-family: "Instant Karma"
+  font-family: var(--font-bleedcry)
   p
     text-shadow: 0 4px 0 var(--color-dark), 0 2px 16px rgba(0,0,0,1), 0 2px 8px rgba(0,0,0,1)
   hr
@@ -129,7 +129,7 @@
     @apply text-[6vw]
     b
       @apply inline-block ml-[-0.12em] pr-[0.06em] relative
-      font-family: "Instant Karma"
+      font-family: var(--font-bleedcry)
     span
       @apply text-[var(--color-mfr-glow)]
   p, h2
@@ -176,7 +176,7 @@
 .feature
   @apply absolute text-[#fff] text-[4vw] z-[10]
   line-height: 1
-  font-family: "SKT"
+  font-family: var(--font-skt)
   letter-spacing: 0.03em
   text-shadow: 0 4px 0 var(--color-dark)
   text-decoration: none!important
@@ -192,7 +192,7 @@
   .caption
     @apply text-[.4em] absolute top-[50%] left-[50%] text-center text-[var(--color-mfr-glow)] px-[.26em] py-[.8em] rotate-[-5deg] mt-[-.2em]
     //background-color: rgba(0,0,0,.5)
-    font-family: "Instant Karma"
+    font-family: var(--font-bleedcry)
     transform: translate(-50%, -50%)
     letter-spacing: -0.03em
     text-shadow: 0 2px 0 var(--color-dark), -2px 2px 0 var(--color-dark), 2px 2px 0 var(--color-dark), 0 -2px 0 var(--color-dark), 0 3px 5px rgba(0,0,0,1)
@@ -255,7 +255,7 @@
   box-shadow: 0 .13em .26em rgba(0,0,0,.4),  0 .13em 0 #32932f
   transition: background-color 0.3s, color 0.3s
   letter-spacing: -0.03em
-  font-family: "Instant Karma"
+  font-family: var(--font-bleedcry)
   white-space: nowrap
   span
     @apply h-[.8em] inline-block pt-[.13em]
@@ -301,7 +301,7 @@
 
 .biglink
   @apply relative mb-12 py-[18px] px-[24px] transition-all flex items-center text-[var(--color-dark)] text-[60px] bg-[var(--green-alt)] rounded-lg
-  font-family: "SKT"
+  font-family: var(--font-skt)
   //text-shadow: 0 4px 0px var(--color-dark)
   letter-spacing: 0.02em
   transition: color .3s transform .3s
@@ -342,7 +342,7 @@
   @apply block relative flex flex-col items-center justify-center text-center pb-12 pt-24 z-[5]
   background: url(../../public/assets/images/rathead-glow-red.svg) no-repeat 60vw 10vw
   background-size: 35vw auto
-  font-family: "Instant Karma"
+  font-family: var(--font-bleedcry)
   h2
     @apply rotate-[-2deg] text-[12vw] md:text-[8vw] pb-[2vw]
     line-height: 1
@@ -365,7 +365,7 @@
     @apply max-w-[90vw] md:max-w-[45vw] text-[var(--color-mfr-glow)] text-[6vw] lg:text-[3vw]
     line-height: 1
     letter-spacing: 0.02em
-    font-family: "Instant Karma"
+    font-family: var(--font-bleedcry)
 
 .steps
   @apply relative flex flex-col max-w-[1200px] mx-auto w-full pt-16 z-[5]
@@ -375,7 +375,7 @@
     @apply flex flex-col items-center pb-12
     h3
       @apply text-[12vw] lg:text-[64px] text-[#fff]
-      font-family: "SKT"
+      font-family: var(--font-skt)
     p
       @apply text-[2vw] text-[var(--color-mfr-glow)] text-center
       line-height: 2vw
@@ -436,7 +436,7 @@
     text-shadow: none
     line-height: 1
     font-weight: bold
-    //font-family: "Instant Karma"
+    //font-family: var(--font-bleedcry)
     white-space: nowrap
     box-shadow: 0 1px 0 var(--color-dark)
     &.tight
@@ -444,7 +444,7 @@
       font-weight: 500
       line-height: 1
       line-height: 1
-      font-family: "DM Sans"
+      font-family: var(--font-dm-sans)
       box-shadow: none
       span
         @apply h-[2vw]
@@ -469,7 +469,7 @@
     h3
       @apply text-[20px] md:text-[2vw] mb-0
       letter-spacing: 0.03em
-      font-family: "SKT"
+      font-family: var(--font-skt)
       font-weight: normal
       text-shadow: 0 2px 0 var(--color-dark)
     &.listTitle
