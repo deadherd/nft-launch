@@ -42,33 +42,33 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 The project includes optional wrapper components for gating access based on wallet state, Firebase authentication and NFT ownership.
 
 ### `WalletGate`
+
 Wraps its children only when a wallet is connected.
 
 ```tsx
-<WalletGate fallback={<ConnectWallet />}>
-  {...content}
-</WalletGate>
+<WalletGate fallback={<ConnectWallet />}>{...content}</WalletGate>
 ```
 
 ### `FirebaseGate`
+
 Ensures the user is signed in with Firebase before rendering children.
 
 ```tsx
-<FirebaseGate fallback={<SignInWithEthereum />}>
-  {...content}
-</FirebaseGate>
+<FirebaseGate fallback={<SignInWithEthereum />}>{...content}</FirebaseGate>
 ```
 
 ### `NftTraitGate`
+
 Checks that the connected wallet owns an NFT from the configured contract with a specific trait.
 
 ```tsx
-<NftTraitGate traitType="Role" traitValue="Founder" fallback={<p>No access</p>}>
+<NftTraitGate traitType='Role' traitValue='Founder' fallback={<p>No access</p>}>
   {...content}
 </NftTraitGate>
 ```
 
 ### `NftCountGate`
+
 Checks that the connected wallet holds at least a minimum number of NFTs from the configured contract.
 
 ```tsx
@@ -78,12 +78,13 @@ Checks that the connected wallet holds at least a minimum number of NFTs from th
 ```
 
 ### Nesting Gates
+
 Gates can be combined to protect sections of the UI:
 
 ```tsx
-<WalletGate fallback={<ConnectWallet />}> 
-  <FirebaseGate fallback={<SignInWithEthereum />}> 
-    <NftTraitGate traitType="Role" traitValue="Founder" fallback={<p>No access</p>}>
+<WalletGate fallback={<ConnectWallet />}>
+  <FirebaseGate fallback={<SignInWithEthereum />}>
+    <NftTraitGate traitType='Role' traitValue='Founder' fallback={<p>No access</p>}>
       {children}
     </NftTraitGate>
   </FirebaseGate>
@@ -94,15 +95,15 @@ The NFT contract address used by `NftTraitGate` and `NftCountGate` is defined in
 Update it in one place if the address changes.
 
 ### `AuthGate`
+
 Renders children only when `userData` has loaded and the user is authenticated.
 
 ```tsx
-<AuthGate fallback={<p>Please sign in</p>}>
-  {...content}
-</AuthGate>
+<AuthGate fallback={<p>Please sign in</p>}>{...content}</AuthGate>
 ```
 
 ### `DataGate`
+
 Checks custom conditions against `UserData`.
 
 ```tsx
@@ -112,17 +113,16 @@ Checks custom conditions against `UserData`.
 ```
 
 ### `LocationGate`
+
 Ensures the connected user has visited a location before showing the content.
 
 ```tsx
-<LocationGate locationId="sunnyside" fallback={<p>Visit Sunnyside first</p>}>
+<LocationGate locationId='sunnyside' fallback={<p>Visit Sunnyside first</p>}>
   {...content}
 </LocationGate>
 ```
 
 ## Environment Variables
-
-Create a `.env.local` file in the project root and provide the following keys:
 
 - `NEXT_PUBLIC_FIREBASE_*` - Firebase client configuration
 - `NEXT_PUBLIC_ONCHAINKIT_API_KEY` - OnchainKit API key
@@ -132,6 +132,7 @@ Create a `.env.local` file in the project root and provide the following keys:
 - `TELEGRAM_BOT_TOKEN` - token for your Telegram bot
 - `TELEGRAM_GROUP_ID` - optional group chat ID for nickname updates
 
+Create a `.env.local` file in the project root and provide the following keys:
 
 ```bash
 NEXT_PUBLIC_FIREBASE_API_KEY=...
@@ -147,7 +148,6 @@ FIREBASE_PROJECT_ID=...
 FIREBASE_CLIENT_EMAIL=...
 FIREBASE_PRIVATE_KEY=...
 TELEGRAM_BOT_TOKEN=...
-# optional: group to change nicknames
 TELEGRAM_GROUP_ID=...
 ```
 
@@ -166,11 +166,9 @@ To start the app locally:
 npm run dev
 ```
 
-
 ## Telegram Bot
 
 A bot can listen for the `/login` command and send users to `/telegram/login`. Provide `TELEGRAM_BOT_TOKEN` in your environment and optionally `TELEGRAM_GROUP_ID` to update titles in a group.
-
 
 ## Troubleshooting
 
