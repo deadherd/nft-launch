@@ -1,11 +1,19 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { getAuth } from 'firebase/auth'
 import AuthGate from '@/components/gates/AuthGate'
 
 export default function TelegramLoginPage() {
+  return (
+    <Suspense>
+      <TelegramLoginClient />
+    </Suspense>
+  )
+}
+
+function TelegramLoginClient() {
   const params = useSearchParams()
   const chatId = params.get('chatId') || ''
   const username = params.get('username') || ''
