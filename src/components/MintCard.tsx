@@ -24,7 +24,7 @@ export default function MintCard() {
   const totalPrice: bigint = pricePerNFT * BigInt(quantity)
 
   const { writeContractAsync, isPending, error } = useWriteContract()
-  const { user, userData, address } = useAuthUser()
+  const { user, address } = useAuthUser()
   const addXP = useAddExperience(user)
   const { count } = useNftCount()
   const maxAllowed = Math.max(0, 3 - count)
@@ -114,6 +114,7 @@ export default function MintCard() {
         txHash: hash,
         createdAt: serverTimestamp(),
         purchaseId,
+        tagback: referral && refStatus === 'found' ? referral : null,
       })
 
       const userRef = doc(db, 'users', user.uid)
@@ -122,9 +123,6 @@ export default function MintCard() {
         totalSpent: increment(Number(totalPrice) / 1e18),
       })
 
-      if (referral && refStatus === 'found' && !(userData && userData.tagback)) {
-        await updateDoc(userRef, { tagback: referral })
-      }
 
       await logActivity({
         uid: user.uid,
