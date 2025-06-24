@@ -34,7 +34,7 @@
       user-select: none
       a
         @apply block text-[18px] text-[#fff] flex items-center gap-[6px] 
-        //font-family: "SKT"
+        //font-family: var(--font-skt)
         line-height: 1
         //letter-spacing: .03em
         text-decoration: none!important
@@ -88,7 +88,7 @@
     filter: brightness(120%)
     box-shadow: 0 2px 4px rgba(0,0,0,.4)
     letter-spacing: -0.03em
-    font-family: "Instant Karma"
+    font-family: var(--font-bleedcry)
     line-height: 12px
     b
       @apply inline-block pr-[2px] pt-[4px]
@@ -101,7 +101,7 @@
 .indexList
   @apply flex flex-wrap items-center w-full text-[28px] text-[#fff] pt-[40px]
   padding-left: 0!important
-  font-family: "SKT"
+  font-family: var(--font-skt)
   letter-spacing: 0.03em
   & > *
     @apply flex-1 flex flex-col items-center
@@ -128,7 +128,7 @@
   @apply w-full flex items-start justify-between max-w-[690px] pt-[40px] pb-[60px] min-h-[340px]
   a
     @apply flex flex-col items-center justify-center text-[#fff] text-[28px]
-    font-family: "SKT"
+    font-family: var(--font-skt)
     text-decoration: none!important
     letter-spacing: 0.05em
     svg
@@ -203,19 +203,19 @@ ul
 .navFolder
   @apply flex cursor-pointer text-[#fff] gap-[4px]
   //letter-spacing: .05em
-  //font-family: "SKT"
+  //font-family: var(--font-skt)
   .navTitle
     @apply text-[18px] capitalize text-[#fff]
     &:hover, &:active
       color: var(--color-mfr-yellow)
     //font-weight: bold
-    //font-family: "Instant Karma"
+    //font-family: var(--font-bleedcry)
     //letter-spacing: .05em
   .toggleIcon
     @apply text-[var(--color-mfr-glow)] text-[20px]
     
     line-height: 20px
-    font-family: "Instant Karma"
+    font-family: var(--font-bleedcry)
 
 
 @variant lg
