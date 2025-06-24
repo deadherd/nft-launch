@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["http://localhost:3000", "https://maderats.com"],
+    "origin": ["http://localhost:3000", "https://maderats.com", "https://nft-launch-seven.vercel.app"],
     "method": ["GET", "POST", "PUT", "HEAD", "DELETE"],
     "maxAgeSeconds": 3600,
     "responseHeader": ["Content-Type", "Authorization"]
