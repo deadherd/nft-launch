@@ -7,7 +7,7 @@ export const revalidate = 60
 export default async function ShellPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const apiKey = process.env.NEXT_PUBLIC_ALCHEMY_KEY!
-  const url = `https://base-sepolia.g.alchemy.com/nft/v3/${apiKey}/getNFTMetadata?contractAddress=${MAIN_NFT_CONTRACT}&tokenId=${id}`
+  const url = `https://base-mainnet.g.alchemy.com/nft/v3/${apiKey}/getNFTMetadata?contractAddress=${MAIN_NFT_CONTRACT}&tokenId=${id}`
   const res = await fetch(url, { next: { revalidate: 60 } })
   if (!res.ok) notFound()
   const data = await res.json()
@@ -17,7 +17,9 @@ export default async function ShellPage({ params }: { params: Promise<{ id: stri
       <h1>Shell #{id}</h1>
       <ul>
         {traits.map((t, i) => (
-          <li key={i}>{t.trait_type}: {t.value}</li>
+          <li key={i}>
+            {t.trait_type}: {t.value}
+          </li>
         ))}
       </ul>
     </div>

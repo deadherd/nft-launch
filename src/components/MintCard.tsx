@@ -5,7 +5,7 @@ import { useState, useEffect, type ChangeEvent } from 'react'
 import { useWriteContract } from 'wagmi'
 import { parseEther } from 'viem'
 import { JsonRpcProvider, Interface } from 'ethers'
-import CraftedCollectionABI from '@/abi/CraftedCollection.json'
+import MadeForRatsABI from '@/abi/MadeForRats.json'
 import useAuthUser from '@/hooks/useAuthUser'
 import { useAddExperience } from '@/hooks/useAddExperience'
 import { logActivity } from '@/lib/logActivity'
@@ -18,7 +18,7 @@ import CountdownTimer from './CountdownTimer'
 import { useMintModal } from '@/layout/Providers/MintModalProvider'
 
 export default function MintCard() {
-  const proxyAddress = '0x2e51a8FdC067e415CFD5d00b9add5C6Af72d676c'
+  const proxyAddress = '0x76065074344824a3201E46b84FA6611384bD7E92'
   const [quantity, setQuantity] = useState<number>(1)
   const pricePerNFT: bigint = parseEther('0.03')
   const totalPrice: bigint = pricePerNFT * BigInt(quantity)
@@ -82,19 +82,19 @@ export default function MintCard() {
     try {
       const hash = await writeContractAsync({
         address: proxyAddress,
-        abi: CraftedCollectionABI.abi,
+        abi: MadeForRatsABI.abi,
         functionName: 'publicMint',
         args: [quantity],
         value: totalPrice,
       })
 
-      const provider = new JsonRpcProvider(`https://base-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`)
+      const provider = new JsonRpcProvider(`https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`)
       const receipt = await provider.waitForTransaction(hash)
       if (!receipt) {
         throw new Error('Transaction receipt not found')
       }
 
-      const iface = new Interface(CraftedCollectionABI.abi)
+      const iface = new Interface(MadeForRatsABI.abi)
       const ids: string[] = []
       for (const log of receipt.logs) {
         try {
@@ -122,7 +122,6 @@ export default function MintCard() {
         purchasesCount: increment(1),
         totalSpent: increment(Number(totalPrice) / 1e18),
       })
-
 
       await logActivity({
         uid: user.uid,

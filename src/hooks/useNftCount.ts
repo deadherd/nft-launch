@@ -26,7 +26,7 @@ export default function useNftCount(): UseNftCountResult {
 
       try {
         const apiKey = process.env.NEXT_PUBLIC_ALCHEMY_KEY
-        const url = `https://base-sepolia.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner?owner=${address}&contractAddresses[]=${MAIN_NFT_CONTRACT}&withMetadata=false`
+        const url = `https://base-mainnet.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner?owner=${address}&contractAddresses[]=${MAIN_NFT_CONTRACT}&withMetadata=false`
         const res = await fetch(url)
         const data = (await res.json()) as AlchemyNftsResponse
         const owned = data.ownedNfts ?? []

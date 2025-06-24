@@ -26,15 +26,11 @@ export default function useHasNftTrait(traitType: string, traitValue: string): U
 
       try {
         const apiKey = process.env.NEXT_PUBLIC_ALCHEMY_KEY
-        const url = `https://base-sepolia.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner?owner=${address}&contractAddresses[]=${MAIN_NFT_CONTRACT}&withMetadata=true`
+        const url = `https://base-mainnet.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner?owner=${address}&contractAddresses[]=${MAIN_NFT_CONTRACT}&withMetadata=true`
         const res = await fetch(url)
         const data = (await res.json()) as AlchemyNftsResponse
         const owned = data.ownedNfts ?? []
-        const match = owned.some((nft: OwnedNft) =>
-          nft.rawMetadata?.attributes?.some(
-            (attr) => attr.trait_type === traitType && attr.value === traitValue
-          )
-        )
+        const match = owned.some((nft: OwnedNft) => nft.rawMetadata?.attributes?.some((attr) => attr.trait_type === traitType && attr.value === traitValue))
         setHasTrait(match)
       } catch (err) {
         console.error('Trait check failed', err)

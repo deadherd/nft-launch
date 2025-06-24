@@ -157,7 +157,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       try {
         const apiKey = process.env.NEXT_PUBLIC_ALCHEMY_KEY
         const res = await fetch(
-          `https://base-sepolia.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner?owner=${address}&contractAddresses[]=${MAIN_NFT_CONTRACT}&withMetadata=false`
+          `https://base-mainnet.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner?owner=${address}&contractAddresses[]=${MAIN_NFT_CONTRACT}&withMetadata=false`
         )
         const data = (await res.json()) as AlchemyNftsResponse
         setHasNft((data.ownedNfts ?? []).length > 0)

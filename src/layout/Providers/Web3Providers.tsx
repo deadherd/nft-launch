@@ -3,7 +3,7 @@
 // app/layout/Providers/Web3Providers.tsx
 import type { ReactNode } from 'react'
 import { OnchainKitProvider } from '@coinbase/onchainkit'
-import { baseSepolia } from 'wagmi/chains'
+import { base } from 'wagmi/chains'
 
 // -- start: web3 provider wrapper w/ onchainkit config --
 export function Web3Providers(props: { children: ReactNode }) {
@@ -11,7 +11,7 @@ export function Web3Providers(props: { children: ReactNode }) {
   return (
     <OnchainKitProvider
       apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}
-      chain={baseSepolia}
+      chain={base}
       config={{
         analytics: false,
         appearance: {

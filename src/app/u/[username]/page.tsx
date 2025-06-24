@@ -69,22 +69,20 @@ export default function ProfilePage() {
 
         setActivity(items)
 
-      try {
-        const userSnap = await getDoc(doc(db, 'users', data.uid))
-        const address = userSnap.exists()
-          ? (userSnap.data() as { address?: string }).address
-          : null
-        if (address) {
-          const apiKey = process.env.NEXT_PUBLIC_ALCHEMY_KEY
-          const url = `https://base-sepolia.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner?owner=${address}&contractAddresses[]=${MAIN_NFT_CONTRACT}`
-          const res = await fetch(url)
-          const nftData = (await res.json()) as AlchemyNftsResponse
-          setNfts(nftData.ownedNfts ?? [])
+        try {
+          const userSnap = await getDoc(doc(db, 'users', data.uid))
+          const address = userSnap.exists() ? (userSnap.data() as { address?: string }).address : null
+          if (address) {
+            const apiKey = process.env.NEXT_PUBLIC_ALCHEMY_KEY
+            const url = `https://base-mainnet.g.alchemy.com/nft/v3/${apiKey}/getNFTsForOwner?owner=${address}&contractAddresses[]=${MAIN_NFT_CONTRACT}`
+            const res = await fetch(url)
+            const nftData = (await res.json()) as AlchemyNftsResponse
+            setNfts(nftData.ownedNfts ?? [])
+          }
+        } catch (err) {
+          console.error('Error loading NFTs:', err)
+          setNfts([])
         }
-      } catch (err) {
-        console.error('Error loading NFTs:', err)
-        setNfts([])
-      }
       } catch (err) {
         console.error('Error loading profile or activity:', err)
         setNotFound(true)
@@ -149,22 +147,11 @@ export default function ProfilePage() {
       {nfts.length > 0 && (
         <>
           <h4 style={{ marginTop: '2rem' }}>Shells</h4>
-          <input
-            type='text'
-            placeholder='Filter traits'
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-          />
+          <input type='text' placeholder='Filter traits' value={filter} onChange={(e) => setFilter(e.target.value)} />
           <ul>
             {nfts
               .filter((nft) =>
-                filter
-                  ? nft.rawMetadata?.attributes?.some((a) =>
-                      `${a.trait_type} ${a.value}`
-                        .toLowerCase()
-                        .includes(filter.toLowerCase())
-                    )
-                  : true
+                filter ? nft.rawMetadata?.attributes?.some((a) => `${a.trait_type} ${a.value}`.toLowerCase().includes(filter.toLowerCase())) : true
               )
               .map((nft, idx) => {
                 const tokenId = parseInt(nft.tokenId ?? '0', 16)
