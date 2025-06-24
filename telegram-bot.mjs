@@ -41,11 +41,11 @@ if (!getApps().length) {
 
 const db = getFirestore()
 
-async function sendMessage(chatId, text) {
+async function sendMessage(chatId, text, extra = {}) {
   await fetch(`${API}/sendMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text }),
+    body: JSON.stringify({ chat_id: chatId, text, ...extra }),
   })
 }
 
@@ -66,7 +66,15 @@ async function handleUpdate(update) {
       return
     }
     const link = `${APP_URL}/telegram/login?chatId=${msg.from.id}&username=${encodeURIComponent(msg.from.username || '')}`
-    await sendMessage(msg.chat.id, `Open this link to connect your account:\n${link}`)
+    await sendMessage(
+      msg.chat.id,
+      `Open this link to connect your account:\n${link}`,
+      {
+        reply_markup: {
+          inline_keyboard: [[{ text: 'Connect account', url: link }]],
+        },
+      },
+    )
   }
 
   if (text === '/logout') {

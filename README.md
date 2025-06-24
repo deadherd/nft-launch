@@ -170,6 +170,8 @@ npm run dev
 
 A bot can listen for the `/login` command and send users to `/telegram/login`. Provide `TELEGRAM_BOT_TOKEN` in your environment and optionally `TELEGRAM_GROUP_ID` to update titles in a group. When a user links their Telegram account the bot now sends them a confirmation message and, if they already have a username on the site, updates their display name in the configured group. Running `/login` again will notify the user if their Telegram is already connected. The bot also supports `/logout` to disconnect the current chat from the site.
 
+The `/login` reply includes an inline button that opens the login link. Telegram does not allow bots to launch external URLs automatically, so users must tap the button or the link provided in the message.
+
 The bot uses `NEXT_PUBLIC_APP_URL` to build the login link. Set this variable to the full base URL of your site (for example `https://localhost:3000`) so that the bot sends a complete link rather than a relative path.
 
 ## Troubleshooting
