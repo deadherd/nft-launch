@@ -10,7 +10,7 @@ if (!TOKEN) {
 const API = `https://api.telegram.org/bot${TOKEN}`
 // Use a sensible default when NEXT_PUBLIC_APP_URL is not provided so the
 // login link works during local development.
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://maderats.com'
 
 // Firebase Admin setup for tracking linked users
 import { initializeApp, cert, getApps } from 'firebase-admin/app'
@@ -66,15 +66,11 @@ async function handleUpdate(update) {
       return
     }
     const link = `${APP_URL}/telegram/login?chatId=${msg.from.id}&username=${encodeURIComponent(msg.from.username || '')}`
-    await sendMessage(
-      msg.chat.id,
-      `Open this link to connect your account:\n${link}`,
-      {
-        reply_markup: {
-          inline_keyboard: [[{ text: 'Connect account', url: link }]],
-        },
+    await sendMessage(msg.chat.id, `Open this link to connect your account:\n${link}`, {
+      reply_markup: {
+        inline_keyboard: [[{ text: 'Connect account', url: link }]],
       },
-    )
+    })
   }
 
   if (text === '/logout') {
