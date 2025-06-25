@@ -190,6 +190,8 @@ service cloud.firestore {
                     request.auth.uid == request.resource.data.uid &&
                     request.resource.data.username == username &&
                     username.size() >= 5;
+      allow delete: if request.auth != null &&
+                    request.auth.uid == resource.data.uid;
     }
 
     // User documents and their subcollections
