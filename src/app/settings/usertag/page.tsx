@@ -234,7 +234,9 @@ export default function UsertagSettingsPage() {
                 : usernameStatus === 'unavailable'
                 ? 'Username unavailable'
                 : !usernameStatus && !usernameValid && newUsername !== currentUsername
-                ? 'Invalid username'
+                ? newUsername.length < 6
+                  ? 'Username must be at least 6 characters'
+                  : 'Invalid username'
                 : ''
             return msg ? <p className='labelNotify'>{msg}</p> : null
           })()}
