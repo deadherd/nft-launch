@@ -176,11 +176,8 @@ const Header: FC = () => {
 
   return (
     <>
-      {/*!userData && (
-        <div className={s.grate}>
-          <SignInWithEthereum />
-        </div>
-      )*/}
+      {/*!userData && ()*/}
+      <div className={s.grate}></div>
 
       <TopBar />
 
